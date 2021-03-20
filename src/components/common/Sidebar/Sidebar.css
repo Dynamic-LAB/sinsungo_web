@@ -1,0 +1,55 @@
+#sidebar {
+    background: #B4CEFE;
+    grid-area: sidebar;
+    overflow-y: auto;  /* 내용이 넘칠때만 세로 스크롤바 표시 */
+    padding: 20px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.sidebar__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #393939;
+    margin-bottom: 30px;
+    letter-spacing: 12px; /*글자 사이 간격*/
+    font-family: "Yoon", cursive;
+}
+.sidebar__title > h1 {
+    font-size: 30px;
+    display: inline;
+}
+.sidebar__title > i {
+    font-size: 22px;
+    display: none;
+}
+.sidebar__link {
+    color: #393939;
+    padding: 10px;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+.sidebar__link > a {
+    text-decoration: none;
+    color: #393939;
+    font-weight: 700;
+}
+.sidebar__link > i {
+    margin-right: 13px;
+    font-size: 18px;
+}
+.sidebar-responsive {
+    display: inline !important;
+    z-index: 9999 !important;
+    left: 0 !important;
+    position: absolute;
+}
+
+@media only screen and (max-width: 978px) {
+    #sidebar {
+        display: none;
+    }
+    .sidebar__title > i {
+        display: inline;
+    }
+}
