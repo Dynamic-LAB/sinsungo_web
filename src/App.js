@@ -5,18 +5,22 @@ import FridgePage from "./pages/FridgePage";
 import ShoppingBasketPage from "./pages/ShoppingBasketPage";
 import RecipePage from "./pages/RecipePage";
 import MyPage from "./pages/MyPage";
+import Navbar from "./components/common/Navbar/Navbar";
 import Sidebar from "./components/common/Sidebar/Sidebar";
+import Fridge from "./components/Fridge/Fridge";
 
 
 const App = () => {
+
     const [sidebarOpen, setSidebarOpen] = useState(false);
+
     const openSidebar = () => {
         setSidebarOpen(true);
-    };
+    }
+
     const closeSidebar = () => {
         setSidebarOpen(false);
-    };
-
+    }
   return(
       <>
         <Route component={LoginPage} path="/login" />
@@ -25,7 +29,9 @@ const App = () => {
         <Route component={RecipePage} path="/recipe"/>
         <Route component={MyPage} path="/my"/>
         <div className="container">
-            <h1> Dashboard </h1>
+            <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar} />
+            <Fridge/>
+            <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar} />
         </div>
       </>
 
