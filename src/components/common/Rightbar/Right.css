@@ -1,0 +1,76 @@
+.right {
+    grid-area: rightbar;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.right__container {
+    padding: 20px 20px 20px 15px;
+}
+
+.right__cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    /*margin: 20px 0;*/
+}
+
+.notice_card {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-around; !*요소들 주의에 동일한 간격*!*/
+    height: 200px;
+    /*padding: 20px;*/
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.member_card {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-around; !*요소들 주의에 동일한 간격*!*/
+    height: 100px;
+    /*padding: 20px;*/
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.notice_card_title {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    padding: 8px 15px;
+    font-size: 10px;
+}
+.member_card_title {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    padding: 8px 15px;
+    font-size: 10px;
+}
+
+
+.notice_card_title > i {
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+.member_card_title > i {
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.r_card_inner {
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+}
+
+@media only screen and (max-width: 1350px) {
+    .right {
+        display: none;
+    }
+}

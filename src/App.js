@@ -8,6 +8,7 @@ import MyPage from "./pages/MyPage";
 import Navbar from "./components/common/Navbar/Navbar";
 import Sidebar from "./components/common/Sidebar/Sidebar";
 import Fridge from "./components/Fridge/Fridge";
+import Right from "./components/common/Rightbar/Right";
 
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
             <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar} />
             <Fridge/>
             <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar} />
+            <Right sidebarOpen={sidebarOpen} closeSidebar={closeSidebar} />
         </div>
       </>
 
