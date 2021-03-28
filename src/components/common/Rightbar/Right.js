@@ -12,8 +12,8 @@ const Right = () => {
                             <h2>알림</h2>
                         </div>
                         <div className="r_card_inner">
-                            <p className="text-primary-p">알림1</p>
-                            <p className="text-primary-p">알림2</p>
+                            <p className="r_card_inner_text">알림1</p>
+                            <p className="r_card_inner_text">알림2</p>
                         </div>
                     </div>
 
