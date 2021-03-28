@@ -1,5 +1,5 @@
 import "./Sidebar.css";
-
+import { Link } from 'react-router-dom';
 const Sidebar = ({sidebarOpen, closeSidebar}) => {
     return(
         <div className={sidebarOpen ? "sidebar-responsive" : ""} id="sidebar">
@@ -22,7 +22,8 @@ const Sidebar = ({sidebarOpen, closeSidebar}) => {
                 </div>
                 <div className="sidebar__link">
                     <i className="fa fa-cutlery"></i>
-                    <a href="#">레시피</a>
+                    <Link to="/recipe" className="logo">레시피</Link>
+
                 </div>
                 <div className="sidebar__link">
                     <i className="fa fa-user"></i>
