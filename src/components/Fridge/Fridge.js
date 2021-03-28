@@ -14,7 +14,7 @@ const WhiteBoxFridge = styled(WhiteBox)`
 `;
 
 const IngredientBlock = styled.div`
-  overflow-y: auto;
+  overflow-y: auto; //스크롤
 `;
 
 const ItemTitle = styled.div`
@@ -55,17 +55,22 @@ const Fridge = () => {
                     <WhiteBoxFridge>
                         <div className="card_title">
                             <h2>냉장</h2>
-                            <div className="plus">
-                                <MdAdd/>
-                            </div>
+                            <div className="plus"><MdAdd/></div>
                         </div>
                         <ItemTitle>
-                            <Item><div className="text-primary-p">재료명</div></Item>
-                            <Item><div className="text-primary-p">갯수</div></Item>
-                            <Item><div className="text-primary-p">유통기한</div></Item>
-                            <Item><div className="text-primary-p">남은기한</div></Item>
+                            <Item>
+                                <div className="text-primary-p">재료명</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">갯수</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">유통기한</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">남은기한</div>
+                            </Item>
                         </ItemTitle>
-
                         <IngredientBlock>
                             <FridgeColdItem/>
                         </IngredientBlock>
@@ -79,10 +84,18 @@ const Fridge = () => {
                             </div>
                         </div>
                         <ItemTitle>
-                            <Item><div className="text-primary-p">재료명</div></Item>
-                            <Item><div className="text-primary-p">갯수</div></Item>
-                            <Item><div className="text-primary-p">유통기한</div></Item>
-                            <Item><div className="text-primary-p">남은기한</div></Item>
+                            <Item>
+                                <div className="text-primary-p">재료명</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">갯수</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">유통기한</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">남은기한</div>
+                            </Item>
                         </ItemTitle>
                     </WhiteBoxFridge>
 
@@ -95,10 +108,18 @@ const Fridge = () => {
                             </div>
                         </div>
                         <ItemTitle>
-                            <Item><div className="text-primary-p">재료명</div></Item>
-                            <Item><div className="text-primary-p">갯수</div></Item>
-                            <Item><div className="text-primary-p">유통기한</div></Item>
-                            <Item><div className="text-primary-p">남은기한</div></Item>
+                            <Item>
+                                <div className="text-primary-p">재료명</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">갯수</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">유통기한</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">남은기한</div>
+                            </Item>
                         </ItemTitle>
                     </WhiteBoxFridge>
 
@@ -111,10 +132,18 @@ const Fridge = () => {
                             </div>
                         </div>
                         <ItemTitle>
-                            <Item><div className="text-primary-p">재료명</div></Item>
-                            <Item><div className="text-primary-p">갯수</div></Item>
-                            <Item><div className="text-primary-p">유통기한</div></Item>
-                            <Item><div className="text-primary-p">남은기한</div></Item>
+                            <Item>
+                                <div className="text-primary-p">재료명</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">갯수</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">유통기한</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">남은기한</div>
+                            </Item>
                         </ItemTitle>
                     </WhiteBoxFridge>
 
@@ -127,10 +156,18 @@ const Fridge = () => {
                             </div>
                         </div>
                         <ItemTitle>
-                            <Item><div className="text-primary-p">재료명</div></Item>
-                            <Item><div className="text-primary-p">갯수</div></Item>
-                            <Item><div className="text-primary-p">유통기한</div></Item>
-                            <Item><div className="text-primary-p">남은기한</div></Item>
+                            <Item>
+                                <div className="text-primary-p">재료명</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">갯수</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">유통기한</div>
+                            </Item>
+                            <Item>
+                                <div className="text-primary-p">남은기한</div>
+                            </Item>
                         </ItemTitle>
                     </WhiteBoxFridge>
                 </div>

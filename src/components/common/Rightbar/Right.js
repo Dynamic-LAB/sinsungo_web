@@ -1,3 +1,5 @@
+import React from 'react';
+import {MdAdd} from "react-icons/md";
 import './Right.css';
 
 const Right = () => {
@@ -21,7 +23,7 @@ const Right = () => {
                     <div className="member_card">
                         <div className="member_card_title">
                             <h2>냉장고멤버</h2>
-                            <i className="fa fa-plus"></i>
+                            <div className="plus"><MdAdd/></div>
                         </div>
                         <div className="r_card_inner">
 
