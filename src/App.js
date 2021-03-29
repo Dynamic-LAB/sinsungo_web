@@ -9,6 +9,7 @@ import Navbar from "./components/common/Navbar/Navbar";
 import Sidebar from "./components/common/Sidebar/Sidebar";
 import Fridge from "./components/Fridge/Fridge";
 import Main from "./pages/Main";
+import Right from "./components/common/Rightbar/Right";
 
 const App = () => {
 

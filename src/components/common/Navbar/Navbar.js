@@ -1,12 +1,4 @@
-import {CgProfile, CgLogOff} from 'react-icons/cg'
-import styled from 'styled-components';
 import './Navbar.css';
-
-const Button = styled.button`
-  background: none;
-  outline: none;
-  border: none;
-`;
 
 const Navbar = ({sidebarOpen, openSidebar}) => {
     return (
