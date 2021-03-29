@@ -6,9 +6,10 @@ const StyledWhiteBox = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  background: #ffffff;
+  height:${(props)=>props.height ||"50px"};
+  background: ${(props)=>props.background ||"#ffffff"};
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
-  
+
 `;
 
 const WhiteBox = props => <StyledWhiteBox {...props}/>;
