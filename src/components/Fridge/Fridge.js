@@ -22,6 +22,9 @@ const ItemTitle = styled.div`
   padding: 10px 30px;
   align-items: center;
   border-bottom: 1px solid #bbbbbb;
+  @media only screen and (max-width: 978px) {
+    padding: 10px 20px;
+  }
 `;
 
 const Item = styled.div`
@@ -30,6 +33,12 @@ const Item = styled.div`
   width: 40%;
   align-items: center;
   justify-content: center;
+  font-weight: 700;
+  color: #393939;
+  font-size: 13px;
+  @media only screen and (max-width: 978px) {
+    font-size: 11px;
+  }
 `;
 
 const Fridge = () => {
@@ -37,39 +46,29 @@ const Fridge = () => {
         <main>
             <div className="fridge__container">
                 <div className="shelf_life">
-                    <div className="shelf_life__title">
-                        <WhiteBoxTop>
-                            <div className="top_card_title">
-                                <h2>유통기한 임박 재료</h2>
-                                <div className="count">
-                                    <h3>3</h3>
-                                </div>
+                    <WhiteBoxTop>
+                        <div className="shelf_life__title">
+                            <h2>유통기한 임박 재료</h2>
+                            <div className="count">
+                                <h3>3</h3>
                             </div>
-                            <div className="top_card_inner">
-                                <p className="text-primary-p">음식1</p>
-                            </div>
-                        </WhiteBoxTop>
-                    </div>
+                        </div>
+                        <div className="top_card_inner">
+                            <p className="text-primary-p">음식1</p>
+                        </div>
+                    </WhiteBoxTop>
                 </div>
                 <div className="fridge__cards">
                     <WhiteBoxFridge>
-                        <div className="card_title">
+                        <div className="fridge__card_title">
                             <h2>냉장</h2>
                             <div className="plus"><MdAdd/></div>
                         </div>
                         <ItemTitle>
-                            <Item>
-                                <div className="text-primary-p">재료명</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">갯수</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">유통기한</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">남은기한</div>
-                            </Item>
+                            <Item>재료명</Item>
+                            <Item>갯수</Item>
+                            <Item>유통기한</Item>
+                            <Item>남은기한</Item>
                         </ItemTitle>
                         <IngredientBlock>
                             <FridgeColdItem/>
@@ -77,97 +76,65 @@ const Fridge = () => {
                     </WhiteBoxFridge>
 
                     <WhiteBoxFridge>
-                        <div className="card_title">
+                        <div className="fridge__card_title">
                             <h2>냉동</h2>
                             <div className="plus">
                                 <MdAdd/>
                             </div>
                         </div>
                         <ItemTitle>
-                            <Item>
-                                <div className="text-primary-p">재료명</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">갯수</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">유통기한</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">남은기한</div>
-                            </Item>
+                            <Item>재료명</Item>
+                            <Item>갯수</Item>
+                            <Item>유통기한</Item>
+                            <Item>남은기한</Item>
                         </ItemTitle>
                     </WhiteBoxFridge>
 
                     <WhiteBoxFridge>
                         {/*<img src={ice} alt="ice"/>*/}
-                        <div className="card_title">
+                        <div className="fridge__card_title">
                             <h2>신선</h2>
                             <div className="plus">
                                 <MdAdd/>
                             </div>
                         </div>
                         <ItemTitle>
-                            <Item>
-                                <div className="text-primary-p">재료명</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">갯수</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">유통기한</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">남은기한</div>
-                            </Item>
+                            <Item>재료명</Item>
+                            <Item>갯수</Item>
+                            <Item>유통기한</Item>
+                            <Item>남은기한</Item>
                         </ItemTitle>
                     </WhiteBoxFridge>
 
                     <WhiteBoxFridge>
                         {/*<img src={ice} alt="ice"/>*/}
-                        <div className="card_title">
+                        <div className="fridge__card_title">
                             <h2>실온</h2>
                             <div className="plus">
                                 <MdAdd/>
                             </div>
                         </div>
                         <ItemTitle>
-                            <Item>
-                                <div className="text-primary-p">재료명</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">갯수</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">유통기한</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">남은기한</div>
-                            </Item>
+                            <Item>재료명</Item>
+                            <Item>갯수</Item>
+                            <Item>유통기한</Item>
+                            <Item>남은기한</Item>
                         </ItemTitle>
                     </WhiteBoxFridge>
 
                     <WhiteBoxFridge>
                         {/*<img src={ice} alt="ice"/>*/}
-                        <div className="card_title">
+                        <div className="fridge__card_title">
                             <h2>조미료/양념</h2>
                             <div className="plus">
                                 <MdAdd/>
                             </div>
                         </div>
                         <ItemTitle>
-                            <Item>
-                                <div className="text-primary-p">재료명</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">갯수</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">유통기한</div>
-                            </Item>
-                            <Item>
-                                <div className="text-primary-p">남은기한</div>
-                            </Item>
+                            <Item>재료명</Item>
+                            <Item>갯수</Item>
+                            <Item>유통기한</Item>
+                            <Item>남은기한</Item>
                         </ItemTitle>
                     </WhiteBoxFridge>
                 </div>

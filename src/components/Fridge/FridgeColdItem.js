@@ -10,11 +10,10 @@ const ItemBlock = styled.div`
   &:nth-child(even) {
     background: #f8f9fa;
   }
+  @media only screen and (max-width: 978px){
+    padding: 10px 20px;
+  }
 
-  ////엘리먼트 사이사이에 테두리 넣어 줌
-  //& + & {
-  //  border-top: 1px solid #bbbbbb;
-  //}
 `;
 
 const Item = styled.div`
@@ -23,15 +22,18 @@ const Item = styled.div`
   width: 40%;
   align-items: center;
   justify-content: center;
+  @media only screen and (max-width: 978px){
+    font-size: 10px;
+  }
 `;
 
 const FridgeColdItem = () => {
     return (
         <ItemBlock>
-            <Item><div className="name">재료재료재료재료</div></Item>
-            <Item><div className="item_count">3</div></Item>
-            <Item><div className="date">2021.04.01</div></Item>
-            <Item><div className="deadline">4일</div></Item>
+            <Item>재료재료재료재료</Item>
+            <Item>3</Item>
+            <Item>2021.04.01</Item>
+            <Item>4일</Item>
         </ItemBlock>
     );
 }

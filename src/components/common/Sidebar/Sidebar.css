@@ -55,7 +55,7 @@
     left: 0 !important;
     position: absolute;
 }
-
+/*사이드바 반응형 지금 이상함 수정 필요*/
 @media only screen and (max-width: 978px) {
     #sidebar {
         display: none;

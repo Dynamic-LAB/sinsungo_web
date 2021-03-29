@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Navbar from "../components/common/Navbar/Navbar";
+import Right from "../components/common/Rightbar/Right";
+import Sidebar from "../components/common/Sidebar/Sidebar";
+
 
 const ShoppingBasketPage = () => {
-    return <div>장바구니</div>;
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const openSidebar = () => {
+        setSidebarOpen(true);
+    }
+
+    const closeSidebar = () => {
+        setSidebarOpen(false);
+    }
+    return (
+        <>
+            <div className="container">
+                <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar}/>
+
+                <Right/>
+                <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar}/>
+            </div>
+        </>
+    );
 };
 
 export default ShoppingBasketPage;

@@ -14,19 +14,19 @@ const Sidebar = ({sidebarOpen, closeSidebar}) => {
             <div className="sidebar__menu">
                 <div className="sidebar__link">
                     <i className="fa fa-inbox"></i>
-                    <a href="#">냉장고</a>
+                    <Link to="/fridge" >냉장고</Link>
                 </div>
                 <div className="sidebar__link">
                     <i className="fa fa-shopping-bag"></i>
-                    <a href="#">장바구니</a>
+                    <Link to="/basket">장바구니</Link>
                 </div>
                 <div className="sidebar__link">
                     <i className="fa fa-cutlery"></i>
-                    <Link to="/recipe" className="logo">레시피</Link>
+                    <Link to="/recipe" >레시피</Link>
                 </div>
                 <div className="sidebar__link">
                     <i className="fa fa-user"></i>
-                    <a href="#">마이페이지</a>
+                    <Link to="/my" >마이페이지</Link>
                 </div>
             </div>
         </div>
