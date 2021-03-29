@@ -23,7 +23,6 @@ const Sidebar = ({sidebarOpen, closeSidebar}) => {
                 <div className="sidebar__link">
                     <i className="fa fa-cutlery"></i>
                     <Link to="/recipe" className="logo">레시피</Link>
-
                 </div>
                 <div className="sidebar__link">
                     <i className="fa fa-user"></i>

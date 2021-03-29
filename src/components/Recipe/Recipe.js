@@ -22,7 +22,7 @@ const Fridge = () => {
     `;
     const Box4=styled(Whitebox)`
     padding:10px;
-    margin:1px;
+    margin-top:5px;
     height:60px;
     width:96%;
     overflow:hidden;
@@ -34,7 +34,7 @@ const Fridge = () => {
     background:white;
     height:45%;
     overflow:hidden;
-    box-shadow: 0px 3px 6px rgba(10, 125, 0, 0.9);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
     `;
     const Imgbox=styled.div`
      background:#ffffff;
@@ -42,7 +42,6 @@ const Fridge = () => {
 
     const OriImg=styled.img`
     width:190px; 
-
     border-radius: 10px;
     `;
 
@@ -50,7 +49,7 @@ const Fridge = () => {
         const names = ['백숙', '치킨', '통닭', '바베큐','1','2','3','2','3','2','3','2','3'];
         const hasList = ['닭', '치즈', '양파'];
         const noneList = ['물', '얼음'];
-        const nameList = names.map((name,index) => 
+        const recipeList = names.map((name,index) => 
             <div className="card" key={index}>
             <div className="card_inner">
                 <OriImg src={process.env.PUBLIC_URL + '/img.jpg'} alt="오류"/>
@@ -64,7 +63,7 @@ const Fridge = () => {
             </div>
         </div>);
         
-        return (nameList);
+        return (recipeList);
         
       };
         return(
@@ -72,7 +71,7 @@ const Fridge = () => {
             <div className="fridge__container">
             <div className="card">
                         <div className="card_inner">
-                            <input className="input_css" />검색어를 입력해주세요.
+                            검색어를 입력해주세요.
                         </div>
                         <hr></hr>
                         <div className="card_inner">

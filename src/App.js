@@ -29,7 +29,6 @@ const App = () => {
         <Route component={ShoppingBasketPage} path="/basket"/>
         <Route component={RecipePage} path="/recipe"/>
         <Route component={MyPage} path="/my"/>
-
       </>
 
   );
