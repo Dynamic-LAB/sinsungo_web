@@ -8,7 +8,8 @@ import MyPage from "./pages/MyPage";
 import Navbar from "./components/common/Navbar/Navbar";
 import Sidebar from "./components/common/Sidebar/Sidebar";
 import Fridge from "./components/Fridge/Fridge";
-
+import Main from "./pages/Main";
+import Right from "./components/common/Rightbar/Right";
 
 const App = () => {
 
@@ -23,16 +24,12 @@ const App = () => {
     }
   return(
       <>
+        <Route component={Main} path="/" exact/>
         <Route component={LoginPage} path="/login" />
         <Route component={FridgePage} path="/fridge"/>
         <Route component={ShoppingBasketPage} path="/basket"/>
         <Route component={RecipePage} path="/recipe"/>
         <Route component={MyPage} path="/my"/>
-        <div className="container">
-            <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar} />
-            <Fridge/>
-            <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar} />
-        </div>
       </>
 
   );
