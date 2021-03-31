@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navbar from "../components/common/Navbar/Navbar";
 import Right from "../components/common/Rightbar/Right";
 import Sidebar from "../components/common/Sidebar/Sidebar";
+import Basket from "../components/Basket/Basket";
 
 
 const ShoppingBasketPage = () => {
@@ -17,7 +18,7 @@ const ShoppingBasketPage = () => {
         <>
             <div className="container">
                 <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar}/>
-
+                <Basket/>
                 <Right/>
                 <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar}/>
             </div>

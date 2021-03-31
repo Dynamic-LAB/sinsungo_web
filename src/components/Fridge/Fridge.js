@@ -47,7 +47,7 @@ const Spacer = styled.div`
 
 const Fridge = () => {
     return (
-        <main>
+        <frigde>
             <div className="fridge__container">
                 <div className="shelf_life">
                     <WhiteBoxTop>
@@ -142,7 +142,7 @@ const Fridge = () => {
                     </WhiteBoxFridge>
                 </div>
             </div>
-        </main>
+        </frigde>
     );
 }
 

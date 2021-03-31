@@ -1,0 +1,7 @@
+my {
+    grid-area: main;
+    overflow-y: auto;
+}
+.my__container {
+    padding: 20px 18px 10px;
+}
