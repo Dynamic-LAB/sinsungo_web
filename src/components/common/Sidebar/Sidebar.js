@@ -1,7 +1,8 @@
 import "./Sidebar.css";
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
+
 const Sidebar = ({sidebarOpen, closeSidebar}) => {
-    return(
+    return (
         <div className={sidebarOpen ? "sidebar-responsive" : ""} id="sidebar">
             <div className="sidebar__title">
                 <h1>신선고</h1>
@@ -13,20 +14,20 @@ const Sidebar = ({sidebarOpen, closeSidebar}) => {
             </div>
             <div className="sidebar__menu">
                 <div className="sidebar__link">
-                    <i className="fa fa-inbox"></i>
-                    <Link to="/fridge" >냉장고</Link>
+                    <div className="icon-fridge"/>
+                    <Link to="/fridge">냉장고</Link>
                 </div>
                 <div className="sidebar__link">
-                    <i className="fa fa-shopping-bag"></i>
+                    <div className="icon-basket"/>
                     <Link to="/basket">장바구니</Link>
                 </div>
                 <div className="sidebar__link">
-                    <i className="fa fa-cutlery"></i>
-                    <Link to="/recipe" >레시피</Link>
+                    <div className="icon-recipe"/>
+                    <Link to="/recipe">레시피</Link>
                 </div>
                 <div className="sidebar__link">
-                    <i className="fa fa-user"></i>
-                    <Link to="/my" >마이페이지</Link>
+                    <div className="icon-my"/>
+                    <Link to="/my">마이페이지</Link>
                 </div>
             </div>
         </div>

@@ -40,7 +40,6 @@ main {
     display: flex;
     align-items: center;
     font-size: 1.25rem;
-    margin-left: 10px;
 }
 
 .count {
@@ -50,6 +49,43 @@ main {
     background: #FF6767;
     align-items: center;
     color: white;
+}
+.icon-ice {
+    width: 23px;
+    height: 23px;
+    background: no-repeat url("../../assets/ice.svg");
+    background-size: 23px 23px;
+    margin-right: 10px;
+}
+.icon-cold {
+    width: 23px;
+    height: 23px;
+    background: no-repeat url("../../assets/cold.svg");
+    background-size: 23px 23px;
+    margin-right: 10px;
+}
+.icon-fresh {
+    width: 23px;
+    height: 23px;
+    background: no-repeat url("../../assets/vegetable.svg");
+    background-size: 23px 23px;
+    margin-right: 10px;
+}
+
+.icon-room-temperature {
+    width: 23px;
+    height: 23px;
+    background: no-repeat url("../../assets/thermometer.svg");
+    background-size: 23px 23px;
+    margin-right: 10px;
+}
+
+.icon-seasoning {
+    width: 23px;
+    height: 23px;
+    background: no-repeat url("../../assets/salt-shaker.svg");
+    background-size: 23px 23px;
+    margin-right: 10px;
 }
 
 @media only screen and (max-width: 978px) {

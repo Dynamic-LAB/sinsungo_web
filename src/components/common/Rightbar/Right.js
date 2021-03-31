@@ -25,6 +25,11 @@ const NoticeItem = styled.div`
   border-bottom: 1px solid #bbbbbb;
 `;
 
+const Spacer = styled.div`
+  flex-grow: 1;
+`;
+
+
 const Right = () => {
     return (
         <div className="right">
@@ -47,6 +52,7 @@ const Right = () => {
                     <WhiteBoxMember>
                         <div className="member_card_title">
                             <h2>냉장고멤버</h2>
+                            <Spacer/>
                             <div className="plus"><MdAdd/></div>
                         </div>
                         <div className="r_card_inner">

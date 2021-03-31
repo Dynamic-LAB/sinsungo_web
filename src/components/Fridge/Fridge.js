@@ -41,6 +41,10 @@ const Item = styled.div`
   }
 `;
 
+const Spacer = styled.div`
+  flex-grow: 1;
+`;
+
 const Fridge = () => {
     return (
         <main>
@@ -61,7 +65,9 @@ const Fridge = () => {
                 <div className="fridge__cards">
                     <WhiteBoxFridge>
                         <div className="fridge__card_title">
+                            <div className="icon-cold"/>
                             <h2>냉장</h2>
+                            <Spacer/>
                             <div className="plus"><MdAdd/></div>
                         </div>
                         <ItemTitle>
@@ -77,10 +83,10 @@ const Fridge = () => {
 
                     <WhiteBoxFridge>
                         <div className="fridge__card_title">
+                            <div className="icon-ice"/>
                             <h2>냉동</h2>
-                            <div className="plus">
-                                <MdAdd/>
-                            </div>
+                            <Spacer/>
+                            <div className="plus"><MdAdd/></div>
                         </div>
                         <ItemTitle>
                             <Item>재료명</Item>
@@ -91,12 +97,11 @@ const Fridge = () => {
                     </WhiteBoxFridge>
 
                     <WhiteBoxFridge>
-                        {/*<img src={ice} alt="ice"/>*/}
                         <div className="fridge__card_title">
+                            <div className="icon-fresh"/>
                             <h2>신선</h2>
-                            <div className="plus">
-                                <MdAdd/>
-                            </div>
+                            <Spacer/>
+                            <div className="plus"><MdAdd/></div>
                         </div>
                         <ItemTitle>
                             <Item>재료명</Item>
@@ -107,12 +112,11 @@ const Fridge = () => {
                     </WhiteBoxFridge>
 
                     <WhiteBoxFridge>
-                        {/*<img src={ice} alt="ice"/>*/}
                         <div className="fridge__card_title">
-                            <h2>실온</h2>
-                            <div className="plus">
-                                <MdAdd/>
-                            </div>
+                            <div className="icon-room-temperature"/>
+                            <h2>상온</h2>
+                            <Spacer/>
+                            <div className="plus"><MdAdd/></div>
                         </div>
                         <ItemTitle>
                             <Item>재료명</Item>
@@ -123,12 +127,11 @@ const Fridge = () => {
                     </WhiteBoxFridge>
 
                     <WhiteBoxFridge>
-                        {/*<img src={ice} alt="ice"/>*/}
                         <div className="fridge__card_title">
+                            <div className="icon-seasoning"/>
                             <h2>조미료/양념</h2>
-                            <div className="plus">
-                                <MdAdd/>
-                            </div>
+                            <Spacer/>
+                            <div className="plus"><MdAdd/></div>
                         </div>
                         <ItemTitle>
                             <Item>재료명</Item>
