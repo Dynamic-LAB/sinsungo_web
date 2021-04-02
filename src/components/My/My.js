@@ -2,7 +2,7 @@ import React from "react";
 import "./My.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
-import {MdAdd} from "react-icons/md";
+import {MdAdd, MdNotificationsNone} from "react-icons/md";
 
 const WhiteBoxMy = styled(WhiteBox)`
   height: 250px;
@@ -13,7 +13,7 @@ const MyTitle = styled.div`
   padding: 10px 15px;
   align-items: center;
   font-size: 10px;
-  border-bottom: 1px solid #bbbbbb;
+  border-bottom: 1px solid #C9C9C9;
   @media only screen and (max-width: 978px) {
     padding: 10px 20px;
   }
@@ -30,8 +30,8 @@ const My = () => {
                     <div className="my__notice">
                         <WhiteBoxMy>
                             <MyTitle>
+                                <div className="icon-notice"><MdNotificationsNone/></div>
                                 <h2>알림</h2>
-
                             </MyTitle>
                         </WhiteBoxMy>
                     </div>
@@ -43,6 +43,17 @@ const My = () => {
                                 <div className="plus"><MdAdd/></div>
                             </MyTitle>
                         </WhiteBoxMy>
+                    </div>
+                </div>
+                <div className="my_menu">
+                    <div className="my_title">
+                        마이페이지
+                    </div>
+                    <div className="bar_title">
+                        메뉴이름
+                    </div>
+                    <div className="my_menu_bar">
+
                     </div>
                 </div>
             </div>

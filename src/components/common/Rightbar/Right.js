@@ -1,5 +1,5 @@
 import React from 'react';
-import {MdAdd} from "react-icons/md";
+import {MdAdd, MdNotificationsNone} from "react-icons/md";
 import styled from 'styled-components';
 import './Right.css';
 import WhiteBox from "../WhiteBox";
@@ -39,7 +39,7 @@ const Right = () => {
                     {/*알림*/}
                     <WhiteBoxNotice>
                         <div className="notice_card_title">
-                            <i className="fa fa-bell-o"></i>
+                            <div className="icon-notice"><MdNotificationsNone/></div>
                             <h2>알림</h2>
                         </div>
                         <NoticeBlock>
