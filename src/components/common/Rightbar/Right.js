@@ -1,15 +1,17 @@
 import React from 'react';
-import {MdAdd, MdNotificationsNone} from "react-icons/md";
+import {MdAdd, MdNotificationsNone, MdSupervisorAccount} from "react-icons/md";
 import styled from 'styled-components';
 import './Right.css';
 import WhiteBox from "../WhiteBox";
+import Member from "../Member";
+import MemberAddButton from "./MemberAddButton";
 
 const WhiteBoxNotice = styled(WhiteBox)`
   height: 200px;
 `;
 
 const WhiteBoxMember = styled(WhiteBox)`
-  height: 100px;
+  height: auto;
 `;
 
 const NoticeBlock = styled.div`
@@ -51,12 +53,13 @@ const Right = () => {
                     {/*멤버*/}
                     <WhiteBoxMember>
                         <div className="member_card_title">
+                            <div className="icon-member"><MdSupervisorAccount/></div>
                             <h2>냉장고멤버</h2>
                             <Spacer/>
-                            <div className="plus"><MdAdd/></div>
+                            <MemberAddButton/>
                         </div>
                         <div className="r_card_inner">
-
+                            <Member/>
                         </div>
                     </WhiteBoxMember>
 

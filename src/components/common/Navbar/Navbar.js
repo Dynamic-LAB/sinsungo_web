@@ -3,7 +3,7 @@ import Button from "../Button";
 import styled from 'styled-components';
 
 const LogOutButton = styled(Button)`
-  padding: 7px 12px 7px 12px;
+  padding: 10px 12px 10px 12px;
   margin-left: 20px;
 `;
 
@@ -35,7 +35,7 @@ const Navbar = ({sidebarOpen, openSidebar}) => {
                 <a href="#">
                     <i className="fa fa-user-circle-o"></i>
                 </a>
-                <LogOutButton>로그아웃</LogOutButton>
+                <LogOutButton logout>로그아웃</LogOutButton>
                 {/*<a href="#">*/}
                 {/*    <i className="fa fa-sign-out"></i>*/}
                 {/*</a>*/}

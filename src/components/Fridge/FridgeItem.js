@@ -13,7 +13,6 @@ const ItemBlock = styled.div`
   @media only screen and (max-width: 978px){
     padding: 10px 20px;
   }
-
 `;
 
 const Item = styled.div`
@@ -27,15 +26,15 @@ const Item = styled.div`
   }
 `;
 
-const FridgeColdItem = () => {
+const FridgeItem = ({name, count, date, deadline}) => {
     return (
         <ItemBlock>
-            <Item>재료재료재료재료</Item>
-            <Item>3</Item>
-            <Item>2021.04.01</Item>
-            <Item>4일</Item>
+            <Item>{name}</Item>
+            <Item>{count}</Item>
+            <Item>{date}</Item>
+            <Item>{deadline}</Item>
         </ItemBlock>
     );
 }
 
-export default FridgeColdItem;
+export default FridgeItem;

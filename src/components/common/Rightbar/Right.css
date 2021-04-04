@@ -64,6 +64,18 @@
     font-size: 14px;
     border-bottom: 1px solid #bbbbbb;
 }
+.icon-member{
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    margin-right: 10px;
+}
+.r_card_inner {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+
+}
 
 @media only screen and (max-width: 1350px) {
     .right {

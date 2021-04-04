@@ -1,9 +1,13 @@
 import "./Fridge.css";
-import FridgeColdItem from "./FridgeColdItem";
 import WhiteBox from "../common/WhiteBox";
 import styled from 'styled-components';
-import {MdAdd} from "react-icons/md";
 import React from "react";
+import ColdAddButton from "./Cold/ColdAddButton";
+import FreezeAddButton from "./Freeze/FreezeAddButton";
+import ColdItem from "./Cold/ColdItem";
+import FreshAddButton from "./Fresh/FreshAddButton";
+import RoomTempAddButton from "./RoomTemp/RoomTempAddButton";
+import SeasoningAddButton from "./Seasoning/SeasoningAddButton";
 
 const WhiteBoxTop = styled(WhiteBox)`
   height: auto;
@@ -68,7 +72,7 @@ const Fridge = () => {
                             <div className="icon-cold"/>
                             <h2>냉장</h2>
                             <Spacer/>
-                            <div className="plus"><MdAdd/></div>
+                            <ColdAddButton/>
                         </div>
                         <ItemTitle>
                             <Item>재료명</Item>
@@ -77,7 +81,7 @@ const Fridge = () => {
                             <Item>남은기한</Item>
                         </ItemTitle>
                         <IngredientBlock>
-                            <FridgeColdItem/>
+                            <ColdItem/>
                         </IngredientBlock>
                     </WhiteBoxFridge>
 
@@ -86,7 +90,7 @@ const Fridge = () => {
                             <div className="icon-ice"/>
                             <h2>냉동</h2>
                             <Spacer/>
-                            <div className="plus"><MdAdd/></div>
+                            <FreezeAddButton/>
                         </div>
                         <ItemTitle>
                             <Item>재료명</Item>
@@ -101,7 +105,7 @@ const Fridge = () => {
                             <div className="icon-fresh"/>
                             <h2>신선</h2>
                             <Spacer/>
-                            <div className="plus"><MdAdd/></div>
+                            <FreshAddButton/>
                         </div>
                         <ItemTitle>
                             <Item>재료명</Item>
@@ -116,7 +120,7 @@ const Fridge = () => {
                             <div className="icon-room-temperature"/>
                             <h2>상온</h2>
                             <Spacer/>
-                            <div className="plus"><MdAdd/></div>
+                            <RoomTempAddButton/>
                         </div>
                         <ItemTitle>
                             <Item>재료명</Item>
@@ -131,7 +135,7 @@ const Fridge = () => {
                             <div className="icon-seasoning"/>
                             <h2>조미료/양념</h2>
                             <Spacer/>
-                            <div className="plus"><MdAdd/></div>
+                            <SeasoningAddButton/>
                         </div>
                         <ItemTitle>
                             <Item>재료명</Item>
