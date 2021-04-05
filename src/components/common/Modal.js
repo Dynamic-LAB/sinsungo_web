@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from "./Button";
-import WhiteBox from "./WhiteBox";
+import ModalFrom from "./ModalFrom";
 
 
 const Fullscreen = styled.div`
@@ -26,6 +26,7 @@ const ModalBlock = styled.div`
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
 
   h2 {
+    font-size: 1.5rem;
     margin-top: 0;
     margin-bottom: 1rem;
   }
@@ -35,15 +36,8 @@ const ModalBlock = styled.div`
     justify-content: flex-end;
   }
 
-`
-const StyledWhiteBox = styled(WhiteBox)`
-  height: 250px;
-  width: auto;
-  margin-bottom: 1rem;
 `;
-const InputBlock = styled.div`
 
-`;
 const StyledButton = styled(Button)`
   height: 2rem;
   border-radius: 20px;
@@ -57,31 +51,29 @@ const StyledButton = styled(Button)`
 
 
 const Modal = ({
-                   visible,
-                   title,
-                   confirmText = '확인',
-                   cancelText = '취소',
-                   onConfirm,
-                   onCancel,
+                 visible,
+                 title,
+                 confirmText = '확인',
+                 cancelText = '취소',
+                 onConfirm,
+                 onCancel,
                }) => {
-    if (!visible) return null;
+  if (!visible) return null;
 
-    return (
-        <Fullscreen>
-            <ModalBlock>
-                <h2>{title}</h2>
-                <StyledWhiteBox>
-
-                </StyledWhiteBox>
-                <div className="modal_buttons">
-                    <StyledButton inverted={true}
-                                  onClick={onCancel}>{cancelText}</StyledButton>
-                    <StyledButton blueBtn
-                                  onClick={onConfirm}>{confirmText}</StyledButton>
-                </div>
-            </ModalBlock>
-        </Fullscreen>
-    );
+  return (
+    <Fullscreen>
+      <ModalBlock>
+        <h2>{title}</h2>
+        <ModalFrom/>
+        <div className="modal_buttons">
+          <StyledButton inverted={true}
+                        onClick={onCancel}>{cancelText}</StyledButton>
+          <StyledButton blueBtn
+                        onClick={onConfirm}>{confirmText}</StyledButton>
+        </div>
+      </ModalBlock>
+    </Fullscreen>
+  );
 }
 
 export default Modal;

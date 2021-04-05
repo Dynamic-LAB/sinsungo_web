@@ -1,10 +1,10 @@
 import React from 'react';
-import {MdAdd, MdNotificationsNone, MdSupervisorAccount} from "react-icons/md";
+import {MdNotificationsNone, MdSupervisorAccount} from "react-icons/md";
 import styled from 'styled-components';
 import './Right.css';
 import WhiteBox from "../WhiteBox";
-import Member from "../Member";
-import MemberAddButton from "./MemberAddButton";
+import Member from "./Member/Member";
+import MemberAddButton from "./Member/MemberAddButton";
 
 const WhiteBoxNotice = styled(WhiteBox)`
   height: 200px;
@@ -62,7 +62,6 @@ const Right = () => {
                             <Member/>
                         </div>
                     </WhiteBoxMember>
-
                 </div>
             </div>
         </div>

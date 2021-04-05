@@ -40,8 +40,7 @@ const buttonStyle = css`
             border: 2px solid #3C82D9;
             color: #3C82D9;
             &:hover {
-              background: #3C82D9;
-              color: white;
+              background: #B4CEFE;
             }
           `};
 
