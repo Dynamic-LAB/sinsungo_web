@@ -1,7 +1,7 @@
 import React from 'react';
 import KakaoLoginv from '../components/KakaoLoginv';
 import GoogleButton from '../components/GoogleButton'
-import logo from '../img/Pnglogo.png'
+import logo from '../assets/Pnglogo.png'
 
 const LoginPage = (props) => {
     function GoMain(e){

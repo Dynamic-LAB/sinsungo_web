@@ -6,31 +6,36 @@ import RecipePage from "./pages/RecipePage";
 import MyPage from "./pages/MyPage";
 import Main from "./pages/Main";
 import { useEffect } from 'react';
-
+import { useState } from 'react';
 
 
 const App = () => {
 
-    const closeSidebar = () => {
-        setSidebarOpen(false);
-    }
-    useEffect(()=>{
-     seeUser()
-      .then(res=> this.setState({customers:res}))
-      .catch(err => console.log(err));
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    });
-    const addUser = async ()=>{
-      const response = await fetch('/api/oauth2');
-      const body = await response.json();
-      return body;
-    }
-    const seeUser = async ()=>{
-      const response = await fetch('/api/oauth');
-      const body = await response.json();
-      return body;
-    }
+  const openSidebar = () => {
+      setSidebarOpen(true);
+  }
 
+  const closeSidebar = () => {
+      setSidebarOpen(false);
+  }
+  useEffect(()=>{
+   seeUser()
+    .then(res=> this.setState({customers:res}))
+    .catch(err => console.log(err));
+
+  });
+  const addUser = async ()=>{
+    const response = await fetch('/api/oauth2');
+    const body = await response.json();
+    return body;
+  }
+  const seeUser = async ()=>{
+    const response = await fetch('/api/oauth');
+    const body = await response.json();
+    return body;
+  }
   return(
       <>
         <Route component={Main} path="/" exact/>
