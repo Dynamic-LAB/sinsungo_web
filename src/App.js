@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {Route} from 'react-router-dom';
 import LoginPage from "./pages/LoginPage";
 import FridgePage from "./pages/FridgePage";
@@ -8,13 +7,9 @@ import MyPage from "./pages/MyPage";
 import Main from "./pages/Main";
 import { useEffect } from 'react';
 
+
+
 const App = () => {
-
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-
-    const openSidebar = () => {
-        setSidebarOpen(true);
-    }
 
     const closeSidebar = () => {
         setSidebarOpen(false);
@@ -35,6 +30,7 @@ const App = () => {
       const body = await response.json();
       return body;
     }
+
   return(
       <>
         <Route component={Main} path="/" exact/>

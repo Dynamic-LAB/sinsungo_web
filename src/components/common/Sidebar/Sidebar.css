@@ -28,10 +28,13 @@
 }
 
 .sidebar__link {
+    display: flex;
+    align-items: center;
     color: #393939;
     padding: 10px;
     border-radius: 3px;
     margin-bottom: 5px;
+    font-size: 14px;
 }
 
 .sidebar__link:hover {
@@ -48,6 +51,38 @@
     margin-right: 13px;
     font-size: 18px;
 }
+.icon-fridge {
+    width: 22px;
+    height: 22px;
+    background: no-repeat url("../../../assets/icon_bottom_refrigerator_24px.svg");
+    background-size: 22px 22px;
+    margin-right: 10px;
+}
+
+.icon-basket {
+    width: 22px;
+    height: 22px;
+    background: no-repeat url("../../../assets/icon_bottom_shopping_24px.svg");
+    background-size: 22px 22px;
+    margin-right: 10px;
+}
+
+.icon-recipe {
+    width: 22px;
+    height: 22px;
+    background: no-repeat url("../../../assets/icon_bottom_food_24px.svg");
+    background-size: 22px 22px;
+    margin-right: 10px;
+}
+
+.icon-my {
+    width: 22px;
+    height: 22px;
+    background: no-repeat url("../../../assets/icon_person_24px.svg");
+    background-size: 22px 22px;
+    margin-right: 10px;
+}
+
 
 .sidebar-responsive {
     display: inline !important;
@@ -55,7 +90,7 @@
     left: 0 !important;
     position: absolute;
 }
-
+/*사이드바 반응형 지금 이상함 수정 필요*/
 @media only screen and (max-width: 978px) {
     #sidebar {
         display: none;

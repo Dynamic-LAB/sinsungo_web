@@ -1,0 +1,30 @@
+my {
+    grid-area: main;
+    overflow-y: auto;
+}
+.my__container {
+    padding: 20px 18px 10px;
+}
+.icon-notice{
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    margin-right: 10px;
+}
+.my_title {
+    padding-top: 10px;
+    font-weight: 700;
+    font-size: 30px;
+}
+.bar_title{
+    font-size: 25px;
+    border-bottom: 1px solid #C9C9C9;
+    padding-bottom: 30px;
+    margin-left: 220px;
+}
+.my_menu_bar {
+    background: #ffffff;
+    border: #C9C9C9 solid 1px;
+    padding: 100px;
+    float: left;
+}
