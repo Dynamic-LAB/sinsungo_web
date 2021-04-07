@@ -1,4 +1,4 @@
-main {
+frigde {
     grid-area: main;
     overflow-y: auto;
 }
@@ -14,7 +14,7 @@ main {
     margin: 15px 0;
 }
 
-.top_card_title {
+.shelf_life__title {
     display: flex;
     align-items: center;
     font-size: 10px;
@@ -27,30 +27,19 @@ main {
     padding: 10px 15px;
 }
 
-.card {
-    display: flex;
-    flex-direction: column;
-    /*justify-content: space-around; !*요소들 주의에 동일한 간격*!*/
-    height: 400px;
-    /*padding: 5px 20px 20px;*/
-    border-radius: 10px;
-    background: #ffffff;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
-}
-
-.card_title {
+.fridge__card_title {
     display: flex;
     align-items: center;
     font-size: 10px;
     padding: 10px 15px;
     border-bottom: 1px solid #bbbbbb;
 }
+
 .plus {
     cursor: pointer;
     display: flex;
     align-items: center;
     font-size: 1.25rem;
-    margin-left: 10px;
 }
 
 .count {
@@ -61,6 +50,43 @@ main {
     align-items: center;
     color: white;
 }
+.icon-ice {
+    width: 23px;
+    height: 23px;
+    background: no-repeat url("../../assets/ice.svg");
+    background-size: 23px 23px;
+    margin-right: 10px;
+}
+.icon-cold {
+    width: 23px;
+    height: 23px;
+    background: no-repeat url("../../assets/cold.svg");
+    background-size: 23px 23px;
+    margin-right: 10px;
+}
+.icon-fresh {
+    width: 23px;
+    height: 23px;
+    background: no-repeat url("../../assets/vegetable.svg");
+    background-size: 23px 23px;
+    margin-right: 10px;
+}
+
+.icon-room-temperature {
+    width: 23px;
+    height: 23px;
+    background: no-repeat url("../../assets/thermometer.svg");
+    background-size: 23px 23px;
+    margin-right: 10px;
+}
+
+.icon-seasoning {
+    width: 23px;
+    height: 23px;
+    background: no-repeat url("../../assets/salt-shaker.svg");
+    background-size: 23px 23px;
+    margin-right: 10px;
+}
 
 @media only screen and (max-width: 978px) {
     .fridge__cards {
@@ -70,19 +96,24 @@ main {
         margin: 15px 0;
     }
 
-    .card {
+    .shelf_life__title {
         display: flex;
-        flex-direction: column;
-        /*justify-content: space-around; !*요소들 주의에 동일한 간격*!*/
-        height: 250px;
-        /*padding: 5px 20px 20px;*/
-        border-radius: 10px;
-        background: #ffffff;
-        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
+        align-items: center;
+        font-size: 8px;
+        padding: 10px 15px;
+        border-bottom: 1px solid #bbbbbb;
     }
 
-    .card_title {
+    .fridge__card_title {
         font-size: 8px;
+    }
+
+    .plus {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
+        margin-left: 10px;
     }
 
     .card_title > i {

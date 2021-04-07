@@ -28,13 +28,26 @@
     padding: 7px;
 }
 .navbar__right > a {
-    margin-left: 18px;
+    margin-left: 6px;
     text-decoration: none;
 }
 .navbar__right > a > i {
     color: #393939;
-    font-size: 20px;
+    font-size: 30px;
     padding: 6px;
+}
+.user_name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+.user_position {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
 }
 @media only screen and (max-width: 978px) {
     .nav_icon {
@@ -42,6 +55,7 @@
     }
     .navbar__left {
         display: none;
+        color: #393939;
     }
 }
 @media only screen and (max-width: 480px) {
