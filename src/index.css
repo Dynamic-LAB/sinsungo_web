@@ -31,14 +31,12 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: inherit;
 }
 
 body {
     box-sizing: border-box;
     font-family: 'Noto Sans KR', sans-serif;
     background: #f6f6f6;
-    box-sizing: border-box;
 }
 
 a {
@@ -74,6 +72,15 @@ a {
     grid-template-areas:
         "sidebar nav nav nav nav"
         "sidebar main main main rightbar";
+}
+.my_container {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 0.5fr;
+    grid-template-rows: 0.2fr 3fr;
+    grid-template-areas:
+        "sidebar nav nav nav nav"
+        "sidebar main main main main";
 }
 @media only screen and (max-width: 1350px) {
     .container {

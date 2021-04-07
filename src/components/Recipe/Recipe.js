@@ -42,6 +42,7 @@ const Fridge = () => {
 
     const OriImg=styled.img`
     width:190px; 
+
     border-radius: 10px;
     `;
 

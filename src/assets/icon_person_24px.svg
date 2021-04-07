@@ -1,0 +1,23 @@
+<svg id="icon_person_24px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-3, .cls-4 {
+        stroke: none;
+      }
+
+      .cls-4 {
+        fill: #000;
+      }
+    </style>
+  </defs>
+  <path id="패스_1" class="cls-1" d="M0,0H24V24H0Z"/>
+  <path id="패스_2" d="M12,6a2,2,0,1,1-2,2,2.006,2.006,0,0,1,2-2m0-2a4,4,0,1,0,4,4A4,4,0,0,0,12,4Z"/>
+  <g id="패스_1512" class="cls-2" transform="translate(5 13)">
+    <path class="cls-3" d="M5,0H9a5,5,0,0,1,5,5V9H0V5A5,5,0,0,1,5,0Z"/>
+    <path class="cls-4" d="M 5 2 C 3.345789909362793 2 2 3.345789909362793 2 5 L 2 7 L 12 7 L 12 5 C 12 3.345789909362793 10.65421009063721 2 9 2 L 5 2 M 5 0 L 9 0 C 11.76142024993896 0 14 2.238580226898193 14 5 L 14 9 L 0 9 L 0 5 C 0 2.238580226898193 2.238579750061035 0 5 0 Z"/>
+  </g>
+</svg>

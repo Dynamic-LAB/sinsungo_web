@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Header from "../components/common/Header";
 import Navbar from "../components/common/Navbar/Navbar";
 import Sidebar from "../components/common/Sidebar/Sidebar";
 import WhiteBox from "../components/common/WhiteBox";

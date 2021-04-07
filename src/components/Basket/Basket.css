@@ -1,0 +1,30 @@
+basket {
+    grid-area: main;
+    overflow-y: auto;
+}
+.basket__container {
+    padding: 20px 18px 10px;
+}
+
+.icon-diet {
+    width: 23px;
+    height: 23px;
+    background: no-repeat url("../../assets/diet.svg");
+    background-size: 23px 23px;
+    margin-right: 10px;
+}
+.icon-list-check {
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+    background: no-repeat url("../../assets/icon_list_check_24px.svg");
+    background-size: 22px 22px;
+    margin-right: 10px;
+}
+.icon-share {
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+    background: no-repeat url("../../assets/icon_share_24px.svg");
+    background-size: 22px 22px;
+}

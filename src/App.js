@@ -1,27 +1,36 @@
-import {useState} from 'react';
 import {Route} from 'react-router-dom';
 import LoginPage from "./pages/LoginPage";
 import FridgePage from "./pages/FridgePage";
 import ShoppingBasketPage from "./pages/ShoppingBasketPage";
 import RecipePage from "./pages/RecipePage";
 import MyPage from "./pages/MyPage";
-import Navbar from "./components/common/Navbar/Navbar";
-import Sidebar from "./components/common/Sidebar/Sidebar";
-import Fridge from "./components/Fridge/Fridge";
 import Main from "./pages/Main";
-import Right from "./components/common/Rightbar/Right";
+import { useEffect } from 'react';
+
+
 
 const App = () => {
-
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-
-    const openSidebar = () => {
-        setSidebarOpen(true);
-    }
 
     const closeSidebar = () => {
         setSidebarOpen(false);
     }
+    useEffect(()=>{
+     seeUser()
+      .then(res=> this.setState({customers:res}))
+      .catch(err => console.log(err));
+
+    });
+    const addUser = async ()=>{
+      const response = await fetch('/api/oauth2');
+      const body = await response.json();
+      return body;
+    }
+    const seeUser = async ()=>{
+      const response = await fetch('/api/oauth');
+      const body = await response.json();
+      return body;
+    }
+
   return(
       <>
         <Route component={Main} path="/" exact/>
@@ -29,7 +38,7 @@ const App = () => {
         <Route component={FridgePage} path="/fridge"/>
         <Route component={ShoppingBasketPage} path="/basket"/>
         <Route component={RecipePage} path="/recipe"/>
-        <Route component={MyPage} path="/my"/>
+        <Route component={MyPage} path="/my" />
       </>
 
   );
