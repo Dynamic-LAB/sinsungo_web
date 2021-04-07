@@ -5,9 +5,31 @@ import ShoppingBasketPage from "./pages/ShoppingBasketPage";
 import RecipePage from "./pages/RecipePage";
 import MyPage from "./pages/MyPage";
 import Main from "./pages/Main";
+import { useEffect } from 'react';
+
 
 
 const App = () => {
+
+    const closeSidebar = () => {
+        setSidebarOpen(false);
+    }
+    useEffect(()=>{
+     seeUser()
+      .then(res=> this.setState({customers:res}))
+      .catch(err => console.log(err));
+
+    });
+    const addUser = async ()=>{
+      const response = await fetch('/api/oauth2');
+      const body = await response.json();
+      return body;
+    }
+    const seeUser = async ()=>{
+      const response = await fetch('/api/oauth');
+      const body = await response.json();
+      return body;
+    }
 
   return(
       <>
@@ -16,7 +38,7 @@ const App = () => {
         <Route component={FridgePage} path="/fridge"/>
         <Route component={ShoppingBasketPage} path="/basket"/>
         <Route component={RecipePage} path="/recipe"/>
-        <Route component={MyPage} path="/my"/>
+        <Route component={MyPage} path="/my" />
       </>
 
   );
