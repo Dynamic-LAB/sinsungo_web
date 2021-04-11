@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from "../common/Button";
 
 const ItemBlock = styled.div`
   display: flex;
@@ -38,18 +39,16 @@ const ItemIndex = styled.div`
     font-size: 8px;
   }
 `;
-const AddButton = styled.button`
+const AddButton = styled(Button)`
   display: flex;
   width: 40%;
-  border: none;
-  padding: 0.35rem 1rem;
-  color: white;
-  outline: none;
-  cursor: pointer;
   align-items: center;
   justify-content: center;
   border-radius: 20px;
-  background: #3C82D9;
+  padding: 0.35rem 0.75rem;
+  @media only screen and (max-width: 978px){
+    padding: 0.35rem 0.5rem;
+  }
 `;
 
 const BasketRecommendItem = () => {
@@ -57,7 +56,7 @@ const BasketRecommendItem = () => {
         <ItemBlock>
             <Item>재료재료</Item>
             <ItemIndex>부가설명</ItemIndex>
-            <Item><AddButton>추가</AddButton></Item>
+            <Item><AddButton addBtn>추가</AddButton></Item>
         </ItemBlock>
     );
 }

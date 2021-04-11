@@ -3,7 +3,7 @@ my {
     overflow-y: auto;
 }
 .my__container {
-    padding: 20px 18px 10px;
+    padding: 20px 25px 10px;
 }
 .icon-notice{
     display: flex;

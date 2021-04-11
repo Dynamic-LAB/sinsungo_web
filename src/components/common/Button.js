@@ -53,6 +53,15 @@ const buttonStyle = css`
               box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.125);
             }
           `}
+  ${props =>
+          props.addBtn &&
+          css`
+            background: #3C82D9;
+            &:hover {
+              box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.125);
+            }
+          `
+}
 
 `;
 const StyledButton = styled.button`

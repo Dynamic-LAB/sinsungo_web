@@ -4,7 +4,7 @@ import { MdRestaurant } from "react-icons/md";
 import WhiteBox from "./WhiteBox";
 
 const StyledWhiteBox = styled(WhiteBox)`
-  height: 250px;
+  height: 200px;
   width: auto;
   margin-top: 1rem;
   margin-bottom: 1rem;
