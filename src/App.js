@@ -5,7 +5,6 @@ import ShoppingBasketPage from "./pages/ShoppingBasketPage";
 import RecipePage from "./pages/RecipePage";
 import MyPage from "./pages/MyPage";
 import Main from "./pages/Main";
-import { useEffect } from 'react';
 import { useState } from 'react';
 
 
