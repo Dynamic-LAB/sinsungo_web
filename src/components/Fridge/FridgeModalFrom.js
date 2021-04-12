@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MdRestaurant } from "react-icons/md";
-import WhiteBox from "./WhiteBox";
+import WhiteBox from "../common/WhiteBox";
+import DatePickerComponent from "../common/DatePickerComponent";
 
 const StyledWhiteBox = styled(WhiteBox)`
   height: 200px;
@@ -20,10 +21,16 @@ const InputBlock = styled.div`
   }
   .dropdown_amount {
     margin-left: 20px;
-    width: 10%;
   }
 `;
-
+const DateBlock = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+`;
+const Spacer = styled.div`
+  flex-grow: 1;
+`;
 const StyledInput = styled.input`
   font-size: 0.75rem;
   border: none;
@@ -55,12 +62,12 @@ const StyledDropdown = styled.select`
   font-size: 0.75rem;
   border: none;
   border-bottom: 1px solid black;
-  padding-bottom: 0.5rem ;
-  padding-top: 0.5rem;
+  padding: 0.5rem;
   outline: none;
+  cursor: pointer;
 `;
 
-const ModalFrom = () => {
+const FridgeModalFrom = () => {
   return (
     <>
       <StyledWhiteBox>
@@ -98,12 +105,14 @@ const ModalFrom = () => {
               <div className="input_title">날짜</div>
               <div className="input_index">필수 입력 사항</div>
             </FormTitle>
-            <InputBlock>
+            <DateBlock>
               <StyledDropdown>
                 <option value="date">유통기한</option>
                 <option value="deadline">남은기한</option>
               </StyledDropdown>
-            </InputBlock>
+              <Spacer/>
+              <DatePickerComponent/>
+            </DateBlock>
           </label>
         </form>
       </StyledWhiteBox>
@@ -111,5 +120,5 @@ const ModalFrom = () => {
   );
 }
 
-export default ModalFrom;
+export default FridgeModalFrom;
 

@@ -3,7 +3,7 @@ import Whitebox from "../common/WhiteBox"
 import styled from 'styled-components';
 // import ice from "../../assets/ice.svg";
 
-const Fridge = () => {
+const Recipe = () => {
     const Box1=styled(Whitebox)`
     height:300px
     `;
@@ -69,7 +69,7 @@ const Fridge = () => {
       };
         return(
         <main>
-            <div className="fridge__container">
+            <div className="recipe__container">
             <div className="card">
                         <div className="card_inner">
                             검색어를 입력해주세요.
@@ -84,7 +84,7 @@ const Fridge = () => {
                     </div>
                 <br></br>
                 
-                <div className="fridge__cards">
+                <div className="recipe__cards">
                <CardSample/>
                 </div>
  
@@ -93,4 +93,4 @@ const Fridge = () => {
     );
 }
 
-export default Fridge;
+export default Recipe;

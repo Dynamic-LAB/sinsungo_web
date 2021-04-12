@@ -2,10 +2,10 @@ main {
     grid-area: main;
     overflow-y: auto;
 }
-.fridge__container {
+.recipe__container {
     padding: 15px 35px;
 }
-.fridge__cards {
+.recipe__cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
@@ -30,4 +30,12 @@ main {
 }
 .input_css{
     height: 20px;
+}
+@media only screen and (max-width: 978px) {
+    .recipe__cards {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin: 15px 0;
+    }
 }

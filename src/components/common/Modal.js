@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from "./Button";
-import ModalFrom from "./ModalFrom";
+import FridgeModalFrom from "../Fridge/FridgeModalFrom";
 
 
 const Fullscreen = styled.div`
@@ -64,7 +64,7 @@ const Modal = ({
     <Fullscreen>
       <ModalBlock>
         <h2>{title}</h2>
-        <ModalFrom/>
+        <FridgeModalFrom/>
         <div className="modal_buttons">
           <StyledButton inverted={true}
                         onClick={onCancel}>{cancelText}</StyledButton>
