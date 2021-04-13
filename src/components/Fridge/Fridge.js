@@ -8,6 +8,7 @@ import ColdItem from "./Cold/ColdItem";
 import FreshAddButton from "./Fresh/FreshAddButton";
 import RoomTempAddButton from "./RoomTemp/RoomTempAddButton";
 import SeasoningAddButton from "./Seasoning/SeasoningAddButton";
+import FridgeItem from "./FridgeItem";
 
 const WhiteBoxTop = styled(WhiteBox)`
   height: auto;
@@ -84,7 +85,12 @@ const Fridge = () => {
                             <Item>남은기한</Item>
                         </ItemTitle>
                         <IngredientBlock>
-                            <ColdItem/>
+                            <FridgeItem
+                            name='hi'
+                            count='2'
+                            date='2020 02 02'
+                            deadline='4'
+                            />
                         </IngredientBlock>
                     </WhiteBoxFridge>
 
