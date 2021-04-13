@@ -1,10 +1,8 @@
 import React from 'react';
-
+import Modal from "../../common/Modal";
 import styled from "styled-components";
-import Button from "../../Button";
-
-import WhiteBox from "../../WhiteBox";
-
+import Button from "../../common/Button";
+import WhiteBox from "../../common/WhiteBox";
 const Fullscreen = styled.div`
   position: fixed;
   z-index: 30;
@@ -58,27 +56,29 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const MemberModal  = ({ visible,
-                        confirmText = '확인',
-                        cancelText = '취소',
-                        onConfirm,
-                        onCancel,}) => {
-  if (!visible) return null;
-    return(
-      <Fullscreen>
-        <ModalBlock>
-          <h2>냉장고멤버 추가</h2>
-          <StyledWhiteBox/>
-          <div className="modal_buttons">
-            <StyledButton inverted={true}
-                          onClick={onCancel}>{cancelText}</StyledButton>
-            <StyledButton blueBtn
-                          onClick={onConfirm}>{confirmText}</StyledButton>
-          </div>
-        </ModalBlock>
-      </Fullscreen>
 
-    );
+const RecipeModal  = ({ props,visible,
+    confirmText = '확인',
+    cancelText = '취소',
+    title,
+    onConfirm,
+    onCancel,}) => {
+if (!visible) return null;
+return(
+<Fullscreen>
+  <ModalBlock>
+    <h2>{title}</h2>
+    <StyledWhiteBox/>
+    <div className="modal_buttons">
+    <StyledButton inverted={true}
+          onClick={onCancel}>{cancelText}</StyledButton>
+    <StyledButton blueBtn
+          onClick={onConfirm}>{confirmText}</StyledButton>
+    </div>
+  </ModalBlock>
+</Fullscreen>
+
+);
 };
 
-export default MemberModal;
+export default RecipeModal;

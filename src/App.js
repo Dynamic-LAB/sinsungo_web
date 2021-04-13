@@ -1,3 +1,4 @@
+import React, {useState,useEffect} from 'react';
 import {Route} from 'react-router-dom';
 import LoginPage from "./pages/LoginPage";
 import FridgePage from "./pages/FridgePage";
@@ -5,31 +6,36 @@ import ShoppingBasketPage from "./pages/ShoppingBasketPage";
 import RecipePage from "./pages/RecipePage";
 import MyPage from "./pages/MyPage";
 import Main from "./pages/Main";
-import { useEffect } from 'react';
-
-
 
 const App = () => {
 
-    const closeSidebar = () => {
-        setSidebarOpen(false);
-    }
-    useEffect(()=>{
-     seeUser()
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const openSidebar = () => {
+
+    setSidebarOpen(true);
+  }
+
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  }
+  useEffect(()=>{
+    seeUser()
       .then(res=> this.setState({customers:res}))
       .catch(err => console.log(err));
-
-    });
-    const addUser = async ()=>{
-      const response = await fetch('/api/oauth2');
-      const body = await response.json();
-      return body;
-    }
-    const seeUser = async ()=>{
-      const response = await fetch('/api/oauth');
-      const body = await response.json();
-      return body;
-    }
+      setSidebarOpen(true);
+  }
+  });
+  const addUser = async ()=>{
+    const response = await fetch('/api/oauth2');
+    const body = await response.json();
+    return body;
+  }
+  const seeUser = async ()=>{
+    const response = await fetch('/api/oauth');
+    const body = await response.json();
+    return body;
+  }
 
   return(
       <>
