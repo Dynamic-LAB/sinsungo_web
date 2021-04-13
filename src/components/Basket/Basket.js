@@ -5,7 +5,8 @@ import WhiteBox from "../common/WhiteBox";
 import {MdAdd} from "react-icons/md";
 import BasketRecommendItem from "./BasketRecommendItem";
 import BasketShoppingListItem from "./BasketShoppingListItem";
-import Diet from "./Diet";
+import Diet from "./Diet/Diet";
+import DietAddButton from "./Diet/DietAddButton";
 
 const WhiteBoxDiet = styled(WhiteBox)`
   height: 765px;
@@ -46,7 +47,7 @@ const Basket = () => {
                 <div className="icon-diet"/>
                 <h2>식단</h2>
                 <Spacer/>
-                <div className="plus"><MdAdd/></div>
+                <DietAddButton/>
               </BasketTitle>
               <DietBlock>
                 <Diet/>

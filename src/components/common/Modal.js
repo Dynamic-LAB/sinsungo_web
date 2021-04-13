@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Button from "./Button";
 import FridgeModalFrom from "../Fridge/FridgeModalFrom";
 
-
+// 회색 불투명 배경
 const Fullscreen = styled.div`
   position: fixed;
   z-index: 30;
@@ -64,12 +64,12 @@ const Modal = ({
     <Fullscreen>
       <ModalBlock>
         <h2>{title}</h2>
+        {/*냉장고 재료추가 폼*/}
         <FridgeModalFrom/>
+        {/*취소, 확인 버튼*/}
         <div className="modal_buttons">
-          <StyledButton inverted={true}
-                        onClick={onCancel}>{cancelText}</StyledButton>
-          <StyledButton blueBtn
-                        onClick={onConfirm}>{confirmText}</StyledButton>
+          <StyledButton inverted={true} onClick={onCancel}>{cancelText}</StyledButton>
+          <StyledButton blueBtn onClick={onConfirm}>{confirmText}</StyledButton>
         </div>
       </ModalBlock>
     </Fullscreen>

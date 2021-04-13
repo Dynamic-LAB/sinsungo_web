@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { MdRestaurant } from "react-icons/md";
 import WhiteBox from "../common/WhiteBox";
-import DatePickerComponent from "../common/DatePickerComponent";
+import DatePickerComponent from "../common/DatePicker/DatePickerComponent";
 
 const StyledWhiteBox = styled(WhiteBox)`
   height: 200px;
@@ -93,13 +93,10 @@ const FridgeModalFrom = () => {
                 <StyledDropdown>
                   <option value="g">g</option>
                   <option value="kg">kg</option>
-                  <option value="L">L</option>
                   <option value="ml">ml</option>
                 </StyledDropdown>
               </div>
-
             </InputBlock>
-
 
             <FormTitle>
               <div className="input_title">날짜</div>
@@ -108,7 +105,8 @@ const FridgeModalFrom = () => {
             <DateBlock>
               <StyledDropdown>
                 <option value="date">유통기한</option>
-                <option value="deadline">남은기한</option>
+                <option value="manufacture">제조일자</option>
+                <option value="storage">보관일</option>
               </StyledDropdown>
               <Spacer/>
               <DatePickerComponent/>

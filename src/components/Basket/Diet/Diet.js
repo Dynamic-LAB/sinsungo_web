@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import WhiteBox from "../common/WhiteBox";
+import WhiteBox from "../../common/WhiteBox";
 import DietItem from "./DietItem";
 
 const StyledWhiteBox = styled(WhiteBox)`
