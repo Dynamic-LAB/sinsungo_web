@@ -17,10 +17,12 @@ const RecipePage = () => {
     return (
         <>
             <div className="container">
+
               <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar} />
               <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar} />
               <Recipe/>
               <Right/>
+
             </div>
         </>
     );
