@@ -7,23 +7,24 @@ import RecipePage from "./pages/RecipePage";
 import MyPage from "./pages/MyPage";
 import Main from "./pages/Main";
 
-
 const App = () => {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const openSidebar = () => {
-      setSidebarOpen(true);
+
+    setSidebarOpen(true);
   }
 
   const closeSidebar = () => {
-      setSidebarOpen(false);
+    setSidebarOpen(false);
   }
   useEffect(()=>{
-   seeUser()
-    .then(res=> this.setState({customers:res}))
-    .catch(err => console.log(err));
-
+    seeUser()
+      .then(res=> this.setState({customers:res}))
+      .catch(err => console.log(err));
+      setSidebarOpen(true);
+  }
   });
   const addUser = async ()=>{
     const response = await fetch('/api/oauth2');
@@ -35,6 +36,7 @@ const App = () => {
     const body = await response.json();
     return body;
   }
+
   return(
       <>
         <Route component={Main} path="/" exact/>

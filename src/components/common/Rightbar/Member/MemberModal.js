@@ -1,8 +1,8 @@
 import React from 'react';
-import Modal from "../../Modal";
+
 import styled from "styled-components";
 import Button from "../../Button";
-import ModalFrom from "../../ModalFrom";
+
 import WhiteBox from "../../WhiteBox";
 
 const Fullscreen = styled.div`

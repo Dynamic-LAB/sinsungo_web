@@ -1,0 +1,8 @@
+.input-datepicker {
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 8px 0;
+    text-align: center;
+    background: none;
+    cursor: pointer;
+}

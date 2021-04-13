@@ -28,20 +28,51 @@ color: #393939;
 font-size: 16px;
 `;
 
-const Box4=styled.div`
-padding:10px;
-margin-top:5px;
-height:60px;
-width:96%;
-flex: 1;
 
-font-weight: 500;
-color: #000000;
-font-size: 13px;
-@media only screen and (max-width: 978px) {
-  font-size: 15px;
-}
-`;
+const Recipe = () => {
+    const Box1=styled(Whitebox)`
+    height:300px
+    `;
+    const Box2=styled.div`
+    margin:10px;
+    height:100%;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    `;
+    const Box3=styled(Whitebox)`
+    padding:10px;
+    margin-top:0px;
+    height:20px;
+    width:96%;
+    `;
+    const TagBox=styled(Whitebox)`
+    display:inline-block;
+    margin-right:15px;
+    text-align:center;
+    background:white;
+    height:45%;
+    overflow:hidden;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    `;
+    const Imgbox=styled.div`
+     background:#ffffff;
+    `;
+  
+    const Box4=styled.div`
+    padding:10px;
+    margin-top:5px;
+    height:60px;
+    width:96%;
+    flex: 1;
+
+    font-weight: 500;
+    color: #000000;
+    font-size: 13px;
+    @media only screen and (max-width: 978px) {
+      font-size: 15px;
+    }
+    `;
 
 const HasItem=styled.span`
 color: #3c82d9;
@@ -112,11 +143,11 @@ const Recipe = () => {
         return(
         <main>
             <div className="recipe__container">
+
             <div className="searchCard">
                         <div className="searchCard_inner1">
                             <MdSearch  style={{'fontSize': '2.25rem'}} />
                             <SearchBar/>
-
                         </div>
                         <hr style={{
                              'borderTop': '1px dashed #bbb',

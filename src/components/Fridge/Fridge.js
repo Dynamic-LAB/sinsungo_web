@@ -19,6 +19,9 @@ const WhiteBoxFridge = styled(WhiteBox)`
 
 const IngredientBlock = styled.div`
   overflow-y: auto; //스크롤
+  &:hover {
+      background: #B4CEFE;
+  }
 `;
 
 const ItemTitle = styled.div`
