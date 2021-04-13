@@ -3,6 +3,8 @@ import Whitebox from "../common/WhiteBox"
 import styled from 'styled-components';
 import TagBox from './TagBox';
 import { MdSearch} from 'react-icons/md';
+import RecipeCard from "./RecipeCard";
+import React, {useState, useCallback} from 'react';
 // import ice from "../../assets/ice.svg";
 const Box1=styled(Whitebox)`
 height:300px
@@ -63,7 +65,7 @@ font-size: 16px;
     height: auto;
     line-height: normal; 
     padding: .8em .5em;
- 
+    cursor: pointer;
     border: none;
     outline: none;
 
@@ -72,16 +74,25 @@ font-size: 16px;
         font-size: 20px;
       }
 `;
-const popUp=()=>{
-    console.log("hi");
-}
+
 const Recipe = () => {
+    const [modal, setModal] = useState(false);
+    const popUp=()=>{
+        setModal(true);
+    }
     const CardSample = () => {
         const names = ['백숙', '치킨', '통닭', '바베큐','1','2','3','2','3','2','3','2','3'];
         const hasList = ['닭', '치즈', '양파'];
         const noneList = ['물', '얼음'];
-        const recipeList = names.map((name,index) => 
-            <div onClick={popUp()} className="card" key={index}>
+        /*const recipeList = names.map((name,index) =>
+         
+            <div onClick={popUp} className="card" key={index}>
+                   <div>{index}</div> 
+                    <RecipeModal
+                    visible={modal}
+                    onConfirm={()=>setModal(false)}
+                    onCancel={()=>setModal(false)}
+                    />
             <div className="card_inner">
                 <OriImg src={process.env.PUBLIC_URL + '/img.jpg'} alt="오류"/>
                 <Box2>
@@ -95,7 +106,7 @@ const Recipe = () => {
             </div>
         </div>);
         
-        return (recipeList);
+        return (recipeList);*/
         
       };
         return(
@@ -103,19 +114,19 @@ const Recipe = () => {
             <div className="recipe__container">
             <div className="searchCard">
                         <div className="searchCard_inner1">
-                            <MdSearch  style={{'font-size': '2.25rem'}} />
+                            <MdSearch  style={{'fontSize': '2.25rem'}} />
                             <SearchBar/>
 
                         </div>
                         <hr style={{
-                             'border-top': '1px dashed #bbb',
-                             'border-bottom': '1px dashed #fff'
+                             'borderTop': '1px dashed #bbb',
+                             'borderBottom': '1px dashed #fff'
 
                         }}/>
                         <div className="searchCard_inner2">
-                            <TagBox background={'#27D598'}>한식</TagBox>
-                            <TagBox background={'#27D598'}>양식</TagBox>
-                            <TagBox background={''}>재료있는 레시피</TagBox>
+                            <TagBox background={'#27D598'}></TagBox>
+                            <TagBox background={'#27D598'}></TagBox>
+                            <TagBox background={''}></TagBox>
 
                         </div>
                     </div>
@@ -126,7 +137,21 @@ const Recipe = () => {
                         </div>
                 </div>
                 <div className="recipe__cards">
-               <CardSample/>
+                    <RecipeCard
+                    name={'백숙'}
+                    hasList = {['닭', '치즈', '양파']}
+                    noneList = {['물', '얼음']}
+                    />
+                      <RecipeCard
+                    name={'치킨'}
+                    hasList = {['닭', '치즈', '양파']}
+                    noneList = {['물', '얼음']}
+                    />
+                      <RecipeCard
+                    name={'통닭'}
+                    hasList = {['닭', '치즈', '양파']}
+                    noneList = {['물', '얼음']}
+                    />
                 </div>
  
             </div>
