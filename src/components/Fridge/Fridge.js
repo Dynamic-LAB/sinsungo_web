@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import React from "react";
 import ColdAddButton from "./Cold/ColdAddButton";
 import FreezeAddButton from "./Freeze/FreezeAddButton";
-import ColdItem from "./Cold/ColdItem";
 import FreshAddButton from "./Fresh/FreshAddButton";
 import RoomTempAddButton from "./RoomTemp/RoomTempAddButton";
 import SeasoningAddButton from "./Seasoning/SeasoningAddButton";
+import FridgeItem from "./FridgeItem";
 
 const WhiteBoxTop = styled(WhiteBox)`
   height: auto;
@@ -19,9 +19,6 @@ const WhiteBoxFridge = styled(WhiteBox)`
 
 const IngredientBlock = styled.div`
   overflow-y: auto; //스크롤
-  &:hover {
-      background: #B4CEFE;
-  }
 `;
 
 const ItemTitle = styled.div`
@@ -84,7 +81,24 @@ const Fridge = () => {
                             <Item>남은기한</Item>
                         </ItemTitle>
                         <IngredientBlock>
-                            <ColdItem/>
+                            <FridgeItem
+                              name = "재료재료재료"
+                              count = "2"
+                              date = "2021.04.01"
+                              deadline="4일"
+                            />
+                            <FridgeItem
+                              name = "재료재료재료"
+                              count = "2"
+                              date = "2021.04.01"
+                              deadline="4일"
+                            />
+                            <FridgeItem
+                              name = "재료재료재료"
+                              count = "2"
+                              date = "2021.04.01"
+                              deadline="4일"
+                            />
                         </IngredientBlock>
                     </WhiteBoxFridge>
 
@@ -101,6 +115,14 @@ const Fridge = () => {
                             <Item>유통기한</Item>
                             <Item>남은기한</Item>
                         </ItemTitle>
+                        <IngredientBlock>
+                            <FridgeItem
+                              name = "재료재료재료"
+                              count = "2"
+                              date = "2021.04.01"
+                              deadline="4일"
+                            />
+                        </IngredientBlock>
                     </WhiteBoxFridge>
 
                     <WhiteBoxFridge>
@@ -116,6 +138,14 @@ const Fridge = () => {
                             <Item>유통기한</Item>
                             <Item>남은기한</Item>
                         </ItemTitle>
+                        <IngredientBlock>
+                            <FridgeItem
+                              name = "재료재료재료"
+                              count = "2"
+                              date = "2021.04.01"
+                              deadline="4일"
+                            />
+                        </IngredientBlock>
                     </WhiteBoxFridge>
 
                     <WhiteBoxFridge>
@@ -131,6 +161,14 @@ const Fridge = () => {
                             <Item>유통기한</Item>
                             <Item>남은기한</Item>
                         </ItemTitle>
+                        <IngredientBlock>
+                            <FridgeItem
+                              name = "재료재료재료"
+                              count = "2"
+                              date = "2021.04.01"
+                              deadline="4일"
+                            />
+                        </IngredientBlock>
                     </WhiteBoxFridge>
 
                     <WhiteBoxFridge>
@@ -146,6 +184,14 @@ const Fridge = () => {
                             <Item>유통기한</Item>
                             <Item>남은기한</Item>
                         </ItemTitle>
+                        <IngredientBlock>
+                            <FridgeItem
+                              name = "재료재료재료"
+                              count = "2"
+                              date = "2021.04.01"
+                              deadline="4일"
+                            />
+                        </IngredientBlock>
                     </WhiteBoxFridge>
                 </div>
             </div>

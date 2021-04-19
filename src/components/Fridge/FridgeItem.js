@@ -10,6 +10,9 @@ const ItemBlock = styled.div`
   &:nth-child(even) {
     background: #f8f9fa;
   }
+  &:hover {
+    background: #D6D6D6;
+  }
   @media only screen and (max-width: 978px){
     padding: 10px 20px;
   }
@@ -26,13 +29,13 @@ const Item = styled.div`
   }
 `;
 
-const FridgeItem = ({name, count, date, deadline}) => {
+const FridgeItem = (props) => {
     return (
         <ItemBlock>
-            <Item>{name}</Item>
-            <Item>{count}</Item>
-            <Item>{date}</Item>
-            <Item>{deadline}</Item>
+            <Item>{props.name}</Item>
+            <Item>{props.count}</Item>
+            <Item>{props.date}</Item>
+            <Item>{props.deadline}</Item>
         </ItemBlock>
     );
 }

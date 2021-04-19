@@ -24,7 +24,6 @@ const App = () => {
       .then(res=> this.setState({customers:res}))
       .catch(err => console.log(err));
       setSidebarOpen(true);
-  }
   });
   const addUser = async ()=>{
     const response = await fetch('/api/oauth2');
