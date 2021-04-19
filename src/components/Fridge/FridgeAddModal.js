@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import { MdClose } from "react-icons/md";
-import Button from "../../common/Button";
-import SeasoningModal from "./SeasoningModal";
+import {MdClose} from "react-icons/md";
+import Button from "../common/Button";
+import FridgeModal from "./FridgeModal";
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -22,7 +22,8 @@ const ModalBlock = styled.div`
   width: 250px;
   padding: 1rem;
   border-radius: 10px;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
+
   .modal_contents {
     text-align: center;
   }
@@ -30,6 +31,7 @@ const ModalBlock = styled.div`
 const ModalTitle = styled.div`
   display: flex;
   margin-bottom: 10px;
+
   h2 {
     font-size: 1.325rem;
     margin-top: 0;
@@ -40,6 +42,7 @@ const Spacer = styled.div`
 `;
 const CloseButton = styled.button`
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   font-size: 1.5rem;
   cursor: pointer;
@@ -59,18 +62,29 @@ const StyledButton = styled(Button)`
   padding: 0.25rem 1.25rem;
   background: #3c82d9;
   margin: 8px;
+
   &:hover {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.125);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
   }
 `;
+const textMap = {
+  cold: '냉장',
+  freeze: '냉동',
+  fresh: '신선',
+  temp: '실온',
+  seasoning: '조미료/양념'
+};
 
-const SeasoningAddModal = ({
+const FridgeAddModal = ({
                         visible,
                         onCloseClick,
+                        type
                       }) => {
+  const text = textMap[type];
+
   const [modal, setModal] = useState(false);
 
-  const onAddClick = () =>{
+  const onAddClick = () => {
     setModal(true);
   };
   const onCancel = () => {
@@ -87,7 +101,7 @@ const SeasoningAddModal = ({
     <Fullscreen>
       <ModalBlock>
         <ModalTitle>
-          <h2>조미료/양념 재료추가</h2>
+          <h2>{text} 재료추가</h2>
           <Spacer/>
           <CloseButton onClick={onCloseClick}>
             <MdClose/>
@@ -100,17 +114,52 @@ const SeasoningAddModal = ({
 
           <ButtonBlock>
             <StyledButton onClick={onAddClick}>직접 추가</StyledButton>
-            <SeasoningModal
-              visible={modal}
-              onConfirm={onConfirm}
-              onCancel={onCancel}
-            />
+            {type==='cold' &&(
+              <FridgeModal
+                visible={modal}
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                type="cold"
+              />
+            )}
+            {type==='freeze' &&(
+              <FridgeModal
+                visible={modal}
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                type="freeze"
+              />
+            )}
+            {type==='fresh' &&(
+              <FridgeModal
+                visible={modal}
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                type="fresh"
+              />
+            )}
+            {type==='temp' &&(
+              <FridgeModal
+                visible={modal}
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                type="temp"
+              />
+            )}
+            {type==='seasoning' &&(
+              <FridgeModal
+                visible={modal}
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                type="seasoning"
+              />
+            )}
+
           </ButtonBlock>
         </div>
-
       </ModalBlock>
     </Fullscreen>
   );
 }
 
-export default SeasoningAddModal;
+export default FridgeAddModal;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MdRestaurant } from "react-icons/md";
+import { MdRestaurant, MdDateRange } from "react-icons/md";
 import WhiteBox from "../common/WhiteBox";
 import DatePickerComponent from "../common/DatePicker/DatePickerComponent";
 
@@ -27,6 +27,11 @@ const DateBlock = styled.div`
   display: flex;
   align-items: center;
   font-size: 0.8rem;
+  .icon_input {
+    display: flex;
+    font-size: 1.2rem;
+    margin-right: 10px;
+  }
 `;
 const Spacer = styled.div`
   flex-grow: 1;
@@ -40,6 +45,7 @@ const StyledInput = styled.input`
   margin-left: 10px;
   outline: none;
   width: 100%;
+  text-align: center;
 `;
 
 const FormTitle = styled.div`
@@ -58,6 +64,7 @@ const FormTitle = styled.div`
   }
 `;
 const StyledDropdown = styled.select`
+  width: 110px;
   display: flex;
   font-size: 0.75rem;
   border: none;
@@ -65,6 +72,7 @@ const StyledDropdown = styled.select`
   padding: 0.5rem;
   outline: none;
   cursor: pointer;
+  text-align: center;
 `;
 
 const FridgeModalFrom = () => {
@@ -79,7 +87,10 @@ const FridgeModalFrom = () => {
             </FormTitle>
             <InputBlock>
               <div className="icon_input"><MdRestaurant/></div>
-              <StyledInput autoComplete="name" name="name" placeholder="재료명을 입력해주세요."/>
+              <StyledInput
+                autoComplete="name"
+                name="name"
+                placeholder="재료명을 입력해주세요."/>
             </InputBlock>
 
             <FormTitle>
@@ -99,17 +110,19 @@ const FridgeModalFrom = () => {
             </InputBlock>
 
             <FormTitle>
+
               <div className="input_title">날짜</div>
               <div className="input_index">필수 입력 사항</div>
             </FormTitle>
             <DateBlock>
+              <div className="icon_input"><MdDateRange/></div>
+              <DatePickerComponent/>
+              <Spacer/>
               <StyledDropdown>
                 <option value="date">유통기한</option>
                 <option value="manufacture">제조일자</option>
                 <option value="storage">보관일</option>
               </StyledDropdown>
-              <Spacer/>
-              <DatePickerComponent/>
             </DateBlock>
           </label>
         </form>

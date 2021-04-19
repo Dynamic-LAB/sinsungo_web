@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import {MdAdd} from "react-icons/md";
-import ColdAddModal from "./ColdAddModal";
+import FridgeAddModal from "../FridgeAddModal";
 
 const AddButton = styled.button`
   display: flex;
@@ -16,6 +16,7 @@ const AddButton = styled.button`
     color: #3C82D9;
   }
 `;
+
 const ColdAddButton = () => {
   const [modal, setModal] = useState(false);
   const onAddClick = () => {
@@ -29,9 +30,10 @@ const ColdAddButton = () => {
       <AddButton onClick={onAddClick}>
         <MdAdd/>
       </AddButton>
-      <ColdAddModal
+      <FridgeAddModal
         visible={modal}
         onCloseClick={onCloseClick}
+        type="cold"
       />
     </>
   );
