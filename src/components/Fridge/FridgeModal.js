@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {useForm} from "react-hook-form";
 import Button from "../common/Button";
-import FridgeModalFrom from "../Fridge/FridgeModalFrom";
+import FridgeModalForm from "./FridgeModalForm";
 
 // 회색 불투명 배경
 const Fullscreen = styled.div`
@@ -83,7 +83,7 @@ const FridgeModal = ({
         {type==='edit' &&(<h2>재료 {text}하기</h2>)}
         {/*냉장고 재료추가 폼*/}
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FridgeModalFrom register={register} errors={errors}/>
+          <FridgeModalForm register={register} errors={errors}/>
           {/*취소, 확인 버튼*/}
           <div className="modal_buttons">
             <StyledButton inverted={true} onClick={onCancel}>{cancelText}</StyledButton>

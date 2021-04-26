@@ -67,6 +67,7 @@ const StyledButton = styled(Button)`
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
   }
 `;
+//type 지정
 const textMap = {
   cold: '냉장',
   freeze: '냉동',

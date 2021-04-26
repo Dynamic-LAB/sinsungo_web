@@ -98,8 +98,7 @@ const StyledDropdown = styled.select`
   text-align: center;
 `;
 
-
-const FridgeModalFrom = ({register, errors}) => {
+const FridgeModalForm = ({register, errors}) => {
 
 
   return (
@@ -117,7 +116,13 @@ const FridgeModalFrom = ({register, errors}) => {
                 type="text"
                 id="i_name"
                 placeholder="재료명을 입력해주세요."
-                {...register("i_name", {required: "필수입력사항", maxLength: {value: 20, message: "20자까지만 입력 가능합니다"}})}
+                {...register("i_name", {
+                  required: "필수입력사항",
+                  maxLength: {
+                    value: 20,
+                    message: "20자까지만 입력 가능합니다"
+                  }
+                })}
               />
             </InputBlock>
 
@@ -179,5 +184,5 @@ const FridgeModalFrom = ({register, errors}) => {
   );
 }
 
-export default FridgeModalFrom;
+export default FridgeModalForm;
 

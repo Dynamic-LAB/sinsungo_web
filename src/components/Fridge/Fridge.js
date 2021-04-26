@@ -1,27 +1,24 @@
 import "./Fridge.css";
 import WhiteBox from "../common/WhiteBox";
 import styled from 'styled-components';
-import React, {useCallback, useRef, useState} from "react";
-import ColdAddButton from "./Cold/ColdAddButton";
-import FreezeAddButton from "./Freeze/FreezeAddButton";
-import FreshAddButton from "./Fresh/FreshAddButton";
-import RoomTempAddButton from "./RoomTemp/RoomTempAddButton";
-import SeasoningAddButton from "./Seasoning/SeasoningAddButton";
+import React, {useCallback, useState} from "react";
 import FridgeList from "./FridgeList";
+import FridgeAddButton from "./FridgeAddButton";
 //import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
-
+//유통기한 임박 재료 박스
 const WhiteBoxTop = styled(WhiteBox)`
   height: auto;
 `;
-
+//냉장고 칸 박스
 const WhiteBoxFridge = styled(WhiteBox)`
   height: 400px
 `;
-
+//음식재료 틀
 const IngredientBlock = styled.div`
   overflow-y: auto; //스크롤
 `;
+//보관상태 빨간색
 const Shelf_Red = styled.div`
   margin-right: 10px;
   padding: 0 10px 2px 10px;
@@ -34,6 +31,7 @@ const Shelf_Red = styled.div`
     font-size: 10px;
   }
 `;
+//보관상태 노란색
 const Shelf_Yellow = styled.div`
   margin-right: 10px;
   padding: 0 10px 2px 10px;
@@ -46,6 +44,7 @@ const Shelf_Yellow = styled.div`
     font-size: 10px;
   }
 `;
+
 const ItemTitle = styled.div`
   display: flex;
   padding: 10px 40px 10px 50px ;
@@ -122,7 +121,7 @@ const Fridge = () => {
               <div className="icon-cold"/>
               <h2>냉장</h2>
               <Spacer/>
-              <ColdAddButton type="cold" />
+              <FridgeAddButton type="cold"/>
             </div>
             <ItemTitle>
               <Item>재료명</Item>
@@ -130,7 +129,10 @@ const Fridge = () => {
               <Item>유통기한</Item>
               <Item>남은기한</Item>
             </ItemTitle>
-            <FridgeList ingredients={ingredients} onRemove={onRemove}/>
+            <IngredientBlock>
+              {/*재료*/}
+              <FridgeList ingredients={ingredients} onRemove={onRemove}/>
+            </IngredientBlock>
           </WhiteBoxFridge>
 
           <WhiteBoxFridge>
@@ -138,7 +140,7 @@ const Fridge = () => {
               <div className="icon-ice"/>
               <h2>냉동</h2>
               <Spacer/>
-              <FreezeAddButton/>
+              <FridgeAddButton type="freeze"/>
             </div>
             <ItemTitle>
               <Item>재료명</Item>
@@ -156,7 +158,7 @@ const Fridge = () => {
               <div className="icon-fresh"/>
               <h2>신선</h2>
               <Spacer/>
-              <FreshAddButton/>
+              <FridgeAddButton type="fresh"/>
             </div>
             <ItemTitle>
               <Item>재료명</Item>
@@ -174,7 +176,7 @@ const Fridge = () => {
               <div className="icon-room-temperature"/>
               <h2>상온</h2>
               <Spacer/>
-              <RoomTempAddButton/>
+              <FridgeAddButton type="temp"/>
             </div>
             <ItemTitle>
               <Item>재료명</Item>
@@ -192,7 +194,7 @@ const Fridge = () => {
               <div className="icon-seasoning"/>
               <h2>조미료/양념</h2>
               <Spacer/>
-              <SeasoningAddButton/>
+              <FridgeAddButton type="seasoning"/>
             </div>
             <ItemTitle>
               <Item>재료명</Item>
