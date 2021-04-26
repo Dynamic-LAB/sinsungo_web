@@ -1,19 +1,20 @@
 import "./Recipe.css";
-import Whitebox from "../common/WhiteBox"
+import WhiteBox from "../common/WhiteBox"
 import styled from 'styled-components';
 import TagBox from './TagBox';
 import { MdSearch} from 'react-icons/md';
 import RecipeCard from "./RecipeCard";
 import React, {useState, useCallback} from 'react';
 // import ice from "../../assets/ice.svg";
+
 const Box1=styled(Whitebox)`
 height:100%;
 font-weight:500;
 font-size:17px;
 `;
 const SearchBar=styled.input.attrs({
-	type: 'text',
-    placeholder:'검색어를 입력해주세요',
+  type: 'text',
+  placeholder:'검색어를 입력해주세요',
 })`
 font-size: 16px;
     width:100%;

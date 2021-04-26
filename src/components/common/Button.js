@@ -40,7 +40,7 @@ const buttonStyle = css`
             border: 2px solid #3C82D9;
             color: #3C82D9;
             &:hover {
-              background: #B4CEFE;
+              box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.125);
             }
           `};
 
