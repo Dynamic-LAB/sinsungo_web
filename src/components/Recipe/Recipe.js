@@ -7,7 +7,7 @@ import RecipeCard from "./RecipeCard";
 import React, {useState, useCallback} from 'react';
 // import ice from "../../assets/ice.svg";
 
-const Box1=styled(Whitebox)`
+const Box1=styled(WhiteBox)`
 height:100%;
 font-weight:500;
 font-size:17px;
