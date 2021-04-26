@@ -64,7 +64,6 @@ const Item = styled.div`
     font-size: 10px;
   }
 `;
-
 const FridgeItem = ({ingredient, onRemove}) => {
 
   const {id, nameF, countF, dateF, deadlineF} = ingredient;

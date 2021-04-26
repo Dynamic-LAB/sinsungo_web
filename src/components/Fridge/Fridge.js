@@ -10,6 +10,7 @@ import SeasoningAddButton from "./Seasoning/SeasoningAddButton";
 import FridgeList from "./FridgeList";
 //import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
+
 const WhiteBoxTop = styled(WhiteBox)`
   height: auto;
 `;

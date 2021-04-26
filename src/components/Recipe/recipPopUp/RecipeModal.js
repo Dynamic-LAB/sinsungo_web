@@ -18,8 +18,8 @@ const Fullscreen = styled.div`
 
 const ModalBlock = styled.div`
   background: #F6F6F6;
-  height: auto;
-  width: 350px;
+  height: 480px;
+  width: 750px;
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
@@ -38,7 +38,7 @@ const ModalBlock = styled.div`
 `;
 
 const StyledWhiteBox = styled(WhiteBox)`
-  height: 250px;
+  height: 380px;
   width: auto;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -57,20 +57,42 @@ const StyledButton = styled(Button)`
 `;
 
 
-const RecipeModal  = ({ props,visible,
-    confirmText = '확인',
-    cancelText = '취소',
-    title,
+const RecipeModal  = ({name,visible,
+    confirmText = '닫기',
+    cancelText = '식단추가',
+    moveText = '우리의식탁으로 이동',
     onConfirm,
-    onCancel,}) => {
+    onCancel}) => {
 if (!visible) return null;
 return(
 <Fullscreen>
   <ModalBlock>
-    <h2>{title}</h2>
-    <StyledWhiteBox/>
+    <h2>레시피 상세보기</h2>
+    <StyledWhiteBox>
+          <div
+          style={{
+            'textAlign':'center',
+            'marginTop':'20px',
+          }}
+          ><img src={process.env.PUBLIC_URL + '/img.jpg'} alt="오류" style={{'borderRadius':'10px', 'width':'200px'}} />
+          <div>요리명</div>
+          <div style={{
+                            'borderRadius':'10px',
+                             'height':'70%',
+                             'marginTop':'5px',
+                             'border': '1px dashed #bbb',
+                             'marginBottom':'10px',
+                             'padding':'10px'
+                        }}>
+          <div>설명</div>
+          </div>
+          </div>
+    </StyledWhiteBox>
     <div className="modal_buttons">
-    <StyledButton inverted={true}
+
+    <StyledButton  inverted={true}
+          onClick={onCancel}>{moveText}</StyledButton>
+    <StyledButton  inverted={true}
           onClick={onCancel}>{cancelText}</StyledButton>
     <StyledButton blueBtn
           onClick={onConfirm}>{confirmText}</StyledButton>
