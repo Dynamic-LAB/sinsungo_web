@@ -11,52 +11,6 @@ height:100%;
 font-weight:500;
 font-size:17px;
 `;
-const Box2=styled.div`
-margin:10px;
-height:100%;
-width:100%;
-display: flex;
-flex-direction: column;
-`;
-const Box3=styled(Whitebox)`
-padding:10px;
-margin-top:px;
-height:20px;
-width:96%;
-border-radius: 4px;
-box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.08);
-font-weight:700;
-color: #393939;
-font-size: 16px;
-`;
-
-const Box4=styled.div`
-padding:10px;
-margin-top:5px;
-height:60px;
-width:96%;
-flex: 1;
-font-weight: 500;
-color: #000000;
-font-size: 13px;
-@media only screen and (max-width: 978px) {
-  font-size: 15px;
-}
-`;
-
-const HasItem=styled.span`
-color: #3c82d9;
-`;
-const NoneItem=styled.span`
-color: #D93C3C;
-`;
-const Imgbox=styled.div`
- background:#ffffff;
-`;
-const OriImg=styled.img`
-width:160px; 
-border-radius: 10px;
-`;
 const SearchBar=styled.input.attrs({
 	type: 'text',
     placeholder:'검색어를 입력해주세요',
@@ -80,11 +34,11 @@ const Recipe = () => {
     const popUp=()=>{
         setModal(true);
     }
-    const CardSample = () => {
+   /* const CardSample = () => {
         const names = ['백숙', '치킨', '통닭', '바베큐','1','2','3','2','3','2','3','2','3'];
         const hasList = ['닭', '치즈', '양파'];
         const noneList = ['물', '얼음'];
-        /*const recipeList = names.map((name,index) =>
+        const recipeList = names.map((name,index) =>
          
             <div onClick={popUp} className="card" key={index}>
                    <div>{index}</div> 
@@ -106,9 +60,9 @@ const Recipe = () => {
             </div>
         </div>);
         
-        return (recipeList);*/
+        return (recipeList);
         
-      };
+      };*/
         return(
         <main>
             <div className="recipe__container">
@@ -143,7 +97,7 @@ const Recipe = () => {
                     noneList = {['물', '얼음']}
                     />
                       <RecipeCard
-                    name={'통닭'}
+                    name={ '통닭'}
                     hasList = {['닭', '치즈', '양파']}
                     noneList = {['물', '얼음']}
                     />
