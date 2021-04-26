@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import {MdAdd} from "react-icons/md";
-import FreezeAddModal from "./FreezeAddModal";
+import FridgeAddModal from "../FridgeAddModal";
 
 const AddButton = styled.button`
   display: flex;
@@ -30,9 +30,10 @@ const FreezeAddButton = () => {
       <AddButton onClick={onAddClick}>
         <MdAdd/>
       </AddButton>
-      <FreezeAddModal
+      <FridgeAddModal
         visible={modal}
         onCloseClick={onCloseClick}
+        type="freeze"
       />
     </>
   );

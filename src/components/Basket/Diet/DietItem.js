@@ -8,7 +8,7 @@ const DateBlock = styled.div`
   display: flex;
   padding: 5px;
   .diet_date {
-    margin-right: 8px;
+    margin-right: 5px;
   }
 `;
 const FoodBlock = styled.div`
@@ -33,34 +33,31 @@ const IngredientBlock = styled.div`
   }
 `;
 
-const DietItem = () => {
+const DietItem = (props) => {
   return(
     <ItemBlock>
       <DateBlock>
         <div className="diet_date">
-          2021년 04월 11일
+          {props.date}
         </div>
         <div className="diet_date_choice">
-          아침
+          {props.choice}
         </div>
         <div className="diet_date_menu">
-          메뉴는
+          {props.menu}
         </div>
       </DateBlock>
       <FoodBlock>
         <div className="diet_food">
-          음식1
-        </div>
-        <div className="diet_food">
-          음식2
+          {props.food.map((n,_i)=>{return n+(_i<props.food.length-1?', ':'')})}
         </div>
       </FoodBlock>
       <IngredientBlock>
         <div className="diet_main_ingredient">
-          주재료
+          {props.ingredient}
         </div>
         <div className="diet_main_ingredient_item">
-          멸치
+          {props.ingredient_item.map((n,_i)=>{return n+(_i<props.ingredient_item.length-1?', ':'')})}
         </div>
       </IngredientBlock>
 

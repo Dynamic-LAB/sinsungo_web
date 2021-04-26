@@ -6,9 +6,6 @@ import { MdSearch} from 'react-icons/md';
 import RecipeModal from "./recipPopUp/RecipeModal"
 import React, {useState, useCallback} from 'react';
 // import ice from "../../assets/ice.svg";
-const Box1=styled(Whitebox)`
-height:300px
-`;
 const Box2=styled.div`
 margin:10px;
 height:100%;
@@ -30,7 +27,7 @@ font-size: 16px;
 
 const Box4=styled.div`
 padding:10px;
-margin-top:5px;
+margin-top:1px;
 height:60px;
 width:96%;
 flex: 1;
@@ -49,31 +46,12 @@ color: #3c82d9;
 const NoneItem=styled.span`
 color: #D93C3C;
 `;
-const Imgbox=styled.div`
- background:#ffffff;
-`;
+
 const OriImg=styled.img`
 width:160px; 
 border-radius: 10px;
 `;
-const SearchBar=styled.input.attrs({
-	type: 'text',
-    placeholder:'검색어를 입력해주세요',
-})`
-font-size: 16px;
-    width:100%;
-    height: auto;
-    line-height: normal; 
-    padding: .8em .5em;
-    cursor: pointer;
-    border: none;
-    outline: none;
 
-    
-    @media only screen and (max-width: 978px) {
-        font-size: 20px;
-      }
-`;
 
 const RecipeCard = (props) => {
     const [modal, setModal] = useState(false);
@@ -96,7 +74,16 @@ const RecipeCard = (props) => {
             <div className="card_inner">
                 <OriImg src={process.env.PUBLIC_URL + '/img.jpg'} alt="오류"/>
                 <Box2>
-                    <Box3>{props.name}</Box3>
+                    <div style={{
+                        'marginLeft':'5px'
+
+                    }}>{props.name}</div>
+                    <hr style={{
+                             'marginTop':'5px',
+                             'borderTop': '1px dashed #bbb',
+                             'borderBottom': '1px dashed #fff'
+
+                        }}/>
                     <Box4>
                         <HasItem>냉장고 속 재료 │</HasItem> {props.hasList.map((n,_i)=>{return n+(_i<props.hasList.length-1?',':'')})}
                         <br></br>
@@ -106,7 +93,7 @@ const RecipeCard = (props) => {
             </div>
         </div>
         <RecipeModal
-                title={props.name}
+                name={props.name}
                 visible={modal}
                 onConfirm={onConfirm}
                 onCancel={onCancel}

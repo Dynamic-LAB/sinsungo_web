@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {MdAdd} from "react-icons/md";
 import DietModal from "./DietModal";
-import ColdModal from "../../Fridge/Cold/ColdModal";
 
 const AddButton = styled.button`
   display: flex;

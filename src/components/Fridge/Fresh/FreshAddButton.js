@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import {MdAdd} from "react-icons/md";
-import FreshAddModal from "./FreshAddModal";
+import FridgeAddModal from "../FridgeAddModal";
 
 const AddButton = styled.button`
   display: flex;
@@ -31,9 +31,10 @@ const FreshAddButton = () => {
       <AddButton onClick={onAddClick}>
         <MdAdd/>
       </AddButton>
-      <FreshAddModal
+      <FridgeAddModal
         visible={modal}
         onCloseClick={onCloseClick}
+        type="fresh"
       />
     </>
   );

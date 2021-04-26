@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
-import { MdFileDownload, MdClose } from "react-icons/md";
+import { MdClose } from "react-icons/md";
 import Button from "../../common/Button";
+import DietModalForm from "./DietModalForm";
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -22,7 +23,7 @@ const ModalBlock = styled.div`
   width: 450px;
   padding: 1rem;
   border-radius: 10px;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
   .modal_buttons {
     display: flex;
     justify-content: flex-end; //오른쪽 끝에 배치
@@ -40,16 +41,7 @@ const ModalTitle = styled.div`
     color: #5887F9;
     margin-left: 5px;
   }
-  .diet_save_button{
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: none;
-    margin-right: 15px;
-  }
+  
   .diet_close_button{
     display: flex;
     align-items: center;
@@ -92,10 +84,9 @@ const DietModal = ({
             <div className="diet_title_blue">추가</div>
           </h2>
           <Spacer/>
-          <div className="diet_save_button"><MdFileDownload/></div>
           <div className="diet_close_button" onClick={onCloseClick}><MdClose/></div>
         </ModalTitle>
-
+        <DietModalForm/>
         <div className="modal_buttons">
           <StyledButton inverted={true}
                         onClick={onCancel}>{cancelText}</StyledButton>

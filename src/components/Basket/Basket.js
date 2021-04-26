@@ -2,10 +2,9 @@ import React from "react";
 import "./Basket.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
-import {MdAdd} from "react-icons/md";
 import BasketRecommendItem from "./BasketRecommendItem";
 import BasketShoppingListItem from "./BasketShoppingListItem";
-import Diet from "./Diet/Diet";
+import DietCard from "./Diet/DietCard";
 import DietAddButton from "./Diet/DietAddButton";
 
 const WhiteBoxDiet = styled(WhiteBox)`
@@ -50,7 +49,7 @@ const Basket = () => {
                 <DietAddButton/>
               </BasketTitle>
               <DietBlock>
-                <Diet/>
+                <DietCard/>
               </DietBlock>
             </WhiteBoxDiet>
           </div>
