@@ -72,7 +72,7 @@ const textMap = {
   freeze: '냉동',
   fresh: '신선',
   temp: '실온',
-  seasoning: '조미료/양념'
+  seasoning: '조미료/양념',
 };
 
 const FridgeAddModal = ({

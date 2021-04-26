@@ -1,13 +1,14 @@
 import "./Fridge.css";
 import WhiteBox from "../common/WhiteBox";
 import styled from 'styled-components';
-import React from "react";
+import React, {useCallback, useRef, useState} from "react";
 import ColdAddButton from "./Cold/ColdAddButton";
 import FreezeAddButton from "./Freeze/FreezeAddButton";
 import FreshAddButton from "./Fresh/FreshAddButton";
 import RoomTempAddButton from "./RoomTemp/RoomTempAddButton";
 import SeasoningAddButton from "./Seasoning/SeasoningAddButton";
-import FridgeItem from "./FridgeItem";
+import FridgeList from "./FridgeList";
+//import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 const WhiteBoxTop = styled(WhiteBox)`
   height: auto;
@@ -46,20 +47,9 @@ const Shelf_Yellow = styled.div`
 `;
 const ItemTitle = styled.div`
   display: flex;
-  padding: 10px 30px;
+  padding: 10px 40px 10px 50px ;
   align-items: center;
   border-bottom: 1px solid #bbbbbb;
-  @media only screen and (max-width: 978px) {
-    padding: 10px 20px;
-  }
-`;
-
-const Item = styled.div`
-  display: flex;
-  flex: 1;
-  width: 40%;
-  align-items: center;
-  justify-content: center;
   font-weight: 700;
   color: #393939;
   font-size: 13px;
@@ -67,12 +57,47 @@ const Item = styled.div`
     font-size: 11px;
   }
 `;
-
+const Item = styled.div`
+  display: flex;
+  flex: 1;
+  width: 40%;
+  align-items: center;
+  justify-content: center;
+`;
+//간격띄우기
 const Spacer = styled.div`
   flex-grow: 1;
 `;
 
 const Fridge = () => {
+  //재료관리
+  const [ingredients,setIngredients] = useState([
+    {
+      id: 1,
+      nameF: '재료재료재료',
+      countF: "2",
+      dateF: "2021.04.01",
+      deadlineF: "4일",
+      checked: false,
+    },
+    {
+      id: 2,
+      nameF: '재료재료재료',
+      countF: "2",
+      dateF: "2021.04.01",
+      deadlineF: "4일",
+      checked: false,
+    },
+  ]);
+
+  //지우기 기능
+  const onRemove = useCallback(
+    id => {
+      setIngredients(ingredients.filter(ingredients => ingredients.id !==id));
+    },
+    [ingredients],
+  );
+
   return (
     <frigde>
       <div className="fridge__container">
@@ -96,7 +121,7 @@ const Fridge = () => {
               <div className="icon-cold"/>
               <h2>냉장</h2>
               <Spacer/>
-              <ColdAddButton type="cold"/>
+              <ColdAddButton type="cold" />
             </div>
             <ItemTitle>
               <Item>재료명</Item>
@@ -104,26 +129,7 @@ const Fridge = () => {
               <Item>유통기한</Item>
               <Item>남은기한</Item>
             </ItemTitle>
-            <IngredientBlock>
-              <FridgeItem
-                name="재료재료재료"
-                count="2"
-                date="2021.04.01"
-                deadline="4일"
-              />
-              <FridgeItem
-                name="재료재료재료"
-                count="2"
-                date="2021.04.01"
-                deadline="4일"
-              />
-              <FridgeItem
-                name="재료재료재료"
-                count="2"
-                date="2021.04.01"
-                deadline="4일"
-              />
-            </IngredientBlock>
+            <FridgeList ingredients={ingredients} onRemove={onRemove}/>
           </WhiteBoxFridge>
 
           <WhiteBoxFridge>
@@ -140,12 +146,7 @@ const Fridge = () => {
               <Item>남은기한</Item>
             </ItemTitle>
             <IngredientBlock>
-              <FridgeItem
-                name="재료재료재료"
-                count="2"
-                date="2021.04.01"
-                deadline="4일"
-              />
+
             </IngredientBlock>
           </WhiteBoxFridge>
 
@@ -163,12 +164,7 @@ const Fridge = () => {
               <Item>남은기한</Item>
             </ItemTitle>
             <IngredientBlock>
-              <FridgeItem
-                name="재료재료재료"
-                count="2"
-                date="2021.04.01"
-                deadline="4일"
-              />
+
             </IngredientBlock>
           </WhiteBoxFridge>
 
@@ -186,12 +182,7 @@ const Fridge = () => {
               <Item>남은기한</Item>
             </ItemTitle>
             <IngredientBlock>
-              <FridgeItem
-                name="재료재료재료"
-                count="2"
-                date="2021.04.01"
-                deadline="4일"
-              />
+
             </IngredientBlock>
           </WhiteBoxFridge>
 
@@ -209,12 +200,7 @@ const Fridge = () => {
               <Item>남은기한</Item>
             </ItemTitle>
             <IngredientBlock>
-              <FridgeItem
-                name="재료재료재료"
-                count="2"
-                date="2021.04.01"
-                deadline="4일"
-              />
+
             </IngredientBlock>
           </WhiteBoxFridge>
         </div>

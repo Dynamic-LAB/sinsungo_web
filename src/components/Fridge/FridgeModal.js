@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {useForm} from "react-hook-form";
 import Button from "../common/Button";
 import FridgeModalFrom from "../Fridge/FridgeModalFrom";
 
@@ -53,7 +54,8 @@ const textMap = {
   freeze: '냉동',
   fresh: '신선',
   temp: '실온',
-  seasoning: '조미료/양념'
+  seasoning: '조미료/양념',
+  edit: '수정',
 };
 
 const FridgeModal = ({
@@ -64,20 +66,30 @@ const FridgeModal = ({
                  onConfirm,
                  onCancel,
                }) => {
+  const {register, handleSubmit, formState: {errors}} = useForm();
+  const onSubmit = values => console.log(values);
   if (!visible) return null;
   const text = textMap[type];
+
 
   return (
     <Fullscreen>
       <ModalBlock>
-        <h2>{text} 재료 추가</h2>
+        {type==='cold' &&(<h2>{text} 재료 추가</h2>)}
+        {type==='freeze' &&(<h2>{text} 재료 추가</h2>)}
+        {type==='fresh' &&(<h2>{text} 재료 추가</h2>)}
+        {type==='temp' &&(<h2>{text} 재료 추가</h2>)}
+        {type==='seasoning' &&(<h2>{text} 재료 추가</h2>)}
+        {type==='edit' &&(<h2>재료 {text}하기</h2>)}
         {/*냉장고 재료추가 폼*/}
-        <FridgeModalFrom/>
-        {/*취소, 확인 버튼*/}
-        <div className="modal_buttons">
-          <StyledButton inverted={true} onClick={onCancel}>{cancelText}</StyledButton>
-          <StyledButton blueBtn onClick={onConfirm}>{confirmText}</StyledButton>
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FridgeModalFrom register={register} errors={errors}/>
+          {/*취소, 확인 버튼*/}
+          <div className="modal_buttons">
+            <StyledButton inverted={true} onClick={onCancel}>{cancelText}</StyledButton>
+            <StyledButton blueBtn onClick={onConfirm}>{confirmText}</StyledButton>
+          </div>
+        </form>
       </ModalBlock>
     </Fullscreen>
   );
