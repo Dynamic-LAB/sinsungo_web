@@ -104,6 +104,7 @@ const FridgeModalFrom = ({register, errors}) => {
 
   return (
     <>
+
       <StyledWhiteBox>
           <label>
             <FormTitle>
@@ -114,6 +115,7 @@ const FridgeModalFrom = ({register, errors}) => {
               <div className="icon_input"><MdRestaurant/></div>
               {/*재료입력*/}
               <StyledInput
+             
                 type="text"
                 id="i_name"
                 placeholder="재료명을 입력해주세요."
@@ -124,6 +126,7 @@ const FridgeModalFrom = ({register, errors}) => {
             <FormTitle>
               <div className="input_title">수량</div>
               {errors.i_amount && <div className="input_index">{errors.i_amount.message}</div>}
+   
             </FormTitle>
             <InputBlock>
               <div className="icon_input"><MdRestaurant/></div>
@@ -153,6 +156,7 @@ const FridgeModalFrom = ({register, errors}) => {
             <FormTitle>
               <div className="input_title">날짜</div>
               {errors.datePicker && <div className="input_index">{errors.datePicker.message}</div>}
+
             </FormTitle>
             <DateBlock>
               <div className="icon_input"><MdDateRange/></div>
@@ -174,6 +178,7 @@ const FridgeModalFrom = ({register, errors}) => {
               </StyledDropdown>
             </DateBlock>
           </label>
+          
       </StyledWhiteBox>
     </>
   );
