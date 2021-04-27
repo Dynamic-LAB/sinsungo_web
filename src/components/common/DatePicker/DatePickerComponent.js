@@ -16,6 +16,7 @@ const DatePickerComponent = () => {
         selected={startDate} //value
         minDate={new Date()} //선책할 수 있는 최소 날짜값 지정
         onChange={date => setStartDate(date)} //날짜를 선책하였을 때 실행될 함수
+        isClearable
         disabledKeyboardNavigation
         placeholderText="날짜를 입력하세요."
       />
