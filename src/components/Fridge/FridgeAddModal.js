@@ -92,6 +92,15 @@ const FridgeAddModal = ({
   };
   const onConfirm = () => {
     setModal(false);
+/*    
+    if(addBtn==0){
+      setModal(false)
+    }else if(addBtn==1){
+      if(errorChk==0){
+        setModal(false)
+      }
+    }
+*/
     // onAdd();
   }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled from 'styled-components';
 import {useForm} from "react-hook-form";
 import Button from "../common/Button";
@@ -83,7 +83,7 @@ const FridgeModal = ({
         {type==='edit' &&(<h2>재료 {text}하기</h2>)}
         {/*냉장고 재료추가 폼*/}
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FridgeModalFrom register={register} errors={errors}/>
+        <FridgeModalFrom register={register} errors={errors}/>
           {/*취소, 확인 버튼*/}
           <div className="modal_buttons">
             <StyledButton inverted={true} onClick={onCancel}>{cancelText}</StyledButton>

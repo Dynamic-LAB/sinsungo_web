@@ -132,6 +132,8 @@ const Fridge = () => {
             </ItemTitle>
             <FridgeList ingredients={ingredients} onRemove={onRemove}/>
           </WhiteBoxFridge>
+ 
+
 
           <WhiteBoxFridge>
             <div className="fridge__card_title">

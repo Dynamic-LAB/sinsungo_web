@@ -20,24 +20,27 @@ const App = () => {
     setSidebarOpen(false);
   }
   useEffect(()=>{
+    /*  Fetch 함수를 통한 서버 통신 예시
     seeUser()
       .then(res=> this.setState({customers:res}))
       .catch(err => console.log(err));
-      setSidebarOpen(true);
+      setSidebarOpen(true);*/
   });
+  /*  Fetch 함수를 통한 서버 통신 예시
   const addUser = async ()=>{
     const response = await fetch('/api/oauth2');
     const body = await response.json();
     return body;
   }
   const seeUser = async ()=>{
-    const response = await fetch('/api/oauth');
+    const response = await fetch('/api/customers');
     const body = await response.json();
     return body;
   }
-
+  }*/
   return(
       <>
+
         <Route component={Main} path="/" exact/>
         <Route component={LoginPage} path="/login" />
         <Route component={FridgePage} path="/fridge"/>

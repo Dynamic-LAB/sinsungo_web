@@ -3,15 +3,15 @@ function KaKaoLoginv(props){
   const key="8dc7de968135de9e418fd032222a598f";
   function newLogin(){
     window.Kakao.Auth.loginForm({
-      success: function(authObj) {
-        console.log("Kakao 토큰 정보", authObj);
-        const {access_token}=authObj;
+      success: function(response) {
+        //console.log("Kakao 토큰 정보(토큰을 통해 유저 정보 가져옴)",response);
+        const {access_token}=response;
         window.Kakao.API.request({
           url: "/v2/user/me",
           success: (res) => {
-            console.log("Kakao 사용자 정보", res);
-            const { id, properties : { nickname } } = res; 
-            props.GoToMain([access_token,id,nickname]);
+            //console.log("Kakao 사용자 정보", res);
+            //const { id, properties : { nickname } } = res; 
+            props.GoMain(res,'kakao');
             window.sessionStorage.setItem('id',1 );
           },
           fail: (err) => {

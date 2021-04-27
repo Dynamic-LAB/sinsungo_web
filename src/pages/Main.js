@@ -4,7 +4,7 @@ const Main = () => {
     return (
     <>
     <div>메인페이지</div>
-    <Link to="/recipe" className="logo">레시피</Link>
+    <Link to="/recipe" >레시피</Link>
     </>
     )
 };
