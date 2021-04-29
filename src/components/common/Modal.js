@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from "./Button";
-import FridgeModalForm from "../Fridge/FridgeModalForm";
 
 // 회색 불투명 배경
 const Fullscreen = styled.div`
@@ -64,8 +63,6 @@ const Modal = ({
     <Fullscreen>
       <ModalBlock>
         <h2>{title}</h2>
-        {/*냉장고 재료추가 폼*/}
-        <FridgeModalForm/>
         {/*취소, 확인 버튼*/}
         <div className="modal_buttons">
           <StyledButton inverted={true} onClick={onCancel}>{cancelText}</StyledButton>
