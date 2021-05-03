@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
-import { MdClose } from "react-icons/md";
+import { MdClose, MdSearch} from "react-icons/md";
 import Button from "../../common/Button";
-import DietModalForm from "./DietModalForm";
+import WhiteBox from "../../common/WhiteBox";
+import DietMenuTag from "./DietMenuTag";
+import DatePicker from "react-datepicker";
+import {ko} from "date-fns/esm/locale";
+
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -52,6 +56,79 @@ const ModalTitle = styled.div`
     background: none;
   }
 `;
+const StyledWhiteBox = styled(WhiteBox)`
+  height: auto;
+  width: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 8px 16px ;
+`;
+const DateBlock = styled.div`
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+`;
+const DateLeft = styled.div`
+  .basket-datepicker {
+    display: flex;
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+`;
+const DateRight = styled.div`
+  .basket-select {
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 16px;
+    -moz-appearance: none;
+    -webkit-appearance: none; //화살표 없애기 (for Safari, Chrome, Opera)
+    color: #3C82D9;
+    font-weight: bold;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  
+`;
+const MenuBlock = styled.div`
+  font-size: 16px;
+  align-items: center;
+  .diet_menu {
+    font-weight: bold;
+  }
+`;
+const IngredientBlock = styled.div`
+  font-size: 16px;
+  align-items: center;
+  .diet_ingredient{
+    font-weight: bold;
+  }
+`;
+const SearchBlock = styled.div`
+  display: flex;
+  padding: 5px;
+  align-items: center;
+  border-bottom: 1px solid black;
+`;
+const SearchInput = styled.input.attrs({
+  type: 'text',
+  placeholder: '사용할 재료명을 입력해주세요.',
+})`
+  border: none;
+  background: none;
+  outline: none;
+  width: 100%;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  margin-left: 10px;
+`;
+const ListBlock = styled.div`
+  overflow-y: auto; //스크롤
+`;
+
 const Spacer = styled.div`
   flex-grow: 1;
 `; // 제목 사이 공백
@@ -65,15 +142,22 @@ const StyledButton = styled(Button)`
     margin-left: 0.5rem;
   }
 `;
+const textMap = {
+  add: '추가',
+  edit: '수정',
+};
 const DietModal = ({
                      visible,
                      confirmText = '확인',
                      cancelText = '취소',
                      onConfirm,
                      onCancel,
-                     onCloseClick,
+                     type,
                    }) => {
+  const [startDate, setStartDate] = useState(new Date());
+
   if (!visible) return null;
+  const text = textMap[type];
 
   return (
     <Fullscreen>
@@ -81,12 +165,72 @@ const DietModal = ({
         <ModalTitle>
           <h2>
             식단
-            <div className="diet_title_blue">추가</div>
+            {type === 'add' && (<div>{text}</div>)}
+            {type === 'edit' && (<div>{text}</div>)}
           </h2>
-          <Spacer/>
-          <div className="diet_close_button" onClick={onCloseClick}><MdClose/></div>
+
         </ModalTitle>
-        <DietModalForm/>
+        <form>
+          <label>
+            {/*날짜박스*/}
+            <StyledWhiteBox>
+              <DateBlock>
+                <DateLeft>
+                  <DatePicker
+                    className="basket-datepicker" //클래스 명 지정
+                    dateFormat="yyyy 년 MM 월 dd 일" //날짜 형식 설정
+                    closeOnScroll={true} //스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
+                    locale={ko} //언어설정 기본값 영어
+                    selected={startDate} //value
+                    minDate={new Date()} //선책할 수 있는 최소 날짜값 지정
+                    onChange={date => setStartDate(date)} //날짜를 선책하였을 때 실행될 함수
+                    disabledKeyboardNavigation
+                    placeholderText="날짜를 입력하세요."
+                  />
+                </DateLeft>
+                <Spacer/>
+                <DateRight>
+                  {/*<div className="date_right">*/}
+                  {/*  아침 식단*/}
+                  {/*</div>*/}
+                  <select id="basket-select" className="basket-select">
+                    <option value="breakfast">아침</option>
+                    <option value="lunch">점심</option>
+                    <option value="dinner">저녁</option>
+                  </select>
+                  식단
+                </DateRight>
+              </DateBlock>
+            </StyledWhiteBox>
+          </label>
+          <label>
+            {/*메뉴박스*/}
+            <StyledWhiteBox>
+              <MenuBlock>
+                <div className="diet_menu">메뉴</div>
+                <DietMenuTag/>
+              </MenuBlock>
+            </StyledWhiteBox>
+          </label>
+          <label>
+            {/*재료박스*/}
+            <StyledWhiteBox>
+              <IngredientBlock>
+                <div className="diet_ingredient">재료</div>
+              </IngredientBlock>
+              <SearchBlock>
+                <MdSearch style={{'fontSize': '1.2rem'}}/>
+                <SearchInput/>
+              </SearchBlock>
+              <ListBlock>
+
+              </ListBlock>
+            </StyledWhiteBox>
+          </label>
+        </form>
+
+
+        {/*버튼*/}
         <div className="modal_buttons">
           <StyledButton inverted={true}
                         onClick={onCancel}>{cancelText}</StyledButton>

@@ -242,6 +242,7 @@ const FridgeModal = ({
                   form="fridgeForm"
                   {...register("i_unit")}
                 >
+                  <option value="piece">개</option>
                   <option value="g">g</option>
                   <option value="kg">kg</option>
                   <option value="ml">ml</option>

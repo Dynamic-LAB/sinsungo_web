@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Basket.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
 import BasketRecommendItem from "./BasketRecommendItem";
 import BasketShoppingListItem from "./BasketShoppingListItem";
 import DietCard from "./Diet/DietCard";
-import DietAddButton from "./Diet/DietAddButton";
+import BasketAddButton from "./BasketAddButton";
+import DietModal from "./Diet/DietModal";
 
 const WhiteBoxDiet = styled(WhiteBox)`
   height: 765px;
@@ -19,6 +20,7 @@ const BasketTitle = styled.div`
   align-items: center;
   font-size: 10px;
   border-bottom: 1px solid #C9C9C9;
+  
   @media only screen and (max-width: 978px) {
     padding: 10px 20px;
   }
@@ -36,6 +38,8 @@ const Spacer = styled.div`
 `;
 
 const Basket = () => {
+
+
   return (
     <basket>
       <div className="basket__container">
@@ -46,7 +50,7 @@ const Basket = () => {
                 <div className="icon-diet"/>
                 <h2>식단</h2>
                 <Spacer/>
-                <DietAddButton/>
+                <BasketAddButton type="diet"/>
               </BasketTitle>
               <DietBlock>
                 <DietCard/>
@@ -68,8 +72,10 @@ const Basket = () => {
             <WhiteBoxBasket>
               <BasketTitle>
                 <h2>장 볼 목록</h2>
+                <BasketAddButton type="list"/>
+
                 <Spacer/>
-                <div className="icon-list-check"/>
+
                 <div className="icon-share"/>
               </BasketTitle>
               <IngredientBlock>
