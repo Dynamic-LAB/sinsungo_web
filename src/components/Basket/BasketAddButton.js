@@ -51,6 +51,7 @@ const BasketAddButton = ({type}) => {
           visible={modal}
           onConfirm={onConfirm}
           onCancel={onCancel}
+          type="add"
         />
       )}
     </>

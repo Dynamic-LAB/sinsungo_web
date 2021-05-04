@@ -32,6 +32,7 @@ const ModalBlock = styled.div`
     font-size: 1.325rem;
     margin-top: 0;
   }
+
   h2 > div {
     color: #5887F9;
     margin-left: 5px;
@@ -131,6 +132,10 @@ const StyledButton = styled(Button)`
     margin-left: 0.5rem;
   }
 `;
+const textMap = {
+  add: '추가',
+  edit: '수정',
+};
 //폼 초기값
 const defaultValues = {
   list_name: "",
@@ -140,24 +145,27 @@ const defaultValues = {
 };
 
 const ListModal = ({
-                 visible,
-                 confirmText = '확인',
-                 cancelText = '취소',
-                 onConfirm,
-                 onCancel,
-               }) => {
+                     visible,
+                     confirmText = '확인',
+                     cancelText = '취소',
+                     onConfirm,
+                     onCancel,
+                     type,
+                   }) => {
   const {register, handleSubmit, formState: {errors}, control} = useForm({defaultValues});
   const onSubmit = (values) => {
     console.log(values);
   }
   if (!visible) return null;
+  const text = textMap[type];
 
   return (
     <Fullscreen>
       <ModalBlock>
         <h2>
           장바구니 목록
-          <div className="diet_title_blue">추가</div>
+          {type === 'add' && (<div>{text}</div>)}
+          {type === 'edit' && (<div>{text}</div>)}
         </h2>
         <form>
           <StyledWhiteBox>
@@ -174,7 +182,7 @@ const ListModal = ({
                   id="list_name"
                   autocomplete="off"
                   placeholder="재료명을 입력해주세요."
-                  {...register("list_name",{
+                  {...register("list_name", {
                     required: "필수입력사항",
                     maxLength: {
                       value: 20,
@@ -197,7 +205,7 @@ const ListModal = ({
                   id="list_amount"
                   autocomplete="off"
                   placeholder="수량을 입력해주세요."
-                  {...register("list_amount",{
+                  {...register("list_amount", {
                     required: "필수입력사항",
                     min: 0,
                   })}
@@ -226,7 +234,7 @@ const ListModal = ({
                   id="list_memo"
                   autocomplete="off"
                   placeholder="내용을 작성해주세요."
-                  {...register("list_memo",{
+                  {...register("list_memo", {
                     required: "필수입력사항",
                     maxLength: {
                       value: 20,

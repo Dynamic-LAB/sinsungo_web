@@ -1,15 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from "../common/Button";
+import {MdDelete} from "react-icons/md";
+
+const Remove = styled.div`
+  display: flex;
+  align-items: center; //세로중앙정렬
+  justify-content: center;
+  color: #dee2e6;
+  cursor: pointer;
+  font-size: 1.2rem;
+  opacity: 0;
+  &:hover {
+    color: #ff6b6b;
+  }
+`;
 
 const ItemBlock = styled.div`
   display: flex;
-  padding: 10px 30px;
+  padding: 10px 20px;
   align-items: center;
   font-size: 13px;
 
   &:nth-child(even) {
     background: #f8f9fa;
+  }
+  &:hover {
+    ${Remove} {
+      opacity: 1;
+    }
   }
   @media only screen and (max-width: 978px){
     padding: 10px 20px;
@@ -44,18 +63,23 @@ const AddButton = styled(Button)`
   width: 40%;
   align-items: center;
   justify-content: center;
+  text-align: center;
   border-radius: 20px;
-  padding: 0.35rem 0.75rem;
+  padding: 0.35rem 10px;
   @media only screen and (max-width: 978px){
     padding: 0.35rem 0.5rem;
   }
 `;
 
-const BasketRecommendItem = () => {
+const BasketRecommendItem = ({recommend, onRemove}) => {
+  const {recommend_id, recommend_name, recommend_index,}=recommend;
     return (
         <ItemBlock>
-            <Item>재료재료</Item>
-            <ItemIndex>부가설명</ItemIndex>
+          <Remove onClick={() => onRemove(recommend_id)}>
+            <MdDelete/>
+          </Remove>
+            <Item>{recommend_name}</Item>
+            <ItemIndex>{recommend_index}</ItemIndex>
             <Item><AddButton addBtn>추가</AddButton></Item>
         </ItemBlock>
     );

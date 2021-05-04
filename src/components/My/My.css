@@ -28,6 +28,7 @@ my {
     padding: 100px;
     float: left;
 }
+
 @media only screen and (max-width: 978px) {
     .recipe__cards {
         display: grid;
