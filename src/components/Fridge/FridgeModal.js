@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { getYear, getMonth } from "date-fns"; // getYear, getMonth
 import styled from 'styled-components';
 import {useForm, Controller} from "react-hook-form";
 import ReactDatePicker from "react-datepicker";
@@ -131,6 +132,13 @@ const FormTitle = styled.div`
     font-size: 10px;
     color: #FF2424;
   }
+  .input_index_drop {
+    display: flex;
+    padding-top: 10px;
+    
+    font-size: 10px;
+    color: #FF2424;
+  }
 `;
 const StyledDropdown = styled.select`
   width: 110px;
@@ -144,6 +152,7 @@ const StyledDropdown = styled.select`
   cursor: pointer;
   text-align: center;
 `;
+
 
 //type 지정
 const textMap = {
@@ -162,6 +171,7 @@ const defaultValues = {
   i_date: "",
   date_chose: "",
 };
+
 
 const FridgeModal = ({
                        visible,
@@ -223,6 +233,8 @@ const FridgeModal = ({
               <FormTitle>
                 <div className="input_title">수량</div>
                 {errors.i_amount && <div className="input_index">{errors.i_amount.message}</div>}
+                <Spacer/>
+                {errors.i_unit && <div className="input_index_drop">{errors.i_unit.message}</div>}
               </FormTitle>
               <InputBlock>
                 <div className="icon_input"><MdRestaurant/></div>
@@ -240,7 +252,9 @@ const FridgeModal = ({
                 <StyledDropdown
                   id="i_unit"
                   form="fridgeForm"
-                  {...register("i_unit")}
+                  {...register("i_unit", {
+                    required: "필수입력사항",
+                  })}
                 >
                   <option value="piece">개</option>
                   <option value="g">g</option>
@@ -254,13 +268,15 @@ const FridgeModal = ({
               <FormTitle>
                 <div className="input_title">날짜</div>
                 {errors.i_date && <div className="input_index">{errors.i_date.message}</div>}
+                <Spacer/>
+                {errors.date_chose && <div className="input_index_drop">{errors.date_chose.message}</div>}
               </FormTitle>
               <DateBlock>
                 <div className="icon_input"><MdDateRange/></div>
                 {/*날짜입력*/}
                 <Controller
                   control={control}
-                  name="Datepicker"
+                  name="ReactDatePicker"
                   render={({ field: { onChange, onBlur, value, ref } }) => (
                     <ReactDatePicker
                       className="input-datepicker" //클래스 명 지정
@@ -270,8 +286,12 @@ const FridgeModal = ({
                       locale={ko} //언어설정 한글
                       dateFormat="yyyy-MM-dd" //날짜 형식 설정
                       //isClearable //날짜 없애는 버튼
-                      minDate={new Date()} //선택할 수 있는 최소 날짜값 지정
                       placeholderText="날짜를 입력하세요."
+                      shouldCloseOnSelect={true}
+                      peekNextMonth
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
                     />
                   )}
                   {...register("i_date", {
@@ -283,7 +303,9 @@ const FridgeModal = ({
                 <StyledDropdown
                   id="date_chose"
                   form="fridgeForm"
-                  {...register("date_chose")}
+                  {...register("date_chose", {
+                    required: "필수입력사항",
+                  })}
                 >
                   <option value="date">유통기한</option>
                   <option value="manufacture">제조일자</option>
