@@ -6,14 +6,12 @@ function GoogleButton(props){
     let [isLogin,LoginChange]= useState("");
 
     const onSuccess = async(response) => {
-    	console.log(response);
-        const { googleId,tokenId, profileObj : { email, name } } = response; 
+    	//console.log("구글 로그인 정보",response);
+        //const { googleId,tokenId, profileObj : { email, name } } = response; 
         //LoginChange([googleId,email,name]);
         window.sessionStorage.setItem('id',1 );
-        props.GoToMain([googleId,email,name]);
+        props.GoMain(response,'google');
         }
-        
-
     const onFailure = (error) => {
         console.log(error);
         window.sessionStorage.setItem('id',2 );
