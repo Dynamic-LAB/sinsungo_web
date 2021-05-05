@@ -1,11 +1,13 @@
-import React from "react";
+import React, {useCallback, useState} from "react";
 import "./Basket.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
 import BasketRecommendItem from "./BasketRecommendItem";
 import BasketShoppingListItem from "./BasketShoppingListItem";
 import DietCard from "./Diet/DietCard";
-import DietAddButton from "./Diet/DietAddButton";
+import BasketAddButton from "./BasketAddButton";
+import DietModal from "./Diet/DietModal";
+import BasketList from "./BasketList";
 
 const WhiteBoxDiet = styled(WhiteBox)`
   height: 765px;
@@ -19,6 +21,7 @@ const BasketTitle = styled.div`
   align-items: center;
   font-size: 10px;
   border-bottom: 1px solid #C9C9C9;
+
   @media only screen and (max-width: 978px) {
     padding: 10px 20px;
   }
@@ -36,6 +39,46 @@ const Spacer = styled.div`
 `;
 
 const Basket = () => {
+
+  // 재료추천
+  const [recommends, setRecommends] = useState([
+    {
+      recommend_id: 1,
+      recommend_name: '추천재료1',
+      recommend_index: '부가설명',
+    },
+
+  ]);
+  //장보기 목록
+  const [lists, setLists] = useState([
+    {
+      shopping_id: 1,
+      shopping_name: '재료1',
+      shopping_index: '부가설명',
+      shopping_count: 0,
+    },
+    {
+      shopping_id: 2,
+      shopping_name: '재료2',
+      shopping_index: '부가설명',
+      shopping_count: 0,
+    },
+  ]);
+  //지우기 기능
+  const onRemoveList = useCallback(
+    id => {
+      setLists(lists.filter(lists => lists.shopping_id !==id));
+    },
+    [lists],
+  );
+  //지우기 기능
+  const onRemoveRecommend = useCallback(
+    id => {
+      setRecommends(recommends.filter(recommends => recommends.recommend_id !==id));
+    },
+    [lists],
+  );
+
   return (
     <basket>
       <div className="basket__container">
@@ -46,7 +89,7 @@ const Basket = () => {
                 <div className="icon-diet"/>
                 <h2>식단</h2>
                 <Spacer/>
-                <DietAddButton/>
+                <BasketAddButton type="diet"/>
               </BasketTitle>
               <DietBlock>
                 <DietCard/>
@@ -60,7 +103,7 @@ const Basket = () => {
                 <h2>이 재료도 추가하시는건 어때요?</h2>
               </BasketTitle>
               <IngredientBlock>
-                <BasketRecommendItem/>
+                <BasketList recommends={recommends} lists={lists} onRemove={onRemoveRecommend} type="recommend"/>
               </IngredientBlock>
             </WhiteBoxBasket>
           </div>
@@ -68,12 +111,13 @@ const Basket = () => {
             <WhiteBoxBasket>
               <BasketTitle>
                 <h2>장 볼 목록</h2>
+                <BasketAddButton type="list"/>
                 <Spacer/>
-                <div className="icon-list-check"/>
                 <div className="icon-share"/>
               </BasketTitle>
               <IngredientBlock>
-                <BasketShoppingListItem/>
+                {/*<BasketShoppingListItem/>*/}
+                <BasketList recommends={recommends} lists={lists} onRemove={onRemoveList} type="list"/>
               </IngredientBlock>
             </WhiteBoxBasket>
           </div>
