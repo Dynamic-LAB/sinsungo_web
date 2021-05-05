@@ -1,4 +1,4 @@
-.icon_member {
+.icon_master {
     position: relative;
     left: 25px;
     bottom: 50px;
@@ -7,4 +7,36 @@
     height: 25px;
     background: no-repeat url("../../../../assets/icon_master_circle_24px.svg");
     background-size: 30px 30px;
+}
+.icon_my_master {
+    position: relative;
+    left: 33px;
+    bottom: 55px;
+    z-index: 20;
+    width: 25px;
+    height: 25px;
+    background: no-repeat url("../../../../assets/icon_master_circle_24px.svg");
+    background-size: 30px 30px;
+}
+.icon_remove {
+    position: relative;
+    left: 25px;
+    bottom: 50px;
+    z-index: 20;
+    width: 25px;
+    height: 25px;
+    background: no-repeat url("../../../../assets/icon_remove_circle_red_24px.svg");
+    background-size: 30px 30px;
+    cursor: pointer;
+}
+.icon_my_remove {
+    position: relative;
+    left: 33px;
+    bottom: 55px;
+    z-index: 20;
+    width: 25px;
+    height: 25px;
+    background: no-repeat url("../../../../assets/icon_remove_circle_red_24px.svg");
+    background-size: 30px 30px;
+    cursor: pointer;
 }

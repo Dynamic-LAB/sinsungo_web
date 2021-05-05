@@ -1,11 +1,18 @@
-import React from 'react';
+import React , { useState } from 'react';
 import KakaoLoginv from '../components/KakaoLoginv';
 import GoogleButton from '../components/GoogleButton'
 import logo from '../assets/Pnglogo.png'
+import UserLoginOrSignup from "../components/ForServer/UserLoginOrSignup"
+
 
 const LoginPage = (props) => {
-    function GoMain(e){
-        props.history.push({pathname:'/Main',state:{User:e}}) 
+
+    const [loginInfo,setLoginInfo]=useState(0);
+    function GoMain(e,type){
+    setLoginInfo([type,e]);
+    }
+    function success(){
+         props.history.push({pathname:'/Fridge',state:{User:loginInfo[1]}})
     }
     return(
         <>
@@ -14,11 +21,12 @@ const LoginPage = (props) => {
     top: '30%',
     left: '36%',
     }}>
+            <UserLoginOrSignup loginInfo={loginInfo} success={success}/>
             <img src={logo}  />
             <div style={{marginTop:'120px', float:'right'}}> 
-            <KakaoLoginv GoToMain={GoMain}></KakaoLoginv>
+            <KakaoLoginv GoMain={GoMain}></KakaoLoginv>
             <div style={{ height:'5px'}}></div>
-            <GoogleButton GoToMain={GoMain} ></GoogleButton>
+            <GoogleButton GoMain={GoMain} ></GoogleButton>
             </div>
             </div>
         </>

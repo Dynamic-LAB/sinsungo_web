@@ -1,25 +1,28 @@
 import "./Fridge.css";
 import WhiteBox from "../common/WhiteBox";
 import styled from 'styled-components';
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useRef, useState} from "react";
+import ColdAddButton from "./Cold/ColdAddButton";
+import FreezeAddButton from "./Freeze/FreezeAddButton";
+import FreshAddButton from "./Fresh/FreshAddButton";
+import RoomTempAddButton from "./RoomTemp/RoomTempAddButton";
+import SeasoningAddButton from "./Seasoning/SeasoningAddButton";
 import FridgeList from "./FridgeList";
-import FridgeAddButton from "./FridgeAddButton";
 import GetIngredientByRefrigratorId from "../ForServer/GetIngredientByRefrigratorId";
 //import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
-//유통기한 임박 재료 박스
+
 const WhiteBoxTop = styled(WhiteBox)`
   height: auto;
 `;
-//냉장고 칸 박스
+
 const WhiteBoxFridge = styled(WhiteBox)`
   height: 400px
 `;
-//음식재료 틀
+
 const IngredientBlock = styled.div`
   overflow-y: auto; //스크롤
 `;
-//보관상태 빨간색
 const Shelf_Red = styled.div`
   margin-right: 10px;
   padding: 0 10px 2px 10px;
@@ -32,7 +35,6 @@ const Shelf_Red = styled.div`
     font-size: 10px;
   }
 `;
-//보관상태 노란색
 const Shelf_Yellow = styled.div`
   margin-right: 10px;
   padding: 0 10px 2px 10px;
@@ -45,7 +47,6 @@ const Shelf_Yellow = styled.div`
     font-size: 10px;
   }
 `;
-
 const ItemTitle = styled.div`
   display: flex;
   padding: 10px 40px 10px 50px ;
@@ -123,7 +124,7 @@ const Fridge = (props) => {
               <div className="icon-cold"/>
               <h2>냉장</h2>
               <Spacer/>
-              <FridgeAddButton type="cold"/>
+              <ColdAddButton type="cold" />
             </div>
             <ItemTitle>
               <Item>재료명</Item>
@@ -131,18 +132,17 @@ const Fridge = (props) => {
               <Item>유통기한</Item>
               <Item>남은기한</Item>
             </ItemTitle>
-            <IngredientBlock>
-              {/*재료*/}
-              <FridgeList ingredients={ingredients} onRemove={onRemove}/>
-            </IngredientBlock>
+            <FridgeList ingredients={ingredients} onRemove={onRemove}/>
           </WhiteBoxFridge>
+ 
+
 
           <WhiteBoxFridge>
             <div className="fridge__card_title">
               <div className="icon-ice"/>
               <h2>냉동</h2>
               <Spacer/>
-              <FridgeAddButton type="freeze"/>
+              <FreezeAddButton/>
             </div>
             <ItemTitle>
               <Item>재료명</Item>
@@ -160,7 +160,7 @@ const Fridge = (props) => {
               <div className="icon-fresh"/>
               <h2>신선</h2>
               <Spacer/>
-              <FridgeAddButton type="fresh"/>
+              <FreshAddButton/>
             </div>
             <ItemTitle>
               <Item>재료명</Item>
@@ -178,7 +178,7 @@ const Fridge = (props) => {
               <div className="icon-room-temperature"/>
               <h2>상온</h2>
               <Spacer/>
-              <FridgeAddButton type="temp"/>
+              <RoomTempAddButton/>
             </div>
             <ItemTitle>
               <Item>재료명</Item>
@@ -196,7 +196,7 @@ const Fridge = (props) => {
               <div className="icon-seasoning"/>
               <h2>조미료/양념</h2>
               <Spacer/>
-              <FridgeAddButton type="seasoning"/>
+              <SeasoningAddButton/>
             </div>
             <ItemTitle>
               <Item>재료명</Item>

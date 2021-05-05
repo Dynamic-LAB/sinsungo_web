@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 const Main = () => {
     return (
     <>
-    <div>메인페이지</div>
-    <Link to="/recipe" className="logo">레시피</Link>
+    <div>개발을 위한 빠른 이동메뉴</div>
+    <hr></hr>
+    
+    <Link to="/fridge" >냉장고</Link><hr></hr>
+    <Link to="/" >로그인</Link><hr></hr>
+    <Link to="/recipe" >레시피</Link><hr></hr>
     </>
     )
 };

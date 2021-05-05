@@ -59,7 +59,7 @@ const Right = () => {
                             <MemberAddButton/>
                         </div>
                         <div className="r_card_inner">
-                            <Member/>
+                            <Member type='right'/>
                         </div>
                     </WhiteBoxMember>
                 </div>

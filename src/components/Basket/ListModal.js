@@ -1,13 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import {useForm, Controller} from "react-hook-form";
-import ReactDatePicker from "react-datepicker";
-import {MdRestaurant, MdDateRange} from "react-icons/md";
 import Button from "../common/Button";
+import {useForm} from "react-hook-form";
+import {MdRestaurant, MdAssignment} from "react-icons/md";
 import WhiteBox from "../common/WhiteBox";
-import {ko} from "date-fns/esm/locale";
-import "react-datepicker/dist/react-datepicker.css";
-import "./Fridge.css";
 
 // 회색 불투명 배경
 const Fullscreen = styled.div`
@@ -32,26 +28,21 @@ const ModalBlock = styled.div`
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
 
   h2 {
-    font-size: 1.5rem;
+    display: flex;
+    font-size: 1.325rem;
     margin-top: 0;
-    margin-bottom: 1rem;
+  }
+
+  h2 > div {
+    color: #5887F9;
+    margin-left: 5px;
   }
 
   .modal_buttons {
     display: flex;
     justify-content: flex-end;
   }
-`;
 
-const StyledButton = styled(Button)`
-  height: 2rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  padding: 0.25rem 1.25rem;
-
-  & + & {
-    margin-left: 0.5rem;
-  }
 `;
 //폼 스타일
 const StyledWhiteBox = styled(WhiteBox)`
@@ -75,19 +66,23 @@ const InputBlock = styled.div`
     margin-left: 20px;
   }
 `;
-const DateBlock = styled.div`
+const FormTitle = styled.div`
   display: flex;
   align-items: center;
-  font-size: 0.8rem;
 
-  .icon_input {
+  .input_title {
     display: flex;
-    font-size: 1.2rem;
-    margin-right: 10px;
+    padding-top: 10px;
+    font-size: 15px;
   }
-`;
-const Spacer = styled.div`
-  flex-grow: 1;
+
+  .input_index {
+    display: flex;
+    padding-top: 10px;
+    margin-left: 15px;
+    font-size: 10px;
+    color: #FF2424;
+  }
 `;
 const StyledInput = styled.input`
   font-size: 0.75rem;
@@ -114,24 +109,6 @@ const StyledAmountInput = styled.input`
   text-align: center;
   margin-right: 12px;
 `;
-const FormTitle = styled.div`
-  display: flex;
-  align-items: center;
-
-  .input_title {
-    display: flex;
-    padding-top: 10px;
-    font-size: 15px;
-  }
-
-  .input_index {
-    display: flex;
-    padding-top: 10px;
-    margin-left: 15px;
-    font-size: 10px;
-    color: #FF2424;
-  }
-`;
 const StyledDropdown = styled.select`
   width: 110px;
   display: flex;
@@ -145,70 +122,67 @@ const StyledDropdown = styled.select`
   text-align: center;
 `;
 
-//type 지정
+const StyledButton = styled(Button)`
+  height: 2rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  padding: 0.25rem 1.25rem;
+
+  & + & {
+    margin-left: 0.5rem;
+  }
+`;
 const textMap = {
-  cold: '냉장',
-  freeze: '냉동',
-  fresh: '신선',
-  temp: '실온',
-  seasoning: '조미료/양념',
+  add: '추가',
   edit: '수정',
 };
 //폼 초기값
 const defaultValues = {
-  i_name: "",
-  i_amount: "",
-  i_unit: "",
-  i_date: "",
-  date_chose: "",
+  list_name: "",
+  list_amount: "",
+  list_unit: "",
+  list_memo: "",
 };
 
-const FridgeModal = ({
-                       visible,
-                       type,
-                       confirmText = '확인',
-                       cancelText = '취소',
-                       onConfirm,
-                       onCancel,
-                       onCloseClick,
-                     }) => {
+const ListModal = ({
+                     visible,
+                     confirmText = '확인',
+                     cancelText = '취소',
+                     onConfirm,
+                     onCancel,
+                     type,
+                   }) => {
   const {register, handleSubmit, formState: {errors}, control} = useForm({defaultValues});
   const onSubmit = (values) => {
     console.log(values);
   }
-
-
   if (!visible) return null;
   const text = textMap[type];
 
-
   return (
-    <Fullscreen >
+    <Fullscreen>
       <ModalBlock>
-        {type === 'cold' && (<h2>{text} 재료 추가</h2>)}
-        {type === 'freeze' && (<h2>{text} 재료 추가</h2>)}
-        {type === 'fresh' && (<h2>{text} 재료 추가</h2>)}
-        {type === 'temp' && (<h2>{text} 재료 추가</h2>)}
-        {type === 'seasoning' && (<h2>{text} 재료 추가</h2>)}
-        {type === 'edit' && (<h2>재료 {text}하기</h2>)}
-
-        {/*냉장고 재료추가 폼*/}
+        <h2>
+          장바구니 목록
+          {type === 'add' && (<div>{text}</div>)}
+          {type === 'edit' && (<div>{text}</div>)}
+        </h2>
         <form>
           <StyledWhiteBox>
+            {/*재료입력*/}
             <label>
-              {/*재료입력*/}
               <FormTitle>
                 <div className="input_title">재료</div>
-                {errors.i_name && <div className="input_index">{errors.i_name.message}</div>}
+                {errors.list_name && <div className="input_index">{errors.list_name.message}</div>}
               </FormTitle>
               <InputBlock>
                 <div className="icon_input"><MdRestaurant/></div>
                 <StyledInput
                   type="text"
-                  id="i_name"
+                  id="list_name"
                   autocomplete="off"
                   placeholder="재료명을 입력해주세요."
-                  {...register("i_name", {
+                  {...register("list_name", {
                     required: "필수입력사항",
                     maxLength: {
                       value: 20,
@@ -218,29 +192,27 @@ const FridgeModal = ({
                 />
               </InputBlock>
             </label>
+            {/*수량입력*/}
             <label>
-              {/*수량입력*/}
               <FormTitle>
                 <div className="input_title">수량</div>
-                {errors.i_amount && <div className="input_index">{errors.i_amount.message}</div>}
+                {errors.list_amount && <div className="input_index">{errors.list_amount.message}</div>}
               </FormTitle>
               <InputBlock>
                 <div className="icon_input"><MdRestaurant/></div>
                 <StyledAmountInput
                   type="number"
-                  id="i_amount"
+                  id="list_amount"
                   autocomplete="off"
                   placeholder="수량을 입력해주세요."
-                  {...register("i_amount", {
+                  {...register("list_amount", {
                     required: "필수입력사항",
                     min: 0,
                   })}
                 />
-                {/*단위선택*/}
                 <StyledDropdown
-                  id="i_unit"
-                  form="fridgeForm"
-                  {...register("i_unit")}
+                  id="list_unit"
+                  {...register("list_unit")}
                 >
                   <option value="piece">개</option>
                   <option value="g">g</option>
@@ -249,54 +221,34 @@ const FridgeModal = ({
                 </StyledDropdown>
               </InputBlock>
             </label>
+            {/*메모입력*/}
             <label>
-              {/*날짜입력*/}
               <FormTitle>
-                <div className="input_title">날짜</div>
-                {errors.i_date && <div className="input_index">{errors.i_date.message}</div>}
+                <div className="input_title">메모</div>
+                {errors.list_memo && <div className="input_index">{errors.list_memo.message}</div>}
               </FormTitle>
-              <DateBlock>
-                <div className="icon_input"><MdDateRange/></div>
-                {/*날짜입력*/}
-                <Controller
-                  control={control}
-                  name="Datepicker"
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
-                    <ReactDatePicker
-                      className="input-datepicker" //클래스 명 지정
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      selected={value}
-                      locale={ko} //언어설정 한글
-                      dateFormat="yyyy-MM-dd" //날짜 형식 설정
-                      //isClearable //날짜 없애는 버튼
-                      minDate={new Date()} //선택할 수 있는 최소 날짜값 지정
-                      placeholderText="날짜를 입력하세요."
-                    />
-                  )}
-                  {...register("i_date", {
+              <InputBlock>
+                <div className="icon_input"><MdAssignment/></div>
+                <StyledInput
+                  type="text"
+                  id="list_memo"
+                  autocomplete="off"
+                  placeholder="내용을 작성해주세요."
+                  {...register("list_memo", {
                     required: "필수입력사항",
+                    maxLength: {
+                      value: 20,
+                      message: "20자까지만 입력 가능합니다"
+                    }
                   })}
                 />
-                <Spacer/>
-                {/*방법선택*/}
-                <StyledDropdown
-                  id="date_chose"
-                  form="fridgeForm"
-                  {...register("date_chose")}
-                >
-                  <option value="date">유통기한</option>
-                  <option value="manufacture">제조일자</option>
-                  <option value="storage">보관일</option>
-                </StyledDropdown>
-              </DateBlock>
+              </InputBlock>
             </label>
           </StyledWhiteBox>
         </form>
         {/*취소, 확인 버튼*/}
         <div className="modal_buttons">
           <StyledButton inverted={true} onClick={onCancel}>{cancelText}</StyledButton>
-          {/*확인버튼 누르면 모달 폼 닫히는 것 구현 안됨*/}
           <StyledButton blueBtn onClick={handleSubmit(onSubmit)}>{confirmText}</StyledButton>
         </div>
       </ModalBlock>
@@ -304,4 +256,4 @@ const FridgeModal = ({
   );
 }
 
-export default FridgeModal;
+export default ListModal;
