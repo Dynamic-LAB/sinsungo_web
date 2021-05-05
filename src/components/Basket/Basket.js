@@ -65,9 +65,16 @@ const Basket = () => {
     },
   ]);
   //지우기 기능
-  const onRemove = useCallback(
+  const onRemoveList = useCallback(
     id => {
       setLists(lists.filter(lists => lists.shopping_id !==id));
+    },
+    [lists],
+  );
+  //지우기 기능
+  const onRemoveRecommend = useCallback(
+    id => {
+      setRecommends(recommends.filter(recommends => recommends.recommend_id !==id));
     },
     [lists],
   );
@@ -96,7 +103,7 @@ const Basket = () => {
                 <h2>이 재료도 추가하시는건 어때요?</h2>
               </BasketTitle>
               <IngredientBlock>
-                <BasketList recommends={recommends} lists={lists} onRemove={onRemove} type="recommend"/>
+                <BasketList recommends={recommends} lists={lists} onRemove={onRemoveRecommend} type="recommend"/>
               </IngredientBlock>
             </WhiteBoxBasket>
           </div>
@@ -110,7 +117,7 @@ const Basket = () => {
               </BasketTitle>
               <IngredientBlock>
                 {/*<BasketShoppingListItem/>*/}
-                <BasketList recommends={recommends} lists={lists} onRemove={onRemove} type="list"/>
+                <BasketList recommends={recommends} lists={lists} onRemove={onRemoveList} type="list"/>
               </IngredientBlock>
             </WhiteBoxBasket>
           </div>
