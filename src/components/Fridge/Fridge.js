@@ -8,6 +8,7 @@ import FreshAddButton from "./Fresh/FreshAddButton";
 import RoomTempAddButton from "./RoomTemp/RoomTempAddButton";
 import SeasoningAddButton from "./Seasoning/SeasoningAddButton";
 import FridgeList from "./FridgeList";
+import GetIngredientByRefrigratorId from "../ForServer/GetIngredientByRefrigratorId";
 //import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 
@@ -70,7 +71,7 @@ const Spacer = styled.div`
   flex-grow: 1;
 `;
 
-const Fridge = () => {
+const Fridge = (props) => {
   //재료관리
   const [ingredients,setIngredients] = useState([
     {
@@ -101,6 +102,7 @@ const Fridge = () => {
 
   return (
     <frigde>
+      <GetIngredientByRefrigratorId userInfo={props.userInfo} setIngredients={setIngredients}/>
       <div className="fridge__container">
         <div className="shelf_life">
           <WhiteBoxTop>

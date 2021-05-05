@@ -4,13 +4,15 @@ import GoogleButton from '../components/GoogleButton'
 import logo from '../assets/Pnglogo.png'
 import UserLoginOrSignup from "../components/ForServer/UserLoginOrSignup"
 
+
 const LoginPage = (props) => {
+
     const [loginInfo,setLoginInfo]=useState(0);
     function GoMain(e,type){
     setLoginInfo([type,e]);
     }
     function success(){
-        props.history.push({pathname:'/Fridge',state:{User:setLoginInfo[1]}})
+         props.history.push({pathname:'/Fridge',state:{User:loginInfo[1]}})
     }
     return(
         <>

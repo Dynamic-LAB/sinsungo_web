@@ -40,10 +40,9 @@ const App = () => {
   }*/
   return(
       <>
-
-        <Route component={Main} path="/" exact/>
-        <Route component={LoginPage} path="/login" />
+        <Route component={LoginPage} path="/" exact/>
         <Route component={FridgePage} path="/fridge"/>
+        <Route component={Main} path="/Main"/>
         <Route component={ShoppingBasketPage} path="/basket"/>
         <Route component={RecipePage} path="/recipe"/>
         <Route component={MyPage} path="/my" />
