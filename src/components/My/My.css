@@ -18,14 +18,14 @@ my {
 }
 .bar_title{
     font-size: 25px;
-    border-bottom: 1px solid #C9C9C9;
+    border-bottom: 1px solid black;
     padding-bottom: 30px;
     margin-left: 220px;
 }
 .my_menu_bar {
-    background: #ffffff;
-    border: #C9C9C9 solid 1px;
-    padding: 100px;
+    min-width: 11rem;
+    background: #f6f6f6;
+    border-top: 1px solid #c9c9c9;
     float: left;
 }
 

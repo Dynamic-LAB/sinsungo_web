@@ -27,15 +27,6 @@
     align-items: center;
     padding: 7px;
 }
-.navbar__right > a {
-    margin-left: 6px;
-    text-decoration: none;
-}
-.navbar__right > a > i {
-    color: #393939;
-    font-size: 30px;
-    padding: 6px;
-}
 .user_name {
     display: flex;
     justify-content: center;
