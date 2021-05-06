@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import { MdClose, MdSearch} from "react-icons/md";
+import {MdSearch} from "react-icons/md";
 import Button from "../../common/Button";
 import WhiteBox from "../../common/WhiteBox";
 import DietMenuTag from "./DietMenuTag";
@@ -155,6 +155,10 @@ const DietModal = ({
                      type,
                    }) => {
   const [startDate, setStartDate] = useState(new Date());
+  const onSubmit = (values) => {
+    console.log(values);
+    onConfirm();
+  };
 
   if (!visible) return null;
   const text = textMap[type];

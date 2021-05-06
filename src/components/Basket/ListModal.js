@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import styled from 'styled-components';
 import Button from "../common/Button";
 import {useForm} from "react-hook-form";
@@ -132,6 +132,9 @@ const StyledButton = styled(Button)`
     margin-left: 0.5rem;
   }
 `;
+const Spacer = styled.div`
+  flex-grow: 1;
+`;
 const textMap = {
   add: '추가',
   edit: '수정',
@@ -152,10 +155,18 @@ const ListModal = ({
                      onCancel,
                      type,
                    }) => {
-  const {register, handleSubmit, formState: {errors}, control} = useForm({defaultValues});
+  const {register, handleSubmit, formState: {errors}, reset} = useForm({defaultValues});
+
+  const onNotSubmit = () =>{
+    onCancel();
+    reset();
+  };
   const onSubmit = (values) => {
     console.log(values);
-  }
+    onConfirm();
+    reset();
+  };
+
   if (!visible) return null;
   const text = textMap[type];
 
@@ -197,6 +208,8 @@ const ListModal = ({
               <FormTitle>
                 <div className="input_title">수량</div>
                 {errors.list_amount && <div className="input_index">{errors.list_amount.message}</div>}
+                <Spacer/>
+                {errors.list_unit && <div className="input_index">{errors.list_unit.message}</div>}
               </FormTitle>
               <InputBlock>
                 <div className="icon_input"><MdRestaurant/></div>
@@ -207,12 +220,17 @@ const ListModal = ({
                   placeholder="수량을 입력해주세요."
                   {...register("list_amount", {
                     required: "필수입력사항",
-                    min: 0,
+                    min: {
+                      value:0,
+                      message: '0 이상 입력해주세요'
+                    }
                   })}
                 />
                 <StyledDropdown
                   id="list_unit"
-                  {...register("list_unit")}
+                  {...register("list_unit", {
+                    required: "필수입력사항",
+                  })}
                 >
                   <option value="piece">개</option>
                   <option value="g">g</option>
@@ -248,7 +266,7 @@ const ListModal = ({
         </form>
         {/*취소, 확인 버튼*/}
         <div className="modal_buttons">
-          <StyledButton inverted={true} onClick={onCancel}>{cancelText}</StyledButton>
+          <StyledButton inverted={true} onClick={onNotSubmit}>{cancelText}</StyledButton>
           <StyledButton blueBtn onClick={handleSubmit(onSubmit)}>{confirmText}</StyledButton>
         </div>
       </ModalBlock>

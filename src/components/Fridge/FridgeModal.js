@@ -182,11 +182,16 @@ const FridgeModal = ({
                        onCancel,
                        onCloseClick,
                      }) => {
-  const {register, handleSubmit, formState: {errors}, control} = useForm({defaultValues});
+  const {register, handleSubmit, formState: {errors}, control, reset} = useForm({defaultValues});
   const onSubmit = (values) => {
     console.log(values);
+    onConfirm();
+    reset();
   }
-
+  const onNotSubmit = () =>{
+    onCancel();
+    reset();
+  };
 
   if (!visible) return null;
   const text = textMap[type];
@@ -245,7 +250,10 @@ const FridgeModal = ({
                   placeholder="수량을 입력해주세요."
                   {...register("i_amount", {
                     required: "필수입력사항",
-                    min: 0,
+                    min: {
+                      value:0,
+                      message: '0 이상 입력해주세요'
+                    }
                   })}
                 />
                 {/*단위선택*/}
@@ -317,8 +325,7 @@ const FridgeModal = ({
         </form>
         {/*취소, 확인 버튼*/}
         <div className="modal_buttons">
-          <StyledButton inverted={true} onClick={onCancel}>{cancelText}</StyledButton>
-          {/*확인버튼 누르면 모달 폼 닫히는 것 구현 안됨*/}
+          <StyledButton inverted={true} onClick={onNotSubmit}>{cancelText}</StyledButton>
           <StyledButton blueBtn onClick={handleSubmit(onSubmit)}>{confirmText}</StyledButton>
         </div>
       </ModalBlock>
