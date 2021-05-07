@@ -101,7 +101,7 @@ const BasketShoppingListItem = ({list, onRemove}) => {
 
   const {shopping_id, shopping_name, shopping_index, shopping_count,} = list;
   const [modal, setModal] = useState(false);
-  const [value, setValue] = useState(shopping_count);
+  const [value, setValue] = useState(parseInt(shopping_count));
   const onEdit = () => {
     setModal(true);
   };
