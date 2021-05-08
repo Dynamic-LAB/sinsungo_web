@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React from "react";
 import "./Basket.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
@@ -34,29 +34,6 @@ const Spacer = styled.div`
 
 const Basket = () => {
 
-  //장보기 목록
-  const [lists, setLists] = useState([
-    {
-      shopping_id: 1,
-      shopping_name: '재료1',
-      shopping_index: '부가설명',
-      shopping_count: 0,
-    },
-    {
-      shopping_id: 2,
-      shopping_name: '재료2',
-      shopping_index: '부가설명',
-      shopping_count: 0,
-    },
-  ]);
-  //지우기 기능
-  const onRemoveList = useCallback(
-    id => {
-      setLists(lists.filter(lists => lists.shopping_id !==id));
-    },
-    [lists],
-  );
-
   return (
     <basket>
       <div className="basket__container">
@@ -85,7 +62,7 @@ const Basket = () => {
                 <div className="icon-share"/>
               </BasketTitle>
               <IngredientBlock>
-                <BasketList lists={lists} onRemove={onRemoveList} type="list"/>
+                <BasketList type="list"/>
               </IngredientBlock>
             </WhiteBoxBasket>
           </div>

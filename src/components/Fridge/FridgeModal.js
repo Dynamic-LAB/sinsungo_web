@@ -180,9 +180,8 @@ const FridgeModal = ({
                        cancelText = '취소',
                        onConfirm,
                        onCancel,
-                       onCloseClick,
                      }) => {
-  const {register, handleSubmit, formState: {errors}, control, reset} = useForm({defaultValues});
+  const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({defaultValues});
   const onSubmit = (values) => {
     console.log(values);
     onConfirm();
@@ -192,7 +191,7 @@ const FridgeModal = ({
     onCancel();
     reset();
   };
-
+  const {i_name, i_amount, i_unit, i_date, date_chose} = watch();
   if (!visible) return null;
   const text = textMap[type];
 
@@ -223,6 +222,8 @@ const FridgeModal = ({
                   id="i_name"
                   autocomplete="off"
                   placeholder="재료명을 입력해주세요."
+                  onChange={e => setValue("i_name", e.target.value)}
+                  value={i_name}
                   {...register("i_name", {
                     required: "필수입력사항",
                     maxLength: {
@@ -248,6 +249,8 @@ const FridgeModal = ({
                   id="i_amount"
                   autocomplete="off"
                   placeholder="수량을 입력해주세요."
+                  onChange={e => setValue("i_amount", e.target.value)}
+                  value={i_amount}
                   {...register("i_amount", {
                     required: "필수입력사항",
                     min: {
@@ -260,6 +263,8 @@ const FridgeModal = ({
                 <StyledDropdown
                   id="i_unit"
                   form="fridgeForm"
+                  onChange={e => setValue("i_unit", e.target.value)}
+                  value={i_unit}
                   {...register("i_unit", {
                     required: "필수입력사항",
                   })}
@@ -302,6 +307,8 @@ const FridgeModal = ({
                       dropdownMode="select"
                     />
                   )}
+                  onChange={e => setValue("i_date", e.target.value)}
+                  value={i_date}
                   {...register("i_date", {
                     required: "필수입력사항",
                   })}
@@ -311,6 +318,8 @@ const FridgeModal = ({
                 <StyledDropdown
                   id="date_chose"
                   form="fridgeForm"
+                  onChange={e => setValue("date_chose", e.target.value)}
+                  value={date_chose}
                   {...register("date_chose", {
                     required: "필수입력사항",
                   })}

@@ -1,9 +1,10 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Button from "../common/Button";
-import {useForm} from "react-hook-form";
+import {useForm, FormProvider} from "react-hook-form";
 import {MdRestaurant, MdAssignment} from "react-icons/md";
 import WhiteBox from "../common/WhiteBox";
+import {useShoppingDispatch, useShoppingNextId} from "./ListContext";
 
 // 회색 불투명 배경
 const Fullscreen = styled.div`
@@ -154,18 +155,34 @@ const ListModal = ({
                      onConfirm,
                      onCancel,
                      type,
+                     onInsert
                    }) => {
-  const {register, handleSubmit, formState: {errors}, reset} = useForm({defaultValues});
+  const {register, handleSubmit, formState: {errors}, reset, setValue, watch} = useForm({defaultValues});
+  const dispatch = useShoppingDispatch();
+  const nextId = useShoppingNextId();
 
-  const onNotSubmit = () =>{
+  //취소버튼 액션
+  const onNotSubmit = () => {
     onCancel();
     reset();
   };
-  const onSubmit = (values) => {
-    console.log(values);
+  //확인버튼 액션
+  const onSubmit = () => {
+    dispatch({
+      type: 'CREATE',
+      shopping: {
+        shopping_id: nextId.current,
+        shopping_name: list_name,
+        shopping_index: list_memo,
+        shopping_count: list_amount,
+      }
+    });
     onConfirm();
     reset();
+    nextId.current += 1;
   };
+
+  const {list_name, list_amount, list_memo} = watch();
 
   if (!visible) return null;
   const text = textMap[type];
@@ -178,6 +195,7 @@ const ListModal = ({
           {type === 'add' && (<div>{text}</div>)}
           {type === 'edit' && (<div>{text}</div>)}
         </h2>
+
         <form>
           <StyledWhiteBox>
             {/*재료입력*/}
@@ -193,6 +211,8 @@ const ListModal = ({
                   id="list_name"
                   autocomplete="off"
                   placeholder="재료명을 입력해주세요."
+                  onChange={e => setValue("list_name", e.target.value)}
+                  value={list_name}
                   {...register("list_name", {
                     required: "필수입력사항",
                     maxLength: {
@@ -218,16 +238,19 @@ const ListModal = ({
                   id="list_amount"
                   autocomplete="off"
                   placeholder="수량을 입력해주세요."
+                  onChange={e => setValue("list_amount", e.target.value)}
+                  value={list_amount}
                   {...register("list_amount", {
                     required: "필수입력사항",
                     min: {
-                      value:0,
+                      value: 0,
                       message: '0 이상 입력해주세요'
                     }
                   })}
                 />
                 <StyledDropdown
                   id="list_unit"
+                  onChange={e => setValue("list_unit", e.target.value)}
                   {...register("list_unit", {
                     required: "필수입력사항",
                   })}
@@ -252,6 +275,8 @@ const ListModal = ({
                   id="list_memo"
                   autocomplete="off"
                   placeholder="내용을 작성해주세요."
+                  onChange={e => setValue("list_memo", e.target.value)}
+                  value={list_memo}
                   {...register("list_memo", {
                     required: "필수입력사항",
                     maxLength: {
@@ -264,6 +289,7 @@ const ListModal = ({
             </label>
           </StyledWhiteBox>
         </form>
+
         {/*취소, 확인 버튼*/}
         <div className="modal_buttons">
           <StyledButton inverted={true} onClick={onNotSubmit}>{cancelText}</StyledButton>
@@ -274,4 +300,4 @@ const ListModal = ({
   );
 }
 
-export default ListModal;
+export default React.memo(ListModal);

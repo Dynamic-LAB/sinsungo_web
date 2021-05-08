@@ -1,21 +1,25 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import BasketShoppingListItem from "./BasketShoppingListItem";
+import {useShoppingState} from "./ListContext";
 
 const ShoppingBlock = styled.div`
   overflow-y: auto; //스크롤
 `;
 
-const BasketList = ({lists, type, onRemove}) => {
+const BasketList = ({type}) => {
+  const lists = useShoppingState();
   return(
     <>
       {type === 'list' &&(
         <ShoppingBlock>
           {lists.map(list =>(
             <BasketShoppingListItem
-              list={list}
               key={list.shopping_id}
-              onRemove={onRemove}
+              id={list.shopping_id}
+              name={list.shopping_name}
+              memo={list.shopping_index}
+              count={list.shopping_count}
             />
           ))}
         </ShoppingBlock>
