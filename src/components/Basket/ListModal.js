@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Button from "../common/Button";
-import {useForm, FormProvider} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import {MdRestaurant, MdAssignment} from "react-icons/md";
 import WhiteBox from "../common/WhiteBox";
 import {useShoppingDispatch, useShoppingNextId} from "./ListContext";
@@ -155,7 +155,6 @@ const ListModal = ({
                      onConfirm,
                      onCancel,
                      type,
-                     onInsert
                    }) => {
   const {register, handleSubmit, formState: {errors}, reset, setValue, watch} = useForm({defaultValues});
   const dispatch = useShoppingDispatch();

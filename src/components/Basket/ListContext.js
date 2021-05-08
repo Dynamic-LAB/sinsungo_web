@@ -13,6 +13,7 @@ const initialShopping = [
     shopping_index: '사이다도 같이 사기',
     shopping_count: '0',
   },
+
 ];
 
 function shoppingReducer(state, action){
@@ -26,7 +27,6 @@ function shoppingReducer(state, action){
   }
 }
 
-//장보기 목록
 const ShoppingStateContext = createContext();
 const ShoppingDispatchContext = createContext();
 const ShoppingNextIdContext = createContext();

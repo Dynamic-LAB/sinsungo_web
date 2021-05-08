@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
+import {useForm} from "react-hook-form";
 import {MdSearch} from "react-icons/md";
 import Button from "../../common/Button";
 import WhiteBox from "../../common/WhiteBox";
@@ -146,6 +147,12 @@ const textMap = {
   add: '추가',
   edit: '수정',
 };
+//폼 초기값
+const defaultValues = {
+  diet_date: "",
+  diet_chose: "",
+  diet_menu: "",
+};
 const DietModal = ({
                      visible,
                      confirmText = '확인',
@@ -155,9 +162,18 @@ const DietModal = ({
                      type,
                    }) => {
   const [startDate, setStartDate] = useState(new Date());
+  const {register, handleSubmit, formState: {errors}, reset, setValue, watch} = useForm({defaultValues});
+
+  //취소버튼 액션
+  const onNotSubmit = () => {
+    onCancel();
+    reset();
+  };
+  //확인버튼 액션
   const onSubmit = (values) => {
     console.log(values);
     onConfirm();
+    reset();
   };
 
   if (!visible) return null;
@@ -189,8 +205,8 @@ const DietModal = ({
                     //minDate={new Date()} //선택할 수 있는 최소 날짜값 지정
                     onChange={date => setStartDate(date)} //날짜를 선택하였을 때 실행될 함수
                     peekNextMonth
-                    showMonthDropdown
-                    showYearDropdown
+                    showMonthDropdown //월 선택
+                    showYearDropdown //년도 선택
                     dropdownMode="select"
                     disabledKeyboardNavigation
                     placeholderText="날짜를 입력하세요."
@@ -241,9 +257,9 @@ const DietModal = ({
         {/*버튼*/}
         <div className="modal_buttons">
           <StyledButton inverted={true}
-                        onClick={onCancel}>{cancelText}</StyledButton>
+                        onClick={onNotSubmit}>{cancelText}</StyledButton>
           <StyledButton blueBtn
-                        onClick={onConfirm}>{confirmText}</StyledButton>
+                        onClick={onSubmit}>{confirmText}</StyledButton>
         </div>
       </ModalBlock>
     </Fullscreen>

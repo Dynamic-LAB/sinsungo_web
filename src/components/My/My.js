@@ -5,6 +5,7 @@ import WhiteBox from "../common/WhiteBox";
 import {MdAdd, MdNotificationsNone} from "react-icons/md";
 import Member from "../common/Rightbar/Member/Member";
 import {Link} from "react-router-dom";
+import MemberAddButton from "../common/Rightbar/Member/MemberAddButton";
 
 const WhiteBoxMy = styled(WhiteBox)`
   height: 250px;
@@ -62,7 +63,7 @@ const My = () => {
               <MyTitle>
                 <h2>신선고 멤버 추가하기</h2>
                 <Spacer/>
-                <div className="plus"><MdAdd/></div>
+                <MemberAddButton/>
               </MyTitle>
               <div className="member_profile">
                 <Member type="my"/>

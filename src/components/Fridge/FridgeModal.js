@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import { getYear, getMonth } from "date-fns"; // getYear, getMonth
+import React from 'react';
 import styled from 'styled-components';
 import {useForm, Controller} from "react-hook-form";
 import ReactDatePicker from "react-datepicker";
@@ -182,6 +181,7 @@ const FridgeModal = ({
                        onCancel,
                      }) => {
   const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({defaultValues});
+
   const onSubmit = (values) => {
     console.log(values);
     onConfirm();
@@ -192,6 +192,7 @@ const FridgeModal = ({
     reset();
   };
   const {i_name, i_amount, i_unit, i_date, date_chose} = watch();
+
   if (!visible) return null;
   const text = textMap[type];
 
@@ -262,7 +263,6 @@ const FridgeModal = ({
                 {/*단위선택*/}
                 <StyledDropdown
                   id="i_unit"
-                  form="fridgeForm"
                   onChange={e => setValue("i_unit", e.target.value)}
                   value={i_unit}
                   {...register("i_unit", {
@@ -297,8 +297,7 @@ const FridgeModal = ({
                       onBlur={onBlur}
                       selected={value}
                       locale={ko} //언어설정 한글
-                      dateFormat="yyyy-MM-dd" //날짜 형식 설정
-                      //isClearable //날짜 없애는 버튼
+                      dateFormat="P" //날짜 형식 설정
                       placeholderText="날짜를 입력하세요."
                       shouldCloseOnSelect={true}
                       peekNextMonth
@@ -317,7 +316,6 @@ const FridgeModal = ({
                 {/*방법선택*/}
                 <StyledDropdown
                   id="date_chose"
-                  form="fridgeForm"
                   onChange={e => setValue("date_chose", e.target.value)}
                   value={date_chose}
                   {...register("date_chose", {
