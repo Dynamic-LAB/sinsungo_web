@@ -14,8 +14,10 @@ const AddButton = styled.button`
   outline: none;
   background: none;
   margin-left: 10px;
+  transition: 0.125s all ease-in;
   &:hover {
     color: #3C82D9;
+    transform: rotate(90deg);
   }
 `;
 

@@ -12,6 +12,11 @@ const AddButton = styled.button`
   border: none;
   outline: none;
   background: none;
+  transition: 0.125s all ease-in;
+  &:hover {
+    color: #3C82D9;
+    transform: rotate(90deg);
+  }
 `;
 
 const MemberAddButton = (onAdd) => {
