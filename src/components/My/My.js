@@ -3,8 +3,9 @@ import "./My.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
 import {MdAdd, MdNotificationsNone} from "react-icons/md";
-import { BsPeopleCircle } from "react-icons/bs";
 import Member from "../common/Rightbar/Member/Member";
+import {Link} from "react-router-dom";
+import MemberAddButton from "../common/Rightbar/Member/MemberAddButton";
 
 const WhiteBoxMy = styled(WhiteBox)`
   height: 250px;
@@ -24,6 +25,20 @@ const MyTitle = styled.div`
   border-bottom: 1px solid #C9C9C9;
   @media only screen and (max-width: 978px) {
     padding: 10px 20px;
+  }
+`;
+const MenuItemBlock = styled.div`
+  display: block;
+  justify-content: flex-start;
+  color: #393939;
+  padding: 20px 0;
+  border-radius: 3px;
+  border-bottom: 1px solid #C9C9C9;
+  font-size: 15px;
+  cursor: pointer;
+  &:hover {
+    color: #3C82D9;
+    text-shadow: none;
   }
 `;
 const Spacer = styled.div`
@@ -48,7 +63,7 @@ const My = () => {
               <MyTitle>
                 <h2>신선고 멤버 추가하기</h2>
                 <Spacer/>
-                <div className="plus"><MdAdd/></div>
+                <MemberAddButton/>
               </MyTitle>
               <div className="member_profile">
                 <Member type="my"/>
@@ -57,15 +72,25 @@ const My = () => {
             </WhiteBoxMy>
           </div>
         </div>
+        {/*메뉴*/}
         <div className="my_menu">
           <div className="my_title">
             마이페이지
           </div>
           <div className="bar_title">
-            메뉴이름
+            공지사항
           </div>
-          <div className="my_menu_bar">
 
+          <div className="my_menu_bar">
+            <MenuItemBlock>
+              <Link to='/my'>공지사항</Link>
+            </MenuItemBlock>
+            <MenuItemBlock>
+              <Link to='/'>로그아웃</Link>
+            </MenuItemBlock>
+            <MenuItemBlock>
+              회원탈퇴
+            </MenuItemBlock>
           </div>
         </div>
       </div>

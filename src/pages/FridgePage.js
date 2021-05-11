@@ -19,7 +19,7 @@ const FridgePage = () => {
         <>
             <div className="container">
                 <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar}/>
-                <Fridge userInfo={location.state.User}/>
+                <Fridge userInfo={location.state==undefined ?null :location.state.User}/>
                 <Right/>
                 <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar}/>
             </div>
