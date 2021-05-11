@@ -1,22 +1,30 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
+import Test from '../Fridge/Test'
 const GetIngredientByRefrigratorId = (props) => {
-  console.log('정보',props.userInfo)
+  const {newId,newRefId}=props.userInfo;
   useEffect(()=>{
-    axios.get("/refrigerator/ingredient/:id", {
+
+    if(newRefId==null){
+      alert("냉장고 미할당");
+      return;
+    }else{
+    axios.get("/refrigerator/ingredient/"+newRefId, {
       params: {
-        id:6
+        
       }
     })
-    .then((response)=> {
-        // response  
-    }).catch((error)=>{
+    .then((response)=> {  
+        // response 
+        props.setIngredients(response)
+      }).catch((error)=>{
         // 오류발생시 실행
     }).then(()=> {
         // 항상 실행
     });
     //props.setIngredients()
-  });
+  }
+  },[]);
   const getTest = ()=>{
       axios.get("/TestGet", {
         params: {
@@ -55,7 +63,6 @@ const GetIngredientByRefrigratorId = (props) => {
 }
   return(
       <>
-       
       </>
 
   );

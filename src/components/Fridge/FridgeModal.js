@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {useForm, Controller} from "react-hook-form";
 import ReactDatePicker from "react-datepicker";
@@ -8,6 +8,7 @@ import WhiteBox from "../common/WhiteBox";
 import {ko} from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Fridge.css";
+import axios from 'axios';
 
 // 회색 불투명 배경
 const Fullscreen = styled.div`
@@ -131,6 +132,13 @@ const FormTitle = styled.div`
     font-size: 10px;
     color: #FF2424;
   }
+  .input_index_drop {
+    display: flex;
+    padding-top: 10px;
+    
+    font-size: 10px;
+    color: #FF2424;
+  }
 `;
 const StyledDropdown = styled.select`
   width: 110px;
@@ -144,6 +152,7 @@ const StyledDropdown = styled.select`
   cursor: pointer;
   text-align: center;
 `;
+
 
 //type 지정
 const textMap = {
@@ -163,6 +172,28 @@ const defaultValues = {
   date_chose: "",
 };
 
+const InsertIngredientByRefId=(values)=>{
+  values.i_date=values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
+  //category`, `name`, `amount`, `unit`, `expiration_type`, `expiration_date`, `refrigerator_id
+  axios.post('/refrigerator/ingredient',
+  {
+    id:null,
+    category:"냉동",
+    name:values.i_name,
+    amount:values.i_amount,
+    unit:values.i_unit,
+    expiration_type:values.date_chose,
+    expiration_date:values.i_date,
+    refridgerator_id:JSON.parse(window.sessionStorage.getItem('User')).newRefId
+  }
+  ).then((res)=>{
+    //DB response
+  })
+  .catch((res)=>{
+    console.log("erorr Msg:",res)
+  });
+}
+
 const FridgeModal = ({
                        visible,
                        type,
@@ -170,13 +201,20 @@ const FridgeModal = ({
                        cancelText = '취소',
                        onConfirm,
                        onCancel,
-                       onCloseClick,
                      }) => {
-  const {register, handleSubmit, formState: {errors}, control} = useForm({defaultValues});
-  const onSubmit = (values) => {
-    console.log(values);
-  }
+  const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({defaultValues});
 
+  const onSubmit = (values) => {
+    InsertIngredientByRefId(values);
+    console.log(values);
+    onConfirm();
+    reset();
+  }
+  const onNotSubmit = () =>{
+    onCancel();
+    reset();
+  };
+  const {i_name, i_amount, i_unit, i_date, date_chose} = watch();
 
   if (!visible) return null;
   const text = textMap[type];
@@ -208,6 +246,8 @@ const FridgeModal = ({
                   id="i_name"
                   autocomplete="off"
                   placeholder="재료명을 입력해주세요."
+                  onChange={e => setValue("i_name", e.target.value)}
+                  value={i_name}
                   {...register("i_name", {
                     required: "필수입력사항",
                     maxLength: {
@@ -223,6 +263,8 @@ const FridgeModal = ({
               <FormTitle>
                 <div className="input_title">수량</div>
                 {errors.i_amount && <div className="input_index">{errors.i_amount.message}</div>}
+                <Spacer/>
+                {errors.i_unit && <div className="input_index_drop">{errors.i_unit.message}</div>}
               </FormTitle>
               <InputBlock>
                 <div className="icon_input"><MdRestaurant/></div>
@@ -231,16 +273,24 @@ const FridgeModal = ({
                   id="i_amount"
                   autocomplete="off"
                   placeholder="수량을 입력해주세요."
+                  onChange={e => setValue("i_amount", e.target.value)}
+                  value={i_amount}
                   {...register("i_amount", {
                     required: "필수입력사항",
-                    min: 0,
+                    min: {
+                      value:0,
+                      message: '0 이상 입력해주세요'
+                    }
                   })}
                 />
                 {/*단위선택*/}
                 <StyledDropdown
                   id="i_unit"
-                  form="fridgeForm"
-                  {...register("i_unit")}
+                  onChange={e => setValue("i_unit", e.target.value)}
+                  value={i_unit}
+                  {...register("i_unit", {
+                    required: "필수입력사항",
+                  })}
                 >
                   <option value="piece">개</option>
                   <option value="g">g</option>
@@ -254,13 +304,15 @@ const FridgeModal = ({
               <FormTitle>
                 <div className="input_title">날짜</div>
                 {errors.i_date && <div className="input_index">{errors.i_date.message}</div>}
+                <Spacer/>
+                {errors.date_chose && <div className="input_index_drop">{errors.date_chose.message}</div>}
               </FormTitle>
               <DateBlock>
                 <div className="icon_input"><MdDateRange/></div>
                 {/*날짜입력*/}
                 <Controller
                   control={control}
-                  name="Datepicker"
+                  name="ReactDatePicker"
                   render={({ field: { onChange, onBlur, value, ref } }) => (
                     <ReactDatePicker
                       className="input-datepicker" //클래스 명 지정
@@ -268,12 +320,17 @@ const FridgeModal = ({
                       onBlur={onBlur}
                       selected={value}
                       locale={ko} //언어설정 한글
-                      dateFormat="yyyy-MM-dd" //날짜 형식 설정
-                      //isClearable //날짜 없애는 버튼
-                      minDate={new Date()} //선택할 수 있는 최소 날짜값 지정
+                      dateFormat="P" //날짜 형식 설정
                       placeholderText="날짜를 입력하세요."
+                      shouldCloseOnSelect={true}
+                      peekNextMonth
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
                     />
                   )}
+                  onChange={e => setValue("i_date", e.target.value)}
+                  value={i_date}
                   {...register("i_date", {
                     required: "필수입력사항",
                   })}
@@ -282,8 +339,11 @@ const FridgeModal = ({
                 {/*방법선택*/}
                 <StyledDropdown
                   id="date_chose"
-                  form="fridgeForm"
-                  {...register("date_chose")}
+                  onChange={e => setValue("date_chose", e.target.value)}
+                  value={date_chose}
+                  {...register("date_chose", {
+                    required: "필수입력사항",
+                  })}
                 >
                   <option value="date">유통기한</option>
                   <option value="manufacture">제조일자</option>
@@ -295,8 +355,7 @@ const FridgeModal = ({
         </form>
         {/*취소, 확인 버튼*/}
         <div className="modal_buttons">
-          <StyledButton inverted={true} onClick={onCancel}>{cancelText}</StyledButton>
-          {/*확인버튼 누르면 모달 폼 닫히는 것 구현 안됨*/}
+          <StyledButton inverted={true} onClick={onNotSubmit}>{cancelText}</StyledButton>
           <StyledButton blueBtn onClick={handleSubmit(onSubmit)}>{confirmText}</StyledButton>
         </div>
       </ModalBlock>

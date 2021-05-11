@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Navbar from "../components/common/Navbar/Navbar";
 import Right from "../components/common/Rightbar/Right";
 import Sidebar from "../components/common/Sidebar/Sidebar";
 import Basket from "../components/Basket/Basket";
+import {ShoppingProvider} from "../components/Basket/ListContext";
 
 
-const ShoppingBasketPage = () => {
+const ShoppingBasketPage = (props) => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const openSidebar = () => {
         setSidebarOpen(true);
@@ -16,12 +17,17 @@ const ShoppingBasketPage = () => {
     }
     return (
         <>
+        {JSON.parse(window.sessionStorage.getItem('User'))==null  && sessionStorage.getItem('Test')==null ?
+        props.history.push({pathname:'/'}):
             <div className="container">
                 <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar}/>
-                <Basket/>
+                 <ShoppingProvider>
+                  <Basket/>
+                 </ShoppingProvider>
                 <Right/>
                 <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar}/>
             </div>
+        }
         </>
     );
 };

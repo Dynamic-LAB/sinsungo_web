@@ -5,9 +5,7 @@ basket {
 .basket__container {
     padding: 15px 25px 10px;
 }
-.diet:nth-child(1){
-    grid-row: 1 /span 2;
-}
+
 .icon-diet {
     width: 23px;
     height: 23px;

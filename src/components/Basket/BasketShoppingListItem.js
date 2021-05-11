@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {MdAddCircleOutline, MdRemoveCircleOutline,MdEdit,MdDelete} from "react-icons/md";
 import ListModal from "./ListModal";
 import FridgeModal from "../Fridge/FridgeModal";
+import {useShoppingDispatch, useShoppingState} from "./ListContext";
 
 const Remove = styled.div`
   display: flex;
@@ -97,13 +98,25 @@ const Count = styled.div`
 `;
 
 
-const BasketShoppingListItem = ({list, onRemove}) => {
+const BasketShoppingListItem = ({id, name, memo, count}) => {
 
-  const {shopping_id, shopping_name, shopping_index, shopping_count,} = list;
+  //const {shopping_id, shopping_name, shopping_index, shopping_count,} = list;
+  const dispatch = useShoppingDispatch();
+  //삭제 함수
+  const onRemove = () =>
+    dispatch({
+      type: 'REMOVE',
+      id
+    });
+  //모달 on, off 함수
   const [modal, setModal] = useState(false);
-  const [value, setValue] = useState(shopping_count);
+  //count 를 문자로 받아서 정수로 변환해줬음
+  const [value, setValue] = useState(parseInt(count));
+
+  //모달 함수들(onEdit, onCancel, onConfirm)
   const onEdit = () => {
     setModal(true);
+
   };
   const onCancel = () => {
     setModal(false);
@@ -124,8 +137,8 @@ const BasketShoppingListItem = ({list, onRemove}) => {
         onCancel={onCancel}
         type="edit"
       />
-      <Item>{shopping_name}</Item>
-      <ItemIndex>{shopping_index}</ItemIndex>
+      <Item>{name}</Item>
+      <ItemIndex>{memo}</ItemIndex>
       <Item>
         <Count>
           <div className="count_btn" onClick={() => setValue(value - 1)}><MdRemoveCircleOutline/></div>
@@ -133,11 +146,11 @@ const BasketShoppingListItem = ({list, onRemove}) => {
           <div className="count_btn" onClick={() => setValue(value + 1)}><MdAddCircleOutline/></div>
         </Count>
       </Item>
-      <Remove onClick={() => onRemove(shopping_id)}>
+      <Remove onClick={() => onRemove(id)}>
         <MdDelete/>
       </Remove>
     </ItemBlock>
   );
 }
 
-export default BasketShoppingListItem;
+export default React.memo(BasketShoppingListItem);
