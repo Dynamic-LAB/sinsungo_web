@@ -6,27 +6,30 @@ import Basket from "../components/Basket/Basket";
 import {ShoppingProvider} from "../components/Basket/ListContext";
 
 
-const ShoppingBasketPage = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const openSidebar = () => {
-    setSidebarOpen(true);
-  }
+const ShoppingBasketPage = (props) => {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const openSidebar = () => {
+        setSidebarOpen(true);
+    }
 
-  const closeSidebar = () => {
-    setSidebarOpen(false);
-  }
-  return (
-    <>
-      <div className="container">
-        <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar}/>
-        <ShoppingProvider>
-          <Basket/>
-        </ShoppingProvider>
-        <Right/>
-        <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar}/>
-      </div>
-    </>
-  );
+    const closeSidebar = () => {
+        setSidebarOpen(false);
+    }
+    return (
+        <>
+        {JSON.parse(window.sessionStorage.getItem('User'))==null  && sessionStorage.getItem('Test')==null ?
+        props.history.push({pathname:'/'}):
+            <div className="container">
+                <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar}/>
+                 <ShoppingProvider>
+                  <Basket/>
+                 </ShoppingProvider>
+                <Right/>
+                <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar}/>
+            </div>
+        }
+        </>
+    );
 };
 
 export default ShoppingBasketPage;

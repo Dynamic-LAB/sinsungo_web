@@ -1,10 +1,11 @@
 import "./Fridge.css";
 import WhiteBox from "../common/WhiteBox";
 import styled from 'styled-components';
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import FridgeList from "./FridgeList";
 import FridgeAddButton from "./FridgeAddButton";
 import GetIngredientByRefrigratorId from "../ForServer/GetIngredientByRefrigratorId";
+import axios from 'axios';
 //import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 //유통기한 임박 재료 박스
@@ -70,38 +71,58 @@ const Spacer = styled.div`
   flex-grow: 1;
 `;
 
-const Fridge = (props) => {
-  //재료관리
-  const [ingredients,setIngredients] = useState([
-    {
-      id: 1,
-      nameF: '재료재료재료',
-      countF: "2",
-      dateF: "2021.04.01",
-      deadlineF: "4일",
-      checked: false,
-    },
-    {
-      id: 2,
-      nameF: '재료재료재료',
-      countF: "2",
-      dateF: "2021.04.01",
-      deadlineF: "4일",
-      checked: false,
-    },
-  ]);
 
-  //지우기 기능
+const DeleteIngredientById=(id)=>{
+  axios.delete("/refrigerator/ingredient/"+id, {
+    params: { 
+    }
+  })
+  .then((response)=> {
+    console.log("삭제됨:",response);
+    }).catch((error)=>{
+      // 오류발생시 실행
+  }).then(()=> {
+      // 항상 실행
+  });
+  //props.setIngredients()
+
+}
+const Fridge = (props) => {
+  const [ingredients,setIngredients] = useState();
+  const GetIngredient=(id)=>{
+    axios.get("/refrigerator/ingredient/"+id, {
+      params: {
+        
+      }
+    })
+    .then((response)=> {  
+        // response 
+        setIngredients(response)
+      }).catch((error)=>{
+        // 오류발생시 실행
+    }).then(()=> {
+        // 항상 실행
+    });
+    //props.setIngredients()
+  }
+
+  useEffect(()=>{
+    if(JSON.parse(sessionStorage.getItem('User')))
+    {
+    GetIngredient(JSON.parse(sessionStorage.getItem('User')).newRefId)
+    }
+  },[])
+
+ //지우기 기능
   const onRemove = useCallback(
     id => {
-      setIngredients(ingredients.filter(ingredients => ingredients.id !==id));
-    },
-    [ingredients],
+      DeleteIngredientById(id);
+      GetIngredient(props.userInfo.newRefId);
+    }
+   
   );
-
   return (
     <frigde>
-      <GetIngredientByRefrigratorId userInfo={props.userInfo} setIngredients={setIngredients}/>
       <div className="fridge__container">
         <div className="shelf_life">
           <WhiteBoxTop>
@@ -133,7 +154,7 @@ const Fridge = (props) => {
             </ItemTitle>
             <IngredientBlock>
               {/*재료*/}
-              <FridgeList ingredients={ingredients} onRemove={onRemove}/>
+             <FridgeList ingredients={ingredients}  setIngredients={setIngredients} onRemove={onRemove}/>
             </IngredientBlock>
           </WhiteBoxFridge>
 
@@ -169,7 +190,7 @@ const Fridge = (props) => {
               <Item>남은기한</Item>
             </ItemTitle>
             <IngredientBlock>
-
+                
             </IngredientBlock>
           </WhiteBoxFridge>
 

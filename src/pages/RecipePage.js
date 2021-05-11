@@ -4,7 +4,7 @@ import Sidebar from "../components/common/Sidebar/Sidebar";
 import Recipe from "../components/Recipe/Recipe"
 import Right from "../components/common/Rightbar/Right";
 
-const RecipePage = () => {
+const RecipePage = (props) => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const openSidebar = () => {
         setSidebarOpen(true);
@@ -16,6 +16,8 @@ const RecipePage = () => {
 
     return (
         <>
+        {JSON.parse(window.sessionStorage.getItem('User'))==null  && sessionStorage.getItem('Test')==null ?
+        props.history.push({pathname:'/'}):
             <div className="container">
 
               <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar} />
@@ -24,6 +26,7 @@ const RecipePage = () => {
               <Right/>
 
             </div>
+        }
         </>
     );
 };

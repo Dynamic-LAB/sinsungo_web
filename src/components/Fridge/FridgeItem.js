@@ -66,7 +66,7 @@ const Item = styled.div`
 `;
 const FridgeItem = ({ingredient, onRemove}) => {
 
-  const {id, nameF, countF, dateF, deadlineF} = ingredient;
+  const {id, name, amount, expiration_date, expiration_type} = ingredient;
   const [modal, setModal] = useState(false);
   const onEdit = () => {
     setModal(true);
@@ -92,10 +92,10 @@ const FridgeItem = ({ingredient, onRemove}) => {
           type="edit"
         />
         <FridgeModal/>
-        <Item>{nameF}</Item>
-        <Item>{countF}</Item>
-        <Item>{dateF}</Item>
-        <Item>{deadlineF}</Item>
+        <Item>{name}</Item>
+        <Item>{amount}</Item>
+        <Item>{expiration_date.substring(0,expiration_date.indexOf("T"))}</Item>
+        <Item>{expiration_type}</Item>
         <Remove onClick={() => onRemove(id)}>
           <MdDelete/>
         </Remove>

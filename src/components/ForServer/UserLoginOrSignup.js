@@ -5,7 +5,7 @@ const UserLoginOrSignup = (props) => {
   var postLoginType;
   useEffect(()=>{
     if(props.loginInfo==0){
-      console.log('로그인 정보 없음',props.loginInfo)
+      console.log('로그인 필요합니다.',"logininfo:",props.loginInfo)
       return
     }else {
       if(props.loginInfo[0]=='google'){
@@ -29,7 +29,9 @@ const UserLoginOrSignup = (props) => {
         login_type:postLoginType
     }
     ).then((res)=>{
-      props.success();
+      //DB response
+      //props.setLoginInfo([postLoginType,id])
+      props.success(res.data);
     })
     .catch((res)=>{
       console.log("erorr Msg:",res)
