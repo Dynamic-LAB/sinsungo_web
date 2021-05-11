@@ -20,6 +20,7 @@ const App = () => {
     setSidebarOpen(false);
   }
   useEffect(()=>{
+    sessionStorage.setItem('Test',1);
     /*  Fetch 함수를 통한 서버 통신 예시
     seeUser()
       .then(res=> this.setState({customers:res}))
@@ -38,8 +39,10 @@ const App = () => {
     return body;
   }
   }*/
+  //{JSON.parse(window.sessionStorage.getItem('User'))==null?LoginPage:FridgePage}
   return(
       <>
+        
         <Route component={LoginPage} path="/" exact/>
         <Route component={FridgePage} path="/fridge"/>
         <Route component={Main} path="/Main"/>

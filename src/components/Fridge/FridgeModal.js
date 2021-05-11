@@ -8,6 +8,7 @@ import WhiteBox from "../common/WhiteBox";
 import {ko} from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Fridge.css";
+import axios from 'axios';
 
 // 회색 불투명 배경
 const Fullscreen = styled.div`
@@ -162,7 +163,38 @@ const defaultValues = {
   i_date: "",
   date_chose: "",
 };
-
+const InsertIngredientByRefId=(values)=>{
+  values.i_date=values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
+  //category`, `name`, `amount`, `unit`, `expiration_type`, `expiration_date`, `refrigerator_id
+  axios.post('/refrigerator/ingredient',
+  {
+    //insert into refrigeratoringredient values(3,"냉장","참치",1,"개","20200101","20200101",6)
+    /*id:5,
+    category:"냉동",
+    name:"참치",
+    amount:1,
+    unit:"개",
+    expiration_type:"유통기한",
+    expiration_date:"20200101",
+    refridgerator_id:Math.floor(Math.random(100,10000))*/
+    id:null,
+    category:"냉동",
+    name:values.i_name,
+    amount:values.i_amount,
+    unit:values.i_unit,
+    expiration_type:values.date_chose,
+    expiration_date:values.i_date,
+    refridgerator_id:JSON.parse(window.sessionStorage.getItem('User')).newRefId
+  }
+  ).then((res)=>{
+    //DB response
+    //props.setLoginInfo([postLoginType,id])
+  
+  })
+  .catch((res)=>{
+    console.log("erorr Msg:",res)
+  });
+}
 const FridgeModal = ({
                        visible,
                        type,
@@ -174,7 +206,7 @@ const FridgeModal = ({
                      }) => {
   const {register, handleSubmit, formState: {errors}, control} = useForm({defaultValues});
   const onSubmit = (values) => {
-    console.log(values);
+    InsertIngredientByRefId(values);
   }
 
 

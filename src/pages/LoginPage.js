@@ -11,8 +11,9 @@ const LoginPage = (props) => {
     function GoMain(e,type){
     setLoginInfo([type,e]);
     }
-    function success(){
-         props.history.push({pathname:'/Fridge',state:{User:loginInfo[1]}})
+    function success(data){
+         window.sessionStorage.setItem('User',JSON.stringify({newId:data.id,newRefId:data.refrigerator_id,data:data}));
+         props.history.push({pathname:'/Fridge',state:{User:{newId:data.id,newRefId:data.refrigerator_id,data:data}}})
     }
     return(
         <>
@@ -21,7 +22,7 @@ const LoginPage = (props) => {
     top: '30%',
     left: '36%',
     }}>
-            <UserLoginOrSignup loginInfo={loginInfo} success={success}/>
+            <UserLoginOrSignup loginInfo={loginInfo} setLoginInfo={setLoginInfo} success={success}/>
             <img src={logo}  />
             <div style={{marginTop:'120px', float:'right'}}> 
             <KakaoLoginv GoMain={GoMain}></KakaoLoginv>
