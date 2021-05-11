@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import { MdClose, MdSearch} from "react-icons/md";
+import {useForm} from "react-hook-form";
+import {MdSearch} from "react-icons/md";
 import Button from "../../common/Button";
 import WhiteBox from "../../common/WhiteBox";
 import DietMenuTag from "./DietMenuTag";
@@ -146,6 +147,12 @@ const textMap = {
   add: '추가',
   edit: '수정',
 };
+//폼 초기값
+const defaultValues = {
+  diet_date: "",
+  diet_chose: "",
+  diet_menu: "",
+};
 const DietModal = ({
                      visible,
                      confirmText = '확인',
@@ -155,6 +162,19 @@ const DietModal = ({
                      type,
                    }) => {
   const [startDate, setStartDate] = useState(new Date());
+  const {register, handleSubmit, formState: {errors}, reset, setValue, watch} = useForm({defaultValues});
+
+  //취소버튼 액션
+  const onNotSubmit = () => {
+    onCancel();
+    reset();
+  };
+  //확인버튼 액션
+  const onSubmit = (values) => {
+    console.log(values);
+    onConfirm();
+    reset();
+  };
 
   if (!visible) return null;
   const text = textMap[type];
@@ -179,11 +199,15 @@ const DietModal = ({
                   <DatePicker
                     className="basket-datepicker" //클래스 명 지정
                     dateFormat="yyyy 년 MM 월 dd 일" //날짜 형식 설정
-                    closeOnScroll={true} //스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
+                    //closeOnScroll={true} //스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
                     locale={ko} //언어설정 기본값 영어
                     selected={startDate} //value
-                    minDate={new Date()} //선책할 수 있는 최소 날짜값 지정
-                    onChange={date => setStartDate(date)} //날짜를 선책하였을 때 실행될 함수
+                    //minDate={new Date()} //선택할 수 있는 최소 날짜값 지정
+                    onChange={date => setStartDate(date)} //날짜를 선택하였을 때 실행될 함수
+                    peekNextMonth
+                    showMonthDropdown //월 선택
+                    showYearDropdown //년도 선택
+                    dropdownMode="select"
                     disabledKeyboardNavigation
                     placeholderText="날짜를 입력하세요."
                   />
@@ -233,9 +257,9 @@ const DietModal = ({
         {/*버튼*/}
         <div className="modal_buttons">
           <StyledButton inverted={true}
-                        onClick={onCancel}>{cancelText}</StyledButton>
+                        onClick={onNotSubmit}>{cancelText}</StyledButton>
           <StyledButton blueBtn
-                        onClick={onConfirm}>{confirmText}</StyledButton>
+                        onClick={onSubmit}>{confirmText}</StyledButton>
         </div>
       </ModalBlock>
     </Fullscreen>
