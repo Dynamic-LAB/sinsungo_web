@@ -177,14 +177,13 @@ const InsertIngredientByRefId=(values)=>{
   //category`, `name`, `amount`, `unit`, `expiration_type`, `expiration_date`, `refrigerator_id
   axios.post('/refrigerator/ingredient',
   {
-    id:null,
+    id:JSON.parse(window.sessionStorage.getItem('User')).newRefId,
     category:"냉동",
     name:values.i_name,
     amount:values.i_amount,
     unit:values.i_unit,
     expiration_type:values.date_chose,
     expiration_date:values.i_date,
-    refridgerator_id:JSON.parse(window.sessionStorage.getItem('User')).newRefId
   }
   ).then((res)=>{
     //DB response

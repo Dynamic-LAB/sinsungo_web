@@ -150,7 +150,8 @@ const Fridge = (props) => {
               <Item>재료명</Item>
               <Item>갯수</Item>
               <Item>유통기한</Item>
-              <Item>남은기한</Item>
+              <Item>제조일자</Item>
+              <Item>보관일</Item>
             </ItemTitle>
             <IngredientBlock>
               {/*재료*/}
