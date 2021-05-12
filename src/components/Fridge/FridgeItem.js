@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {MdCheckBox,MdCheckBoxOutlineBlank,MdEdit,MdDelete} from "react-icons/md";
+import {MdCheckBox, MdCheckBoxOutlineBlank, MdEdit, MdDelete} from "react-icons/md";
 import FridgeAddModal from "./FridgeAddModal";
 import FridgeModal from "./FridgeModal";
 
@@ -12,6 +12,7 @@ const Remove = styled.div`
   cursor: pointer;
   font-size: 1.2rem;
   opacity: 0;
+
   &:hover {
     color: #ff6b6b;
   }
@@ -35,22 +36,28 @@ const ItemBlock = styled.div`
   display: flex;
   padding: 10px 20px;
   align-items: center;
-  font-size: 13px;
+  font-size: 12px;
 
   &:nth-child(even) {
     background: #f8f9fa;
   }
+
   &:hover {
     ${Remove} {
       opacity: 1;
     }
+
     ${Edit} {
       opacity: 1;
     }
-    
+
   }
-  @media only screen and (max-width: 978px) {
-    padding: 10px 20px;
+
+  @media only screen and (min-width: 976px) and (max-width: 1500px) {
+    padding: 10px 10px;
+  }
+  @media only screen and (max-width: 630px) {
+    padding: 10px 10px;
   }
 `;
 
@@ -60,13 +67,16 @@ const Item = styled.div`
   width: 40%;
   align-items: center;
   justify-content: center;
-  @media only screen and (max-width: 978px) {
-    font-size: 10px;
+  @media only screen and (min-width: 976px) and (max-width: 1500px) {
+    font-size: 9px;
+  }
+  @media only screen and (max-width: 630px) {
+    font-size: 9px;
   }
 `;
 const FridgeItem = ({ingredient, onRemove}) => {
 
-  const {id, name, amount, expiration_date, expiration_type} = ingredient;
+  const {id, name, amount, expiration_date, manufacture, expiration_type} = ingredient;
   const [modal, setModal] = useState(false);
   const onEdit = () => {
     setModal(true);
@@ -91,7 +101,6 @@ const FridgeItem = ({ingredient, onRemove}) => {
           onCancel={onCancel}
           type="edit"
         />
-        <FridgeModal/>
         <Item>{name}</Item>
         <Item>{amount}</Item>
         {

@@ -82,18 +82,23 @@ const FridgeAddModal = ({
                         type
                       }) => {
   const text = textMap[type];
-
   const [modal, setModal] = useState(false);
 
+  //todo: 사진업로그 기능 구현 해야함
+
+  //직접추가 버튼 액션
   const onAddClick = () => {
     setModal(true);
   };
+  //취소 버튼 액션
   const onCancel = () => {
+    onCloseClick();
     setModal(false);
   };
+  //확인 버튼 액션
   const onConfirm = () => {
+    onCloseClick();
     setModal(false);
-    // onAdd();
   }
 
   if (!visible) return null;

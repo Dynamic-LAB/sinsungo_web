@@ -49,14 +49,19 @@ const Shelf_Yellow = styled.div`
 
 const ItemTitle = styled.div`
   display: flex;
-  padding: 10px 40px 10px 50px ;
+  padding: 10px 35px;
   align-items: center;
   border-bottom: 1px solid #bbbbbb;
   font-weight: 700;
   color: #393939;
-  font-size: 13px;
-  @media only screen and (max-width: 978px) {
-    font-size: 11px;
+  font-size: 12px;
+  @media only screen and (min-width:976px) and (max-width: 1500px) {
+    padding: 10px 10px;
+    font-size: 10px;
+  }
+  @media only screen and (max-width: 630px) {
+    padding: 10px 15px;
+    font-size: 10px;
   }
 `;
 const Item = styled.div`
@@ -74,7 +79,7 @@ const Spacer = styled.div`
 
 const DeleteIngredientById=(id)=>{
   axios.delete("/refrigerator/ingredient/"+id, {
-    params: { 
+    params: {
     }
   })
   .then((response)=> {
@@ -92,10 +97,10 @@ const Fridge = (props) => {
   const GetIngredient=(id)=>{
     axios.get("/refrigerator/ingredient/"+id, {
       params: {
-        
+
       }
     })
-    .then((response)=> {  
+    .then((response)=> {
         // response 
         setIngredients(response)
       }).catch((error)=>{
@@ -119,7 +124,7 @@ const Fridge = (props) => {
       DeleteIngredientById(id);
       GetIngredient(props.userInfo.newRefId);
     }
-   
+
   );
   return (
     <frigde>
@@ -149,7 +154,7 @@ const Fridge = (props) => {
             <ItemTitle>
               <Item>재료명</Item>
               <Item>갯수</Item>
-              <Item>유통기한</Item>
+              <Item>유통기한(D-day)</Item>
               <Item>제조일자</Item>
               <Item>보관일</Item>
             </ItemTitle>
@@ -169,8 +174,9 @@ const Fridge = (props) => {
             <ItemTitle>
               <Item>재료명</Item>
               <Item>갯수</Item>
-              <Item>유통기한</Item>
-              <Item>남은기한</Item>
+              <Item>유통기한(D-day)</Item>
+              <Item>제조일자</Item>
+              <Item>보관일</Item>
             </ItemTitle>
             <IngredientBlock>
 
@@ -187,11 +193,12 @@ const Fridge = (props) => {
             <ItemTitle>
               <Item>재료명</Item>
               <Item>갯수</Item>
-              <Item>유통기한</Item>
-              <Item>남은기한</Item>
+              <Item>유통기한(D-day)</Item>
+              <Item>제조일자</Item>
+              <Item>보관일</Item>
             </ItemTitle>
             <IngredientBlock>
-                
+
             </IngredientBlock>
           </WhiteBoxFridge>
 
@@ -205,8 +212,9 @@ const Fridge = (props) => {
             <ItemTitle>
               <Item>재료명</Item>
               <Item>갯수</Item>
-              <Item>유통기한</Item>
-              <Item>남은기한</Item>
+              <Item>유통기한(D-day)</Item>
+              <Item>제조일자</Item>
+              <Item>보관일</Item>
             </ItemTitle>
             <IngredientBlock>
 
@@ -223,8 +231,9 @@ const Fridge = (props) => {
             <ItemTitle>
               <Item>재료명</Item>
               <Item>갯수</Item>
-              <Item>유통기한</Item>
-              <Item>남은기한</Item>
+              <Item>유통기한(D-day)</Item>
+              <Item>제조일자</Item>
+              <Item>보관일</Item>
             </ItemTitle>
             <IngredientBlock>
 

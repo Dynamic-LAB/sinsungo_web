@@ -28,12 +28,3 @@ my {
     border-top: 1px solid #c9c9c9;
     float: left;
 }
-
-@media only screen and (max-width: 978px) {
-    .recipe__cards {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 15px;
-        margin: 15px 0;
-    }
-}
