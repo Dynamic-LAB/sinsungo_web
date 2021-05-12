@@ -1,11 +1,12 @@
 import "./Fridge.css";
 import WhiteBox from "../common/WhiteBox";
 import styled from 'styled-components';
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState,useContext} from "react";
 import FridgeList from "./FridgeList";
 import FridgeAddButton from "./FridgeAddButton";
 import GetIngredientByRefrigratorId from "../ForServer/GetIngredientByRefrigratorId";
 import axios from 'axios';
+import {Context} from '../../Ingredient'
 //import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 //유통기한 임박 재료 박스
@@ -103,6 +104,7 @@ const Fridge = (props) => {
     .then((response)=> {
         // response 
         setIngredients(response)
+        return response
       }).catch((error)=>{
         // 오류발생시 실행
     }).then(()=> {
@@ -111,18 +113,31 @@ const Fridge = (props) => {
     //props.setIngredients()
   }
 
+  const {
+    state,
+    dispatch,
+  } = useContext(Context);
   useEffect(()=>{
-    if(JSON.parse(sessionStorage.getItem('User')))
-    {
-    GetIngredient(JSON.parse(sessionStorage.getItem('User')).newRefId)
-    }
+    if(JSON.parse(sessionStorage.getItem('User'))){
+    GetIngredientByRefrigratorId(
+      {
+          id:JSON.parse(sessionStorage.getItem('User')).newRefId,
+          dispatch:dispatch
+      }
+    )};
   },[])
-
+  
  //지우기 기능
   const onRemove = useCallback(
     id => {
       DeleteIngredientById(id);
-      GetIngredient(props.userInfo.newRefId);
+      if(JSON.parse(sessionStorage.getItem('User'))){
+        GetIngredientByRefrigratorId(
+          {
+              id:JSON.parse(sessionStorage.getItem('User')).newRefId,
+              dispatch:dispatch
+          }
+        )};
     }
 
   );
@@ -160,7 +175,7 @@ const Fridge = (props) => {
             </ItemTitle>
             <IngredientBlock>
               {/*재료*/}
-             <FridgeList ingredients={ingredients}  setIngredients={setIngredients} onRemove={onRemove}/>
+             <FridgeList onRemove={onRemove} type="냉장"/>
             </IngredientBlock>
           </WhiteBoxFridge>
 
@@ -179,7 +194,7 @@ const Fridge = (props) => {
               <Item>보관일</Item>
             </ItemTitle>
             <IngredientBlock>
-
+            <FridgeList onRemove={onRemove} type="냉동"/>
             </IngredientBlock>
           </WhiteBoxFridge>
 
@@ -198,7 +213,7 @@ const Fridge = (props) => {
               <Item>보관일</Item>
             </ItemTitle>
             <IngredientBlock>
-
+            <FridgeList onRemove={onRemove} type="신선"/>
             </IngredientBlock>
           </WhiteBoxFridge>
 
@@ -217,7 +232,7 @@ const Fridge = (props) => {
               <Item>보관일</Item>
             </ItemTitle>
             <IngredientBlock>
-
+            <FridgeList onRemove={onRemove} type="상온"/>
             </IngredientBlock>
           </WhiteBoxFridge>
 
@@ -236,7 +251,7 @@ const Fridge = (props) => {
               <Item>보관일</Item>
             </ItemTitle>
             <IngredientBlock>
-
+            <FridgeList onRemove={onRemove} type="조미료/양념" />
             </IngredientBlock>
           </WhiteBoxFridge>
         </div>

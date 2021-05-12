@@ -1,13 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import Navbar from "../components/common/Navbar/Navbar";
 import Sidebar from "../components/common/Sidebar/Sidebar";
 import Fridge from "../components/Fridge/Fridge";
 import Right from "../components/common/Rightbar/Right";
 import {useLocation} from "react-router";
 import axios from 'axios';
-
 const FridgePage = (props) => {
-
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const openSidebar = () => {

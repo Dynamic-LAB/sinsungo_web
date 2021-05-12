@@ -1,23 +1,31 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState,useContext} from 'react';
 import styled from "styled-components";
 import FridgeItem from "./FridgeItem";
-
+import {Context} from '../../Ingredient';
+import GetIngredientByRefrigratorId from '../ForServer/GetIngredientByRefrigratorId'
 const IngredientBlock = styled.div`
   overflow-y: auto; //스크롤
 `;
 
-const FridgeList = ({ingredients, onRemove,  setIngredients}) =>{
+const FridgeList = ({ onRemove, type}) =>{
+  const {
+    state,
+    dispatch,
+  } = useContext(Context);
   return(
     <IngredientBlock>
       {
-          ingredients?ingredients.data.map(ingredient => {
-            return(  
-              <FridgeItem
-              ingredient={ingredient}
-              key={ingredient.id}
-              onRemove={onRemove}
-              />)
-          }):console.log("Fridge List// 반복문 구성 실패 (냉장고 미할당)")
+          state.IngredientList.map(item=>{
+          if(item.category==type){
+         return(
+           <FridgeItem
+          ingredient={item}
+          key={item.id}
+          onRemove={onRemove}
+          />
+          )
+         }
+        })
       }
     </IngredientBlock>
   );

@@ -76,7 +76,7 @@ const Item = styled.div`
 `;
 const FridgeItem = ({ingredient, onRemove}) => {
 
-  const {id, name, amount, expiration_date, manufacture, expiration_type} = ingredient;
+  const {id, name, amount,unit,expiration_date, manufacture, expiration_type} = ingredient;
   const [modal, setModal] = useState(false);
   const onEdit = () => {
     setModal(true);
@@ -88,7 +88,6 @@ const FridgeItem = ({ingredient, onRemove}) => {
     setModal(false);
     // onAdd();
   }
-
   return (
     <>
       <ItemBlock>
@@ -102,22 +101,22 @@ const FridgeItem = ({ingredient, onRemove}) => {
           type="edit"
         />
         <Item>{name}</Item>
-        <Item>{amount}</Item>
+        <Item>{amount+unit}</Item>
         {
-            expiration_type=="date"?
+            expiration_type=="유통기한"?
             <Item>{expiration_date.substring(0,expiration_date.indexOf("T"))}( n )</Item>
             :
             <Item>-</Item>
           }
     {
-            expiration_type=="manufacture"?
+            expiration_type=="제조일자"?
             <Item>{expiration_date.substring(0,expiration_date.indexOf("T"))}</Item>
             :
             <Item>-</Item>
             
           }
               {
-            expiration_type=="storage"?
+            expiration_type=="보관일"?
             <Item>{expiration_date.substring(0,expiration_date.indexOf("T"))}</Item>
             :
             <Item>-</Item>

@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import styled from 'styled-components';
 import {MdClose} from "react-icons/md";
 import Button from "../common/Button";
 import FridgeModal from "./FridgeModal";
-
+import GetIngredientByRefrigratorId from "../ForServer/GetIngredientByRefrigratorId"
+import { Context } from '../../Ingredient';
 const Fullscreen = styled.div`
   position: fixed;
   z-index: 30;
@@ -96,7 +97,15 @@ const FridgeAddModal = ({
     setModal(false);
   };
   //확인 버튼 액션
+  const {state,dispatch}=useContext(Context);
   const onConfirm = () => {
+    if(JSON.parse(sessionStorage.getItem('User'))){
+      GetIngredientByRefrigratorId(
+        {
+            id:JSON.parse(sessionStorage.getItem('User')).newRefId,
+            dispatch:dispatch
+        }
+      )};
     onCloseClick();
     setModal(false);
   }
