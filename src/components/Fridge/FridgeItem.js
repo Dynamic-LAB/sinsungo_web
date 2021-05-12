@@ -103,9 +103,27 @@ const FridgeItem = ({ingredient, onRemove}) => {
         />
         <Item>{name}</Item>
         <Item>{amount}</Item>
-        <Item>{expiration_date.substring(0, expiration_date.indexOf("T"))}</Item>
-        <Item>{manufacture}</Item>
-        <Item>{expiration_type}</Item>
+        {
+            expiration_type=="date"?
+            <Item>{expiration_date.substring(0,expiration_date.indexOf("T"))}( n )</Item>
+            :
+            <Item>-</Item>
+          }
+    {
+            expiration_type=="manufacture"?
+            <Item>{expiration_date.substring(0,expiration_date.indexOf("T"))}</Item>
+            :
+            <Item>-</Item>
+            
+          }
+              {
+            expiration_type=="storage"?
+            <Item>{expiration_date.substring(0,expiration_date.indexOf("T"))}</Item>
+            :
+            <Item>-</Item>
+            
+          }
+
         <Remove onClick={() => onRemove(id)}>
           <MdDelete/>
         </Remove>
