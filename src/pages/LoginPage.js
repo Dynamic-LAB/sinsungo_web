@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import KakaoLoginv from '../components/KakaoLoginv';
 import GoogleButton from '../components/GoogleButton'
 import styled from "styled-components";
-import logo from '../assets/Pnglogo.png'
+import logo from '../assets/sinsungo_logo.png'
 import UserLoginOrSignup from "../components/ForServer/UserLoginOrSignup"
 
 const LoginBlock = styled.div`
