@@ -6,12 +6,14 @@ const initialShopping = [
     shopping_name: '감자',
     shopping_index: '냠냠',
     shopping_count: '0',
+    shopping_count_unit: 'g',
   },
   {
     shopping_id: 2,
     shopping_name: '고구마',
     shopping_index: '사이다도 같이 사기',
     shopping_count: '0',
+    shopping_count_unit: 'g',
   },
 
 ];

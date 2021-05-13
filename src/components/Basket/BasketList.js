@@ -20,6 +20,7 @@ const BasketList = ({type}) => {
               name={list.shopping_name}
               memo={list.shopping_index}
               count={list.shopping_count}
+              unit={list.shopping_count_unit}
             />
           ))}
         </ShoppingBlock>
