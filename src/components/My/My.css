@@ -28,3 +28,12 @@ my {
     border-top: 1px solid #c9c9c9;
     float: left;
 }
+@media only screen and (max-width: 978px) {
+    .my_menu_bar {
+        display: none;
+    }
+    .bar_title {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}

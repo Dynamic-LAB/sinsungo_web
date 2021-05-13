@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./My.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
@@ -6,6 +6,7 @@ import {MdAdd, MdNotificationsNone} from "react-icons/md";
 import Member from "../common/Rightbar/Member/Member";
 import {Link} from "react-router-dom";
 import MemberAddButton from "../common/Rightbar/Member/MemberAddButton";
+import AskModal from "./AskModal";
 
 const WhiteBoxMy = styled(WhiteBox)`
   height: 250px;
@@ -46,6 +47,16 @@ const Spacer = styled.div`
 `;
 
 const My = () => {
+  const [modal, setModal] = useState(false);
+  const onCheck = () => {
+    setModal(true);
+  }
+  const onCancel = () => {
+    setModal(false);
+  }
+  const onWithdrawal = () => {
+    setModal(false);
+  }
   return (
     <my>
       <div className="my__container">
@@ -88,9 +99,15 @@ const My = () => {
             <MenuItemBlock>
               <Link to='/'>로그아웃</Link>
             </MenuItemBlock>
-            <MenuItemBlock>
+            <MenuItemBlock onClick={onCheck}>
               회원탈퇴
             </MenuItemBlock>
+            {/*탈퇴확인*/}
+            <AskModal
+              visible={modal}
+              onCancel={onCancel}
+              onWithdrawal={onWithdrawal}
+            />
           </div>
         </div>
       </div>
