@@ -100,6 +100,10 @@ const MenuBlock = styled.div`
   .diet_menu {
     font-weight: bold;
   }
+  .diet_index{
+    margin-left: 10px;
+    font-size: 12px;
+  }
 `;
 const IngredientBlock = styled.div`
   font-size: 16px;
@@ -231,7 +235,9 @@ const DietModal = ({
             {/*메뉴박스*/}
             <StyledWhiteBox>
               <MenuBlock>
-                <div className="diet_menu">메뉴</div>
+                  <span className="diet_menu">메뉴</span>
+                  <span className="diet_index">최대 입력 10개</span>
+                {/*메뉴 입력 칩*/}
                 <DietMenuTag/>
               </MenuBlock>
             </StyledWhiteBox>

@@ -17,7 +17,7 @@ const TagInput = styled.ul`
   li {
     display: flex;
     align-items: center;
-    background: #9B8C81;
+    background: #B4CEFE;
     border-radius: 20px;
     color: #010101;
     font-weight: 300;
@@ -47,7 +47,7 @@ const TagInputEnter = styled.input`
   border: none;
   background: none;
   outline: none;
-  width: 100px;
+  width: 100%;
   font-size: 13px;
 `;
 
@@ -67,9 +67,13 @@ const DietMenuTag = () => {
       if(tags.find(tag => tag.toLowerCase() === val.toLowerCase())){
         return;
       }
+      if(tags.length === 10) return; //10개가 되면 추가하지 않음
       setTags([...tags, val]);
       tagInput.value = null;
+    } else if (e.key === 'Backspace' && !val) {
+      removeTag(tags.length - 1);
     }
+
   };
 
   return(
@@ -78,8 +82,8 @@ const DietMenuTag = () => {
         {tags.map((tag, i) => (
           <li key={tag}>
             {tag}
-            <button type="button" onClick={() => removeTag()}>
-              <MdCancel/>
+            <button type="button" >
+              <MdCancel onClick={() => { removeTag(i) }}/>
             </button>
           </li>
         ))}
