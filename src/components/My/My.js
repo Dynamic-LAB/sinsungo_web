@@ -41,6 +41,7 @@ const MenuItemBlock = styled.div`
     color: #3C82D9;
     text-shadow: none;
   }
+  
 `;
 const Spacer = styled.div`
   flex-grow: 1;
@@ -108,6 +109,9 @@ const My = () => {
               onCancel={onCancel}
               onWithdrawal={onWithdrawal}
             />
+          </div>
+          <div className="my_contents">
+            공지사항 내용 들어가는 곳
           </div>
         </div>
       </div>
