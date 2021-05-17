@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {MdCheckBox, MdCheckBoxOutlineBlank, MdEdit, MdDelete} from "react-icons/md";
 import FridgeAddModal from "./FridgeAddModal";
 import FridgeModal from "./FridgeModal";
+import GetIngredientByRefrigratorId from '../ForServer/GetIngredientByRefrigratorId';
 
 const Remove = styled.div`
   display: flex;
@@ -76,7 +77,7 @@ const Item = styled.div`
 `;
 const FridgeItem = ({ingredient, onRemove}) => {
 
-  const {id, name, amount, expiration_date, manufacture, expiration_type} = ingredient;
+  const {id, name, amount,unit,expiration_date, manufacture, expiration_type} = ingredient;
   const [modal, setModal] = useState(false);
   const onEdit = () => {
     setModal(true);
@@ -88,7 +89,6 @@ const FridgeItem = ({ingredient, onRemove}) => {
     setModal(false);
     // onAdd();
   }
-
   return (
     <>
       <ItemBlock>
@@ -99,13 +99,32 @@ const FridgeItem = ({ingredient, onRemove}) => {
           visible={modal}
           onConfirm={onConfirm}
           onCancel={onCancel}
+          ingredient={ingredient}
           type="edit"
         />
         <Item>{name}</Item>
-        <Item>{amount}</Item>
-        <Item>{expiration_date.substring(0, expiration_date.indexOf("T"))}</Item>
-        <Item>{manufacture}</Item>
-        <Item>{expiration_type}</Item>
+        <Item>{amount+unit}</Item>
+        {
+            expiration_type=="유통기한"?
+            <Item>{expiration_date}</Item>
+            :
+            <Item>-</Item>
+          }
+    {
+            expiration_type=="제조일자"?
+            <Item>{expiration_date}</Item>
+            :
+            <Item>-</Item>
+            
+          }
+              {
+            expiration_type=="보관일"?
+            <Item>{expiration_date}</Item>
+            :
+            <Item>-</Item>
+            
+          }
+
         <Remove onClick={() => onRemove(id)}>
           <MdDelete/>
         </Remove>

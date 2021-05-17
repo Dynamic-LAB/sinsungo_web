@@ -3,10 +3,11 @@ import React, {useReducer, createContext, useContext, useRef} from "react";
 const initialShopping = [
   {
     shopping_id: 1,
-    shopping_name: '감자',
+    shopping_name: '감자2',
     shopping_index: '냠냠',
     shopping_count: '0',
     shopping_count_unit: 'g',
+
   },
   {
     shopping_id: 2,

@@ -4,7 +4,11 @@ import styled from 'styled-components';
 import TagBox from './TagBox';
 import {MdSearch} from 'react-icons/md';
 import RecipeCard from "./RecipeCard";
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect,useRef} from 'react';
+import aixos from 'axios';
+import axios from "../../../node_modules/axios/index";
+import DietItem from "../Basket/Diet/DietItem";
+import { resetWarningCache } from "prop-types";
 // import ice from "../../assets/ice.svg";
 
 const WhiteBoxTop = styled(WhiteBox)`
@@ -28,7 +32,7 @@ const RecipeBlock = styled.div`
 `;
 const SearchBar = styled.input.attrs({
   type: 'text',
-  placeholder: '검색어를 입력해주세요',
+  placeholder: '검색어를 입력해주세요(2글자 이상)',
 })`
   font-size: 16px;
   width: 100%;
@@ -48,50 +52,81 @@ const RecipeTitle = styled.div`
   font-size: 10px;
   border-bottom: 1px solid #bbbbbb;
 `;
+
+
 const Recipe = () => {
+  var st=0;
+  const range=useRef(null);
+  const target=useRef(null);
+  const word=useRef(null);
+  const waitTime=useRef(null);
+  const wordExist=useRef(null);
+  const [recipeData,SetRecipeData]=useState();
   const [modal, setModal] = useState(false);
+  const [searchWord, SetSearchWord] = useState("");
+  const list=useRef(null);
   const popUp = () => {
     setModal(true);
   }
-  /* const CardSample = () => {
-       const names = ['백숙', '치킨', '통닭', '바베큐','1','2','3','2','3','2','3','2','3'];
-       const hasList = ['닭', '치즈', '양파'];
-       const noneList = ['물', '얼음'];
-       const recipeList = names.map((name,index) =>
+  async function GetRecipe(startPoint,endPoint,query=""){
+    if(query.length>=0){
+    list.current.push(query)
+    }
+    if(waitTime.current==false){
+    waitTime.current=true;
+    const res= await axios.get("/recipe/"+0,{
+     params: {start:startPoint,end:endPoint,query:query}
+   });
+   if(list.current.length>=0 && list.current[list.current.length-1]!=query){
+    var tmp=list.current[list.current.length-1];
+    list.current=[];
+    waitTime.current=false;
+    console.log(tmp," 으로 재검색")
+    GetRecipe(startPoint,endPoint,tmp);
+    return;
+   }
+  SetRecipeData(res.data)
+  waitTime.current=false;
+  }
+}
+  const HandleScroll=()=>{
+    target.current=document.getElementById('target');
+    if(target.current.scrollTop+target.current.clientHeight>=target.current.scrollHeight){ 
+      if(wordExist.current==false){  
+        range.current=range.current+6;
+          GetRecipe(1,range.current);
+        }else{
+      
+        }
+    }
+  }
+  useEffect(()=>{
+    list.current=new Array();
+    range.current=20;
+    waitTime.current=false;
+    wordExist.current=false;
+    document.getElementById('target').addEventListener('scroll',HandleScroll);
+    GetRecipe(1,range.current);
+  },[])
+  useEffect(()=>{
+    if(searchWord.length>=1){
+      wordExist.current=true;
+    }else{
+      wordExist.current=false;
+    }
+    GetRecipe(1,range.current,searchWord);
+    
+  },[searchWord])
 
-           <div onClick={popUp} className="card" key={index}>
-                  <div>{index}</div>
-                   <RecipeModal
-                   visible={modal}
-                   onConfirm={()=>setModal(false)}
-                   onCancel={()=>setModal(false)}
-                   />
-           <div className="card_inner">
-               <OriImg src={process.env.PUBLIC_URL + '/img.jpg'} alt="오류"/>
-               <Box2>
-                   <Box3>{name}</Box3>
-                   <Box4>
-                       <HasItem>냉장고 속 재료 │</HasItem> {hasList.map((n,_i)=>{return n+(_i<hasList.length-1?',':'')})}
-                       <br></br>
-                       <NoneItem>없는 재료 │</NoneItem> {noneList.map((n,_i)=>{return n+(_i<noneList.length-1?',':'')})}
-                   </Box4>
-               </Box2>
-           </div>
-       </div>);
-
-       return (recipeList);
-
-     };*/
   return (
-    <main>
+    <main id='target'>
       <div className="recipe__container">
         <WhiteBoxTop>
           <SearchBlock>
             <div className="icon_search"><MdSearch/></div>
-            <SearchBar/>
+            <SearchBar onChange={(e)=>{SetSearchWord(e.target.value)}} />
           </SearchBlock>
         </WhiteBoxTop>
-
         <WhiteBoxRecipe>
 
           <RecipeTitle>
@@ -100,25 +135,19 @@ const Recipe = () => {
           </RecipeTitle>
           <RecipeBlock>
             <div className="recipe__cards">
-              <RecipeCard
-                name={'백숙'}
-                hasList={['닭', '치즈', '양파']}
-                noneList={['물', '얼음']}
-              />
-              <RecipeCard
-                name={'치킨'}
-                hasList={['닭', '치즈', '양파']}
-                noneList={['물', '얼음']}
-              /> <RecipeCard
-              name={'치킨'}
-              hasList={['닭', '치즈', '양파']}
-              noneList={['물', '얼음']}
-            />
-              <RecipeCard
-                name={'통닭'}
-                hasList={['닭', '치즈', '양파']}
-                noneList={['물', '얼음']}
-              />
+              {
+                recipeData?recipeData.map((item)=>{return ( 
+                <RecipeCard
+                  thumbnail={item.thumbnail}
+                  url={item.url}
+                  description={item.description}
+                  name={item.name}
+                  hasList={item.inRefIngredients}
+                  noneList={item.notInRefIngredients}
+                />   
+                )}) : null
+              }
+           
             </div>
           </RecipeBlock>
         </WhiteBoxRecipe>

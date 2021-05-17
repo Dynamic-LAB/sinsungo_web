@@ -72,7 +72,7 @@ const RecipeCard = (props) => {
     <>
       <StyledWhiteBox onClick={onCardClick}>
         <div className="card_inner">
-          <OriImg src={process.env.PUBLIC_URL + '/img.jpg'} alt="오류"/>
+          <OriImg src={props.thumbnail} alt="No Image"/>
           <TextBlock>
             <ItemTitle>{props.name}</ItemTitle>
             <Box4>
@@ -90,7 +90,12 @@ const RecipeCard = (props) => {
         </div>
       </StyledWhiteBox>
       <RecipeModal
+        thumbnail={props.thumbnail}
+        url={props.url}
+        description={props.description}
         name={props.name}
+        hasList={props.inRefIngredients}
+        noneList={props.notInRefIngredients}
         visible={modal}
         onCancel={onCancel}
       />
