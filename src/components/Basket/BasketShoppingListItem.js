@@ -83,22 +83,21 @@ const Count = styled.div`
   align-items: center;
   justify-content: center;
 
-  .count_btn {
-    display: flex;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-
   .count_num {
     display: flex;
-    margin: 0 20px 0 20px;
+    margin-left: 20px;
+    font-size: 15px;
+    text-align: center;
+  }
+  .count_unit {
+    display: flex;
+    margin-left: 10px;
     font-size: 15px;
     text-align: center;
   }
 `;
 
-
-const BasketShoppingListItem = ({id, name, memo, count}) => {
+const BasketShoppingListItem = ({id, name, memo, count, unit}) => {
 
   //const {shopping_id, shopping_name, shopping_index, shopping_count,} = list;
   const dispatch = useShoppingDispatch();
@@ -110,8 +109,6 @@ const BasketShoppingListItem = ({id, name, memo, count}) => {
     });
   //모달 on, off 함수
   const [modal, setModal] = useState(false);
-  //count 를 문자로 받아서 정수로 변환해줬음
-  const [value, setValue] = useState(parseInt(count));
 
   //모달 함수들(onEdit, onCancel, onConfirm)
   const onEdit = () => {
@@ -141,9 +138,8 @@ const BasketShoppingListItem = ({id, name, memo, count}) => {
       <ItemIndex>{memo}</ItemIndex>
       <Item>
         <Count>
-          <div className="count_btn" onClick={() => setValue(value - 1)}><MdRemoveCircleOutline/></div>
-          <div className="count_num">{value}</div>
-          <div className="count_btn" onClick={() => setValue(value + 1)}><MdAddCircleOutline/></div>
+          <div className="count_num">{parseInt(count)}</div>
+          <div className="count_unit">{unit}</div>
         </Count>
       </Item>
       <Remove onClick={() => onRemove(id)}>

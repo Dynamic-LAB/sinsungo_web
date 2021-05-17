@@ -37,6 +37,9 @@ const ModalTitle = styled.div`
     font-size: 1.325rem;
     margin-top: 0;
   }
+  .text_blue {
+    color: #5887F9;
+  }
 `;
 const Spacer = styled.div`
   flex-grow: 1;
@@ -116,7 +119,7 @@ const FridgeAddModal = ({
     <Fullscreen>
       <ModalBlock>
         <ModalTitle>
-          <h2>{text} 재료추가</h2>
+          <h2>{text} 재료 <span className="text_blue">추가</span></h2>
           <Spacer/>
           <CloseButton onClick={onCloseClick}>
             <MdClose/>

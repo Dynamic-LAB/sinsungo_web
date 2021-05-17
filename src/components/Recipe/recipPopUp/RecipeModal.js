@@ -1,8 +1,10 @@
-import React,{useEffect} from 'react';
-import Modal from "../../common/Modal";
+
+import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 import Button from "../../common/Button";
 import WhiteBox from "../../common/WhiteBox";
+import RecipeDietAddModal from "./RecipeDietAddModal";
+
 const Fullscreen = styled.div`
   position: fixed;
   z-index: 30;
@@ -29,12 +31,10 @@ const ModalBlock = styled.div`
     margin-top: 0;
     margin-bottom: 1rem;
   }
-
   .modal_buttons {
     display: flex;
     justify-content: flex-end;
   }
-
 `;
 
 const StyledWhiteBox = styled(WhiteBox)`
@@ -43,7 +43,6 @@ const StyledWhiteBox = styled(WhiteBox)`
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 0 15px ;
-
 `;
 
 const StyledButton = styled(Button)`
@@ -57,20 +56,26 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const DescriptonDiv = styled.div`
-background: green;
-`;
 const RecipeModal  = ({name,description,thumbnail,url,
-    visible,
-    confirmText = '닫기',
-    cancelText = '식단추가',
-    moveText = '우리의식탁으로 이동',
-    onConfirm,
-    onCancel}) => {
+                       visible,
+                       cancelText = '닫기',
+                       confirmText = '식단추가',
+                       moveText = '우리의식탁으로 이동',
+                       onConfirm,
+                       onCancel}) => {
 
-     
+//레시피에서 식단추가를 위한 팝업창 상태변화
+  const [open, setOpen] = useState(false);
+  //식단추가 액션
+  const onAddClick = () => {
+    setOpen(true);
+  };
+  const onCloseClick = () => {
+    setOpen(false);
+  }     
 if (!visible) return null;
 return(
+  <>
 <Fullscreen>
   <ModalBlock>
     <h2>레시피 상세보기</h2>
@@ -101,15 +106,18 @@ return(
     <div className="modal_buttons">
     <StyledButton  inverted={true}
           onClick={()=>{window.open(url,'_blank')}}>{moveText}</StyledButton>
-    <StyledButton  inverted={true}
-          onClick={onCancel}>{cancelText}</StyledButton>
-    <StyledButton blueBtn
-          onClick={onConfirm}>{confirmText}</StyledButton>
+    <StyledButton inverted={true} onClick={onAddClick}>{confirmText}</StyledButton>
+          <StyledButton blueBtn onClick={onCancel}>{cancelText}</StyledButton>
     </div>
   </ModalBlock>
 </Fullscreen>
-
-);
+  {/*식단추가 누르면 나오는 팝업*/}
+      <RecipeDietAddModal
+        visible={open}
+        onCloseClick={onCloseClick}
+      />
+  </>
+  );
 };
 
 export default RecipeModal;

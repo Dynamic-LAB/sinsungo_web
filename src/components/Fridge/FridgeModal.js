@@ -37,7 +37,9 @@ const ModalBlock = styled.div`
     margin-top: 0;
     margin-bottom: 1rem;
   }
-
+  .text_blue {
+    color: #5887F9;
+  }
   .modal_buttons {
     display: flex;
     justify-content: flex-end;
@@ -236,11 +238,11 @@ const FridgeModal = ({
   return (
     <Fullscreen >
       <ModalBlock>
-        {type === 'cold' && (<h2>{text} 재료 추가</h2>)}
-        {type === 'freeze' && (<h2>{text} 재료 추가</h2>)}
-        {type === 'fresh' && (<h2>{text} 재료 추가</h2>)}
-        {type === 'temp' && (<h2>{text} 재료 추가</h2>)}
-        {type === 'seasoning' && (<h2>{text} 재료 추가</h2>)}
+        {type === 'cold' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
+        {type === 'freeze' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
+        {type === 'fresh' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
+        {type === 'temp' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
+        {type === 'seasoning' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
         {type === 'edit' && (<h2>재료 {text}하기</h2>)}
         {/*냉장고 재료추가 폼*/}
         <form>

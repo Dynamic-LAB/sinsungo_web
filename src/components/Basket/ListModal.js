@@ -174,6 +174,7 @@ const ListModal = ({
         shopping_name: list_name,
         shopping_index: list_memo,
         shopping_count: list_amount,
+        shopping_count_unit: list_unit,
       }
     });
     onConfirm();
@@ -181,7 +182,7 @@ const ListModal = ({
     nextId.current += 1;
   };
 
-  const {list_name, list_amount, list_memo} = watch();
+  const {list_name, list_amount, list_unit, list_memo} = watch();
 
   if (!visible) return null;
   const text = textMap[type];

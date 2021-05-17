@@ -28,3 +28,58 @@ basket {
     background: no-repeat url("../../assets/icon_share_24px.svg");
     background-size: 22px 22px;
 }
+.modal__header {
+    display: flex;
+}
+.modal {
+    background: #F6F6F6;
+    height: auto;
+    width: auto;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
+}
+
+.modal__header button {
+    display: flex;
+    margin-left: auto;
+    font-size: 30px;
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.modal__body {
+    padding: 20px;
+}
+
+.modal__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.modal__footer button {
+
+    margin-left: 0.5rem;
+    background: none;
+    border: none;
+    color: #707070;
+    outline: none;
+    cursor: pointer;
+}
+.down_img {
+    display: flex;
+    font-size: 40px;
+}
+
+.modal__footer img {
+    width: 40px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.image__container {
+    overflow: auto;
+}
