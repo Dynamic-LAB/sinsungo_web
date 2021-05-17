@@ -2,10 +2,8 @@ import "./Recipe.css";
 import WhiteBox from "../common/WhiteBox"
 import styled from 'styled-components';
 import TagBox from './TagBox';
-import {MdSearch} from 'react-icons/md';
 import RecipeModal from "./recipPopUp/RecipeModal"
 import React, {useState, useCallback} from 'react';
-// import ice from "../../assets/ice.svg";
 
 const StyledWhiteBox = styled(WhiteBox)`
   height: auto;
@@ -63,34 +61,30 @@ const ItemTitle = styled.div`
 
 const RecipeCard = (props) => {
   const [modal, setModal] = useState(false);
-  const onAddClick = () => {
+  const onCardClick = () => {
     setModal(true);
   };
   const onCancel = () => {
     setModal(false);
   };
-  const onConfirm = () => {
-    setModal(false);
-    // onAdd();
-  }
-  const popUp = () => {
-    onAddClick();
-  }
+
   return (
     <>
-      <StyledWhiteBox onClick={popUp}>
+      <StyledWhiteBox onClick={onCardClick}>
         <div className="card_inner">
           <OriImg src={process.env.PUBLIC_URL + '/img.jpg'} alt="오류"/>
           <TextBlock>
             <ItemTitle>{props.name}</ItemTitle>
             <Box4>
-              <HasItem>냉장고 속 재료 │</HasItem> {props.hasList.map((n, _i) => {
-              return n + (_i < props.hasList.length - 1 ? ',' : '')
-            })}
-              <br></br>
-              <NoneItem>없는 재료 │</NoneItem> {props.noneList.map((n, _i) => {
-              return n + (_i < props.noneList.length - 1 ? ',' : '')
-            })}
+              <div>
+                <HasItem>냉장고 속 재료 │</HasItem> {props.hasList.map((n, _i) => {
+                return n + (_i < props.hasList.length - 1 ? ',' : '') })}
+              </div>
+              <div>
+                <NoneItem>없는 재료 │</NoneItem> {props.noneList.map((n, _i) => {
+                return n + (_i < props.noneList.length - 1 ? ',' : '') })}
+              </div>
+
             </Box4>
           </TextBlock>
         </div>
@@ -98,7 +92,6 @@ const RecipeCard = (props) => {
       <RecipeModal
         name={props.name}
         visible={modal}
-        onConfirm={onConfirm}
         onCancel={onCancel}
       />
     </>
