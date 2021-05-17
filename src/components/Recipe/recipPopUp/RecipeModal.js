@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import Modal from "../../common/Modal";
 import styled from "styled-components";
 import Button from "../../common/Button";
@@ -38,11 +38,12 @@ const ModalBlock = styled.div`
 `;
 
 const StyledWhiteBox = styled(WhiteBox)`
-  height: 380px;
+  height: 80%;
   width: auto;
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 0 15px ;
+
 `;
 
 const StyledButton = styled(Button)`
@@ -56,13 +57,18 @@ const StyledButton = styled(Button)`
   }
 `;
 
-
-const RecipeModal  = ({name,visible,
+const DescriptonDiv = styled.div`
+background: green;
+`;
+const RecipeModal  = ({name,description,thumbnail,url,
+    visible,
     confirmText = '닫기',
     cancelText = '식단추가',
     moveText = '우리의식탁으로 이동',
     onConfirm,
     onCancel}) => {
+
+     
 if (!visible) return null;
 return(
 <Fullscreen>
@@ -74,24 +80,27 @@ return(
             'textAlign':'center',
             'marginTop':'20px',
           }}
-          ><img src={process.env.PUBLIC_URL + '/img.jpg'} alt="오류" style={{'borderRadius':'10px', 'width':'200px'}} />
-          <div>요리명</div>
+          ><img src={thumbnail} alt="No Image" style={{'borderRadius':'10px', 'width':'200px'}} />
+          <div>{name}</div>
           <div style={{
+                            'overflow':'scroll',
+                            'height':'100px',
                             'borderRadius':'10px',
-                             'height':'70%',
+                              'textOverflow:':'ellipsis',
                              'marginTop':'5px',
                              'border': '1px dashed #bbb',
                              'marginBottom':'10px',
                              'padding':'10px'
                         }}>
-          <div>설명</div>
+          {description}
           </div>
           </div>
     </StyledWhiteBox>
-    <div className="modal_buttons">
 
+    
+    <div className="modal_buttons">
     <StyledButton  inverted={true}
-          onClick={onCancel}>{moveText}</StyledButton>
+          onClick={()=>{window.open(url,'_blank')}}>{moveText}</StyledButton>
     <StyledButton  inverted={true}
           onClick={onCancel}>{cancelText}</StyledButton>
     <StyledButton blueBtn
@@ -104,3 +113,8 @@ return(
 };
 
 export default RecipeModal;
+
+/*
+
+  
+*/

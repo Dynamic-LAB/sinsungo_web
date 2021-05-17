@@ -165,7 +165,7 @@ const textMap = {
 };
 //폼 초기값
 const defaultValues = {
-  i_name: "",
+  i_name: "44",
   i_amount: "",
   i_unit: "",
   i_date: "",
@@ -210,12 +210,16 @@ const FridgeModal = ({
                        cancelText = '취소',
                        onConfirm,
                        onCancel,
+                       ingredient
                      }) => {
   const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({defaultValues});
 
   const onSubmit = (values) => {
+    if(type!="edit"){
     InsertIngredientByRefId(values,type);
-    //console.log(values);
+    }else{
+    //UpdateIngredientById(values,type);
+    }
     onConfirm();
     reset();
   }
@@ -238,7 +242,6 @@ const FridgeModal = ({
         {type === 'temp' && (<h2>{text} 재료 추가</h2>)}
         {type === 'seasoning' && (<h2>{text} 재료 추가</h2>)}
         {type === 'edit' && (<h2>재료 {text}하기</h2>)}
-
         {/*냉장고 재료추가 폼*/}
         <form>
           <StyledWhiteBox>
@@ -264,7 +267,7 @@ const FridgeModal = ({
                       message: "20자까지만 입력 가능합니다"
                     }
                   })}
-                />
+                ></StyledInput>
               </InputBlock>
             </label>
             <label>
