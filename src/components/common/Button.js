@@ -22,7 +22,7 @@ const buttonStyle = css`
               background: ${palette.gray[6]};
             }
           `}
-  
+
   ${props =>
           props.cyan &&
           css`
@@ -39,8 +39,9 @@ const buttonStyle = css`
             background: none;
             border: 2px solid #3C82D9;
             color: #3C82D9;
+
             &:hover {
-              box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.125);
+              box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
             }
           `};
 
@@ -49,20 +50,38 @@ const buttonStyle = css`
           css`
             background: #3c82d9;
             color: white;
+
             &:hover {
-              box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.125);
+              box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
             }
           `}
   ${props =>
           props.addBtn &&
           css`
             background: #3C82D9;
-            &:hover {
-              box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.125);
-            }
-          `
-}
 
+            &:hover {
+              box-shadow: 0 3px 6px rgba(0, 0, 0, 0.125);
+            }
+          `}
+  ${props =>
+          props.recipeBtn &&
+          css`
+            background: #9B8C81;
+
+            &:hover {
+              box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
+            }
+          `}
+  ${props =>
+          props.recipeAddBtn &&
+          css`
+            background: #D6D6D6;
+            color: #000000;
+            &:hover {
+              box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
+            }
+          `}
 `;
 const StyledButton = styled.button`
   ${buttonStyle}
@@ -72,11 +91,11 @@ const StyledLink = styled(Link)`
 `;
 
 const Button = props => {
-    return props.to ? (
-        <StyledLink {...props} cyan={props.cyan ? 1 : 0}/>
-    ) : (
-        <StyledButton {...props}/>
-    );
+  return props.to ? (
+    <StyledLink {...props} cyan={props.cyan ? 1 : 0}/>
+  ) : (
+    <StyledButton {...props}/>
+  );
 };
 
 export default Button;
