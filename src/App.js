@@ -6,7 +6,8 @@ import ShoppingBasketPage from "./pages/ShoppingBasketPage";
 import RecipePage from "./pages/RecipePage";
 import MyPage from "./pages/MyPage";
 import Main from "./pages/Main";
-
+import {Provider} from "./Ingredient";
+import Test from "./Hello";
 const App = () => {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -20,35 +21,28 @@ const App = () => {
     setSidebarOpen(false);
   }
   useEffect(()=>{
+    
     sessionStorage.setItem('Test',1);
-    /*  Fetch 함수를 통한 서버 통신 예시
-    seeUser()
-      .then(res=> this.setState({customers:res}))
-      .catch(err => console.log(err));
-      setSidebarOpen(true);*/
+
+  /*********************************/
+
+    //서비스 희망하면 위의 구 삭제
+    //sessionStorage.removeItem('Test');
+
+  /*********************************/
+
   });
-  /*  Fetch 함수를 통한 서버 통신 예시
-  const addUser = async ()=>{
-    const response = await fetch('/api/oauth2');
-    const body = await response.json();
-    return body;
-  }
-  const seeUser = async ()=>{
-    const response = await fetch('/api/customers');
-    const body = await response.json();
-    return body;
-  }
-  }*/
-  //{JSON.parse(window.sessionStorage.getItem('User'))==null?LoginPage:FridgePage}
+  
   return(
-      <>
-        
+      <> 
+        <Provider>
         <Route component={LoginPage} path="/" exact/>
         <Route component={FridgePage} path="/fridge"/>
         <Route component={Main} path="/Main"/>
         <Route component={ShoppingBasketPage} path="/basket"/>
         <Route component={RecipePage} path="/recipe"/>
         <Route component={MyPage} path="/my" />
+        </Provider> 
       </>
 
   );

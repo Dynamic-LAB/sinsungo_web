@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import styled from 'styled-components';
 import {MdClose} from "react-icons/md";
 import Button from "../common/Button";
 import FridgeModal from "./FridgeModal";
-
+import GetIngredientByRefrigratorId from "../ForServer/GetIngredientByRefrigratorId"
+import { Context } from '../../Ingredient';
 const Fullscreen = styled.div`
   position: fixed;
   z-index: 30;
@@ -35,6 +36,9 @@ const ModalTitle = styled.div`
   h2 {
     font-size: 1.325rem;
     margin-top: 0;
+  }
+  .text_blue {
+    color: #5887F9;
   }
 `;
 const Spacer = styled.div`
@@ -96,7 +100,15 @@ const FridgeAddModal = ({
     setModal(false);
   };
   //확인 버튼 액션
+  const {state,dispatch}=useContext(Context);
   const onConfirm = () => {
+    if(JSON.parse(sessionStorage.getItem('User'))){
+      GetIngredientByRefrigratorId(
+        {
+            id:JSON.parse(sessionStorage.getItem('User')).newRefId,
+            dispatch:dispatch
+        }
+      )};
     onCloseClick();
     setModal(false);
   }
@@ -107,7 +119,7 @@ const FridgeAddModal = ({
     <Fullscreen>
       <ModalBlock>
         <ModalTitle>
-          <h2>{text} 재료추가</h2>
+          <h2>{text} 재료 <span className="text_blue">추가</span></h2>
           <Spacer/>
           <CloseButton onClick={onCloseClick}>
             <MdClose/>
