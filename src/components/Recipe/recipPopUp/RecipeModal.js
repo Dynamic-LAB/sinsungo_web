@@ -58,7 +58,7 @@ const StyledWhiteBox = styled(WhiteBox)`
   width: auto;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  padding: 0 15px;
+  padding: 15px;
 `;
 const Thumbnail = styled.div`
   text-align: center;
@@ -86,9 +86,11 @@ const Ingredient = styled.div`
   height: 60px;
   width: 96%;
   flex: 1;
-  font-weight: 500;
   color: #000000;
-  font-size: 13px;
+  font-size: 12px;
+  .indent_text {
+    padding-left: 10px;
+  }
 `;
 const StyledButton = styled(Button)`
   text-align: center;
@@ -107,6 +109,16 @@ const StyledButton = styled(Button)`
     margin-left: 1.5rem;
   }
 `;
+const HasItem = styled.span`
+  color: #3c82d9;
+  font-size: 13px;
+  font-weight: 500;
+`;
+const NoneItem = styled.span`
+  color: #D93C3C;
+  font-size: 13px;
+  font-weight: 500;
+`;
 const RecipeModal = ({
                        name,
                        description,
@@ -115,7 +127,7 @@ const RecipeModal = ({
                        visible,
                        confirmText = '식단추가',
                        moveText = '레시피보기',
-                       onCancel,
+                       onCancel, hasList, noneList
                      }) => {
 
 //레시피에서 식단추가를 위한 팝업창 상태변화
@@ -150,6 +162,17 @@ const RecipeModal = ({
             </Description>
             <Ingredient>
               {/*재료넣기*/}
+              <div>
+                <HasItem>냉장고 속 재료</HasItem>
+                <div className="indent_text">{hasList.map((n, _i) => {
+                  return n + (_i < hasList.length - 1 ? ', ' : '') })}</div>
+              </div>
+              <br/>
+              <div>
+                <NoneItem>없는 재료</NoneItem>
+                <div className="indent_text">{noneList.map((n, _i) => {
+                  return n + (_i < noneList.length - 1 ? ', ' : '') })}</div>
+              </div>
             </Ingredient>
           </StyledWhiteBox>
 
@@ -162,6 +185,7 @@ const RecipeModal = ({
               {moveText}
             </StyledButton>
           </div>
+
         </ModalBlock>
       </Fullscreen>
       {/*식단추가 누르면 나오는 팝업*/}
