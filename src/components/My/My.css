@@ -28,12 +28,22 @@ my {
     border-top: 1px solid #c9c9c9;
     float: left;
 }
-
+.my_contents {
+    margin-left: 220px;
+    padding: 30px 0;
+}
 @media only screen and (max-width: 978px) {
-    .recipe__cards {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 15px;
-        margin: 15px 0;
+    .my_title {
+        font-size: 25px;
+    }
+    .my_menu_bar {
+        min-width: 7rem;
+    }
+    .bar_title {
+        font-size: 20px;
+        margin-left: 150px;
+    }
+    .my_contents {
+        margin-left: 150px;
     }
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./My.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
@@ -6,6 +6,7 @@ import {MdAdd, MdNotificationsNone} from "react-icons/md";
 import Member from "../common/Rightbar/Member/Member";
 import {Link} from "react-router-dom";
 import MemberAddButton from "../common/Rightbar/Member/MemberAddButton";
+import AskModal from "./AskModal";
 
 const WhiteBoxMy = styled(WhiteBox)`
   height: 250px;
@@ -40,12 +41,23 @@ const MenuItemBlock = styled.div`
     color: #3C82D9;
     text-shadow: none;
   }
+  
 `;
 const Spacer = styled.div`
   flex-grow: 1;
 `;
 
 const My = () => {
+  const [modal, setModal] = useState(false);
+  const onCheck = () => {
+    setModal(true);
+  }
+  const onCancel = () => {
+    setModal(false);
+  }
+  const onWithdrawal = () => {
+    setModal(false);
+  }
   return (
     <my>
       <div className="my__container">
@@ -80,7 +92,6 @@ const My = () => {
           <div className="bar_title">
             공지사항
           </div>
-
           <div className="my_menu_bar">
             <MenuItemBlock>
               <Link to='/my'>공지사항</Link>
@@ -88,9 +99,18 @@ const My = () => {
             <MenuItemBlock>
               <Link to='/'>로그아웃</Link>
             </MenuItemBlock>
-            <MenuItemBlock>
+            <MenuItemBlock onClick={onCheck}>
               회원탈퇴
             </MenuItemBlock>
+            {/*탈퇴확인*/}
+            <AskModal
+              visible={modal}
+              onCancel={onCancel}
+              onWithdrawal={onWithdrawal}
+            />
+          </div>
+          <div className="my_contents">
+            공지사항 내용 들어가는 곳
           </div>
         </div>
       </div>

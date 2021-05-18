@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Button from "../common/Button";
 import {useForm} from "react-hook-form";
@@ -174,6 +174,7 @@ const ListModal = ({
         shopping_name: list_name,
         shopping_index: list_memo,
         shopping_count: list_amount,
+        shopping_count_unit: list_unit,
       }
     });
     onConfirm();
@@ -181,7 +182,7 @@ const ListModal = ({
     nextId.current += 1;
   };
 
-  const {list_name, list_amount, list_memo} = watch();
+  const {list_name, list_amount, list_unit, list_memo} = watch();
 
   if (!visible) return null;
   const text = textMap[type];
@@ -194,7 +195,6 @@ const ListModal = ({
           {type === 'add' && (<div>{text}</div>)}
           {type === 'edit' && (<div>{text}</div>)}
         </h2>
-
         <form>
           <StyledWhiteBox>
             {/*재료입력*/}
@@ -288,7 +288,6 @@ const ListModal = ({
             </label>
           </StyledWhiteBox>
         </form>
-
         {/*취소, 확인 버튼*/}
         <div className="modal_buttons">
           <StyledButton inverted={true} onClick={onNotSubmit}>{cancelText}</StyledButton>

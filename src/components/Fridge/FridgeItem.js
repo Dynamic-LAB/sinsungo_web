@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {MdCheckBox,MdCheckBoxOutlineBlank,MdEdit,MdDelete} from "react-icons/md";
+import {MdCheckBox, MdCheckBoxOutlineBlank, MdEdit, MdDelete} from "react-icons/md";
 import FridgeAddModal from "./FridgeAddModal";
 import FridgeModal from "./FridgeModal";
+import GetIngredientByRefrigratorId from '../ForServer/GetIngredientByRefrigratorId';
 
 const Remove = styled.div`
   display: flex;
@@ -12,6 +13,7 @@ const Remove = styled.div`
   cursor: pointer;
   font-size: 1.2rem;
   opacity: 0;
+
   &:hover {
     color: #ff6b6b;
   }
@@ -35,22 +37,28 @@ const ItemBlock = styled.div`
   display: flex;
   padding: 10px 20px;
   align-items: center;
-  font-size: 13px;
+  font-size: 12px;
 
   &:nth-child(even) {
     background: #f8f9fa;
   }
+
   &:hover {
     ${Remove} {
       opacity: 1;
     }
+
     ${Edit} {
       opacity: 1;
     }
-    
+
   }
-  @media only screen and (max-width: 978px) {
-    padding: 10px 20px;
+
+  @media only screen and (min-width: 976px) and (max-width: 1500px) {
+    padding: 10px 10px;
+  }
+  @media only screen and (max-width: 630px) {
+    padding: 10px 10px;
   }
 `;
 
@@ -60,13 +68,16 @@ const Item = styled.div`
   width: 40%;
   align-items: center;
   justify-content: center;
-  @media only screen and (max-width: 978px) {
-    font-size: 10px;
+  @media only screen and (min-width: 976px) and (max-width: 1500px) {
+    font-size: 9px;
+  }
+  @media only screen and (max-width: 630px) {
+    font-size: 9px;
   }
 `;
 const FridgeItem = ({ingredient, onRemove}) => {
 
-  const {id, nameF, countF, dateF, deadlineF} = ingredient;
+  const {id, name, amount,unit,expiration_date, manufacture, expiration_type} = ingredient;
   const [modal, setModal] = useState(false);
   const onEdit = () => {
     setModal(true);
@@ -78,7 +89,6 @@ const FridgeItem = ({ingredient, onRemove}) => {
     setModal(false);
     // onAdd();
   }
-
   return (
     <>
       <ItemBlock>
@@ -89,13 +99,32 @@ const FridgeItem = ({ingredient, onRemove}) => {
           visible={modal}
           onConfirm={onConfirm}
           onCancel={onCancel}
+          ingredient={ingredient}
           type="edit"
         />
-        <FridgeModal/>
-        <Item>{nameF}</Item>
-        <Item>{countF}</Item>
-        <Item>{dateF}</Item>
-        <Item>{deadlineF}</Item>
+        <Item>{name}</Item>
+        <Item>{amount+unit}</Item>
+        {
+            expiration_type=="유통기한"?
+            <Item>{expiration_date}</Item>
+            :
+            <Item>-</Item>
+          }
+    {
+            expiration_type=="제조일자"?
+            <Item>{expiration_date}</Item>
+            :
+            <Item>-</Item>
+            
+          }
+              {
+            expiration_type=="보관일"?
+            <Item>{expiration_date}</Item>
+            :
+            <Item>-</Item>
+            
+          }
+
         <Remove onClick={() => onRemove(id)}>
           <MdDelete/>
         </Remove>

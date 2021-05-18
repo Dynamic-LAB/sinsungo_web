@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "date-fns": "^2.20.1",
-    "immer": "^8.0.1",
+    "immer": "^9.0.2",
     "react": "^17.0.1",
     "react-beautiful-dnd": "^13.1.0",
     "react-datepicker": "^3.7.0",
@@ -19,7 +19,9 @@
     "react-kakao-login": "^2.1.0",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
+    "react-screen-capture": "^1.0.0",
     "react-scripts": "^4.0.3",
+    "reactjs-popup": "^2.0.4",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.9",
@@ -53,7 +55,8 @@
     ]
   },
   "devDependencies": {
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "react-router": "^5.2.0"
   },
-   "proxy": "http://localhost:5001/"
+  "proxy": "http://localhost:5001/"
 }

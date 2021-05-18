@@ -8,6 +8,7 @@ import WhiteBox from "../common/WhiteBox";
 import {ko} from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Fridge.css";
+import axios from 'axios';
 
 // 회색 불투명 배경
 const Fullscreen = styled.div`
@@ -36,7 +37,9 @@ const ModalBlock = styled.div`
     margin-top: 0;
     margin-bottom: 1rem;
   }
-
+  .text_blue {
+    color: #5887F9;
+  }
   .modal_buttons {
     display: flex;
     justify-content: flex-end;
@@ -152,25 +155,54 @@ const StyledDropdown = styled.select`
   text-align: center;
 `;
 
-
 //type 지정
 const textMap = {
   cold: '냉장',
   freeze: '냉동',
   fresh: '신선',
-  temp: '실온',
+  temp: '상온',
   seasoning: '조미료/양념',
   edit: '수정',
 };
 //폼 초기값
 const defaultValues = {
-  i_name: "",
+  i_name: "44",
   i_amount: "",
   i_unit: "",
   i_date: "",
   date_chose: "",
 };
 
+const InsertIngredientByRefId=(values,type)=>{
+
+  //날짜 문자열 형식 수정
+  values.i_date=values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
+  var category;
+  //타입결정
+  if(type === 'cold')category=textMap.cold;
+  if(type === 'freeze') category=textMap.freeze
+  if(type === 'fresh' )category=textMap.fresh
+  if(type === 'temp' )category=textMap.temp
+  if(type === 'seasoning')category=textMap.seasoning
+  if(type === 'edit')category=textMap.edit
+
+  axios.post('/refrigerator/ingredient',
+  {
+    id:JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+    category:category,
+    name:values.i_name,
+    amount:values.i_amount,
+    unit:values.i_unit,
+    expiration_type:values.date_chose,
+    expiration_date:values.i_date,
+  }
+  ).then((res)=>{
+    //DB response
+  })
+  .catch((res)=>{
+    console.log("erorr Msg:",res)
+  });
+}
 
 const FridgeModal = ({
                        visible,
@@ -179,11 +211,16 @@ const FridgeModal = ({
                        cancelText = '취소',
                        onConfirm,
                        onCancel,
+                       onCloseClick,
                      }) => {
   const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({defaultValues});
 
   const onSubmit = (values) => {
-    console.log(values);
+    if(type!="edit"){
+    InsertIngredientByRefId(values,type);
+    }else{
+    //UpdateIngredientById(values,type);
+    }
     onConfirm();
     reset();
   }
@@ -200,13 +237,12 @@ const FridgeModal = ({
   return (
     <Fullscreen >
       <ModalBlock>
-        {type === 'cold' && (<h2>{text} 재료 추가</h2>)}
-        {type === 'freeze' && (<h2>{text} 재료 추가</h2>)}
-        {type === 'fresh' && (<h2>{text} 재료 추가</h2>)}
-        {type === 'temp' && (<h2>{text} 재료 추가</h2>)}
-        {type === 'seasoning' && (<h2>{text} 재료 추가</h2>)}
+        {type === 'cold' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
+        {type === 'freeze' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
+        {type === 'fresh' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
+        {type === 'temp' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
+        {type === 'seasoning' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
         {type === 'edit' && (<h2>재료 {text}하기</h2>)}
-
         {/*냉장고 재료추가 폼*/}
         <form>
           <StyledWhiteBox>
@@ -322,9 +358,9 @@ const FridgeModal = ({
                     required: "필수입력사항",
                   })}
                 >
-                  <option value="date">유통기한</option>
-                  <option value="manufacture">제조일자</option>
-                  <option value="storage">보관일</option>
+                  <option value="유통기한">유통기한</option>
+                  <option value="제조일자">제조일자</option>
+                  <option value="보관일">보관일</option>
                 </StyledDropdown>
               </DateBlock>
             </label>

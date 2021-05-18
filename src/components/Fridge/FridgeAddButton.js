@@ -15,6 +15,10 @@ const AddButton = styled.button`
   &:hover {
     color: #3C82D9;
     transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  @media only screen and (max-width: 978px) {
+    font-size: 1.15rem;
   }
 `;
 

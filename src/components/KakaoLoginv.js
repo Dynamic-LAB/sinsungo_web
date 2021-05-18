@@ -1,4 +1,17 @@
 import React, { Component, useEffect, useState } from "react";
+import btnImg from '../assets/kakao.png';
+import styled from "styled-components";
+
+const StyledButton = styled.button`
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+  .kakaoButton {
+    width: 300px;
+  }
+`;
+
 function KaKaoLoginv(props){
   const key="8dc7de968135de9e418fd032222a598f";
   function newLogin(){
@@ -61,7 +74,9 @@ function KaKaoLoginv(props){
   });
   return( 
     <>
-    <button onClick={newLogin} style={{width:'240px',height:'40px',background:'yellow',border:'1px solid'}}>카카오 로그인</button> 
+    <StyledButton onClick={newLogin}>
+      <img className="kakaoButton" src={btnImg} alt="카카오 로그인"/>
+    </StyledButton>
     </>
     );
 }
