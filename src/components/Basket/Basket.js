@@ -8,7 +8,6 @@ import DietCard from "./Diet/DietCard";
 import BasketAddButton from "./BasketAddButton";
 import BasketList from "./BasketList";
 import { MdClose, MdInsertPhoto } from "react-icons/md";
-import share_icon from "../../assets/kakao_small_btn.png"
 
 const WhiteBoxBasket = styled(WhiteBox)`
   height: 765px;
@@ -121,9 +120,6 @@ const Basket = () => {
                       <button onClick={download}>
                         <div className="down_img"><MdInsertPhoto/></div>
                       </button>
-                      <div>
-                        <img src={share_icon} alt="카카오톡 공유"/>
-                      </div>
                     </div>
                   </div>
                 </Popup>
