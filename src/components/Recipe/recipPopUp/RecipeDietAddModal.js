@@ -97,7 +97,7 @@ const RecipeDietAddModal = ({
             <StyledButton>새로운 식단에 추가</StyledButton>
           </ButtonBlock>
           <ButtonBlock>
-            <StyledButton>기존 식단에서 수정</StyledButton>
+            <StyledButton>기존 식단에 추가</StyledButton>
           </ButtonBlock>
         </div>
       </ModalBlock>
