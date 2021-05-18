@@ -17,6 +17,12 @@ const Remove = styled.div`
   &:hover {
     color: #ff6b6b;
   }
+  @media only screen and (min-width: 976px) and (max-width: 1500px) {
+    font-size: 1rem;
+  }
+  @media only screen and (max-width: 630px) {
+    font-size: 0.875rem;
+  }
 `;
 const Edit = styled.div`
   display: flex;
@@ -24,18 +30,24 @@ const Edit = styled.div`
   justify-content: center;
   font-size: 1.2rem;
   cursor: pointer;
-  margin-right: 10px;
+  margin-right: 6px;
   color: #dee2e6;
   opacity: 0;
 
   &:hover {
     color: #626262;
   }
+  @media only screen and (min-width: 976px) and (max-width: 1500px) {
+    font-size: 1rem;
+  }
+  @media only screen and (max-width: 630px) {
+    font-size: 0.875rem;
+  }
 `;
 
 const ItemBlock = styled.div`
   display: flex;
-  padding: 10px 20px;
+  padding: 10px 15px;
   align-items: center;
   font-size: 12px;
 
@@ -58,7 +70,7 @@ const ItemBlock = styled.div`
     padding: 10px 10px;
   }
   @media only screen and (max-width: 630px) {
-    padding: 10px 10px;
+    padding: 10px 6px;
   }
 `;
 
