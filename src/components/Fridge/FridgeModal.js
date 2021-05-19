@@ -37,9 +37,11 @@ const ModalBlock = styled.div`
     margin-top: 0;
     margin-bottom: 1rem;
   }
+
   .text_blue {
     color: #5887F9;
   }
+
   .modal_buttons {
     display: flex;
     justify-content: flex-end;
@@ -134,10 +136,11 @@ const FormTitle = styled.div`
     font-size: 10px;
     color: #FF2424;
   }
+
   .input_index_drop {
     display: flex;
     padding-top: 10px;
-    
+
     font-size: 10px;
     color: #FF2424;
   }
@@ -154,8 +157,6 @@ const StyledDropdown = styled.select`
   cursor: pointer;
   text-align: center;
 `;
-
-
 //type 지정
 const textMap = {
   cold: '냉장',
@@ -174,35 +175,35 @@ const defaultValues = {
   date_chose: "",
 };
 
-const InsertIngredientByRefId=(values,type)=>{
+const InsertIngredientByRefId = (values, type) => {
 
   //날짜 문자열 형식 수정
-  values.i_date=values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
+  values.i_date = values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
   var category;
   //타입결정
-  if(type === 'cold')category=textMap.cold; 
-  if(type === 'freeze') category=textMap.freeze
-  if(type === 'fresh' )category=textMap.fresh
-  if(type === 'temp' )category=textMap.temp
-  if(type === 'seasoning')category=textMap.seasoning
-  if(type === 'edit')category=textMap.edit
-  
+  if (type === 'cold') category = textMap.cold;
+  if (type === 'freeze') category = textMap.freeze
+  if (type === 'fresh') category = textMap.fresh
+  if (type === 'temp') category = textMap.temp
+  if (type === 'seasoning') category = textMap.seasoning
+  if (type === 'edit') category = textMap.edit
+
   axios.post('/refrigerator/ingredient',
-  {
-    id:JSON.parse(window.sessionStorage.getItem('User')).newRefId,
-    category:category,
-    name:values.i_name,
-    amount:values.i_amount,
-    unit:values.i_unit,
-    expiration_type:values.date_chose,
-    expiration_date:values.i_date,
-  }
-  ).then((res)=>{
+    {
+      id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+      category: category,
+      name: values.i_name,
+      amount: values.i_amount,
+      unit: values.i_unit,
+      expiration_type: values.date_chose,
+      expiration_date: values.i_date,
+    }
+  ).then((res) => {
     //DB response
   })
-  .catch((res)=>{
-    console.log("erorr Msg:",res)
-  });
+    .catch((res) => {
+      console.log("error Msg:", res)
+    });
 }
 
 const FridgeModal = ({
@@ -217,15 +218,15 @@ const FridgeModal = ({
   const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({defaultValues});
 
   const onSubmit = (values) => {
-    if(type!="edit"){
-    InsertIngredientByRefId(values,type);
-    }else{
-    //UpdateIngredientById(values,type);
+    if (type !== "edit") {
+      InsertIngredientByRefId(values, type);
+    } else {
+      //UpdateIngredientById(values,type);
     }
     onConfirm();
     reset();
   }
-  const onNotSubmit = () =>{
+  const onNotSubmit = () => {
     onCancel();
     reset();
   };
@@ -234,9 +235,8 @@ const FridgeModal = ({
   if (!visible) return null;
   const text = textMap[type];
 
-
   return (
-    <Fullscreen >
+    <Fullscreen>
       <ModalBlock>
         {type === 'cold' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
         {type === 'freeze' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
@@ -292,7 +292,7 @@ const FridgeModal = ({
                   {...register("i_amount", {
                     required: "필수입력사항",
                     min: {
-                      value:0,
+                      value: 1,
                       message: '0 이상 입력해주세요'
                     }
                   })}
@@ -327,7 +327,7 @@ const FridgeModal = ({
                 <Controller
                   control={control}
                   name="ReactDatePicker"
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                  render={({field: {onChange, onBlur, value, ref}}) => (
                     <ReactDatePicker
                       className="input-datepicker" //클래스 명 지정
                       onChange={onChange}

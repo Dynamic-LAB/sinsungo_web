@@ -243,7 +243,7 @@ const ListModal = ({
                   {...register("list_amount", {
                     required: "필수입력사항",
                     min: {
-                      value: 0,
+                      value: 1,
                       message: '0 이상 입력해주세요'
                     }
                   })}

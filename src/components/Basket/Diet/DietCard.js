@@ -5,7 +5,7 @@ import DietItem from "./DietItem";
 import DietModal from "./DietModal";
 
 const StyledWhiteBox = styled(WhiteBox)`
-  height: 100px;
+  height: auto;
   margin: 15px 0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
   cursor: pointer;
@@ -35,10 +35,8 @@ const DietCard = () => {
         <DietBlock>
           <DietItem
             date="2021년 04월 11일"
-            choice="아침"
-            menu="메뉴는"
+            memo="아침메뉴"
             food={['김치찌개', '두루치기', '멸치']}
-            ingredient="주재료"
             ingredient_item={['김치', '고기', '멸치', '참치']}
           />
         </DietBlock>

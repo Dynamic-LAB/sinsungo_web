@@ -7,14 +7,7 @@ const initialShopping = [
     shopping_index: '냠냠',
     shopping_count: '0',
     shopping_count_unit: 'g',
-
-  },
-  {
-    shopping_id: 2,
-    shopping_name: '고구마',
-    shopping_index: '사이다도 같이 사기',
-    shopping_count: '0',
-    shopping_count_unit: 'g',
+    shopping_checked: false,
   },
 
 ];
@@ -25,6 +18,10 @@ function shoppingReducer(state, action){
       return state.concat(action.shopping);
     case 'REMOVE':
       return state.filter(shopping => shopping.shopping_id !== action.id);
+    case 'TOGGLE':
+      return state.map(
+        shopping => shopping.shopping_id === action.id ? {...shopping, checked: !shopping.checked} : shopping
+      );
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -36,7 +33,7 @@ const ShoppingNextIdContext = createContext();
 
 export function ShoppingProvider({children}) {
   const [state, dispatch] = useReducer(shoppingReducer, initialShopping);
-  const nextId = useRef(3);
+  const nextId = useRef(1);
   return (
     <ShoppingStateContext.Provider value={state}>
       <ShoppingDispatchContext.Provider value={dispatch}>

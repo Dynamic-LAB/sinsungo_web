@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import BasketShoppingListItem from "./BasketShoppingListItem";
 import {useShoppingState} from "./ListContext";
@@ -21,6 +21,7 @@ const BasketList = ({type}) => {
               memo={list.shopping_index}
               count={list.shopping_count}
               unit={list.shopping_count_unit}
+              checked={list.shopping_checked}
             />
           ))}
         </ShoppingBlock>

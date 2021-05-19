@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {MdAddCircleOutline, MdRemoveCircleOutline,MdEdit,MdDelete} from "react-icons/md";
+import {MdRadioButtonUnchecked, MdRadioButtonChecked,MdEdit,MdDelete} from "react-icons/md";
 import ListModal from "./ListModal";
-import FridgeModal from "../Fridge/FridgeModal";
 import {useShoppingDispatch, useShoppingState} from "./ListContext";
 
 const Remove = styled.div`
@@ -97,7 +96,7 @@ const Count = styled.div`
   }
 `;
 
-const BasketShoppingListItem = ({id, name, memo, count, unit}) => {
+const BasketShoppingListItem = ({id, name, memo, count, unit, checked}) => {
 
   //const {shopping_id, shopping_name, shopping_index, shopping_count,} = list;
   const dispatch = useShoppingDispatch();
@@ -107,24 +106,28 @@ const BasketShoppingListItem = ({id, name, memo, count, unit}) => {
       type: 'REMOVE',
       id
     });
+  //체크박스 함수
+  const onChecked = () =>
+    dispatch({
+      type: 'TOGGLE',
+      id
+    });
   //모달 on, off 함수
   const [modal, setModal] = useState(false);
 
   //모달 함수들(onEdit, onCancel, onConfirm)
   const onEdit = () => {
     setModal(true);
-
   };
   const onCancel = () => {
     setModal(false);
   };
   const onConfirm = () => {
     setModal(false);
-    // onAdd();
   }
 
   return (
-    <ItemBlock>
+    <ItemBlock >
       <Edit onClick={onEdit}>
         <MdEdit/>
       </Edit>
@@ -134,7 +137,7 @@ const BasketShoppingListItem = ({id, name, memo, count, unit}) => {
         onCancel={onCancel}
         type="edit"
       />
-      <Item>{name}</Item>
+      <Item >{name}</Item>
       <ItemIndex>{memo}</ItemIndex>
       <Item>
         <Count>

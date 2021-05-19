@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {MdCheckBox, MdCheckBoxOutlineBlank, MdEdit, MdDelete} from "react-icons/md";
-import FridgeAddModal from "./FridgeAddModal";
+import {MdEdit, MdDelete} from "react-icons/md";
 import FridgeModal from "./FridgeModal";
 import GetIngredientByRefrigratorId from '../ForServer/GetIngredientByRefrigratorId';
 
@@ -17,6 +16,7 @@ const Remove = styled.div`
   &:hover {
     color: #ff6b6b;
   }
+
   @media only screen and (min-width: 976px) and (max-width: 1500px) {
     font-size: 1rem;
   }
@@ -37,6 +37,7 @@ const Edit = styled.div`
   &:hover {
     color: #626262;
   }
+
   @media only screen and (min-width: 976px) and (max-width: 1500px) {
     font-size: 1rem;
   }
@@ -89,7 +90,7 @@ const Item = styled.div`
 `;
 const FridgeItem = ({ingredient, onRemove}) => {
 
-  const {id, name, amount,unit,expiration_date, manufacture, expiration_type} = ingredient;
+  const {id, name, amount, unit, expiration_date, expiration_type} = ingredient;
   const [modal, setModal] = useState(false);
   const onEdit = () => {
     setModal(true);
@@ -115,27 +116,25 @@ const FridgeItem = ({ingredient, onRemove}) => {
           type="edit"
         />
         <Item>{name}</Item>
-        <Item>{amount+unit}</Item>
+        <Item>{amount + unit}</Item>
         {
-            expiration_type=="유통기한"?
+          expiration_type == "유통기한" ?
             <Item>{expiration_date}</Item>
             :
             <Item>-</Item>
-          }
-    {
-            expiration_type=="제조일자"?
+        }
+        {
+          expiration_type == "제조일자" ?
             <Item>{expiration_date}</Item>
             :
             <Item>-</Item>
-            
-          }
-              {
-            expiration_type=="보관일"?
+        }
+        {
+          expiration_type == "보관일" ?
             <Item>{expiration_date}</Item>
             :
             <Item>-</Item>
-            
-          }
+        }
 
         <Remove onClick={() => onRemove(id)}>
           <MdDelete/>
