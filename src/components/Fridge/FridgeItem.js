@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import styled from 'styled-components';
 import {MdCheckBox, MdCheckBoxOutlineBlank, MdEdit, MdDelete} from "react-icons/md";
 import FridgeAddModal from "./FridgeAddModal";
 import FridgeModal from "./FridgeModal";
 import GetIngredientByRefrigratorId from '../ForServer/GetIngredientByRefrigratorId';
-
+import { Context } from '../../Ingredient';
 const Remove = styled.div`
   display: flex;
   align-items: center; //세로중앙정렬
@@ -77,7 +77,7 @@ const Item = styled.div`
 `;
 const FridgeItem = ({ingredient, onRemove}) => {
 
-  const {id, name, amount,unit,expiration_date, manufacture, expiration_type} = ingredient;
+  const {id, name, amount,unit,expiration_date, manufacture, expiration_type,today} = ingredient;
   const [modal, setModal] = useState(false);
   const onEdit = () => {
     setModal(true);
@@ -85,10 +85,19 @@ const FridgeItem = ({ingredient, onRemove}) => {
   const onCancel = () => {
     setModal(false);
   };
+  const {state,dispatch}=useContext(Context);
   const onConfirm = () => {
+    if(JSON.parse(sessionStorage.getItem('User'))){
+      GetIngredientByRefrigratorId(
+        {
+            id:JSON.parse(sessionStorage.getItem('User')).newRefId,
+            dispatch:dispatch
+        }
+      )};
     setModal(false);
-    // onAdd();
   }
+  var day=new Date(today);
+  var myDate=(new Date(day.getFullYear()+"/"+(day.getMonth()+1)+"/"+day.getDate())-new Date(expiration_date.replaceAll('-','/')))/24/3600/1000*-1;
   return (
     <>
       <ItemBlock>
@@ -106,7 +115,7 @@ const FridgeItem = ({ingredient, onRemove}) => {
         <Item>{amount+unit}</Item>
         {
             expiration_type=="유통기한"?
-            <Item>{expiration_date}</Item>
+            <Item>{expiration_date}({myDate})</Item>
             :
             <Item>-</Item>
           }

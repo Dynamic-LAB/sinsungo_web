@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import KakaoLoginv from '../components/KakaoLoginv';
 import GoogleButton from '../components/GoogleButton'
+import NaverLoginBtn from '../components/NaverLoginBtn'
 import styled from "styled-components";
 import logo from '../assets/sinsungo_logo.png'
 import UserLoginOrSignup from "../components/ForServer/UserLoginOrSignup"
@@ -59,6 +60,7 @@ const LoginPage = (props) => {
           <KakaoLoginv GoMain={GoMain}></KakaoLoginv>
           <div style={{height: '5px'}}></div>
           <GoogleButton GoMain={GoMain}></GoogleButton>
+          <NaverLoginBtn GoMain={GoMain}></NaverLoginBtn>
         </LoginButton>
       </LoginBlock>
     </>

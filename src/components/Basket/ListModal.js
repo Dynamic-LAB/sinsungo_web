@@ -255,7 +255,7 @@ const ListModal = ({
                     required: "필수입력사항",
                   })}
                 >
-                  <option value="piece">개</option>
+                  <option value="개">개</option>
                   <option value="g">g</option>
                   <option value="kg">kg</option>
                   <option value="ml">ml</option>
