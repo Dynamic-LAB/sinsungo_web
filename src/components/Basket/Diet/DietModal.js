@@ -235,7 +235,7 @@ const DietModal = ({
                      type,
                    }) => {
   const {register, handleSubmit, formState: {errors}, reset, setValue, watch, control} = useForm({defaultValues});
-
+  const {diet_date, diet_memo, menu_tag} = watch();
   //재료 부분
   const [ingredients, setIngredients] = useState([
     {
@@ -279,7 +279,7 @@ const DietModal = ({
     },
     [ingredients],
   );
-
+//메뉴 태그 기능
   let tagInput = useRef();
   const [tags, setTags] = useState([]);
   //삭제 버튼 구현
@@ -304,19 +304,20 @@ const DietModal = ({
       removeTag(tags.length - 1);
     }
   };
-//todo: 취소 및 확인 버튼 누르면 배열 삭제 기능 만들기
-  //취소버튼 액션
-  const onNotSubmit = () => {
-    onCancel();
-    reset();
-  };
+
   //확인버튼 액션
   const onSubmit = (values) => {
     console.log(values);
     onConfirm();
+    tags.length = 0;
     reset();
   };
-  const {diet_date, diet_memo, menu_tag} = watch();
+  //취소버튼 액션
+  const onNotSubmit = () => {
+    onCancel();
+    tags.length = 0;
+    reset();
+  };
 
   if (!visible) return null;
   const text = textMap[type];
