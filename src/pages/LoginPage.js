@@ -16,7 +16,7 @@ const VideoBlock = styled.div`
   .login_video {
     width: 500px;
     height: 500px;
-    animation: fadeout 1s 4s forwards;
+    animation: fadeout 1s 4s forwards; // 4초의 지연시간 후 1초 동안 사라지기
     @keyframes fadeout {
       from {
         opacity: 1;
@@ -27,7 +27,6 @@ const VideoBlock = styled.div`
     }
   }
 `;
-
 // LOGO, LOGIN_BUTTON(없어졌다가 생기기)
 const LoginBlock = styled.div`
   opacity: 0;
@@ -39,7 +38,7 @@ const LoginBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fadein 1s 5s forwards;
+  animation: fadein 3s 5s forwards; //5초의 지연시간 후 1초 동안 나타나기
   @keyframes fadein {
     from {
       opacity: 0;
@@ -91,7 +90,7 @@ const LoginPage = (props) => {
       </VideoBlock>
       <UserLoginOrSignup loginInfo={loginInfo} setLoginInfo={setLoginInfo} success={success}/>
       <LoginBlock>
-        <img className="login_logo" src={logo} alt="신선고 로고"/>
+        <img className="login_logo" src={logo} alt="신선고 로고" />
         <LoginButton>
           <KakaoLoginv GoMain={GoMain}/>
           <div style={{height: '5px'}}/>
