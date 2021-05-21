@@ -235,8 +235,9 @@ const defaultValues = {
   i_date:type==='edit'?new Date(ingredient.expiration_date.replaceAll("-","/")):"",
   date_chose:type==='edit'?ingredient.expiration_type:"",
 };
+
 const editValues =(values)=> {
-  console.log(values)
+  //console.log(values)
   return({
   i_name: type==='edit'?values.i_name:"",
   i_amount:type==='edit'?values.i_amount:"",
@@ -245,7 +246,7 @@ const editValues =(values)=> {
   date_chose:type==='edit'?values.date_chose:"",
 });
 }
-  const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({defaultValues});
+ 
 
   const onSubmit = (values) => {
     if(type!="edit"){
@@ -255,12 +256,12 @@ const editValues =(values)=> {
     }
     reset(editValues(values));
     onConfirm();
-
   }
   const onNotSubmit = () =>{
     onCancel();
     reset();
   };
+  const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({defaultValues});
   const {i_name, i_amount, i_unit, i_date, date_chose} = watch();
 
   if (!visible) return null;

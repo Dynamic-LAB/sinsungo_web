@@ -91,7 +91,6 @@ const DeleteIngredientById=(id)=>{
       // 항상 실행
   });
   //props.setIngredients()
-
 }
 const Fridge = (props) => {
   const [ingredients,setIngredients] = useState();

@@ -4,7 +4,8 @@ import {MdAddCircleOutline, MdRemoveCircleOutline,MdEdit,MdDelete} from "react-i
 import ListModal from "./ListModal";
 import FridgeModal from "../Fridge/FridgeModal";
 import {useShoppingDispatch, useShoppingState} from "./ListContext";
-
+import GetBasketByRefrigratorId from "../ForServer/GetBasketByRefrigratorId"
+import axios from 'axios';
 const Remove = styled.div`
   display: flex;
   align-items: center; //세로중앙정렬
@@ -97,16 +98,39 @@ const Count = styled.div`
   }
 `;
 
-const BasketShoppingListItem = ({id, name, memo, count, unit}) => {
-
+const BasketShoppingListItem = ({id, name, memo, count, unit,item}) => {
   //const {shopping_id, shopping_name, shopping_index, shopping_count,} = list;
   const dispatch = useShoppingDispatch();
-  //삭제 함수
-  const onRemove = () =>
-    dispatch({
-      type: 'REMOVE',
-      id
+  const SetBasket=()=>{
+    if(JSON.parse(sessionStorage.getItem('User'))){
+      GetBasketByRefrigratorId(
+        {
+            id:JSON.parse(sessionStorage.getItem('User')).newRefId,
+            dispatch:dispatch
+        }
+        )}
+  }
+  //구매목록 삭제 함수
+  const DeleteBasketById=(id)=>{
+    axios.delete("/shoppinglist/"+id, {
+      params: {
+      }
+    })
+    .then((response)=> {
+      console.log("구매목록 삭제됨:id:",id,response);
+      }).catch((error)=>{
+        // 오류발생시 실행
+    }).then(()=> {
+        // 항상 실행
     });
+    //props.setIngredients()
+  }
+  
+  //삭제 함수
+  const onRemove = (id) =>{
+    DeleteBasketById(id)
+    SetBasket()
+  }
   //모달 on, off 함수
   const [modal, setModal] = useState(false);
 
@@ -119,6 +143,7 @@ const BasketShoppingListItem = ({id, name, memo, count, unit}) => {
     setModal(false);
   };
   const onConfirm = () => {
+    SetBasket()
     setModal(false);
     // onAdd();
   }
@@ -132,7 +157,9 @@ const BasketShoppingListItem = ({id, name, memo, count, unit}) => {
         visible={modal}
         onConfirm={onConfirm}
         onCancel={onCancel}
+        id={id}
         type="edit"
+        item={item}
       />
       <Item>{name}</Item>
       <ItemIndex>{memo}</ItemIndex>
