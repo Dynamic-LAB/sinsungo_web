@@ -20,7 +20,7 @@ function shoppingReducer(state, action){
       return state.filter(shopping => shopping.shopping_id !== action.id);
     case 'TOGGLE':
       return state.map(
-        shopping => shopping.shopping_id === action.id ? {...shopping, checked: !shopping.checked} : shopping
+        shopping => shopping.shopping_id === action.id ? {...shopping, shopping_checked: !shopping.shopping_checked} : shopping
       );
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -33,7 +33,7 @@ const ShoppingNextIdContext = createContext();
 
 export function ShoppingProvider({children}) {
   const [state, dispatch] = useReducer(shoppingReducer, initialShopping);
-  const nextId = useRef(1);
+  const nextId = useRef(2);
   return (
     <ShoppingStateContext.Provider value={state}>
       <ShoppingDispatchContext.Provider value={dispatch}>
@@ -48,7 +48,7 @@ export function ShoppingProvider({children}) {
 export function useShoppingState() {
   const context = useContext(ShoppingStateContext);
   if(!context) {
-    throw new Error('Cannot find TodoProvider');
+    throw new Error('Cannot find ListProvider');
   }
   return context;
 }
@@ -56,14 +56,14 @@ export function useShoppingState() {
 export function useShoppingDispatch() {
   const context = useContext(ShoppingDispatchContext);
   if(!context) {
-    throw new Error('Cannot find TodoProvider');
+    throw new Error('Cannot find ListProvider');
   }
   return context;
 }
 export function useShoppingNextId(){
   const context = useContext(ShoppingNextIdContext);
   if(!context) {
-    throw new Error('Cannot find TodoProvider');
+    throw new Error('Cannot find ListProvider');
   }
   return context;
 }

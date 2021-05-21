@@ -4,7 +4,6 @@ import {useForm, Controller, useFieldArray} from "react-hook-form";
 import {MdCancel, MdSearch} from "react-icons/md";
 import Button from "../../common/Button";
 import WhiteBox from "../../common/WhiteBox";
-import DietMenuTag from "./DietMenuTag";
 import DatePicker from "react-datepicker";
 import {ko} from "date-fns/esm/locale";
 import DietIngredientList from "./DietIngredientList";
@@ -95,7 +94,7 @@ const MemoBlock = styled.div`
   display: flex;
   font-size: 16px;
   align-items: center;
-  .diet_memo {
+  .diet_memo_text {
     font-weight: bold;
   }
   .index {
@@ -130,8 +129,15 @@ const MenuBlock = styled.div`
     display: flex;
     margin-left: 15px;
     font-size: 10px;
+    color: #000000;
+  }
+  .diet_index_red{
+    display: flex;
+    margin-left: 15px;
+    font-size: 10px;
     color: #FF2424;
   }
+  
 `;
 const IngredientBlock = styled.div`
   font-size: 16px;
@@ -235,7 +241,7 @@ const DietModal = ({
                      type,
                    }) => {
   const {register, handleSubmit, formState: {errors}, reset, setValue, watch, control} = useForm({defaultValues});
-  const {diet_date, diet_memo, menu_tag} = watch();
+  const {diet_modal_date, diet_modal_memo, menu_modal_tag} = watch();
   //재료 부분
   const [ingredients, setIngredients] = useState([
     {
@@ -281,6 +287,7 @@ const DietModal = ({
   );
 //메뉴 태그 기능
   let tagInput = useRef();
+  const [input, setInput] = useState(true);
   const [tags, setTags] = useState([]);
   //삭제 버튼 구현
   const removeTag = (i) => {
@@ -288,20 +295,23 @@ const DietModal = ({
     newTags.splice(i,1);
     setTags(newTags);
     setValue("menu_tag", newTags);
+    setInput(true);
   };
   // enter 키 누르면 입력
   const inputKeyDown = (e) => {
     const val = e.target.value;
     if(e.key === 'Enter' && val) {
       if(tags.find(tag => tag.toLowerCase() === val.toLowerCase())){
+        alert('중복된 단어입니다!');
         return;
       }
-      if(tags.length === 10) return; //10개가 되면 추가하지 않음
+      if(tags.length === 9) {
+        setInput(false);
+
+      } //10개가 되면 추가하지 않음
       setTags([...tags, val]);
       setValue("menu_tag",[...tags, val] );
       tagInput.value = null;
-    } else if (e.key === 'Backspace' && !val) {
-      removeTag(tags.length - 1);
     }
   };
 
@@ -358,15 +368,15 @@ const DietModal = ({
                         placeholderText="날짜를 선택해주세요."
                       />
                     )}
-                    onChange={e => setValue("diet_date", e.target.value)}
-                    value={diet_date}
-                    {...register("diet_date", {
+                    onChange={e => setValue("diet_modal_date", e.target.value)}
+                    value={diet_modal_date}
+                    {...register("diet_modal_date", {
                       required: "날짜를 선택해주세요!",
                     })}
                   />
                 </DateLeft>
                 <Spacer/>
-                {errors.diet_date && <div className="index">{errors.diet_date.message}</div>}
+                {errors.diet_modal_date && <div className="index">{errors.diet_modal_date.message}</div>}
               </DateBlock>
             </StyledWhiteBox>
           </label>
@@ -374,8 +384,8 @@ const DietModal = ({
           <label>
             <StyledWhiteBox>
               <MemoBlock>
-                <span className="diet_memo">메모</span>
-                {errors.diet_memo && <div className="index">{errors.diet_memo.message}</div>}
+                <span className="diet_memo_text">메모</span>
+                {errors.diet_modal_memo && <div className="index">{errors.diet_modal_memo.message}</div>}
               </MemoBlock>
               <MemoInputBlock>
                 <StyledInput
@@ -383,9 +393,9 @@ const DietModal = ({
                   id="diet_memo"
                   autocomplete="off"
                   placeholder="예) 아침식단"
-                  onChange={e => setValue("diet_memo", e.target.value)}
-                  value={diet_memo}
-                  {...register("diet_memo", {
+                  onChange={e => setValue("diet_modal_memo", e.target.value)}
+                  value={diet_modal_memo}
+                  {...register("diet_modal_memo", {
                     required: "메모를 작성해주세요!",
                     maxLength: {
                       value: 20,
@@ -400,8 +410,9 @@ const DietModal = ({
           <label>
             <StyledWhiteBox>
               <MenuBlock>
-                  <span className="diet_menu">메뉴</span>
-                {errors.menu_tag && <div className="diet_index">{errors.menu_tag.message}</div>}
+                <span className="diet_menu">메뉴</span>
+                <div className="diet_index">10개만 입력 가능합니다</div>
+                {errors.menu_modal_tag && <div className="diet_index_red">{errors.menu_modal_tag.message}</div>}
               </MenuBlock>
                 {/*메뉴태그 입력 칩*/}
                 <TagBlock>
@@ -409,8 +420,8 @@ const DietModal = ({
                     {tags.map((tag, i) => (
                       <li
                         key={tag.id}
-                        value={menu_tag}
-                        {...register("menu_tag",{
+                        value={menu_modal_tag}
+                        {...register("menu_modal_tag",{
                           required: "필수입력사항",
                         })}
                         >
@@ -420,13 +431,14 @@ const DietModal = ({
                         </button>
                       </li>
                     ))}
-                    <li className="input-tag__tags__input">
+                    {input ? <li className="input-tag__tags__input">
                       <TagInputEnter
                         type="text"
                         onKeyDown={inputKeyDown}
                         placeholder="# 메뉴이름"
                         ref={c => {tagInput = c;}}/>
-                    </li>
+                    </li> : null}
+
                   </TagUl>
                 </TagBlock>
 

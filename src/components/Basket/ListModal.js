@@ -175,6 +175,7 @@ const ListModal = ({
         shopping_index: list_memo,
         shopping_count: list_amount,
         shopping_count_unit: list_unit,
+        shopping_checked: false,
       }
     });
     onConfirm();

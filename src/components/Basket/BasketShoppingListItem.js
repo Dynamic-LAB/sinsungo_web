@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import styled from 'styled-components';
-import {MdRadioButtonUnchecked, MdRadioButtonChecked,MdEdit,MdDelete} from "react-icons/md";
+import styled, {css} from 'styled-components';
+import {MdRadioButtonUnchecked, MdRadioButtonChecked, MdEdit, MdDelete} from "react-icons/md";
 import ListModal from "./ListModal";
 import {useShoppingDispatch, useShoppingState} from "./ListContext";
 
@@ -12,6 +12,7 @@ const Remove = styled.div`
   cursor: pointer;
   font-size: 1.2rem;
   opacity: 0;
+
   &:hover {
     color: #ff6b6b;
   }
@@ -26,10 +27,12 @@ const Edit = styled.div`
   margin-right: 10px;
   color: #dee2e6;
   opacity: 0;
-
-  &:hover {
-    color: #626262;
-  }
+  ${props =>
+          props.checked &&
+          css`
+            color: #626262;
+            opacity: 1;
+          `}
 `;
 const ItemBlock = styled.div`
   display: flex;
@@ -37,9 +40,19 @@ const ItemBlock = styled.div`
   align-items: center;
   font-size: 13px;
 
+  .text {
+    display: flex;
+    flex: 1;
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
   &:nth-child(even) {
     background: #f8f9fa;
   }
+
   &:hover {
     ${Remove} {
       opacity: 1;
@@ -47,12 +60,10 @@ const ItemBlock = styled.div`
     ${Edit} {
       opacity: 1;
     }
-  @media only screen and (max-width: 978px) {
-    padding: 10px 15px;
-  }
-
+    @media only screen and (max-width: 978px) {
+      padding: 10px 15px;
+    }
 `;
-
 const Item = styled.div`
   display: flex;
   flex: 1;
@@ -77,22 +88,24 @@ const ItemIndex = styled.div`
   }
 `;
 
+
 const Count = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
+  font-size: 13px;
   .count_num {
     display: flex;
     margin-left: 20px;
-    font-size: 15px;
     text-align: center;
   }
   .count_unit {
     display: flex;
     margin-left: 10px;
-    font-size: 15px;
     text-align: center;
+  }
+  @media only screen and (max-width: 978px) {
+    font-size: 12px;
   }
 `;
 
@@ -107,7 +120,7 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, checked}) => {
       id
     });
   //체크박스 함수
-  const onChecked = () =>
+  const onToggle = () =>
     dispatch({
       type: 'TOGGLE',
       id
@@ -127,27 +140,31 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, checked}) => {
   }
 
   return (
-    <ItemBlock >
-      <Edit onClick={onEdit}>
-        <MdEdit/>
+    <ItemBlock>
+      <Edit onClick={()=>onToggle(id)} checked={checked}>
+        {checked ? <MdRadioButtonChecked/> : <MdRadioButtonUnchecked/>}
       </Edit>
+
+      <div className="text" onClick={onEdit}>
+        <Item>{name}</Item>
+        <ItemIndex>{memo}</ItemIndex>
+        <Item>
+          <Count>
+            <div className="count_num">{parseInt(count)}</div>
+            <div className="count_unit">{unit}</div>
+          </Count>
+        </Item>
+      </div>
       <ListModal
         visible={modal}
         onConfirm={onConfirm}
         onCancel={onCancel}
         type="edit"
       />
-      <Item >{name}</Item>
-      <ItemIndex>{memo}</ItemIndex>
-      <Item>
-        <Count>
-          <div className="count_num">{parseInt(count)}</div>
-          <div className="count_unit">{unit}</div>
-        </Count>
-      </Item>
       <Remove onClick={() => onRemove(id)}>
         <MdDelete/>
       </Remove>
+
     </ItemBlock>
   );
 }

@@ -8,6 +8,7 @@ import DietCard from "./Diet/DietCard";
 import BasketAddButton from "./BasketAddButton";
 import BasketList from "./BasketList";
 import { MdClose, MdInsertPhoto } from "react-icons/md";
+import DietList from "./Diet/DietList";
 
 const WhiteBoxBasket = styled(WhiteBox)`
   height: 765px;
@@ -80,8 +81,9 @@ const Basket = () => {
                 <Spacer/>
                 <BasketAddButton type="diet"/>
               </BasketTitle>
+
               <DietBlock>
-                <DietCard/>
+                <DietList/>
               </DietBlock>
             </WhiteBoxBasket>
           </div>
