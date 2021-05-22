@@ -4,16 +4,13 @@ import Popup from "reactjs-popup";
 import "./Basket.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
-import DietCard from "./Diet/DietCard";
 import BasketAddButton from "./BasketAddButton";
 import BasketList from "./BasketList";
 import { MdClose, MdInsertPhoto } from "react-icons/md";
-
-import share_icon from "../../assets/kakao_small_btn.png"
 import GetBasketByRefrigratorId from "../ForServer/GetBasketByRefrigratorId"
 import {useShoppingDispatch} from "./ListContext";
 import DietList from "./Diet/DietList";
-
+import {Context} from "../../Ingredient"
 const WhiteBoxBasket = styled(WhiteBox)`
   height: 765px;
 `;
@@ -47,7 +44,6 @@ const ShareButton = styled.button`
 `;
 
 const Basket = () => {
-
   const [screenCapture, setScreenCapture] = useState("");
   const [open, setOpen] = useState(false);
   const dispatch = useShoppingDispatch();

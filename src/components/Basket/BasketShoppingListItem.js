@@ -111,8 +111,8 @@ const Count = styled.div`
 `;
 
 
-const BasketShoppingListItem = ({id, name, memo, count, unit, item, checked}) => {
-
+const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
+  const[checked,SetChecked]= useState(false);
   //const {shopping_id, shopping_name, shopping_index, shopping_count,} = list;
   const dispatch = useShoppingDispatch();
   const SetBasket=()=>{
@@ -148,11 +148,10 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, item, checked}) =>
   }
 
   //체크박스 함수
-  const onToggle = () =>
-    dispatch({
-      type: 'TOGGLE',
-      id
-    });
+  const onToggle = () =>{
+    SetChecked(!checked);
+
+  }
 
   //모달 on, off 함수
   const [modal, setModal] = useState(false);
