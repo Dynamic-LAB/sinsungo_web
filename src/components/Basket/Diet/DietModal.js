@@ -256,7 +256,7 @@ const DietModal = ({
     {
       id: 1,
       fridge_category: '냉장',
-      ingredient_name: '재료명1',
+      ingredient_name: '재료명2',
       checked: false,
     },
     {
