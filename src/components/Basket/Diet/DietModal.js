@@ -33,6 +33,12 @@ const ModalBlock = styled.div`
     display: flex;
     justify-content: flex-end; //오른쪽 끝에 배치
   }
+  @media only screen and (max-width: 765px) {
+    width: 300px;
+  }
+  @media only screen and (max-width: 370px) {
+    width: 250px;
+  }
 `;
 const ModalTitle = styled.div`
   display: flex;
@@ -275,6 +281,24 @@ const DietModal = ({
     {
       id: 5,
       fridge_category: '조미료/양념',
+      ingredient_name: '재료명',
+      checked: false,
+    },
+    {
+      id: 6,
+      fridge_category: '조미료/양념',
+      ingredient_name: '재료명',
+      checked: false,
+    },
+    {
+      id: 7,
+      fridge_category: '냉동',
+      ingredient_name: '재료명',
+      checked: false,
+    },
+    {
+      id: 8,
+      fridge_category: '냉장',
       ingredient_name: '재료명',
       checked: false,
     },
