@@ -68,9 +68,8 @@ const CloseButton = styled.button`
 const StyledWhiteBox = styled(WhiteBox)`
   height: 80%;
   width: auto;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding: 15px;
+  margin: 0.5rem 0;
+  padding: 5px 15px;
 `;
 const Thumbnail = styled.div`
   text-align: center;
@@ -124,6 +123,7 @@ const StyledButton = styled(Button)`
   height: 2rem;
   border-radius: 20px;
   font-size: 13px;
+  margin-top: 5px;
   padding: 0.25rem 1.25rem;
   width: 230px;
   img {

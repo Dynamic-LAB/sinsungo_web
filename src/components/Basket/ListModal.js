@@ -1,11 +1,11 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Button from "../common/Button";
 import {useForm} from "react-hook-form";
 import {MdRestaurant, MdAssignment} from "react-icons/md";
 import WhiteBox from "../common/WhiteBox";
-import {useShoppingDispatch, useShoppingNextId} from "./ListContext";
 import axios from 'axios';
+
 // 회색 불투명 배경
 const Fullscreen = styled.div`
   position: fixed;
@@ -19,7 +19,6 @@ const Fullscreen = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 const ModalBlock = styled.div`
   background: #F6F6F6;
   height: auto;
@@ -152,56 +151,57 @@ const ListModal = ({
                      type,
                      item
                    }) => {
- //폼 초기값
+  //폼 초기값
   const defaultValues = {
-    list_name: type==='edit'?item.name:"",
-    list_amount: type==='edit'?item.amount:"",
-    list_unit:  type==='edit'?item.unit:"",
-    list_memo: type==='edit'?item.memo:"",
+    list_name: type === 'edit' ? item.name : "",
+    list_amount: type === 'edit' ? item.amount : "",
+    list_unit: type === 'edit' ? item.unit : "",
+    list_memo: type === 'edit' ? item.memo : "",
   };
-  const editValues=(values)=>{
-    return({
-      list_name: type==='edit'?values.list_name:"",
-      list_amount: type==='edit'?values.list_amount:"",
-      list_unit: type==='edit'?values.list_unit:"",
-      list_memo: type==='edit'?values.list_memo:"",
-  })}
+  const editValues = (values) => {
+    return ({
+      list_name: type === 'edit' ? values.list_name : "",
+      list_amount: type === 'edit' ? values.list_amount : "",
+      list_unit: type === 'edit' ? values.list_unit : "",
+      list_memo: type === 'edit' ? values.list_memo : "",
+    })
+  }
   const {register, handleSubmit, formState: {errors}, reset, setValue, watch} = useForm({defaultValues});
   console.log(item);
   //구매목록 추가 요청
-  const InsertBasketByRefId=(values,type)=>{
+  const InsertBasketByRefId = (values, type) => {
     axios.post('/shoppinglist/',
-    {
-      id:JSON.parse(window.sessionStorage.getItem('User')).newRefId,
-      name:values.list_name,
-      memo:values.list_memo,
-      amount:values.list_amount,
-      unit:values.list_unit,
-    }
-    ).then((res)=>{
+      {
+        id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+        name: values.list_name,
+        memo: values.list_memo,
+        amount: values.list_amount,
+        unit: values.list_unit,
+      }
+    ).then((res) => {
       reset(defaultValues);
       //DB response
     })
-    .catch((res)=>{
-      console.log("erorr Msg:",res)
-    });
+      .catch((res) => {
+        console.log("erorr Msg:", res)
+      });
   }
   //구매목록 수정 요청
-  const UpdateBasketById=(values,id)=>{
-    axios.put('/shoppinglist/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
-    {
-      id:id,
-      name:values.list_name,
-      memo:values.list_memo,
-      amount:values.list_amount,
-      unit:values.list_unit,
-    }
-    ).then((res)=>{
+  const UpdateBasketById = (values, id) => {
+    axios.put('/shoppinglist/' + JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+      {
+        id: id,
+        name: values.list_name,
+        memo: values.list_memo,
+        amount: values.list_amount,
+        unit: values.list_unit,
+      }
+    ).then((res) => {
       //DB response
     })
-    .catch((res)=>{
-      console.log("erorr Msg:",res)
-    });
+      .catch((res) => {
+        console.log("erorr Msg:", res)
+      });
   }
 
   //취소버튼 액션
@@ -210,12 +210,11 @@ const ListModal = ({
     reset();
   };
   //확인버튼 액션
-
   const onSubmit = (values) => {
-    if(type!="edit"){
-    InsertBasketByRefId(values);
-    }else{
-    UpdateBasketById(values,id);
+    if (type !== "edit") {
+      InsertBasketByRefId(values);
+    } else {
+      UpdateBasketById(values, id);
     }
     reset(editValues(values));
 
@@ -230,12 +229,11 @@ const ListModal = ({
   return (
     <Fullscreen>
       <ModalBlock>
-        <h2 onClick={()=>reset(defaultValues)}>
+        <h2 onClick={() => reset(defaultValues)}>
           장바구니 목록
           {type === 'add' && (<div>{text}</div>)}
           {type === 'edit' && (<div>{text}</div>)}
         </h2>
-
         <form>
           <StyledWhiteBox>
             {/*재료입력*/}

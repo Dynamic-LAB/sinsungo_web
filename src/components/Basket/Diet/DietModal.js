@@ -1,6 +1,6 @@
 import React, {useCallback, useRef, useState} from 'react';
 import styled from "styled-components";
-import {useForm, Controller, useFieldArray} from "react-hook-form";
+import {useForm, Controller} from "react-hook-form";
 import {MdCancel, MdSearch} from "react-icons/md";
 import Button from "../../common/Button";
 import WhiteBox from "../../common/WhiteBox";
@@ -25,7 +25,7 @@ const Fullscreen = styled.div`
 const ModalBlock = styled.div`
   background: #F6F6F6;
   height: auto;
-  width: 450px;
+  width: 500px;
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
@@ -144,7 +144,6 @@ const MenuBlock = styled.div`
     font-size: 10px;
     color: #FF2424;
   }
-  
 `;
 const IngredientBlock = styled.div`
   font-size: 16px;
