@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import BasketShoppingListItem from "./BasketShoppingListItem";
 import {useShoppingState} from "./ListContext";
@@ -24,8 +24,10 @@ const BasketList = ({type}) => {
               count={list.amount}
               unit={list.unit}
               item={list}
+              checked={list.shopping_checked}
             />)
         })}
+
         </ShoppingBlock>
       )}
 

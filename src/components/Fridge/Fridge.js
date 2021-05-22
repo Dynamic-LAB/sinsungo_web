@@ -50,18 +50,18 @@ const Shelf_Yellow = styled.div`
 
 const ItemTitle = styled.div`
   display: flex;
-  padding: 10px 35px;
+  padding: 10px 40px;
   align-items: center;
   border-bottom: 1px solid #bbbbbb;
   font-weight: 700;
   color: #393939;
   font-size: 12px;
   @media only screen and (min-width:976px) and (max-width: 1500px) {
-    padding: 10px 10px;
+    padding: 10px 30px;
     font-size: 10px;
   }
   @media only screen and (max-width: 630px) {
-    padding: 10px 15px;
+    padding: 10px 25px;
     font-size: 10px;
   }
 `;

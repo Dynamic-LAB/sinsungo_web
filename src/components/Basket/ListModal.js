@@ -210,6 +210,7 @@ const ListModal = ({
     reset();
   };
   //확인버튼 액션
+
   const onSubmit = (values) => {
     if(type!="edit"){
     InsertBasketByRefId(values);
@@ -217,6 +218,7 @@ const ListModal = ({
     UpdateBasketById(values,id);
     }
     reset(editValues(values));
+
     onConfirm();
   }
 
@@ -281,7 +283,7 @@ const ListModal = ({
                   {...register("list_amount", {
                     required: "필수입력사항",
                     min: {
-                      value: 0,
+                      value: 1,
                       message: '0 이상 입력해주세요'
                     }
                   })}

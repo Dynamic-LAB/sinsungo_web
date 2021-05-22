@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import styled from 'styled-components';
-import {MdAddCircleOutline, MdRemoveCircleOutline,MdEdit,MdDelete} from "react-icons/md";
+import styled, {css} from 'styled-components';
+import {MdRadioButtonUnchecked, MdRadioButtonChecked, MdEdit, MdDelete} from "react-icons/md";
 import ListModal from "./ListModal";
-import FridgeModal from "../Fridge/FridgeModal";
 import {useShoppingDispatch, useShoppingState} from "./ListContext";
 import GetBasketByRefrigratorId from "../ForServer/GetBasketByRefrigratorId"
 import axios from 'axios';
@@ -14,12 +13,13 @@ const Remove = styled.div`
   cursor: pointer;
   font-size: 1.2rem;
   opacity: 0;
+
   &:hover {
     color: #ff6b6b;
   }
 
 `;
-const Edit = styled.div`
+const Toggle = styled.div`
   display: flex;
   align-items: center; //세로중앙정렬
   justify-content: center;
@@ -28,10 +28,12 @@ const Edit = styled.div`
   margin-right: 10px;
   color: #dee2e6;
   opacity: 0;
-
-  &:hover {
-    color: #626262;
-  }
+  ${props =>
+          props.checked &&
+          css`
+            color: #626262;
+            opacity: 1;
+          `}
 `;
 const ItemBlock = styled.div`
   display: flex;
@@ -39,9 +41,19 @@ const ItemBlock = styled.div`
   align-items: center;
   font-size: 13px;
 
+  .text {
+    display: flex;
+    flex: 1;
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
   &:nth-child(even) {
     background: #f8f9fa;
   }
+
   &:hover {
     ${Remove} {
       opacity: 1;
@@ -49,12 +61,10 @@ const ItemBlock = styled.div`
     ${Edit} {
       opacity: 1;
     }
-  @media only screen and (max-width: 978px) {
-    padding: 10px 15px;
-  }
-
+    @media only screen and (max-width: 978px) {
+      padding: 10px 15px;
+    }
 `;
-
 const Item = styled.div`
   display: flex;
   flex: 1;
@@ -79,26 +89,30 @@ const ItemIndex = styled.div`
   }
 `;
 
+
 const Count = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
+  font-size: 13px;
   .count_num {
     display: flex;
     margin-left: 20px;
-    font-size: 15px;
     text-align: center;
   }
   .count_unit {
     display: flex;
     margin-left: 10px;
-    font-size: 15px;
     text-align: center;
+  }
+  @media only screen and (max-width: 978px) {
+    font-size: 12px;
   }
 `;
 
-const BasketShoppingListItem = ({id, name, memo, count, unit,item}) => {
+
+const BasketShoppingListItem = ({id, name, memo, count, unit, item, checked}) => {
+
   //const {shopping_id, shopping_name, shopping_index, shopping_count,} = list;
   const dispatch = useShoppingDispatch();
   const SetBasket=()=>{
@@ -123,21 +137,29 @@ const BasketShoppingListItem = ({id, name, memo, count, unit,item}) => {
     }).then(()=> {
         // 항상 실행
     });
+
     //props.setIngredients()
   }
   
   //삭제 함수
   const onRemove = (id) =>{
-    DeleteBasketById(id)
-    SetBasket()
+    DeleteBasketById(id);
+    SetBasket();
   }
+
+  //체크박스 함수
+  const onToggle = () =>
+    dispatch({
+      type: 'TOGGLE',
+      id
+    });
+
   //모달 on, off 함수
   const [modal, setModal] = useState(false);
 
   //모달 함수들(onEdit, onCancel, onConfirm)
   const onEdit = () => {
     setModal(true);
-
   };
   const onCancel = () => {
     setModal(false);
@@ -145,14 +167,24 @@ const BasketShoppingListItem = ({id, name, memo, count, unit,item}) => {
   const onConfirm = () => {
     SetBasket()
     setModal(false);
-    // onAdd();
   }
 
   return (
     <ItemBlock>
-      <Edit onClick={onEdit}>
-        <MdEdit/>
-      </Edit>
+      <Toggle onClick={()=>onToggle(id)} checked={checked}>
+        {checked ? <MdRadioButtonChecked/> : <MdRadioButtonUnchecked/>}
+      </Toggle>
+
+      <div className="text" onClick={onEdit}>
+        <Item>{name}</Item>
+        <ItemIndex>{memo}</ItemIndex>
+        <Item>
+          <Count>
+            <div className="count_num">{parseInt(count)}</div>
+            <div className="count_unit">{unit}</div>
+          </Count>
+        </Item>
+      </div>
       <ListModal
         visible={modal}
         onConfirm={onConfirm}
@@ -161,17 +193,10 @@ const BasketShoppingListItem = ({id, name, memo, count, unit,item}) => {
         type="edit"
         item={item}
       />
-      <Item>{name}</Item>
-      <ItemIndex>{memo}</ItemIndex>
-      <Item>
-        <Count>
-          <div className="count_num">{parseInt(count)}</div>
-          <div className="count_unit">{unit}</div>
-        </Count>
-      </Item>
       <Remove onClick={() => onRemove(id)}>
         <MdDelete/>
       </Remove>
+
     </ItemBlock>
   );
 }

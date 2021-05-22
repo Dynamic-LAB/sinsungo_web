@@ -27,10 +27,8 @@ const Box4 = styled.div`
   height: 60px;
   width: 96%;
   flex: 1;
-
-  font-weight: 500;
   color: #000000;
-  font-size: 13px;
+  font-size: 12px;
   @media only screen and (max-width: 978px) {
     font-size: 11px;
   }
@@ -38,9 +36,13 @@ const Box4 = styled.div`
 
 const HasItem = styled.span`
   color: #3c82d9;
+  font-weight: 500;
+  font-size: 13px;
 `;
 const NoneItem = styled.span`
   color: #D93C3C;
+  font-weight: 500;
+  font-size: 13px;
 `;
 
 const OriImg = styled.img`
@@ -78,11 +80,12 @@ const RecipeCard = (props) => {
             <Box4>
               <div>
                 <HasItem>냉장고 속 재료 │</HasItem> {props.hasList.map((n, _i) => {
-                return n + (_i < props.hasList.length - 1 ? ',' : '') })}
+                return n + (_i < props.hasList.length - 1 ? ', ' : '') })}
               </div>
+              <br/>
               <div>
                 <NoneItem>없는 재료 │</NoneItem> {props.noneList.map((n, _i) => {
-                return n + (_i < props.noneList.length - 1 ? ',' : '') })}
+                return n + (_i < props.noneList.length - 1 ? ', ' : '') })}
               </div>
 
             </Box4>
@@ -94,8 +97,8 @@ const RecipeCard = (props) => {
         url={props.url}
         description={props.description}
         name={props.name}
-        hasList={props.inRefIngredients}
-        noneList={props.notInRefIngredients}
+        hasList={props.hasList}
+        noneList={props.noneList}
         visible={modal}
         onCancel={onCancel}
       />
