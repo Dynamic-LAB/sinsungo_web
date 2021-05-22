@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import styled from 'styled-components';
-import {MdCheckBox, MdCheckBoxOutlineBlank, MdEdit, MdDelete} from "react-icons/md";
-import FridgeAddModal from "./FridgeAddModal";
+import {MdEdit, MdDelete} from "react-icons/md";
 import FridgeModal from "./FridgeModal";
 import GetIngredientByRefrigratorId from '../ForServer/GetIngredientByRefrigratorId';
-
+import { Context } from '../../Ingredient';
 const Remove = styled.div`
   display: flex;
   align-items: center; //세로중앙정렬
@@ -17,6 +16,13 @@ const Remove = styled.div`
   &:hover {
     color: #ff6b6b;
   }
+
+  @media only screen and (min-width: 976px) and (max-width: 1500px) {
+    font-size: 1rem;
+  }
+  @media only screen and (max-width: 630px) {
+    font-size: 0.875rem;
+  }
 `;
 const Edit = styled.div`
   display: flex;
@@ -24,18 +30,25 @@ const Edit = styled.div`
   justify-content: center;
   font-size: 1.2rem;
   cursor: pointer;
-  margin-right: 10px;
+  margin-right: 6px;
   color: #dee2e6;
   opacity: 0;
 
   &:hover {
     color: #626262;
   }
+
+  @media only screen and (min-width: 976px) and (max-width: 1500px) {
+    font-size: 1rem;
+  }
+  @media only screen and (max-width: 630px) {
+    font-size: 0.875rem;
+  }
 `;
 
 const ItemBlock = styled.div`
   display: flex;
-  padding: 10px 20px;
+  padding: 10px 15px;
   align-items: center;
   font-size: 12px;
 
@@ -58,7 +71,7 @@ const ItemBlock = styled.div`
     padding: 10px 10px;
   }
   @media only screen and (max-width: 630px) {
-    padding: 10px 10px;
+    padding: 10px 6px;
   }
 `;
 
@@ -77,7 +90,8 @@ const Item = styled.div`
 `;
 const FridgeItem = ({ingredient, onRemove}) => {
 
-  const {id, name, amount,unit,expiration_date, manufacture, expiration_type} = ingredient;
+
+  const {id, name, amount, unit, expiration_date, manufacture, expiration_type, today} = ingredient;
   const [modal, setModal] = useState(false);
   const onEdit = () => {
     setModal(true);
@@ -85,10 +99,19 @@ const FridgeItem = ({ingredient, onRemove}) => {
   const onCancel = () => {
     setModal(false);
   };
+  const {state,dispatch}=useContext(Context);
   const onConfirm = () => {
+    if(JSON.parse(sessionStorage.getItem('User'))){
+      GetIngredientByRefrigratorId(
+        {
+            id:JSON.parse(sessionStorage.getItem('User')).newRefId,
+            dispatch:dispatch
+        }
+      )};
     setModal(false);
-    // onAdd();
   }
+  var day=new Date(today);
+  var myDate=(new Date(day.getFullYear()+"/"+(day.getMonth()+1)+"/"+day.getDate())-new Date(expiration_date.replaceAll('-','/')))/24/3600/1000*-1;
   return (
     <>
       <ItemBlock>
@@ -103,27 +126,26 @@ const FridgeItem = ({ingredient, onRemove}) => {
           type="edit"
         />
         <Item>{name}</Item>
-        <Item>{amount+unit}</Item>
+        <Item>{amount + unit}</Item>
         {
             expiration_type=="유통기한"?
+            <Item>{expiration_date}({myDate})</Item>
+
+            :
+            <Item>-</Item>
+        }
+        {
+          expiration_type == "제조일자" ?
             <Item>{expiration_date}</Item>
             :
             <Item>-</Item>
-          }
-    {
-            expiration_type=="제조일자"?
+        }
+        {
+          expiration_type == "보관일" ?
             <Item>{expiration_date}</Item>
             :
             <Item>-</Item>
-            
-          }
-              {
-            expiration_type=="보관일"?
-            <Item>{expiration_date}</Item>
-            :
-            <Item>-</Item>
-            
-          }
+        }
 
         <Remove onClick={() => onRemove(id)}>
           <MdDelete/>

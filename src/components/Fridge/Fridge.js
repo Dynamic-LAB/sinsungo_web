@@ -50,18 +50,18 @@ const Shelf_Yellow = styled.div`
 
 const ItemTitle = styled.div`
   display: flex;
-  padding: 10px 35px;
+  padding: 10px 40px;
   align-items: center;
   border-bottom: 1px solid #bbbbbb;
   font-weight: 700;
   color: #393939;
   font-size: 12px;
   @media only screen and (min-width:976px) and (max-width: 1500px) {
-    padding: 10px 10px;
+    padding: 10px 30px;
     font-size: 10px;
   }
   @media only screen and (max-width: 630px) {
-    padding: 10px 15px;
+    padding: 10px 25px;
     font-size: 10px;
   }
 `;
@@ -91,27 +91,9 @@ const DeleteIngredientById=(id)=>{
       // 항상 실행
   });
   //props.setIngredients()
-
 }
 const Fridge = (props) => {
   const [ingredients,setIngredients] = useState();
-  const GetIngredient=(id)=>{
-    axios.get("/refrigerator/ingredient/"+id, {
-      params: {
-
-      }
-    })
-    .then((response)=> {
-        // response 
-        setIngredients(response)
-        return response
-      }).catch((error)=>{
-        // 오류발생시 실행
-    }).then(()=> {
-        // 항상 실행
-    });
-    //props.setIngredients()
-  }
 
   const {
     state,
@@ -139,22 +121,45 @@ const Fridge = (props) => {
           }
         )};
     }
-
   );
+  const GetExpirationList=()=>{
+    var cnt=0;
+    if(state.IngredientList){
+      state.IngredientList.map(item=>{
+      if(item.expiration_type==="유통기한"){
+        cnt++;
+        var day=new Date(item.today);
+        var myDate=(new Date(day.getFullYear()+"/"+(day.getMonth()+1)+"/"+day.getDate())-new Date(item.expiration_date.replaceAll('-','/')))/24/3600/1000*-1;
+      }
+    })
+  }
+  console.log(cnt);
+    return cnt==0?"-":cnt;
+    }
   return (
-    <frigde>
+    <div id="mainTag">
       <div className="fridge__container">
         <div className="shelf_life">
           <WhiteBoxTop>
             <div className="shelf_life__title">
               <h2>유통기한 임박 재료</h2>
               <div className="count">
-                <h3>3</h3>
+                <h3>{GetExpirationList()}</h3>
               </div>
             </div>
             <div className="top_card_inner">
-              <Shelf_Red>음식1</Shelf_Red>
-              <Shelf_Yellow>음식2</Shelf_Yellow>
+              {state.IngredientList?state.IngredientList.map((item,index)=>{
+                if(item.expiration_type==="유통기한"){
+                  var day=new Date(item.today);
+                  var myDate=(new Date(day.getFullYear()+"/"+(day.getMonth()+1)+"/"+day.getDate())-new Date(item.expiration_date.replaceAll('-','/')))/24/3600/1000*-1;
+                  if(myDate<4){
+                  return(<Shelf_Red key={index}>{item.name}({myDate})</Shelf_Red>)
+                  }else if(myDate<8)
+                  return(<Shelf_Yellow key={index}>{item.name}({myDate})</Shelf_Yellow>)
+                }
+              }):
+                null}
+              {/*<Shelf_Yellow>음식2</Shelf_Yellow>*/}
             </div>
           </WhiteBoxTop>
         </div>
@@ -256,7 +261,7 @@ const Fridge = (props) => {
           </WhiteBoxFridge>
         </div>
       </div>
-    </frigde>
+    </div>
   );
 }
 

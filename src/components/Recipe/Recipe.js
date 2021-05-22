@@ -7,7 +7,6 @@ import RecipeCard from "./RecipeCard";
 import React, {useState, useCallback, useEffect,useRef} from 'react';
 import aixos from 'axios';
 import axios from "../../../node_modules/axios/index";
-import DietItem from "../Basket/Diet/DietItem";
 import { resetWarningCache } from "prop-types";
 // import ice from "../../assets/ice.svg";
 
@@ -58,13 +57,13 @@ const Recipe = () => {
   var st=0;
   const range=useRef(null);
   const target=useRef(null);
-  const word=useRef(null);
   const waitTime=useRef(null);
   const wordExist=useRef(null);
+  const list=useRef(null);
   const [recipeData,SetRecipeData]=useState();
   const [modal, setModal] = useState(false);
   const [searchWord, SetSearchWord] = useState("");
-  const list=useRef(null);
+
   const popUp = () => {
     setModal(true);
   }

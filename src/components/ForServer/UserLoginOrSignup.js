@@ -20,6 +20,9 @@ const UserLoginOrSignup = (props) => {
         postName=nickname;
       }else if(props.loginInfo[0]=='naver'){
         postLoginType='naver'
+        const {id,name}=props.loginInfo[1];
+        postId=id;
+        postName=name;
       }
     }
     axios.post('user/auth/login',

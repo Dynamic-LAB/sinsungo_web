@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import {MdAdd} from "react-icons/md";
 import DietModal from "./Diet/DietModal";
 import ListModal from "./ListModal";
-
+import GetBasketByRefrigratorId from "../ForServer/GetBasketByRefrigratorId"
+import {useShoppingDispatch} from "./ListContext";
 const AddButton = styled.button`
   display: flex;
   align-items: center;
@@ -23,7 +24,7 @@ const AddButton = styled.button`
 
 const BasketAddButton = ({type}) => {
   const [modal, setModal] = useState(false);
-
+  const dispatch= useShoppingDispatch()
   const onAddClick = () => {
     setModal(true);
   };
@@ -31,6 +32,13 @@ const BasketAddButton = ({type}) => {
     setModal(false);
   };
   const onConfirm = () => {
+    if(JSON.parse(sessionStorage.getItem('User'))){
+      GetBasketByRefrigratorId(
+        {
+            id:JSON.parse(sessionStorage.getItem('User')).newRefId,
+            dispatch:dispatch
+        }
+        )}
     setModal(false);
     // onAdd();
   }

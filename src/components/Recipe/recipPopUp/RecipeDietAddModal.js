@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {MdClose} from "react-icons/md";
 import Button from "../../common/Button";
 import FridgeModal from "../../Fridge/FridgeModal";
+import DietModal from "../../Basket/Diet/DietModal";
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -75,10 +76,15 @@ const StyledButton = styled(Button)`
 const RecipeDietAddModal = ({
                               visible,
                               onCloseClick,
+                              onClose
                             }) => {
-  //const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   //식단추가
+  const newAdd = () => {
 
+    onClose();
+    onCloseClick();
+  }
   //식단 수정
 
   if (!visible) return null;
@@ -94,10 +100,16 @@ const RecipeDietAddModal = ({
         </ModalTitle>
         <div className="modal_contents">
           <ButtonBlock>
-            <StyledButton>새로운 식단에 추가</StyledButton>
+            <StyledButton onClick={newAdd}>새로운 식단에 추가</StyledButton>
+            {/*<DietModal*/}
+            {/*  visible={open}*/}
+            {/*  onConfirm={onConfirm}*/}
+            {/*  onCancel={onCancel}*/}
+            {/*  type="add"*/}
+            {/*/>*/}
           </ButtonBlock>
           <ButtonBlock>
-            <StyledButton>기존 식단에서 수정</StyledButton>
+            <StyledButton>기존 식단에 추가</StyledButton>
           </ButtonBlock>
         </div>
       </ModalBlock>
