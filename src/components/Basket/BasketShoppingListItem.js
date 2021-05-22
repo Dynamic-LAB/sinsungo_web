@@ -110,14 +110,8 @@ const Count = styled.div`
   }
 `;
 
-<<<<<<< HEAD
-
-const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
-  const[checked,SetChecked]= useState(false);
-=======
 const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
 
->>>>>>> bee4c50e261379ee8ef965184873cffdce566f72
   //const {shopping_id, shopping_name, shopping_index, shopping_count,} = list;
   const dispatch = useShoppingDispatch();
   const SetBasket=()=>{
@@ -152,15 +146,6 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
     SetBasket();
   }
 
-<<<<<<< HEAD
-  //체크박스 함수
-  const onToggle = () =>{
-    SetChecked(!checked);
-
-  }
-
-=======
->>>>>>> bee4c50e261379ee8ef965184873cffdce566f72
   //모달 on, off 함수
   const [modal, setModal] = useState(false);
 
