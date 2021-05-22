@@ -13,12 +13,6 @@ const ItemBlock = styled.div`
     margin-right: 20px;
     //유통기한에 따라 색 다르게
     background: #3C82D9;
-    @media only screen and (max-width: 765px) {
-      margin-right: 13px;
-    }
-    @media only screen and (max-width: 370px) {
-      margin-right: 10px;
-    }
   }
   `;
 const Item = styled.div`
@@ -27,21 +21,9 @@ const Item = styled.div`
   justify-content: center;
   .fridge_category {
     width: 90px;
-    @media only screen and (max-width: 765px) {
-      width: 60px;
-    }
-    @media only screen and (max-width: 370px) {
-      width: 40px;
-    }
   }
   .ingredient_name {
     width: 265px;
-    @media only screen and (max-width: 765px) {
-      width: 150px;
-    }
-    @media only screen and (max-width: 370px) {
-      width: 120px;
-    }
   }
 `;
 const Check = styled.div`
@@ -59,11 +41,8 @@ const DietIngredientItem = ({ingredient, onToggle}) => {
       <Item>
         <span className="fridge_category">{fridge_category}</span>
       </Item>
-      <Item>
-        {/*유통기한을 색으로 표시한 bar*/}
-        <span className="color_bar"/>
-      </Item>
-
+      {/*유통기한을 색으로 표시한 bar*/}
+      <span className="color_bar"/>
       <Item>
         <span className="ingredient_name">{ingredient_name}</span>
       </Item>
