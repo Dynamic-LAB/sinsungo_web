@@ -85,7 +85,7 @@ useEffect(()=>{
 
   return (
 
-    <basket>
+    <div id="basket">
       <div className="basket__container">
         <div className="fridge__cards">
           {/*식단*/}
@@ -148,7 +148,7 @@ useEffect(()=>{
 
         </div>
       </div>
-    </basket>
+    </div>
   );
 }
 

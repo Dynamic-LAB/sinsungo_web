@@ -58,7 +58,7 @@ const ItemBlock = styled.div`
     ${Remove} {
       opacity: 1;
     }
-    ${Edit} {
+    ${Toggle} {
       opacity: 1;
     }
     @media only screen and (max-width: 978px) {
