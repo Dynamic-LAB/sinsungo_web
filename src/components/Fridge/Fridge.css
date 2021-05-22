@@ -1,4 +1,4 @@
-frigde {
+#mainTag {
     grid-area: main;
     overflow-y: auto;
 }

@@ -13,17 +13,21 @@ const BasketList = ({type}) => {
     <>
       {type === 'list' &&(
         <ShoppingBlock>
-          {lists.map(list =>(
+          {lists.map((list,index) =>{
+            if(list.name.length>0)
+            return(
             <BasketShoppingListItem
-              key={list.shopping_id}
-              id={list.shopping_id}
-              name={list.shopping_name}
-              memo={list.shopping_index}
-              count={list.shopping_count}
-              unit={list.shopping_count_unit}
+              key={index}
+              id={list.id}
+              name={list.name}
+              memo={list.memo}
+              count={list.amount}
+              unit={list.unit}
+              item={list}
               checked={list.shopping_checked}
-            />
-          ))}
+            />)
+        })}
+
         </ShoppingBlock>
       )}
 

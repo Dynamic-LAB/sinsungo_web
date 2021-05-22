@@ -1,11 +1,11 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import styled from 'styled-components';
 import Button from "../common/Button";
 import {useForm} from "react-hook-form";
 import {MdRestaurant, MdAssignment} from "react-icons/md";
 import WhiteBox from "../common/WhiteBox";
 import {useShoppingDispatch, useShoppingNextId} from "./ListContext";
-
+import axios from 'axios';
 // 회색 불투명 배경
 const Fullscreen = styled.div`
   position: fixed;
@@ -140,13 +140,7 @@ const textMap = {
   add: '추가',
   edit: '수정',
 };
-//폼 초기값
-const defaultValues = {
-  list_name: "",
-  list_amount: "",
-  list_unit: "",
-  list_memo: "",
-};
+
 
 const ListModal = ({
                      visible,
@@ -154,11 +148,61 @@ const ListModal = ({
                      cancelText = '취소',
                      onConfirm,
                      onCancel,
+                     id,
                      type,
+                     item
                    }) => {
+ //폼 초기값
+  const defaultValues = {
+    list_name: type==='edit'?item.name:"",
+    list_amount: type==='edit'?item.amount:"",
+    list_unit:  type==='edit'?item.unit:"",
+    list_memo: type==='edit'?item.memo:"",
+  };
+  const editValues=(values)=>{
+    return({
+      list_name: type==='edit'?values.list_name:"",
+      list_amount: type==='edit'?values.list_amount:"",
+      list_unit: type==='edit'?values.list_unit:"",
+      list_memo: type==='edit'?values.list_memo:"",
+  })}
   const {register, handleSubmit, formState: {errors}, reset, setValue, watch} = useForm({defaultValues});
-  const dispatch = useShoppingDispatch();
-  const nextId = useShoppingNextId();
+  console.log(item);
+  //구매목록 추가 요청
+  const InsertBasketByRefId=(values,type)=>{
+    axios.post('/shoppinglist/',
+    {
+      id:JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+      name:values.list_name,
+      memo:values.list_memo,
+      amount:values.list_amount,
+      unit:values.list_unit,
+    }
+    ).then((res)=>{
+      reset(defaultValues);
+      //DB response
+    })
+    .catch((res)=>{
+      console.log("erorr Msg:",res)
+    });
+  }
+  //구매목록 수정 요청
+  const UpdateBasketById=(values,id)=>{
+    axios.put('/shoppinglist/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+    {
+      id:id,
+      name:values.list_name,
+      memo:values.list_memo,
+      amount:values.list_amount,
+      unit:values.list_unit,
+    }
+    ).then((res)=>{
+      //DB response
+    })
+    .catch((res)=>{
+      console.log("erorr Msg:",res)
+    });
+  }
 
   //취소버튼 액션
   const onNotSubmit = () => {
@@ -166,22 +210,17 @@ const ListModal = ({
     reset();
   };
   //확인버튼 액션
-  const onSubmit = () => {
-    dispatch({
-      type: 'CREATE',
-      shopping: {
-        shopping_id: nextId.current,
-        shopping_name: list_name,
-        shopping_index: list_memo,
-        shopping_count: list_amount,
-        shopping_count_unit: list_unit,
-        shopping_checked: false,
-      }
-    });
+
+  const onSubmit = (values) => {
+    if(type!="edit"){
+    InsertBasketByRefId(values);
+    }else{
+    UpdateBasketById(values,id);
+    }
+    reset(editValues(values));
+
     onConfirm();
-    reset();
-    nextId.current += 1;
-  };
+  }
 
   const {list_name, list_amount, list_unit, list_memo} = watch();
 
@@ -191,7 +230,7 @@ const ListModal = ({
   return (
     <Fullscreen>
       <ModalBlock>
-        <h2>
+        <h2 onClick={()=>reset(defaultValues)}>
           장바구니 목록
           {type === 'add' && (<div>{text}</div>)}
           {type === 'edit' && (<div>{text}</div>)}
@@ -256,7 +295,7 @@ const ListModal = ({
                     required: "필수입력사항",
                   })}
                 >
-                  <option value="piece">개</option>
+                  <option value="개">개</option>
                   <option value="g">g</option>
                   <option value="kg">kg</option>
                   <option value="ml">ml</option>

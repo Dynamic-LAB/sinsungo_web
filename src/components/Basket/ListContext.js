@@ -2,18 +2,22 @@ import React, {useReducer, createContext, useContext, useRef} from "react";
 
 const initialShopping = [
   {
-    shopping_id: 1,
-    shopping_name: '감자2',
-    shopping_index: '냠냠',
-    shopping_count: '0',
-    shopping_count_unit: 'g',
+
+    id: '-',
+    name: '',
+    memo: '',
+    amount: '',
+    unit: '',
     shopping_checked: false,
-  },
+  }
+
 
 ];
 
 function shoppingReducer(state, action){
   switch (action.type){
+    case 'ADD_':
+      return action.payload.data;
     case 'CREATE':
       return state.concat(action.shopping);
     case 'REMOVE':
@@ -60,6 +64,7 @@ export function useShoppingDispatch() {
   }
   return context;
 }
+
 export function useShoppingNextId(){
   const context = useContext(ShoppingNextIdContext);
   if(!context) {

@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import KakaoLoginv from '../components/KakaoLoginv';
 import GoogleButton from '../components/GoogleButton'
+import NaverLoginBtn from '../components/NaverLoginBtn'
+import styled from "styled-components";
 import styled, {css} from "styled-components";
 import logo from '../assets/sinsungo_logo.png'
 import logo_video from '../assets/sinsungo_logo.mp4';
@@ -151,9 +153,13 @@ const LoginPage = (props) => {
       <LoginBlock>
         <img className="login_logo" src={logo} alt="신선고 로고" />
         <LoginButton>
-          <KakaoLoginv GoMain={GoMain}/>
-          <div style={{height: '5px'}}/>
-          <GoogleButton GoMain={GoMain}/>
+
+          <KakaoLoginv GoMain={GoMain}></KakaoLoginv>
+          <div style={{height: '5px'}}></div>
+          <GoogleButton GoMain={GoMain}></GoogleButton>
+           <div style={{height: '5px'}}></div>
+          <NaverLoginBtn GoMain={GoMain}></NaverLoginBtn>
+
         </LoginButton>
       </LoginBlock>
     </>

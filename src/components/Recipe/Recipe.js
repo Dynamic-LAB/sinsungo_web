@@ -57,13 +57,13 @@ const Recipe = () => {
   var st=0;
   const range=useRef(null);
   const target=useRef(null);
-  const word=useRef(null);
   const waitTime=useRef(null);
   const wordExist=useRef(null);
+  const list=useRef(null);
   const [recipeData,SetRecipeData]=useState();
   const [modal, setModal] = useState(false);
   const [searchWord, SetSearchWord] = useState("");
-  const list=useRef(null);
+
   const popUp = () => {
     setModal(true);
   }

@@ -166,14 +166,7 @@ const textMap = {
   seasoning: '조미료/양념',
   edit: '수정',
 };
-//폼 초기값
-const defaultValues = {
-  i_name: "44",
-  i_amount: "",
-  i_unit: "",
-  i_date: "",
-  date_chose: "",
-};
+
 
 const InsertIngredientByRefId = (values, type) => {
 
@@ -205,7 +198,26 @@ const InsertIngredientByRefId = (values, type) => {
       console.log("error Msg:", res)
     });
 }
-
+const UpdateIngredientById=(values,type,id)=>{
+  //날짜 문자열 형식 수정
+  values.i_date=values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
+  axios.put('/refrigerator/ingredient/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+  {
+    id:id,
+    category:type, 
+    name:values.i_name,
+    amount:values.i_amount,
+    unit:values.i_unit,
+    expiration_type:values.date_chose,
+    expiration_date:values.i_date,
+  }
+  ).then((res)=>{
+    //DB response
+  })
+  .catch((res)=>{
+    console.log("erorr Msg:",res)
+  });
+}
 const FridgeModal = ({
                        visible,
                        type,
@@ -215,21 +227,44 @@ const FridgeModal = ({
                        onCancel,
                        ingredient
                      }) => {
-  const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({defaultValues});
+
+//폼 초기값
+const defaultValues = {
+  i_name: type==='edit'?ingredient.name:"",
+  i_amount:type==='edit'?ingredient.amount:"",
+  i_unit:type==='edit'?ingredient.unit:"",
+  i_date:type==='edit'?new Date(ingredient.expiration_date.replaceAll("-","/")):"",
+  date_chose:type==='edit'?ingredient.expiration_type:"",
+};
+
+const editValues =(values)=> {
+  //console.log(values)
+  return({
+  i_name: type==='edit'?values.i_name:"",
+  i_amount:type==='edit'?values.i_amount:"",
+  i_unit:type==='edit'?values.i_unit:"",
+  i_date:type==='edit'?new Date(values.i_date.replaceAll("-","/")):"",
+  date_chose:type==='edit'?values.date_chose:"",
+});
+}
+ 
 
   const onSubmit = (values) => {
-    if (type !== "edit") {
-      InsertIngredientByRefId(values, type);
-    } else {
-      //UpdateIngredientById(values,type);
+
+    if(type!=="edit"){
+    InsertIngredientByRefId(values,type);
+    }else{
+    UpdateIngredientById(values,ingredient.category,ingredient.id);
+
     }
+    reset(editValues(values));
     onConfirm();
-    reset();
   }
   const onNotSubmit = () => {
     onCancel();
     reset();
   };
+  const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({defaultValues});
   const {i_name, i_amount, i_unit, i_date, date_chose} = watch();
 
   if (!visible) return null;
