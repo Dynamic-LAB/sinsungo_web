@@ -166,9 +166,11 @@ const FridgeMoveModal = ({
   const {list_name, list_amount, list_unit, list_date, list_date_chose, fridge_type} = watch();
   const onSubmit = () => {
     onMoveConfirm();
+    reset();
   };
   const onNotSubmit = () => {
     onCancel();
+    reset();
   };
   if (!visible) return null;
   return (
