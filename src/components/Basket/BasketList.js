@@ -1,13 +1,30 @@
-import React from 'react';
+import React,{useContext,useEffect} from 'react';
 import styled from "styled-components";
 import BasketShoppingListItem from "./BasketShoppingListItem";
 import {useShoppingState} from "./ListContext";
-
+import {Context} from "../../Ingredient";
+import GetIngredientByRefrigratorId from "../ForServer/GetIngredientByRefrigratorId"
 const ShoppingBlock = styled.div`
   overflow-y: auto; //스크롤
 `;
 
 const BasketList = ({type}) => {
+  const {
+    state,
+    dispatch,
+  } = useContext(Context);
+  useEffect(()=>{
+    if(JSON.parse(sessionStorage.getItem('User'))){
+    GetIngredientByRefrigratorId(
+      {
+          id:JSON.parse(sessionStorage.getItem('User')).newRefId,
+          dispatch:dispatch
+      }
+    )
+    console.log(state);
+  };
+  },[])
+
   const lists = useShoppingState();
   return(
     <>
@@ -24,7 +41,6 @@ const BasketList = ({type}) => {
               count={list.amount}
               unit={list.unit}
               item={list}
-              checked={list.shopping_checked}
             />)
         })}
 
