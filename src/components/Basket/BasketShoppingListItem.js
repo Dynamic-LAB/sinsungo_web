@@ -122,7 +122,7 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
       }
     })
     .then((response)=> {
-      console.log("_ _구매목록 삭제됨:id:",id,response);
+      console.log("__구매목록 삭제됨:id:",id,response);
       }).catch((error)=>{
         // 오류발생시 실행
     }).then(()=> {
