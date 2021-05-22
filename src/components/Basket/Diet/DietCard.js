@@ -113,7 +113,7 @@ const DietCard = ({id, memo, food, date, ingredient_item}) => {
               </DateBlock>
               <FoodBlock>
                 <div className="diet_food">
-                  {food.map((n,_i)=>{return n+(_i<food.length-1?', ':'')})}
+                  {food}
                 </div>
               </FoodBlock>
               <IngredientBlock>
@@ -121,7 +121,7 @@ const DietCard = ({id, memo, food, date, ingredient_item}) => {
                   주재료
                 </div>
                 <div className="diet_main_ingredient_item">
-                  {ingredient_item.map((n,_i)=>{return n+(_i<ingredient_item.length-1?', ':'')})}
+                  {ingredient_item}
                 </div>
               </IngredientBlock>
             </ItemBlock>

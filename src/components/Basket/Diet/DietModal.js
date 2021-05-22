@@ -7,6 +7,7 @@ import WhiteBox from "../../common/WhiteBox";
 import DatePicker from "react-datepicker";
 import {ko} from "date-fns/esm/locale";
 import DietIngredientList from "./DietIngredientList";
+//import {useDietDispatch, useDietNextId} from "./DietContext";
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -228,9 +229,9 @@ const textMap = {
 };
 //폼 초기값
 const defaultValues = {
-  diet_date: "",
-  diet_memo: "",
-  menu_tag: [],
+  diet_modal_date: "",
+  diet_modal_memo: "",
+  menu_modal_tag: [],
 };
 const DietModal = ({
                      visible,
@@ -242,7 +243,10 @@ const DietModal = ({
                    }) => {
   const {register, handleSubmit, formState: {errors}, reset, setValue, watch, control} = useForm({defaultValues});
   const {diet_modal_date, diet_modal_memo, menu_modal_tag} = watch();
-  //재료 부분
+  // const dispatch = useDietDispatch();
+  // const nextId = useDietNextId();
+
+  //냉장고 재료 부분(임시데이터)
   const [ingredients, setIngredients] = useState([
     {
       id: 1,
@@ -275,7 +279,7 @@ const DietModal = ({
       checked: false,
     },
   ]);
-  //check 액션
+  //냉장고 재료 부분 check 액션
   const onToggle = useCallback(
     id => {
       setIngredients(
@@ -285,7 +289,7 @@ const DietModal = ({
     },
     [ingredients],
   );
-//메뉴 태그 기능
+//메뉴 칩 입력 기능
   let tagInput = useRef();
   const [input, setInput] = useState(true);
   const [tags, setTags] = useState([]);
@@ -294,7 +298,7 @@ const DietModal = ({
     const newTags = [...tags];
     newTags.splice(i,1);
     setTags(newTags);
-    setValue("menu_tag", newTags);
+    setValue("menu_modal_tag", newTags);
     setInput(true);
   };
   // enter 키 누르면 입력
@@ -307,20 +311,29 @@ const DietModal = ({
       }
       if(tags.length === 9) {
         setInput(false);
-
       } //10개가 되면 추가하지 않음
       setTags([...tags, val]);
-      setValue("menu_tag",[...tags, val] );
-      tagInput.value = null;
+      setValue("menu_modal_tag",[...tags, val] );
+      tagInput.value = null; //입력하면 칩 생성하고 input 다시 초기화
     }
   };
 
   //확인버튼 액션
   const onSubmit = (values) => {
+    // dispatch({
+    //   type: 'CREATE',
+    //   diet: {
+    //     diet_id: nextId.current,
+    //     diet_date: diet_modal_date,
+    //     diet_memo: diet_modal_memo,
+    //     diet_food: menu_modal_tag,
+    //   }
+    // })
     console.log(values);
     onConfirm();
     tags.length = 0;
     reset();
+    //nextId.current += 1;
   };
   //취소버튼 액션
   const onNotSubmit = () => {

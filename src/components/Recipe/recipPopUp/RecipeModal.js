@@ -192,6 +192,7 @@ const RecipeModal = ({
       <RecipeDietAddModal
         visible={open}
         onCloseClick={onCloseClick}
+        onClose={onCancel}
       />
     </>
   );
