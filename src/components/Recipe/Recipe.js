@@ -64,7 +64,7 @@ const Recipe = () => {
     }
     if (waitTime.current === false) {
       waitTime.current = true;
-      const res = await axios.get("/recipe/" + 0, {
+      const res = await axios.get("/recipe/" + (JSON.parse(sessionStorage.getItem('User'))?JSON.parse(sessionStorage.getItem('User')).newRefId:0), {
         params: {start: startPoint, end: endPoint, query: query}
       });
       if (list.current.length >= 0 && list.current[list.current.length - 1] !== query) {
