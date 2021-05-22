@@ -149,6 +149,18 @@ const LoginPage = (props) => {
           <NaverLoginBtn GoMain={GoMain}/>
         </LoginButton>
       </LoginBlock>}
+      <UserLoginOrSignup loginInfo={loginInfo} setLoginInfo={setLoginInfo} success={success}/>
+      <LoginBlock>
+        <img className="login_logo" src={logo} alt="신선고 로고" />
+        <LoginButton>
+          <KakaoLoginv GoMain={GoMain}/>
+          <div style={{height: '5px'}}/>
+          <GoogleButton GoMain={GoMain}/>
+          <div style={{height: '5px'}}/>
+          <NaverLoginBtn GoMain={GoMain}/>
+        </LoginButton>
+      </LoginBlock>
+
     </>
   )
 };
