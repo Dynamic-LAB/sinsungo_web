@@ -122,6 +122,7 @@ const Fridge = (props) => {
         )};
     }
   );
+<<<<<<< HEAD
   const GetExpirationList=()=>{
     var cnt=0;
     if(state.IngredientList){
@@ -135,6 +136,18 @@ const Fridge = (props) => {
   }
   console.log(cnt);
     return cnt==0?"-":cnt;
+=======
+  const GetExpirationList = () => {
+    var cnt = 0;
+    if (state.IngredientList) {
+      state.IngredientList.map(item => {
+        if (item.expiration_type === "유통기한") {
+          cnt++;
+          // var day = new Date(item.today);
+          // var myDate = (new Date(day.getFullYear() + "/" + (day.getMonth() + 1) + "/" + day.getDate()) - new Date(item.expiration_date.replaceAll('-', '/'))) / 24 / 3600 / 1000 * -1;
+        }
+      })
+>>>>>>> bee4c50e261379ee8ef965184873cffdce566f72
     }
   return (
     <div id="mainTag">
