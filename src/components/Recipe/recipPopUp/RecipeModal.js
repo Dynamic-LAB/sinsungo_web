@@ -31,6 +31,12 @@ const ModalBlock = styled.div`
     display: flex;
     justify-content: center;
   }
+  @media only screen and (max-width: 765px) {
+    width: 300px;
+  }
+  @media only screen and (max-width: 370px) {
+    width: 250px;
+  }
  
 `;
 const ModalTitle = styled.div`
@@ -38,6 +44,12 @@ const ModalTitle = styled.div`
   h2 {
     font-size: 1.325rem;
     margin-top: 0;
+    @media only screen and (max-width: 765px) {
+      font-size: 1.3rem;
+    }
+    @media only screen and (max-width: 370px) {
+      font-size: 1.2rem;
+    }
   }
 `;
 const Spacer = styled.div`
@@ -56,9 +68,8 @@ const CloseButton = styled.button`
 const StyledWhiteBox = styled(WhiteBox)`
   height: 80%;
   width: auto;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding: 15px;
+  margin: 0.5rem 0;
+  padding: 5px 15px;
 `;
 const Thumbnail = styled.div`
   text-align: center;
@@ -67,6 +78,15 @@ const Thumbnail = styled.div`
   font-weight: 500;
   .recipe__name {
     margin: 10px 0;
+    @media only screen and (max-width: 765px) {
+      font-size: 18px;
+    }
+    @media only screen and (max-width: 370px) {
+      font-size: 15px;
+    }
+  }
+  @media only screen and (max-width: 370px) {
+    font-size: 11px;
   }
 `;
 const Description = styled.div`
@@ -79,6 +99,9 @@ const Description = styled.div`
   margin-bottom: 10px;
   padding: 10px;
   font-size: 13px;
+  @media only screen and (max-width: 370px) {
+    font-size: 10px;
+  }
 `;
 const Ingredient = styled.div`
   padding: 10px;
@@ -90,6 +113,9 @@ const Ingredient = styled.div`
   font-size: 12px;
   .indent_text {
     padding-left: 10px;
+    @media only screen and (max-width: 370px) {
+      font-size: 10px;
+    }
   }
 `;
 const StyledButton = styled(Button)`
@@ -97,6 +123,7 @@ const StyledButton = styled(Button)`
   height: 2rem;
   border-radius: 20px;
   font-size: 13px;
+  margin-top: 5px;
   padding: 0.25rem 1.25rem;
   width: 230px;
   img {
@@ -104,20 +131,35 @@ const StyledButton = styled(Button)`
     top: 3px;
     right: 15px;
     width: 17px;
+    @media only screen and (max-width: 370px) {
+      width: 15px;
+    }
   }
   & + & {
     margin-left: 1.5rem;
+  }
+  @media only screen and (max-width: 765px) {
+    font-size: 12px;
+  }
+  @media only screen and (max-width: 370px) {
+    font-size: 10px;
   }
 `;
 const HasItem = styled.span`
   color: #3c82d9;
   font-size: 13px;
   font-weight: 500;
+  @media only screen and (max-width: 370px) {
+    font-size: 11px;
+  }
 `;
 const NoneItem = styled.span`
   color: #D93C3C;
   font-size: 13px;
   font-weight: 500;
+  @media only screen and (max-width: 370px) {
+    font-size: 11px;
+  }
 `;
 const RecipeModal = ({
                        name,

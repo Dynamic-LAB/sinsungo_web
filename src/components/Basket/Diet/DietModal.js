@@ -1,6 +1,6 @@
 import React, {useCallback, useRef, useState} from 'react';
 import styled from "styled-components";
-import {useForm, Controller, useFieldArray} from "react-hook-form";
+import {useForm, Controller} from "react-hook-form";
 import {MdCancel, MdSearch} from "react-icons/md";
 import Button from "../../common/Button";
 import WhiteBox from "../../common/WhiteBox";
@@ -25,13 +25,19 @@ const Fullscreen = styled.div`
 const ModalBlock = styled.div`
   background: #F6F6F6;
   height: auto;
-  width: 450px;
+  width: 500px;
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
   .modal_buttons {
     display: flex;
     justify-content: flex-end; //오른쪽 끝에 배치
+  }
+  @media only screen and (max-width: 765px) {
+    width: 300px;
+  }
+  @media only screen and (max-width: 370px) {
+    width: 250px;
   }
 `;
 const ModalTitle = styled.div`
@@ -138,7 +144,6 @@ const MenuBlock = styled.div`
     font-size: 10px;
     color: #FF2424;
   }
-  
 `;
 const IngredientBlock = styled.div`
   font-size: 16px;
@@ -275,6 +280,24 @@ const DietModal = ({
     {
       id: 5,
       fridge_category: '조미료/양념',
+      ingredient_name: '재료명',
+      checked: false,
+    },
+    {
+      id: 6,
+      fridge_category: '조미료/양념',
+      ingredient_name: '재료명',
+      checked: false,
+    },
+    {
+      id: 7,
+      fridge_category: '냉동',
+      ingredient_name: '재료명',
+      checked: false,
+    },
+    {
+      id: 8,
+      fridge_category: '냉장',
       ingredient_name: '재료명',
       checked: false,
     },

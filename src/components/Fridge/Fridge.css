@@ -43,6 +43,7 @@
 }
 
 .count {
+    overflow-x: auto;  /*내용넘칠때 가로스크롤 표시*/
     margin-left: 10px;
     padding: 0 10px 2px 10px;
     border-radius: 20px;

@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import styled, {css} from 'styled-components';
-import {MdRadioButtonUnchecked, MdRadioButtonChecked, MdEdit, MdDelete} from "react-icons/md";
+import styled from 'styled-components';
+import {MdKitchen, MdDelete} from "react-icons/md";
 import ListModal from "./ListModal";
 import {useShoppingDispatch, useShoppingState} from "./ListContext";
 import GetBasketByRefrigratorId from "../ForServer/GetBasketByRefrigratorId"
 import axios from 'axios';
+import FridgeMoveModal from "./FridgeMoveModal";
 const Remove = styled.div`
   display: flex;
   align-items: center; //세로중앙정렬
@@ -13,13 +14,11 @@ const Remove = styled.div`
   cursor: pointer;
   font-size: 1.2rem;
   opacity: 0;
-
   &:hover {
     color: #ff6b6b;
   }
-
 `;
-const Toggle = styled.div`
+const MoveBtn = styled.div`
   display: flex;
   align-items: center; //세로중앙정렬
   justify-content: center;
@@ -28,19 +27,15 @@ const Toggle = styled.div`
   margin-right: 10px;
   color: #dee2e6;
   opacity: 0;
-  ${props =>
-          props.checked &&
-          css`
-            color: #626262;
-            opacity: 1;
-          `}
+  &:hover {
+    color: #626262;
+  }
 `;
 const ItemBlock = styled.div`
   display: flex;
   padding: 10px 20px;
   align-items: center;
   font-size: 13px;
-
   .text {
     display: flex;
     flex: 1;
@@ -49,16 +44,14 @@ const ItemBlock = styled.div`
     justify-content: center;
     cursor: pointer;
   }
-
   &:nth-child(even) {
     background: #f8f9fa;
   }
-
   &:hover {
     ${Remove} {
       opacity: 1;
     }
-    ${Toggle} {
+    ${MoveBtn} {
       opacity: 1;
     }
     @media only screen and (max-width: 978px) {
@@ -89,7 +82,6 @@ const ItemIndex = styled.div`
   }
 `;
 
-
 const Count = styled.div`
   display: flex;
   align-items: center;
@@ -110,9 +102,8 @@ const Count = styled.div`
   }
 `;
 
-
 const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
-  const[checked,SetChecked]= useState(false);
+
   //const {shopping_id, shopping_name, shopping_index, shopping_count,} = list;
   const dispatch = useShoppingDispatch();
   const SetBasket=()=>{
@@ -147,32 +138,40 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
     SetBasket();
   }
 
-  //체크박스 함수
-  const onToggle = () =>{
-    SetChecked(!checked);
-
-  }
-
   //모달 on, off 함수
   const [modal, setModal] = useState(false);
-
+  const [moveModal, setMoveModal] = useState(false);
   //모달 함수들(onEdit, onCancel, onConfirm)
+
   const onEdit = () => {
     setModal(true);
   };
-  const onCancel = () => {
+  const onMove = () => {
+    setMoveModal(true);
+  };
+  //냉장고로 이동시킬때 사용
+  const onMoveConfirm = () => {
+    setMoveModal(false);
+  };
+  //수정할때 사용
+  const onConfirm = () => {
+    SetBasket();
     setModal(false);
   };
-  const onConfirm = () => {
-    SetBasket()
+  const onCancel = () => {
     setModal(false);
-  }
-
+    setMoveModal(false);
+  };
   return (
     <ItemBlock>
-      <Toggle onClick={()=>onToggle(id)} checked={checked}>
-        {checked ? <MdRadioButtonChecked/> : <MdRadioButtonUnchecked/>}
-      </Toggle>
+      <MoveBtn onClick={onMove}>
+        <MdKitchen/>
+      </MoveBtn>
+      <FridgeMoveModal
+        visible={moveModal}
+        onMoveConfirm={onMoveConfirm}
+        onCancel={onCancel}
+      />
 
       <div className="text" onClick={onEdit}>
         <Item>{name}</Item>
