@@ -59,7 +59,7 @@ const My = () => {
     setModal(false);
   }
   return (
-    <my>
+    <div id="my">
       <div className="my__container">
         <div className="fridge__cards">
           <div className="my__notice">
@@ -114,7 +114,7 @@ const My = () => {
           </div>
         </div>
       </div>
-    </my>
+    </div>
   );
 }
 

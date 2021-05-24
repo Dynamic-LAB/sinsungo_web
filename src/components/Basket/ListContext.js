@@ -2,29 +2,30 @@ import React, {useReducer, createContext, useContext, useRef} from "react";
 
 const initialShopping = [
   {
-    shopping_id: 1,
-    shopping_name: '감자2',
-    shopping_index: '냠냠',
-    shopping_count: '0',
-    shopping_count_unit: 'g',
 
-  },
-  {
-    shopping_id: 2,
-    shopping_name: '고구마',
-    shopping_index: '사이다도 같이 사기',
-    shopping_count: '0',
-    shopping_count_unit: 'g',
-  },
+    id: '-',
+    name: '',
+    memo: '',
+    amount: '',
+    unit: '',
+    shopping_checked: false,
+  }
+
 
 ];
 
 function shoppingReducer(state, action){
   switch (action.type){
+    case 'ADD_':
+      return action.payload.data;
     case 'CREATE':
       return state.concat(action.shopping);
     case 'REMOVE':
       return state.filter(shopping => shopping.shopping_id !== action.id);
+    case 'TOGGLE':
+      return state.map(
+        shopping => shopping.shopping_id === action.id ? {...shopping, shopping_checked: !shopping.shopping_checked} : shopping
+      );
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -36,7 +37,7 @@ const ShoppingNextIdContext = createContext();
 
 export function ShoppingProvider({children}) {
   const [state, dispatch] = useReducer(shoppingReducer, initialShopping);
-  const nextId = useRef(3);
+  const nextId = useRef(2);
   return (
     <ShoppingStateContext.Provider value={state}>
       <ShoppingDispatchContext.Provider value={dispatch}>
@@ -51,7 +52,7 @@ export function ShoppingProvider({children}) {
 export function useShoppingState() {
   const context = useContext(ShoppingStateContext);
   if(!context) {
-    throw new Error('Cannot find TodoProvider');
+    throw new Error('Cannot find ListProvider');
   }
   return context;
 }
@@ -59,14 +60,15 @@ export function useShoppingState() {
 export function useShoppingDispatch() {
   const context = useContext(ShoppingDispatchContext);
   if(!context) {
-    throw new Error('Cannot find TodoProvider');
+    throw new Error('Cannot find ListProvider');
   }
   return context;
 }
+
 export function useShoppingNextId(){
   const context = useContext(ShoppingNextIdContext);
   if(!context) {
-    throw new Error('Cannot find TodoProvider');
+    throw new Error('Cannot find ListProvider');
   }
   return context;
 }

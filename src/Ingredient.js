@@ -19,7 +19,6 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_":
       return {
-
         IngredientList: action.payload.data
       };
     default:

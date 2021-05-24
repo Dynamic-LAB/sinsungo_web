@@ -1,4 +1,4 @@
-basket {
+#basket {
     grid-area: main;
     overflow-y: auto;
 }

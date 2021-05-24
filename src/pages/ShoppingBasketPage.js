@@ -4,6 +4,7 @@ import Right from "../components/common/Rightbar/Right";
 import Sidebar from "../components/common/Sidebar/Sidebar";
 import Basket from "../components/Basket/Basket";
 import {ShoppingProvider} from "../components/Basket/ListContext";
+import {DietProvider} from "../components/Basket/Diet/DietContext";
 
 
 const ShoppingBasketPage = (props) => {
@@ -29,9 +30,12 @@ const ShoppingBasketPage = (props) => {
         props.history.push({pathname: '/'}) :
         <div className="container">
           <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar}/>
-          <ShoppingProvider>
-            <Basket/>
-          </ShoppingProvider>
+          <DietProvider>
+            <ShoppingProvider>
+              <Basket/>
+            </ShoppingProvider>
+          </DietProvider>
+
           <Right/>
           <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar}/>
         </div>

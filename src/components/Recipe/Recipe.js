@@ -1,15 +1,10 @@
 import "./Recipe.css";
 import WhiteBox from "../common/WhiteBox"
 import styled from 'styled-components';
-import TagBox from './TagBox';
 import {MdSearch} from 'react-icons/md';
 import RecipeCard from "./RecipeCard";
-import React, {useState, useCallback, useEffect,useRef} from 'react';
-import aixos from 'axios';
+import React, {useState, useEffect, useRef} from 'react';
 import axios from "../../../node_modules/axios/index";
-import DietItem from "../Basket/Diet/DietItem";
-import { resetWarningCache } from "prop-types";
-// import ice from "../../assets/ice.svg";
 
 const WhiteBoxTop = styled(WhiteBox)`
   height: auto;
@@ -55,68 +50,64 @@ const RecipeTitle = styled.div`
 
 
 const Recipe = () => {
-  var st=0;
-  const range=useRef(null);
-  const target=useRef(null);
-  const word=useRef(null);
-  const waitTime=useRef(null);
-  const wordExist=useRef(null);
-  const [recipeData,SetRecipeData]=useState();
-  const [modal, setModal] = useState(false);
+  const range = useRef(null);
+  const target = useRef(null);
+  const waitTime = useRef(null);
+  const wordExist = useRef(null);
+  const list = useRef(null);
+  const [recipeData, SetRecipeData] = useState();
   const [searchWord, SetSearchWord] = useState("");
-  const list=useRef(null);
-  const popUp = () => {
-    setModal(true);
-  }
-  async function GetRecipe(startPoint,endPoint,query=""){
-    if(query.length>=0){
-    list.current.push(query)
+
+  async function GetRecipe(startPoint, endPoint, query = "") {
+    if (query.length >= 0) {
+      list.current.push(query)
     }
-    if(waitTime.current==false){
-    waitTime.current=true;
-    const res= await axios.get("/recipe/"+0,{
-     params: {start:startPoint,end:endPoint,query:query}
-   });
-   if(list.current.length>=0 && list.current[list.current.length-1]!=query){
-    var tmp=list.current[list.current.length-1];
-    list.current=[];
-    waitTime.current=false;
-    console.log(tmp," 으로 재검색")
-    GetRecipe(startPoint,endPoint,tmp);
-    return;
-   }
-  SetRecipeData(res.data)
-  waitTime.current=false;
-  }
-}
-  const HandleScroll=()=>{
-    target.current=document.getElementById('target');
-    if(target.current.scrollTop+target.current.clientHeight>=target.current.scrollHeight){ 
-      if(wordExist.current==false){  
-        range.current=range.current+6;
-          GetRecipe(1,range.current);
-        }else{
-      
-        }
+    if (waitTime.current === false) {
+      waitTime.current = true;
+      const res = await axios.get("/recipe/" + (JSON.parse(sessionStorage.getItem('User'))?JSON.parse(sessionStorage.getItem('User')).newRefId:0), {
+        params: {start: startPoint, end: endPoint, query: query}
+      });
+      if (list.current.length >= 0 && list.current[list.current.length - 1] !== query) {
+        let tmp = list.current[list.current.length - 1];
+        list.current = [];
+        waitTime.current = false;
+        console.log(tmp, " 으로 재검색")
+        await GetRecipe(startPoint, endPoint, tmp);
+        return;
+      }
+      SetRecipeData(res.data)
+      waitTime.current = false;
     }
   }
-  useEffect(()=>{
-    list.current=new Array();
-    range.current=20;
-    waitTime.current=false;
-    wordExist.current=false;
-    document.getElementById('target').addEventListener('scroll',HandleScroll);
-    GetRecipe(1,range.current);
-  },[])
-  useEffect(()=>{
-    if(searchWord.length>=1){
-      wordExist.current=true;
-    }else{
-      wordExist.current=false;
+
+  const HandleScroll = () => {
+    target.current = document.getElementById('target');
+    if (target.current.scrollTop + target.current.clientHeight >= target.current.scrollHeight) {
+      if (wordExist.current === false) {
+        range.current = range.current + 6;
+        GetRecipe(1, range.current);
+      } else {
+
+      }
     }
-    GetRecipe(1,range.current,searchWord);
-    
-  },[searchWord])
+  }
+  useEffect(() => {
+    list.current = [];
+    range.current = 20;
+    waitTime.current = false;
+    wordExist.current = false;
+    document.getElementById('target').addEventListener('scroll', HandleScroll);
+    GetRecipe(1, range.current);
+  }, [])
+  useEffect(() => {
+    if (searchWord.length >= 1) {
+      wordExist.current = true;
+    } else {
+      wordExist.current = false;
+    }
+    GetRecipe(1, range.current, searchWord);
+
+  }, [searchWord])
 
   return (
     <main id='target'>
@@ -124,7 +115,9 @@ const Recipe = () => {
         <WhiteBoxTop>
           <SearchBlock>
             <div className="icon_search"><MdSearch/></div>
-            <SearchBar onChange={(e)=>{SetSearchWord(e.target.value)}} />
+            <SearchBar onChange={(e) => {
+              SetSearchWord(e.target.value)
+            }}/>
           </SearchBlock>
         </WhiteBoxTop>
         <WhiteBoxRecipe>
@@ -136,18 +129,20 @@ const Recipe = () => {
           <RecipeBlock>
             <div className="recipe__cards">
               {
-                recipeData?recipeData.map((item)=>{return ( 
-                <RecipeCard
-                  thumbnail={item.thumbnail}
-                  url={item.url}
-                  description={item.description}
-                  name={item.name}
-                  hasList={item.inRefIngredients}
-                  noneList={item.notInRefIngredients}
-                />   
-                )}) : null
+                recipeData ? recipeData.map((item) => {
+                  return (
+                    <RecipeCard
+                      thumbnail={item.thumbnail}
+                      url={item.url}
+                      description={item.description}
+                      name={item.name}
+                      hasList={item.inRefIngredients}
+                      noneList={item.notInRefIngredients}
+                    />
+                  )
+                }) : null
               }
-           
+
             </div>
           </RecipeBlock>
         </WhiteBoxRecipe>

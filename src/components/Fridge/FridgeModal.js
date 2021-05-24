@@ -137,7 +137,7 @@ const FormTitle = styled.div`
   .input_index_drop {
     display: flex;
     padding-top: 10px;
-    
+
     font-size: 10px;
     color: #FF2424;
   }
@@ -154,7 +154,6 @@ const StyledDropdown = styled.select`
   cursor: pointer;
   text-align: center;
 `;
-
 //type 지정
 const textMap = {
   cold: '냉장',
@@ -164,32 +163,45 @@ const textMap = {
   seasoning: '조미료/양념',
   edit: '수정',
 };
-//폼 초기값
-const defaultValues = {
-  i_name: "44",
-  i_amount: "",
-  i_unit: "",
-  i_date: "",
-  date_chose: "",
-};
 
-const InsertIngredientByRefId=(values,type)=>{
+
+const InsertIngredientByRefId = (values, type) => {
 
   //날짜 문자열 형식 수정
-  values.i_date=values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
+  values.i_date = values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
   var category;
   //타입결정
-  if(type === 'cold')category=textMap.cold;
-  if(type === 'freeze') category=textMap.freeze
-  if(type === 'fresh' )category=textMap.fresh
-  if(type === 'temp' )category=textMap.temp
-  if(type === 'seasoning')category=textMap.seasoning
-  if(type === 'edit')category=textMap.edit
+  if (type === 'cold') category = textMap.cold;
+  if (type === 'freeze') category = textMap.freeze
+  if (type === 'fresh') category = textMap.fresh
+  if (type === 'temp') category = textMap.temp
+  if (type === 'seasoning') category = textMap.seasoning
+  if (type === 'edit') category = textMap.edit
 
   axios.post('/refrigerator/ingredient',
+    {
+      id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+      category: category,
+      name: values.i_name,
+      amount: values.i_amount,
+      unit: values.i_unit,
+      expiration_type: values.date_chose,
+      expiration_date: values.i_date,
+    }
+  ).then((res) => {
+    //DB response
+  })
+    .catch((res) => {
+      console.log("error Msg:", res)
+    });
+}
+const UpdateIngredientById=(values,type,id)=>{
+  //날짜 문자열 형식 수정
+  values.i_date=values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
+  axios.put('/refrigerator/ingredient/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
   {
-    id:JSON.parse(window.sessionStorage.getItem('User')).newRefId,
-    category:category,
+    id:id,
+    category:type,
     name:values.i_name,
     amount:values.i_amount,
     unit:values.i_unit,
@@ -203,7 +215,6 @@ const InsertIngredientByRefId=(values,type)=>{
     console.log("erorr Msg:",res)
   });
 }
-
 const FridgeModal = ({
                        visible,
                        type,
@@ -211,31 +222,53 @@ const FridgeModal = ({
                        cancelText = '취소',
                        onConfirm,
                        onCancel,
-                       onCloseClick,
+                       ingredient
                      }) => {
-  const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({defaultValues});
+
+//폼 초기값
+const defaultValues = {
+  i_name: type==='edit'?ingredient.name:"",
+  i_amount:type==='edit'?ingredient.amount:"",
+  i_unit:type==='edit'?ingredient.unit:"",
+  i_date:type==='edit'?new Date(ingredient.expiration_date.replaceAll("-","/")):"",
+  date_chose:type==='edit'?ingredient.expiration_type:"",
+};
+
+const editValues =(values)=> {
+  //console.log(values)
+  return({
+  i_name: type==='edit'?values.i_name:"",
+  i_amount:type==='edit'?values.i_amount:"",
+  i_unit:type==='edit'?values.i_unit:"",
+  i_date:type==='edit'?new Date(values.i_date.replaceAll("-","/")):"",
+  date_chose:type==='edit'?values.date_chose:"",
+});
+}
+
 
   const onSubmit = (values) => {
-    if(type!="edit"){
+
+    if(type!=="edit"){
     InsertIngredientByRefId(values,type);
     }else{
-    //UpdateIngredientById(values,type);
+    UpdateIngredientById(values,ingredient.category,ingredient.id);
+
     }
+    reset(editValues(values));
     onConfirm();
-    reset();
   }
-  const onNotSubmit = () =>{
+  const onNotSubmit = () => {
     onCancel();
     reset();
   };
+  const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({defaultValues});
   const {i_name, i_amount, i_unit, i_date, date_chose} = watch();
 
   if (!visible) return null;
   const text = textMap[type];
 
-
   return (
-    <Fullscreen >
+    <Fullscreen>
       <ModalBlock>
         {type === 'cold' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
         {type === 'freeze' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
@@ -291,7 +324,7 @@ const FridgeModal = ({
                   {...register("i_amount", {
                     required: "필수입력사항",
                     min: {
-                      value:0,
+                      value: 1,
                       message: '0 이상 입력해주세요'
                     }
                   })}
@@ -326,7 +359,7 @@ const FridgeModal = ({
                 <Controller
                   control={control}
                   name="ReactDatePicker"
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                  render={({field: {onChange, onBlur, value, ref}}) => (
                     <ReactDatePicker
                       className="input-datepicker" //클래스 명 지정
                       onChange={onChange}

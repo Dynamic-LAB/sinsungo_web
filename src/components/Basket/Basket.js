@@ -1,11 +1,16 @@
-import React from "react";
+import React, {useState,useEffect, useContext} from "react";
+import {ScreenCapture} from 'react-screen-capture';
+import Popup from "reactjs-popup";
 import "./Basket.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
-import DietCard from "./Diet/DietCard";
 import BasketAddButton from "./BasketAddButton";
 import BasketList from "./BasketList";
-
+import { MdClose, MdInsertPhoto } from "react-icons/md";
+import GetBasketByRefrigratorId from "../ForServer/GetBasketByRefrigratorId"
+import {useShoppingDispatch} from "./ListContext";
+import DietList from "./Diet/DietList";
+import {Context} from "../../Ingredient"
 const WhiteBoxBasket = styled(WhiteBox)`
   height: 765px;
 `;
@@ -32,10 +37,51 @@ const Spacer = styled.div`
   flex-grow: 1;
 `;
 
+const ShareButton = styled.button`
+  border: none;
+  background: none;
+  outline: none;
+`;
+
 const Basket = () => {
+  const [screenCapture, setScreenCapture] = useState("");
+  const [open, setOpen] = useState(false);
+  const dispatch = useShoppingDispatch();
+  const handleScreenCapture = (screenCapture) => {
+    setScreenCapture(screenCapture);
+    openModal();
+  }; //캡쳐가 끝나면 캡쳐한 사진이 보이는 팝업 생성
+  const openModal = () => {
+    setOpen(true);
+  };
+  const closeModal = () => {
+    setOpen(false);
+    setScreenCapture("");
+  };
+  const download = () => {
+    const screenCaptureSource = screenCapture;
+    const downloadLink = document.createElement('a');
+    const fileName = 'screen-capture.png'; //파일 저장이름 설정
+    downloadLink.href = screenCaptureSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+  };
+
+//구매목록 읽어오기
+useEffect(()=>{
+  if(JSON.parse(sessionStorage.getItem('User'))){
+
+  GetBasketByRefrigratorId(
+    {
+        id:JSON.parse(sessionStorage.getItem('User')).newRefId,
+        dispatch:dispatch
+    }
+  )};
+},[])
 
   return (
-    <basket>
+
+    <div id="basket">
       <div className="basket__container">
         <div className="fridge__cards">
           {/*식단*/}
@@ -47,28 +93,58 @@ const Basket = () => {
                 <Spacer/>
                 <BasketAddButton type="diet"/>
               </BasketTitle>
+
               <DietBlock>
-                <DietCard/>
+                <DietList/>
               </DietBlock>
             </WhiteBoxBasket>
           </div>
-          {/*장볼목록*/}
-          <div className="shopping_list">
-            <WhiteBoxBasket>
-              <BasketTitle>
-                <h2>장 볼 목록</h2>
-                <BasketAddButton type="list"/>
-                <Spacer/>
-                <div className="icon-share"/>
-              </BasketTitle>
-              <IngredientBlock>
-                <BasketList type="list"/>
-              </IngredientBlock>
-            </WhiteBoxBasket>
-          </div>
+          {/*//스크린 캡쳐 기능 추가*/}
+          <ScreenCapture onEndCapture={handleScreenCapture} >
+            {({onStartCapture}) => (
+              <>
+                <div className="shopping_list">
+                  <WhiteBoxBasket>
+                    <BasketTitle>
+                      <h2>장보기 목록</h2>
+                      <BasketAddButton type="list"/>
+                      <Spacer/>
+                      <ShareButton onClick={onStartCapture}>
+                        <div className="icon-share"/>
+                      </ShareButton>
+
+                    </BasketTitle>
+                    <IngredientBlock>
+                      <BasketList type="list"/>
+                    </IngredientBlock>
+                  </WhiteBoxBasket>
+                </div>
+                <Popup open={open} modal closeOnDocumentClick>
+                  <div className="modal">
+                    <div className="modal__header">
+                      <h2>장보기 목록 공유</h2>
+                      <button onClick={closeModal}><MdClose/></button>
+                    </div>
+                    <div className="modal__body">
+                      <div className="image__container">
+                        <img src={screenCapture} alt="screen capture"/>
+                      </div>
+                    </div>
+                    <div className="modal__footer">
+                      <button onClick={download}>
+                        <div className="down_img"><MdInsertPhoto/></div>
+                      </button>
+                    </div>
+                  </div>
+                </Popup>
+              </>
+            )}
+          </ScreenCapture>
+
+
         </div>
       </div>
-    </basket>
+    </div>
   );
 }
 
