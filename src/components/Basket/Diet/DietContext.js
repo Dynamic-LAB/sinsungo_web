@@ -2,17 +2,18 @@ import React, {useReducer, createContext, useContext, useRef} from "react";
 
 const initialDiet = [
   {
-    diet_id: 1,
-    diet_date:'2021년 04월 11일',
-    diet_memo: '아침메뉴',
-    diet_food: ['김치찌개', '두루치기', '멸치'],
-    diet_ingredient:['김치', '고기', '멸치', '참치'],
+    id: "nodata",
+    date:'2020/01/01',
+    memo: '',
+    menus: [],
+    ingredients:[],
   },
-
 ];
 
 function dietReducer(state, action){
   switch (action.type){
+    case 'ADD_':
+      return action.payload.data;
     case 'CREATE':
       return state.concat(action.diet);
     case 'REMOVE':

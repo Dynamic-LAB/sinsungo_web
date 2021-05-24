@@ -1,20 +1,28 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import DietCard from "./DietCard";
 import {useDietState} from "./DietContext";
-
+import GetDietByRefrigratorId from "../../ForServer/GetDietByRefrigratorId"
+import { fi } from 'date-fns/locale';
 const DietList = () => {
   const diets = useDietState();
+  //id, memo, food, date, ingredient_item
   return(
     <>
-      {diets.map(diet =>(
+      {
+       diets[0]&&diets[0].id!=="nodata"&&diets.map((diet,_i)=>
+       {
+        return(
         <DietCard
-          id={diet.diet_id}
-          date={diet.diet_date}
-          memo={diet.diet_memo}
-          food={diet.diet_food.map((n,_i)=>{return n+(_i<diet.diet_food.length-1?', ':'')})}
-          ingredient_item={diet.diet_ingredient.map((n,_i)=>{return n+(_i<diet.diet_ingredient.length-1?', ':'')})}
-        />
-      ))}
+        diet={diet}
+        id={diet.id}
+        memo={diet.memo}
+        date={diet.date}
+        food={diet.menus.map((item,_i)=>{ if(item) return ((_i>0?",":"")+item); return ""})}
+        ingredient_item={diet.ingredients.map((item,_i)=>{ if(item) return ((_i>0?",":"")+item.name); return ""})}
+        />)
+       })
+      }
+
 
     </>
   );

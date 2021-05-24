@@ -167,7 +167,6 @@ const ListModal = ({
     })
   }
   const {register, handleSubmit, formState: {errors}, reset, setValue, watch} = useForm({defaultValues});
-  console.log(item);
   //구매목록 추가 요청
   const InsertBasketByRefId = (values, type) => {
     axios.post('/shoppinglist/',
