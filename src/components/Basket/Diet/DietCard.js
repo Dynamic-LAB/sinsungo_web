@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState,useRef} from 'react';
 import styled from 'styled-components';
 import { MdDelete} from "react-icons/md";
 import WhiteBox from "../../common/WhiteBox";
 import DietModal from "./DietModal";
 import {useDietDispatch} from "./DietContext";
-
+import GetDietByRefrigratorId from "../../ForServer/GetDietByRefrigratorId"
+import axios from 'axios';
 const Remove = styled.div`
   display: flex;
   padding: 8px 5px;
@@ -79,21 +80,39 @@ const IngredientBlock = styled.div`
     margin-right: 10px;
   }
 `;
-const DietCard = ({id, memo, food, date, ingredient_item}) => {
+const DietCard = ({diet,id, memo, food, date, ingredient_item}) => {
+  const isChecked=useRef([]);
   const [modal, setModal] = useState(false);
   const dispatch = useDietDispatch();
   const onEdit = () => {
     setModal(true);
   };
-  const onRemove = () =>
-    dispatch({
-      type: 'REMOVE',
-      id
+  const onRemove = () =>{
+    axios.delete("/diet/" + id, {
+      params: {}
+    })
+      .then((response) => {
+        console.log("삭제됨:", response);
+      }).catch((error) => {
+      // 오류발생시 실행
+    }).then(() => {
+      if(JSON.parse(window.sessionStorage.getItem('User')))
+      GetDietByRefrigratorId({
+        id:JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+        dispatch:dispatch
+      });
     });
+    //props.setIngredients()
+  }
   const onCancel = () => {
     setModal(false);
   };
   const onConfirm = () => {
+    if(JSON.parse(window.sessionStorage.getItem('User')))
+    GetDietByRefrigratorId({
+      id:JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+      dispatch:dispatch
+    });
     setModal(false);
   };
   return(
@@ -134,10 +153,12 @@ const DietCard = ({id, memo, food, date, ingredient_item}) => {
 
       </StyledWhiteBox>
       <DietModal
+        diet={diet}
         visible={modal}
         onConfirm={onConfirm}
         onCancel={onCancel}
         type="edit"
+        isChecked={isChecked}
       />
     </>
 

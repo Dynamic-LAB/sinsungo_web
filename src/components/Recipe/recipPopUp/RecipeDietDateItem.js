@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useRef} from 'react';
 import styled from 'styled-components';
 import DietModal from "../../Basket/Diet/DietModal";
 
@@ -32,9 +32,9 @@ const Spacer = styled.div`
   flex-grow: 1;
 `;
 
-const RecipeDietDateItem = ({date, finalClose}) => {
-  const {diet_date, diet_memo} = date;
+const RecipeDietDateItem = ({diet, finalClose}) => {
   const [open, setOpen] = useState(false);
+  const isChecked=useRef([]);
   const onOpen = () => {
     setOpen(true);
   }
@@ -51,15 +51,17 @@ const RecipeDietDateItem = ({date, finalClose}) => {
   return(
     <>
       <ItemBlock onClick={onOpen}>
-        <ItemDate>{diet_date}</ItemDate>
+        <ItemDate>{diet.date}</ItemDate>
         <Spacer/>
-        <ItemMemo>{diet_memo}</ItemMemo>
+        <ItemMemo>{diet.memo}</ItemMemo>
       </ItemBlock>
       <DietModal
+        diet={diet}
         visible={open}
         onConfirm={onConfirm}
         onCancel={onCancel}
         type="edit"
+        isChecked={isChecked}
       />
     </>
   );

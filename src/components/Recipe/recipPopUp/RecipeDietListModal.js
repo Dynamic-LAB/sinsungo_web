@@ -1,7 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {MdClose} from "react-icons/md";
 import RecipeDietDateItem from "./RecipeDietDateItem";
+import {useDietDispatch,useDietState} from "../../Basket/Diet/DietContext";
+import GetDietByRefrigratorId from "../../ForServer/GetDietByRefrigratorId"
+import GetIngredientByRefrigratorId from "../../ForServer/GetIngredientByRefrigratorId"
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -60,50 +63,28 @@ const DateBlock = styled.div`
 `;
 
 const RecipeDietListModal = ({visible, onListClose, totalClose}) => {
-
-  const [dates, setDates] = useState([
-    {
-      id:1,
-      diet_date: '2021년 5월 23일',
-      diet_memo: '아침',
-    },
-    {
-      id:2,
-      diet_date: '2021년 5월 24일',
-      diet_memo: '아침메뉴',
-    },
-    {
-      id:3,
-      diet_date: '2021년 5월 25일',
-      diet_memo: '점심',
-    },
-    {
-      id:4,
-      diet_date: '2021년 5월 26일',
-      diet_memo: '저녁',
-    },
-    {
-      id:5,
-      diet_date: '2021년 5월 27일',
-      diet_memo: '오후간식',
-    },
-    {
-      id:6,
-      diet_date: '2021년 5월 28일',
-      diet_memo: '아침메뉴',
-    },{
-      id:7,
-      diet_date: '2021년 5월 29일',
-      diet_memo: '저녁메뉴',
-    },
-
-  ]);
+  const dispatchDiet=useDietDispatch();
+useEffect(()=>{
+  if(JSON.parse(sessionStorage.getItem('User'))){
+  GetDietByRefrigratorId(
+      {
+          id:JSON.parse(sessionStorage.getItem('User')).newRefId,
+          dispatch:dispatchDiet
+      }
+    )
+  };
+  },[]) 
   const finalClose = () => {
     onListClose();
     totalClose();
   };
+  useEffect(()=>{
 
+
+  })
+  const dietState=useDietState();
   if (!visible) return null;
+
   return(
     <Fullscreen>
       <ModalBlock>
@@ -115,9 +96,12 @@ const RecipeDietListModal = ({visible, onListClose, totalClose}) => {
           </CloseButton>
         </ModalTitle>
         <DateBlock>
-          {dates.map(date => (
-            <RecipeDietDateItem date={date} key={date.id} finalClose={finalClose}/>
-          ))}
+          <div>{dietState?dietState.map((item,index)=>{
+            return <RecipeDietDateItem diet={item} key={item.id} finalClose={finalClose}/>}):"No data"} </div>
+          
+          {/*dates.map(date => (
+            <RecipeDietDateItem diet={useD} date={date} key={date.id} finalClose={finalClose}/>
+          ))*/}
         </DateBlock>
       </ModalBlock>
     </Fullscreen>
