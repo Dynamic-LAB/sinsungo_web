@@ -128,7 +128,6 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
     }).then(()=> {
         // 항상 실행
     });
-
     //props.setIngredients()
   }
 
