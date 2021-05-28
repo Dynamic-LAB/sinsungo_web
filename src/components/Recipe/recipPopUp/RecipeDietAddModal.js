@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useRef} from 'react';
 import styled from 'styled-components';
 import {MdClose} from "react-icons/md";
 import Button from "../../common/Button";
@@ -87,6 +87,7 @@ const RecipeDietAddModal = ({
                             }) => {
   const [newOpen, setNewOpen] = useState(false);
   const [listOpen, setListOpen] = useState(false);
+  const isChecked=useRef([]);
   //새로운 식단 추가
   const newAdd = () => {
     setNewOpen(true);
@@ -138,6 +139,7 @@ const RecipeDietAddModal = ({
           onConfirm={onConfirm}
           onCancel={onCancel}
           type="add"
+          isChecked={isChecked}
         />
         <RecipeDietListModal
           visible={listOpen}
