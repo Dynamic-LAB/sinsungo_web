@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState,useRef} from 'react';
 import styled from 'styled-components';
 import {MdAdd} from "react-icons/md";
 import DietModal from "./Diet/DietModal";
 import ListModal from "./ListModal";
 import GetBasketByRefrigratorId from "../ForServer/GetBasketByRefrigratorId"
+import GetDietByRefrigratorId from "../ForServer/GetDietByRefrigratorId"
 import {useShoppingDispatch} from "./ListContext";
+import {useDietDispatch} from "./Diet/DietContext";
 const AddButton = styled.button`
   display: flex;
   align-items: center;
@@ -23,15 +25,18 @@ const AddButton = styled.button`
 `;
 
 const BasketAddButton = ({type}) => {
+  const isChecked=useRef([]);
   const [modal, setModal] = useState(false);
-  const dispatch= useShoppingDispatch()
+  const dispatch= useShoppingDispatch();
+  const dispatchDiet= useDietDispatch();
   const onAddClick = () => {
+    isChecked.current=[];
     setModal(true);
   };
   const onCancel = () => {
     setModal(false);
   };
-  const onConfirm = () => {
+  const onConfirmBasket = () => {
     if(JSON.parse(sessionStorage.getItem('User'))){
       GetBasketByRefrigratorId(
         {
@@ -39,6 +44,16 @@ const BasketAddButton = ({type}) => {
             dispatch:dispatch
         }
         )}
+        setModal(false);
+      }
+  const onConfirmDiet = () => {
+          if(JSON.parse(sessionStorage.getItem('User'))){
+            GetDietByRefrigratorId(
+              {
+                  id:JSON.parse(sessionStorage.getItem('User')).newRefId,
+                  dispatch:dispatchDiet
+              }
+              )}
     setModal(false);
     // onAdd();
   }
@@ -51,15 +66,16 @@ const BasketAddButton = ({type}) => {
       {type==='diet' &&(
         <DietModal
           visible={modal}
-          onConfirm={onConfirm}
+          onConfirm={onConfirmDiet}
           onCancel={onCancel}
           type="add"
+          isChecked={isChecked}
         />
       )}
       {type==='list' &&(
         <ListModal
           visible={modal}
-          onConfirm={onConfirm}
+          onConfirm={onConfirmBasket}
           onCancel={onCancel}
           type="add"
         />

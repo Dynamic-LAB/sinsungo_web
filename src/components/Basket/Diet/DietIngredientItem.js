@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {MdRadioButtonUnchecked, MdRadioButtonChecked} from "react-icons/md";
 
@@ -53,21 +53,21 @@ const Check = styled.div`
   color: #9e9e9e;
 `;
 const DietIngredientItem = ({ingredient, onToggle}) => {
-  const {checked, id, fridge_category, ingredient_name} = ingredient;
+  const {id, name, amount, unit, expiration_date,category, expiration_type, today} = ingredient;
+  const [checked,SetChecked]=useState(onToggle(id));
   return(
     <ItemBlock>
       <Item>
-        <span className="fridge_category">{fridge_category}</span>
+        <span className="fridge_category">{category}</span>
       </Item>
       <Item>
         {/*유통기한을 색으로 표시한 bar*/}
         <span className="color_bar"/>
       </Item>
-
       <Item>
-        <span className="ingredient_name">{ingredient_name}</span>
+        <span className="ingredient_name">{name}</span>
       </Item>
-      <Check onClick={() => onToggle(id)}>
+      <Check onClick={() => {SetChecked(onToggle(id,true))}}>
         {checked ? <MdRadioButtonChecked/> : <MdRadioButtonUnchecked/>}
       </Check>
     </ItemBlock>

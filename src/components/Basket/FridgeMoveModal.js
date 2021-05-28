@@ -7,6 +7,7 @@ import {MdRestaurant, MdDateRange} from "react-icons/md";
 import {ko} from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import {Controller, useForm} from "react-hook-form";
+import axios from 'axios';
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -164,7 +165,38 @@ const FridgeMoveModal = ({
                          }) => {
   const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({});
   const {list_name, list_amount, list_unit, list_date, list_date_chose, fridge_type} = watch();
-  const onSubmit = () => {
+
+  const InsertIngredientByRefId = (values) => {
+    /* values
+    fridge_type: "냉장"
+    list_amount: "22"
+    list_date: Fri Feb 09 2001 00:00:00 GMT+0900 (대한민국 표준시) {}
+    list_date_chose: "보관일"
+    list_name: "eee"
+    list_unit: "kg"
+    */
+    //날짜 문자열 형식 수정
+    values.i_date = values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
+    axios.post('/refrigerator/ingredient',
+      {
+        id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+        category: values.fridge_type,
+        name: values.list_name,
+        amount: values.list_amount,
+        unit: values.list_unit,
+        expiration_type: values.list_date_chose,
+        expiration_date: values.list_date,
+      }
+    ).then((res) => {
+      //DB response
+    })
+      .catch((res) => {
+        console.log("error Msg:", res)
+      });
+  }
+
+  const onSubmit = (values) => {
+    InsertIngredientByRefId(values);
     onMoveConfirm();
     reset();
   };
