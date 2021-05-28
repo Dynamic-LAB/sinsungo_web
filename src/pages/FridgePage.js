@@ -27,7 +27,7 @@ const FridgePage = (props) => {
     <>
       {JSON.parse(window.sessionStorage.getItem('User')) == null && sessionStorage.getItem('Test') == null ?
         props.history.push({pathname: '/'}) :
-
+        
         <div className="container">
           <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar}/>
           <Fridge userInfo={location.state == undefined ? null : location.state.User}/>
