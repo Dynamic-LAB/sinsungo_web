@@ -4,16 +4,14 @@ import Popup from "reactjs-popup";
 import "./Basket.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
-import DietCard from "./Diet/DietCard";
 import BasketAddButton from "./BasketAddButton";
 import BasketList from "./BasketList";
 import { MdClose, MdInsertPhoto } from "react-icons/md";
-
-import share_icon from "../../assets/kakao_small_btn.png"
 import GetBasketByRefrigratorId from "../ForServer/GetBasketByRefrigratorId"
+import GetDietByRefrigratorId from "../ForServer/GetDietByRefrigratorId"
 import {useShoppingDispatch} from "./ListContext";
+import {useDietDispatch} from "./Diet/DietContext";
 import DietList from "./Diet/DietList";
-
 const WhiteBoxBasket = styled(WhiteBox)`
   height: 765px;
 `;
@@ -47,10 +45,10 @@ const ShareButton = styled.button`
 `;
 
 const Basket = () => {
-
   const [screenCapture, setScreenCapture] = useState("");
   const [open, setOpen] = useState(false);
-  const dispatch = useShoppingDispatch();
+  const dispatchBasket = useShoppingDispatch();
+  const dispatchDiet = useDietDispatch();
   const handleScreenCapture = (screenCapture) => {
     setScreenCapture(screenCapture);
     openModal();
@@ -74,11 +72,16 @@ const Basket = () => {
 //구매목록 읽어오기
 useEffect(()=>{
   if(JSON.parse(sessionStorage.getItem('User'))){
-
+  GetDietByRefrigratorId(
+      {
+          id:JSON.parse(sessionStorage.getItem('User')).newRefId,
+          dispatch:dispatchDiet
+      }
+    )
   GetBasketByRefrigratorId(
     {
         id:JSON.parse(sessionStorage.getItem('User')).newRefId,
-        dispatch:dispatch
+        dispatch:dispatchBasket
     }
   )};
 },[])

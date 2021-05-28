@@ -37,10 +37,10 @@ const Navbar = ({sidebarOpen, openSidebar, user}) => {
             <div className="navbar__right">
                 <User>
                     <div className="user_name">
-                        서현지
+                     {JSON.parse(sessionStorage.getItem('User')).data.name}
                     </div>
                     <div className="user_position">
-                        마스터
+                        -
                     </div>
                 </User>
                 <Profile>

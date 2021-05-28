@@ -139,6 +139,7 @@ const LoginPage = (props) => {
           </button>
         </div>
       </VideoBlock> : <LoginBlock unshow>
+        <UserLoginOrSignup loginInfo={loginInfo} setLoginInfo={setLoginInfo} success={success}/>
         <img className="login_logo" src={logo} alt="신선고 로고" />
         <LoginButton>
           <KakaoLoginv GoMain={GoMain}/>
