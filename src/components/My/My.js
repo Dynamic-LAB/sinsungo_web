@@ -144,6 +144,9 @@ const My = () => {
               <Link to='/my'>공지사항</Link>
             </MenuItemBlock>
             <MenuItemBlock>
+              <Link to='/my'>법적고지</Link>
+            </MenuItemBlock>
+            <MenuItemBlock>
               <Link to='/'>로그아웃</Link>
             </MenuItemBlock>
             <MenuItemBlock onClick={onCheck}>

@@ -4,11 +4,15 @@ import NoticeItem from "./NoticeItem";
 
 const NoticeList = ({notices, onRemove, type}) => {
     return(
-        <>
-            {notices.map(notice => (
-                    <NoticeItem  notice={notice} onRemove={onRemove}/>
+        <>{type === 'my' && (
+          <>
+              {notices.map(notice => (
+                  <NoticeItem  notice={notice} onRemove={onRemove} type="my"/>
                 )
-            )}
+              )}
+          </>
+        )}
+
         </>
     );
 }
