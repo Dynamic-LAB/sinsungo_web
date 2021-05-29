@@ -36,6 +36,7 @@ const SearchBar = styled.input.attrs({
   border: none;
   outline: none;
   border-radius: 10px;
+  font-family: 'Noto Sans KR', sans-serif;
   @media only screen and (max-width: 978px) {
     font-size: 14px;
   }

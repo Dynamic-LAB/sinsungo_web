@@ -26,7 +26,7 @@ const ModalBlock = styled.div`
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
-
+  font-family: 'Noto Sans KR', sans-serif;
   h2 {
     display: flex;
     font-size: 1.325rem;
@@ -50,7 +50,7 @@ const StyledWhiteBox = styled(WhiteBox)`
   width: auto;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  padding: 0 15px;
+  padding: 0 15px 5px 15px;
 
 `;
 const InputBlock = styled.div`
@@ -95,6 +95,7 @@ const StyledInput = styled.input`
   outline: none;
   width: 100%;
   text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 const StyledAmountInput = styled.input`
   font-size: 0.75rem;
@@ -108,6 +109,7 @@ const StyledAmountInput = styled.input`
   width: 52%;
   text-align: center;
   margin-right: 12px;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 const StyledDropdown = styled.select`
   width: 110px;
@@ -120,6 +122,7 @@ const StyledDropdown = styled.select`
   outline: none;
   cursor: pointer;
   text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 
 const StyledButton = styled(Button)`

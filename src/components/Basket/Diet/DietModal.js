@@ -98,6 +98,7 @@ const DateLeft = styled.div`
     outline: none;
     font-size: 16px;
     cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
   }
 `;
 const MemoBlock = styled.div`
@@ -127,6 +128,7 @@ const StyledInput = styled.input`
   width: 100%;
   padding-bottom: 0.3rem;
   padding-top: 0.5rem;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 const MenuBlock = styled.div`
   display: flex;
@@ -165,6 +167,7 @@ const SearchInput = styled.input.attrs({
   type: 'text',
   placeholder: '사용할 재료명을 입력해주세요.',
 })`
+  font-family: 'Noto Sans KR', sans-serif;
   border: none;
   background: none;
   outline: none;
@@ -230,6 +233,7 @@ const TagInputEnter = styled.input`
   outline: none;
   width: 100%;
   font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 const textMap = {
   add: '추가',

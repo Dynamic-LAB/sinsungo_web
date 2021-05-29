@@ -87,6 +87,7 @@ const Count = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
   .count_num {
     display: flex;
     margin-left: 20px;
@@ -94,7 +95,7 @@ const Count = styled.div`
   }
   .count_unit {
     display: flex;
-    margin-left: 10px;
+    margin-left: 8px;
     text-align: center;
   }
   @media only screen and (max-width: 978px) {
