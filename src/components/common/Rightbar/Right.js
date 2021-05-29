@@ -21,7 +21,7 @@ const NoticeBlock = styled.div`
   padding: 5px 15px;
 `;
 
-const NoticeItem = styled.div`
+const ItemBlock = styled.div`
   display: block;
   color: #393939;
   font-size: 12px;
@@ -39,7 +39,6 @@ const Right = () => {
     <div className="right">
       <div className="right__container">
         <div className="right__cards">
-
           {/*알림*/}
           <WhiteBoxNotice>
             <div className="notice_card_title">
@@ -47,8 +46,8 @@ const Right = () => {
               <h2>알림</h2>
             </div>
             <NoticeBlock>
-              <NoticeItem>알림1</NoticeItem>
-              <NoticeItem>알림2</NoticeItem>
+              <ItemBlock>알림1</ItemBlock>
+              <ItemBlock>알림2</ItemBlock>
             </NoticeBlock>
           </WhiteBoxNotice>
 

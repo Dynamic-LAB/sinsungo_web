@@ -104,8 +104,9 @@ const DietCard = ({diet,id, memo, food, date, ingredient_item}) => {
         dispatch:dispatch
       });
     });
+    alert("식단이 삭제되었습니다!");
     //props.setIngredients()
-  }
+  };
   const onCancel = () => {
     setModal(false);
   };
