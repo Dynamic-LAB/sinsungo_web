@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import "./My.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
@@ -7,6 +7,8 @@ import Member from "../common/Rightbar/Member/Member";
 import {Link} from "react-router-dom";
 import MemberAddButton from "../common/Rightbar/Member/MemberAddButton";
 import AskModal from "./AskModal";
+import NoticeItem from "./Notice/NoticeItem";
+import NoticeList from "./Notice/NoticeList";
 
 const WhiteBoxMy = styled(WhiteBox)`
   height: 250px;
@@ -46,18 +48,59 @@ const MenuItemBlock = styled.div`
 const Spacer = styled.div`
   flex-grow: 1;
 `;
+const ListBlock = styled.div`
+  overflow-y: auto;
+  margin: 10px 5px;
+`;
 
 const My = () => {
+  const [notices, setNotice] = useState([
+
+    {
+      id : 1,
+      day: '1',
+      item: '감자',
+    },
+    {
+      id : 2,
+      day: '1',
+      member: '송윤경',
+      used: true,
+      update: false,
+      write: true,
+    },
+    {
+      id : 3,
+      day: '2',
+      item: '고구마',
+    },
+    {
+      id : 4,
+      day: '1',
+      member: '서현지',
+      used: false,
+      update: true,
+      write: true,
+    },
+
+  ])
   const [modal, setModal] = useState(false);
   const onCheck = () => {
     setModal(true);
-  }
+  };
   const onCancel = () => {
     setModal(false);
-  }
+  };
   const onWithdrawal = () => {
     setModal(false);
-  }
+  };
+  const onRemove = useCallback(
+      id => {
+        setNotice(notices.filter(notice => notice.id !== id));
+      },
+      [notices],
+  );
+
   return (
     <div id="my">
       <div className="my__container">
@@ -68,6 +111,10 @@ const My = () => {
                 <div className="icon-notice"><MdNotificationsNone/></div>
                 <h2>알림</h2>
               </MyTitle>
+              <ListBlock>
+                <NoticeList notices={notices} onRemove={onRemove} type="my"/>
+              </ListBlock>
+
             </WhiteBoxMy>
           </div>
           <div className="my__member">
