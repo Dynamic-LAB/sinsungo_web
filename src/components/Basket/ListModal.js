@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle,useRef } from 'react';
 import styled from 'styled-components';
 import Button from "../common/Button";
 import {useForm} from "react-hook-form";
@@ -141,7 +141,7 @@ const textMap = {
 };
 
 
-const ListModal = ({
+const ListModal = forwardRef(({
                      visible,
                      confirmText = '확인',
                      cancelText = '취소',
@@ -149,8 +149,9 @@ const ListModal = ({
                      onCancel,
                      id,
                      type,
-                     item
-                   }) => {
+                     item,
+                     SetBasket
+                   },ref) => {
   //폼 초기값
   const defaultValues = {
     list_name: type === 'edit' ? item.name : "",
@@ -158,15 +159,8 @@ const ListModal = ({
     list_unit: type === 'edit' ? item.unit : "",
     list_memo: type === 'edit' ? item.memo : "",
   };
-  const editValues = (values) => {
-    return ({
-      list_name: type === 'edit' ? values.list_name : "",
-      list_amount: type === 'edit' ? values.list_amount : "",
-      list_unit: type === 'edit' ? values.list_unit : "",
-      list_memo: type === 'edit' ? values.list_memo : "",
-    })
-  }
   const {register, handleSubmit, formState: {errors}, reset, setValue, watch} = useForm({defaultValues});
+  useImperativeHandle(ref,()=>({resetValue(){reset(defaultValues)}}))
   //구매목록 추가 요청
   const InsertBasketByRefId = (values, type) => {
     axios.post('/shoppinglist/',
@@ -178,8 +172,8 @@ const ListModal = ({
         unit: values.list_unit,
       }
     ).then((res) => {
-      reset(defaultValues);
       //DB response
+      SetBasket();
     })
       .catch((res) => {
         console.log("erorr Msg:", res)
@@ -197,6 +191,7 @@ const ListModal = ({
       }
     ).then((res) => {
       //DB response
+      SetBasket();
     })
       .catch((res) => {
         console.log("erorr Msg:", res)
@@ -215,7 +210,7 @@ const ListModal = ({
     } else {
       UpdateBasketById(values, id);
     }
-    reset(editValues(values));
+    //reset(editValues(values));
 
     onConfirm();
   }
@@ -228,7 +223,7 @@ const ListModal = ({
   return (
     <Fullscreen>
       <ModalBlock>
-        <h2 onClick={() => reset(defaultValues)}>
+        <h2>
           장바구니 목록
           {type === 'add' && (<div>{text}</div>)}
           {type === 'edit' && (<div>{text}</div>)}
@@ -334,6 +329,6 @@ const ListModal = ({
       </ModalBlock>
     </Fullscreen>
   );
-}
+})
 
 export default React.memo(ListModal);

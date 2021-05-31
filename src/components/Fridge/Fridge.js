@@ -78,19 +78,7 @@ const Spacer = styled.div`
 `;
 
 
-const DeleteIngredientById = (id) => {
-  axios.delete("/refrigerator/ingredient/" + id, {
-    params: {}
-  })
-    .then((response) => {
-      console.log("삭제됨:", response);
-    }).catch((error) => {
-    // 오류발생시 실행
-  }).then(() => {
-    // 항상 실행
-  });
-  //props.setIngredients()
-}
+
 const Fridge = (props) => {
 
   const {
@@ -105,23 +93,33 @@ const Fridge = (props) => {
           dispatch: dispatch
         }
       )
-    }
-    ;
+    };
   }, [])
-
+  const DeleteIngredientById = (id) => {
+    axios.delete("/refrigerator/ingredient/" + id, {
+      params: {}
+    })
+      .then((response) => {
+        console.log("삭제됨:", response);
+        if (JSON.parse(sessionStorage.getItem('User'))) {
+          GetIngredientByRefrigratorId(
+            {
+              id: JSON.parse(sessionStorage.getItem('User')).newRefId,
+              dispatch: dispatch
+            }
+          )
+        }
+      }).catch((error) => {
+      // 오류발생시 실행
+    }).then(() => {
+      // 항상 실행
+    });
+    //props.setIngredients()
+  }
   //지우기 기능
   const onRemove = useCallback(
     id => {
       DeleteIngredientById(id);
-      if (JSON.parse(sessionStorage.getItem('User'))) {
-        GetIngredientByRefrigratorId(
-          {
-            id: JSON.parse(sessionStorage.getItem('User')).newRefId,
-            dispatch: dispatch
-          }
-        )
-      }
-      ;
     }
   );
   const GetExpirationList = () => {
@@ -129,13 +127,15 @@ const Fridge = (props) => {
     if (state.IngredientList) {
       state.IngredientList.map(item => {
         if (item.expiration_type === "유통기한") {
-          cnt++;
-          // var day = new Date(item.today);
-          // var myDate = (new Date(day.getFullYear() + "/" + (day.getMonth() + 1) + "/" + day.getDate()) - new Date(item.expiration_date.replaceAll('-', '/'))) / 24 / 3600 / 1000 * -1;
+          var day = new Date(item.today);
+          var myDate = (new Date(day.getFullYear() + "/" + (day.getMonth() + 1) + "/" + day.getDate()) - new Date(item.expiration_date.replaceAll('-', '/'))) / 24 / 3600 / 1000 * -1;
+          if (myDate < 4) {
+            cnt++
+          }
         }
       })
     }
-    console.log(cnt);
+    
     return cnt === 0 ? "-" : cnt;
   }
   return (

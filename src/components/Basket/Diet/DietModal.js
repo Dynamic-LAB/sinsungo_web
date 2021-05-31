@@ -336,8 +336,12 @@ const DietModal = ({
 
   //확인버튼 액션
   const onSubmit = (values) => {
+    SetSearchWord("");
     var ingredients=[];
+    console.log(isChecked.current.length);
+    if(isChecked.current.length>0)
     state.IngredientList.map((item)=>{if(isChecked.current.includes(item.id))ingredients.push(item)})
+
     if(type!=='edit'){
     InsertDietByRefId(values,ingredients)
     }else{
@@ -368,7 +372,6 @@ const DietModal = ({
   ).then((res)=>{
     //DB response
     onConfirm();
-    tags.length = 0;
     setTags(values.menu_modal_tag.filter((item)=>{if(item!=null)return item}));
     reset(EditValues(values));
   })
@@ -389,7 +392,7 @@ const DietModal = ({
           memo:values.diet_modal_memo,
           date:values.diet_modal_date,
           menus:values.menu_modal_tag,
-          ingredients:ingredients
+          ingredients:ingredients.length>0?ingredients:[]
       }
     ).then((res) => {
       //DB response
@@ -403,6 +406,7 @@ const DietModal = ({
   }
   //취소버튼 액션
   const onNotSubmit = () => {
+    SetSearchWord("");
     onCancel();
     if(type!=='edit')
     tags.length = 0;
@@ -497,6 +501,11 @@ const DietModal = ({
                 {/*메뉴태그 입력 칩*/}
                 <TagBlock>
                   <TagUl>
+                  <div
+                             {...register("menu_modal_tag",{
+                              required: "필수입력사항",
+                            })}
+                      />
                     {tags.map((tag, i) => (
                       <li
                         key={i}
@@ -528,7 +537,7 @@ const DietModal = ({
           <label>
             <StyledWhiteLIstBox>
               <IngredientBlock>
-                <div className="diet_ingredient">재료2</div>
+                <div className="diet_ingredient">재료</div>
               </IngredientBlock>
               <SearchBlock>
                 <MdSearch style={{'fontSize': '1.2rem'}}/>

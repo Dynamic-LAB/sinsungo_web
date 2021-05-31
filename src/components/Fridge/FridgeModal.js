@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import {useForm, Controller} from "react-hook-form";
 import ReactDatePicker from "react-datepicker";
@@ -9,6 +9,8 @@ import {ko} from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Fridge.css";
 import axios from 'axios';
+import GetIngredientByRefrigratorId from "../ForServer/GetIngredientByRefrigratorId"
+import { Context } from '../../Ingredient';
 
 // 회색 불투명 배경
 const Fullscreen = styled.div`
@@ -165,56 +167,6 @@ const textMap = {
 };
 
 
-const InsertIngredientByRefId = (values, type) => {
-
-  //날짜 문자열 형식 수정
-  values.i_date = values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
-  var category;
-  //타입결정
-  if (type === 'cold') category = textMap.cold;
-  if (type === 'freeze') category = textMap.freeze
-  if (type === 'fresh') category = textMap.fresh
-  if (type === 'temp') category = textMap.temp
-  if (type === 'seasoning') category = textMap.seasoning
-  if (type === 'edit') category = textMap.edit
-
-  axios.post('/refrigerator/ingredient',
-    {
-      id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
-      category: category,
-      name: values.i_name,
-      amount: values.i_amount,
-      unit: values.i_unit,
-      expiration_type: values.date_chose,
-      expiration_date: values.i_date,
-    }
-  ).then((res) => {
-    //DB response
-  })
-    .catch((res) => {
-      console.log("error Msg:", res)
-    });
-}
-const UpdateIngredientById=(values,type,id)=>{
-  //날짜 문자열 형식 수정
-  values.i_date=values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
-  axios.put('/refrigerator/ingredient/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
-  {
-    id:id,
-    category:type,
-    name:values.i_name,
-    amount:values.i_amount,
-    unit:values.i_unit,
-    expiration_type:values.date_chose,
-    expiration_date:values.i_date,
-  }
-  ).then((res)=>{
-    //DB response
-  })
-  .catch((res)=>{
-    console.log("erorr Msg:",res)
-  });
-}
 const FridgeModal = ({
                        visible,
                        type,
@@ -245,7 +197,72 @@ const editValues =(values)=> {
 });
 }
 
+const {state,dispatch}=useContext(Context);
 
+const InsertIngredientByRefId = (values, type) => {
+  //날짜 문자열 형식 수정
+  values.i_date = values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
+  var category;
+  //타입결정
+  if (type === 'cold') category = textMap.cold;
+  if (type === 'freeze') category = textMap.freeze
+  if (type === 'fresh') category = textMap.fresh
+  if (type === 'temp') category = textMap.temp
+  if (type === 'seasoning') category = textMap.seasoning
+  if (type === 'edit') category = textMap.edit
+
+  axios.post('/refrigerator/ingredient',
+    [{
+      id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+      category: category,
+      name: values.i_name,
+      amount: values.i_amount,
+      unit: values.i_unit,
+      expiration_type: values.date_chose,
+      expiration_date: values.i_date,
+    }]
+  ).then((res) => {
+    if (JSON.parse(sessionStorage.getItem('User'))) {
+      GetIngredientByRefrigratorId(
+        {
+          id: JSON.parse(sessionStorage.getItem('User')).newRefId,
+          dispatch: dispatch
+        }
+      )
+    }
+  })
+    .catch((res) => {
+      console.log("error Msg:", res)
+    });
+}
+const UpdateIngredientById=(values,type,id)=>{
+
+  //날짜 문자열 형식 수정
+  values.i_date=values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
+  axios.put('/refrigerator/ingredient/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+  {
+    id:id,
+    category:type,
+    name:values.i_name,
+    amount:values.i_amount,
+    unit:values.i_unit,
+    expiration_type:values.date_chose,
+    expiration_date:values.i_date,
+  }
+  ).then((res)=>{
+    if (JSON.parse(sessionStorage.getItem('User'))) {
+      GetIngredientByRefrigratorId(
+        {
+          id: JSON.parse(sessionStorage.getItem('User')).newRefId,
+          dispatch: dispatch
+        }
+      )
+    }
+  })
+  .catch((res)=>{
+    console.log("erorr Msg:",res)
+  });
+}
   const onSubmit = (values) => {
 
     if(type!=="edit"){

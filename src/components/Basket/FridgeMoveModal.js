@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef} from 'react';
 import styled from 'styled-components';
 import Button from "../common/Button";
 import WhiteBox from "../common/WhiteBox";
@@ -8,7 +8,8 @@ import {ko} from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import {Controller, useForm} from "react-hook-form";
 import axios from 'axios';
-
+import GetBasketByRefrigratorId from "../ForServer/GetBasketByRefrigratorId"
+import { setSeconds } from 'date-fns';
 const Fullscreen = styled.div`
   position: fixed;
   z-index: 30;
@@ -156,16 +157,31 @@ const StyledDropdown = styled.select`
   text-align: center;
 `;
 
-const FridgeMoveModal = ({
+const FridgeMoveModal = forwardRef(({
                            visible,
                            confirmText = '이동',
                            cancelText = '취소',
                            onMoveConfirm,
                            onCancel,
-                         }) => {
-  const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({});
-  const {list_name, list_amount, list_unit, list_date, list_date_chose, fridge_type} = watch();
+                           type,
+                           ingredient
+                         },ref) => {
+         
 
+  const defaultValues = {
+    list_name: type==='edit'?ingredient.name:"",
+    list_amount:type==='edit'?ingredient.amount:"",
+    list_unit:type==='edit'?ingredient.unit:"",
+  };
+  
+  
+  const {register, handleSubmit, formState: {errors}, control, reset, setValue, watch} = useForm({defaultValues});
+  const {list_name, list_amount, list_unit, list_date, list_date_chose, fridge_type} = watch();
+  useImperativeHandle(ref, () => ({
+    resetValue(){ // 함수 보내기
+      reset(defaultValues);
+    }
+  }));
   const InsertIngredientByRefId = (values) => {
     /* values
     fridge_type: "냉장"
@@ -176,9 +192,9 @@ const FridgeMoveModal = ({
     list_unit: "kg"
     */
     //날짜 문자열 형식 수정
-    values.i_date = values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
+    values.list_date = values.list_date.getFullYear() + '-' + (values.list_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.list_date.getDate().toString().padStart(2, '0');
     axios.post('/refrigerator/ingredient',
-      {
+      [{
         id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
         category: values.fridge_type,
         name: values.list_name,
@@ -186,7 +202,7 @@ const FridgeMoveModal = ({
         unit: values.list_unit,
         expiration_type: values.list_date_chose,
         expiration_date: values.list_date,
-      }
+      }]
     ).then((res) => {
       //DB response
     })
@@ -361,6 +377,6 @@ const FridgeMoveModal = ({
       </ModalBlock>
     </Fullscreen>
   );
-}
+})
 
 export default FridgeMoveModal;

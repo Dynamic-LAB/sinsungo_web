@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useRef} from 'react';
 import styled from 'styled-components';
 import {MdKitchen, MdDelete} from "react-icons/md";
 import ListModal from "./ListModal";
@@ -103,7 +103,8 @@ const Count = styled.div`
 `;
 
 const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
-
+  const shoppingItem=useRef();
+  const basketItem=useRef();
   //const {shopping_id, shopping_name, shopping_index, shopping_count,} = list;
   const dispatch = useShoppingDispatch();
   const SetBasket=()=>{
@@ -122,7 +123,8 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
       }
     })
     .then((response)=> {
-      console.log("__2구매목록 삭제됨:id:",id,response);
+      SetBasket();
+      console.log("(재갱신완료)__구매목록 삭제됨:id:",id,response);
       }).catch((error)=>{
         // 오류발생시 실행
     }).then(()=> {
@@ -134,7 +136,6 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
   //삭제 함수
   const onRemove = (id) =>{
     DeleteBasketById(id);
-    SetBasket();
   }
 
   //모달 on, off 함수
@@ -143,9 +144,11 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
   //모달 함수들(onEdit, onCancel, onConfirm)
 
   const onEdit = () => {
+    basketItem.current.resetValue()
     setModal(true);
   };
   const onMove = () => {
+    shoppingItem.current.resetValue()
     setMoveModal(true);
   };
   //냉장고로 이동시킬때 사용
@@ -154,7 +157,6 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
   };
   //수정할때 사용
   const onConfirm = () => {
-    SetBasket();
     setModal(false);
   };
   const onCancel = () => {
@@ -167,9 +169,12 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
         <MdKitchen/>
       </MoveBtn>
       <FridgeMoveModal
+        ref={shoppingItem}
         visible={moveModal}
         onMoveConfirm={onMoveConfirm}
         onCancel={onCancel}
+        ingredient={item}
+        type="edit"
       />
 
       <div className="text" onClick={onEdit}>
@@ -183,6 +188,8 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
         </Item>
       </div>
       <ListModal
+        ref={basketItem}
+        SetBasket={SetBasket}
         visible={modal}
         onConfirm={onConfirm}
         onCancel={onCancel}

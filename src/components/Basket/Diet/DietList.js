@@ -18,7 +18,7 @@ const DietList = () => {
         memo={diet.memo}
         date={diet.date}
         food={diet.menus.map((item,_i)=>{ if(item) return ((_i>0?",":"")+item); return ""})}
-        ingredient_item={diet.ingredients.map((item,_i)=>{ if(item) return ((_i>0?",":"")+item.name); return ""})}
+        ingredient_item={diet.ingredients.map((item,_i)=>{ if(item.id!=null){ return ((_i>0?",":"")+item.name)} return null})}
         />)
        })
       }
