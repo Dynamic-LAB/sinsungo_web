@@ -6,6 +6,7 @@ import DietModal from "./DietModal";
 import {useDietDispatch} from "./DietContext";
 import GetDietByRefrigratorId from "../../ForServer/GetDietByRefrigratorId"
 import axios from 'axios';
+
 const Remove = styled.div`
   display: flex;
   padding: 8px 5px;
@@ -47,6 +48,7 @@ const ItemBlock = styled.div`
 const DateBlock = styled.div`
   display: flex;
   padding: 5px;
+  font-family: 'Noto Sans KR', sans-serif;
   .diet_date {
     font-size: 14px;
     margin-right: 10px;
@@ -102,8 +104,9 @@ const DietCard = ({diet,id, memo, food, date, ingredient_item}) => {
         dispatch:dispatch
       });
     });
+    alert("식단이 삭제되었습니다!");
     //props.setIngredients()
-  }
+  };
   const onCancel = () => {
     setModal(false);
   };

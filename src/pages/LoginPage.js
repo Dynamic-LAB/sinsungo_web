@@ -14,7 +14,8 @@ const VideoBlock = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
+
   .login_video {
     width: 500px;
     height: 500px;
@@ -28,8 +29,9 @@ const VideoBlock = styled.div`
       }
     }
   }
-  .skip_button{
-    button{
+
+  .skip_button {
+    button {
       display: flex;
       background: none;
       border: none;
@@ -39,6 +41,7 @@ const VideoBlock = styled.div`
       top: 100%;
       left: 50%;
     }
+
     text-align: center;
     align-items: center; //세로중앙정렬
     justify-content: center;
@@ -59,7 +62,7 @@ const LoginBlock = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   //div 자식요소 가운데 정렬
   display: flex;
   justify-content: center;
@@ -73,11 +76,11 @@ const LoginBlock = styled.div`
       opacity: 1;
     }
   }
-  
+
   @media only screen and (max-width: 1350px) {
     display: block;
     text-align: center;
-    .login_logo{
+    .login_logo {
       width: 250px;
       height: 220px;
     }
@@ -95,13 +98,13 @@ const LoginBlock = styled.div`
               }
             }
           `}
-  
+
 `;
 const LoginButton = styled.div`
   margin-left: 50px;
   float: right;
   text-align: center;
-  
+
   @media only screen and (max-width: 1350px) {
     float: none;
     margin: 50px auto;
@@ -111,58 +114,70 @@ const LoginButton = styled.div`
 
 const LoginPage = (props) => {
 
-  const [loginInfo, setLoginInfo] = useState(0);
+    const [loginInfo, setLoginInfo] = useState(0);
 
-  function GoMain(e, type) {
-    setLoginInfo([type, e]);
-  }
+    function GoMain(e, type) {
+        setLoginInfo([type, e]);
+    }
 
-  function success(data) {
-    window.sessionStorage.setItem('User', JSON.stringify({newId: data.id, newRefId: data.refrigerator_id, data: data}));
-    props.history.push({pathname: '/Fridge', state: {User: {newId: data.id, newRefId: data.refrigerator_id, data: data}}})
-  }
+    function success(data) {
+        window.sessionStorage.setItem('User', JSON.stringify({
+            newId: data.id,
+            newRefId: data.refrigerator_id,
+            data: data
+        }));
+        props.history.push({
+            pathname: '/Fridge',
+            state: {User: {newId: data.id, newRefId: data.refrigerator_id, data: data}}
+        })
+    }
 
-  const [show, setShow] = useState(true);
-  const onShow = () => {
-    setShow(false);
-  }
-  return (
-    <>
-      {show ? <VideoBlock>
-        <video autoPlay preload muted playsInline className="login_video">
-          <source src={logo_video} type="video/mp4"/>
-        </video>
-        <div className="skip_button">
-          <button onClick={onShow}>
-            skip
-            <MdPlayArrow/>
-          </button>
-        </div>
-      </VideoBlock> : <LoginBlock unshow>
-        <UserLoginOrSignup loginInfo={loginInfo} setLoginInfo={setLoginInfo} success={success}/>
-        <img className="login_logo" src={logo} alt="신선고 로고" />
-        <LoginButton>
-          <KakaoLoginv GoMain={GoMain}/>
-          <div style={{height: '5px'}}/>
-          <GoogleButton GoMain={GoMain}/>
-          <div style={{height: '5px'}}/>
-          <NaverLoginBtn GoMain={GoMain}/>
-        </LoginButton>
-      </LoginBlock>}
-      <UserLoginOrSignup loginInfo={loginInfo} setLoginInfo={setLoginInfo} success={success}/>
-      <LoginBlock>
-        <img className="login_logo" src={logo} alt="신선고 로고" />
-        <LoginButton>
-          <KakaoLoginv GoMain={GoMain}/>
-          <div style={{height: '5px'}}/>
-          <GoogleButton GoMain={GoMain}/>
-          <div style={{height: '5px'}}/>
-          <NaverLoginBtn GoMain={GoMain}/>
-        </LoginButton>
-      </LoginBlock>
+    const [show, setShow] = useState(true);
+    const onShow = () => {
+        setShow(false);
+    }
+    return (
+        <>
+            {/*첫 화면 튜토리얼*/}
+            {show ?
+                <VideoBlock>
+                    <video autoPlay preload muted playsInline className="login_video">
+                        <source src={logo_video} type="video/mp4"/>
+                    </video>
+                    <div className="skip_button">
+                        <button onClick={onShow}>
+                            skip
+                            <MdPlayArrow/>
+                        </button>
+                    </div>
+                </VideoBlock>
+                :
+                <LoginBlock unshow>
+                    <UserLoginOrSignup loginInfo={loginInfo} setLoginInfo={setLoginInfo} success={success}/>
+                    <img className="login_logo" src={logo} alt="신선고 로고"/>
+                    <LoginButton>
+                        <KakaoLoginv GoMain={GoMain}/>
+                        <div style={{height: '5px'}}/>
+                        <GoogleButton GoMain={GoMain}/>
+                        <div style={{height: '5px'}}/>
+                        <NaverLoginBtn GoMain={GoMain}/>
+                    </LoginButton>
+                </LoginBlock>}
+            {/*튜토리얼 후 로그인 화면*/}
+            <UserLoginOrSignup loginInfo={loginInfo} setLoginInfo={setLoginInfo} success={success}/>
+            <LoginBlock>
+                <img className="login_logo" src={logo} alt="신선고 로고"/>
+                <LoginButton>
+                    <KakaoLoginv GoMain={GoMain}/>
+                    <div style={{height: '5px'}}/>
+                    <GoogleButton GoMain={GoMain}/>
+                    <div style={{height: '5px'}}/>
+                    <NaverLoginBtn GoMain={GoMain}/>
+                </LoginButton>
+            </LoginBlock>
 
-    </>
-  )
+        </>
+    )
 };
 
 export default LoginPage;

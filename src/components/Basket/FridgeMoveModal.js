@@ -215,6 +215,7 @@ const FridgeMoveModal = forwardRef(({
     InsertIngredientByRefId(values);
     onMoveConfirm();
     reset();
+    alert("냉장고로 이동되었습니다!");
   };
   const onNotSubmit = () => {
     onCancel();

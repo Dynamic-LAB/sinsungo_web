@@ -1,9 +1,11 @@
-import React, {useState,useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import styled from 'styled-components';
 import {MdEdit, MdDelete} from "react-icons/md";
 import FridgeModal from "./FridgeModal";
 import GetIngredientByRefrigratorId from '../ForServer/GetIngredientByRefrigratorId';
-import { Context } from '../../Ingredient';
+import {Context} from '../../Ingredient';
+import "./Fridge.css";
+
 const Remove = styled.div`
   display: flex;
   align-items: center; //세로중앙정렬
@@ -90,7 +92,6 @@ const Item = styled.div`
 `;
 const FridgeItem = ({ingredient, onRemove}) => {
 
-
   const {id, name, amount, unit, expiration_date, manufacture, expiration_type, today} = ingredient;
   const [modal, setModal] = useState(false);
   const onEdit = () => {
@@ -99,19 +100,21 @@ const FridgeItem = ({ingredient, onRemove}) => {
   const onCancel = () => {
     setModal(false);
   };
-  const {state,dispatch}=useContext(Context);
+  const {state, dispatch} = useContext(Context);
   const onConfirm = () => {
-    if(JSON.parse(sessionStorage.getItem('User'))){
+    if (JSON.parse(sessionStorage.getItem('User'))) {
       GetIngredientByRefrigratorId(
         {
-            id:JSON.parse(sessionStorage.getItem('User')).newRefId,
-            dispatch:dispatch
+          id: JSON.parse(sessionStorage.getItem('User')).newRefId,
+          dispatch: dispatch
         }
-      )};
+      )
+    }
+    ;
     setModal(false);
   }
-  var day=new Date(today);
-  var myDate=(new Date(day.getFullYear()+"/"+(day.getMonth()+1)+"/"+day.getDate())-new Date(expiration_date.replaceAll('-','/')))/24/3600/1000*-1;
+  var day = new Date(today);
+  var myDate = (new Date(day.getFullYear() + "/" + (day.getMonth() + 1) + "/" + day.getDate()) - new Date(expiration_date.replaceAll('-', '/'))) / 24 / 3600 / 1000 * -1;
   return (
     <>
       <ItemBlock>
@@ -123,38 +126,23 @@ const FridgeItem = ({ingredient, onRemove}) => {
           onConfirm={onConfirm}
           onCancel={onCancel}
           ingredient={ingredient}
-          type="edit"
-        />
+          type="edit"/>
         <Item>{name}</Item>
         <Item>{amount + unit}</Item>
-        {
-            expiration_type=="유통기한"?
-            <Item>{expiration_date}({myDate})</Item>
-
-            :
-            <Item>-</Item>
+        {expiration_type === "유통기한" ?
+          <Item>{expiration_date}({myDate})</Item> : <Item>-</Item>
         }
-        {
-          expiration_type == "제조일자" ?
-            <Item>{expiration_date}</Item>
-            :
-            <Item>-</Item>
+        {expiration_type === "제조일자" ?
+          <Item>{expiration_date}</Item> : <Item>-</Item>
         }
-        {
-          expiration_type == "보관일" ?
-            <Item>{expiration_date}</Item>
-            :
-            <Item>-</Item>
+        {expiration_type === "보관일" ?
+          <Item>{expiration_date}</Item> : <Item>-</Item>
         }
-
         <Remove onClick={() => onRemove(id)}>
           <MdDelete/>
         </Remove>
-
       </ItemBlock>
-
     </>
-
   );
 }
 

@@ -5,6 +5,7 @@ import {Context} from '../../Ingredient';
 
 const IngredientBlock = styled.div`
   overflow-y: auto; //스크롤
+  text-align: center;
 `;
 
 const FridgeList = ({onRemove, type}) => {
@@ -12,6 +13,7 @@ const FridgeList = ({onRemove, type}) => {
     state,
     dispatch,
   } = useContext(Context);
+  //const [show, setShow] = useState(false);
 
   return (
     <IngredientBlock>
@@ -28,6 +30,7 @@ const FridgeList = ({onRemove, type}) => {
           }
         })
       }
+      {/*<div className="icon_fridge_empty"/>*/}
     </IngredientBlock>
   );
 }
