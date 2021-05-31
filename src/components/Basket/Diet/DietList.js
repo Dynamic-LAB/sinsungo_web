@@ -10,23 +10,18 @@ const DietList = () => {
   return (
     <>
       {
-        diets[0] && diets[0].id !== "nodata" && diets.map((diet, _i) => {
-          return (
-            <DietCard
-              diet={diet}
-              id={diet.id}
-              memo={diet.memo}
-              date={diet.date}
-              food={diet.menus.map((item, _i) => {
-                if (item) return ((_i > 0 ? ", " : "") + item);
-                return ""
-              })}
-              ingredient_item={diet.ingredients.map((item, _i) => {
-                if (item) return ((_i > 0 ? ", " : "") + item.name);
-                return ""
-              })}
-            />)
-        })
+       diets[0]&&diets[0].id!=="nodata"&&diets.map((diet,_i)=>
+       {
+        return(
+        <DietCard
+        diet={diet}
+        id={diet.id}
+        memo={diet.memo}
+        date={diet.date}
+        food={diet.menus.map((item,_i)=>{ if(item) return ((_i>0?",":"")+item); return ""})}
+        ingredient_item={diet.ingredients.map((item,_i)=>{ if(item.id!=null){ return ((_i>0?",":"")+item.name)} return null})}
+        />)
+       })
       }
 
 

@@ -139,12 +139,16 @@ const DietCard = ({diet,id, memo, food, date, ingredient_item}) => {
                 </div>
               </FoodBlock>
               <IngredientBlock>
+                {
+                ingredient_item[0]!=null?
+                <>
                 <div className="diet_main_ingredient">
                   주재료
                 </div>
                 <div className="diet_main_ingredient_item">
                   {ingredient_item}
                 </div>
+                </>:<div style={{"color":'red'}}>선택된 재료가 없습니다.</div>}
               </IngredientBlock>
             </ItemBlock>
           </div>
