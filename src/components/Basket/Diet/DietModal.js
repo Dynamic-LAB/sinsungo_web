@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState,useContext, useEffect} from 'react';
+import React, {useCallback, useRef, useState, useContext, useEffect} from 'react';
 import styled from "styled-components";
 import {useForm, Controller} from "react-hook-form";
 import {MdCancel, MdSearch} from "react-icons/md";
@@ -32,10 +32,12 @@ const ModalBlock = styled.div`
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
+
   .modal_buttons {
     display: flex;
     justify-content: flex-end; //오른쪽 끝에 배치
   }
+
   @media only screen and (max-width: 765px) {
     width: 300px;
   }
@@ -46,17 +48,19 @@ const ModalBlock = styled.div`
 const ModalTitle = styled.div`
   display: flex;
   margin-bottom: 10px;
+
   h2 {
     display: flex;
     font-size: 1.325rem;
     margin-top: 0;
   }
+
   h2 > div {
     color: #5887F9;
     margin-left: 5px;
   }
-  
-  .diet_close_button{
+
+  .diet_close_button {
     display: flex;
     align-items: center;
     font-size: 1.5rem;
@@ -71,19 +75,20 @@ const StyledWhiteBox = styled(WhiteBox)`
   width: auto;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  padding: 8px 16px ;
+  padding: 8px 16px;
 `;
 const StyledWhiteLIstBox = styled(WhiteBox)`
   height: 300px;
   width: auto;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  padding: 8px 16px ;
+  padding: 8px 16px;
 `;
 const DateBlock = styled.div`
   display: flex;
   font-size: 16px;
   align-items: center;
+
   .index {
     display: flex;
     font-size: 10px;
@@ -98,15 +103,18 @@ const DateLeft = styled.div`
     outline: none;
     font-size: 16px;
     cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
   }
 `;
 const MemoBlock = styled.div`
   display: flex;
   font-size: 16px;
   align-items: center;
+
   .diet_memo_text {
     font-weight: bold;
   }
+
   .index {
     display: flex;
     margin-left: 15px;
@@ -127,21 +135,25 @@ const StyledInput = styled.input`
   width: 100%;
   padding-bottom: 0.3rem;
   padding-top: 0.5rem;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 const MenuBlock = styled.div`
   display: flex;
   font-size: 16px;
   align-items: center;
+
   .diet_menu {
     font-weight: bold;
   }
-  .diet_index{
+
+  .diet_index {
     display: flex;
     margin-left: 15px;
     font-size: 10px;
     color: #000000;
   }
-  .diet_index_red{
+
+  .diet_index_red {
     display: flex;
     margin-left: 15px;
     font-size: 10px;
@@ -151,7 +163,8 @@ const MenuBlock = styled.div`
 const IngredientBlock = styled.div`
   font-size: 16px;
   align-items: center;
-  .diet_ingredient{
+
+  .diet_ingredient {
     font-weight: bold;
   }
 `;
@@ -165,6 +178,7 @@ const SearchInput = styled.input.attrs({
   type: 'text',
   placeholder: '사용할 재료명을 입력해주세요.',
 })`
+  font-family: 'Noto Sans KR', sans-serif;
   border: none;
   background: none;
   outline: none;
@@ -178,6 +192,7 @@ const StyledButton = styled(Button)`
   border-radius: 20px;
   font-size: 0.75rem;
   padding: 0.25rem 1.25rem;
+
   & + & {
     margin-left: 0.5rem;
   }
@@ -196,6 +211,7 @@ const TagUl = styled.ul`
   margin: 0;
   padding: 0;
   width: 100%;
+
   li {
     display: flex;
     align-items: center;
@@ -208,6 +224,7 @@ const TagUl = styled.ul`
     margin-bottom: 5px;
     margin-right: 5px;
     padding: 5px 10px;
+
     button {
       border: none;
       background: none;
@@ -218,6 +235,7 @@ const TagUl = styled.ul`
       padding-left: 10px;
     }
   }
+
   .input-tag__tags__input {
     background: none;
     flex-grow: 1;
@@ -230,6 +248,7 @@ const TagInputEnter = styled.input`
   outline: none;
   width: 100%;
   font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 const textMap = {
   add: '추가',
@@ -246,29 +265,33 @@ const DietModal = ({
                      onConfirm,
                      onCancel,
                      type,
-                   }) => {         
+                   }) => {
   const defaultValues = {
-   diet_modal_date: type==='edit'?new Date(diet.date.replaceAll("-","/")):"",
-   diet_modal_memo: type==='edit'?diet.memo:"",
-   menu_modal_tag: type==='edit'?diet.menus:[],
-   };  
-  
-   const EditValues=(values) => {
-     return({
-    diet_modal_date: type==='edit'?new Date(values.date.replaceAll("-","/")):"",
-    diet_modal_memo: type==='edit'?values.memo:"",
-    menu_modal_tag: type==='edit'?values.menus:[],
+    diet_modal_date: type === 'edit' ? new Date(diet.date.replaceAll("-", "/")) : "",
+    diet_modal_memo: type === 'edit' ? diet.memo : "",
+    menu_modal_tag: type === 'edit' ? diet.menus : [],
+  };
+
+  const EditValues = (values) => {
+    return ({
+      diet_modal_date: type === 'edit' ? new Date(values.date.replaceAll("-", "/")) : "",
+      diet_modal_memo: type === 'edit' ? values.memo : "",
+      menu_modal_tag: type === 'edit' ? values.menus : [],
     })
   }
   const {register, handleSubmit, formState: {errors}, reset, setValue, watch, control} = useForm({defaultValues});
   const {diet_modal_date, diet_modal_memo, menu_modal_tag} = watch();
- 
+
   // const dispatch = useDietDispatch();
   // const nextId = useDietNextId();
-  const {state,dispatch}=useContext(Context);
-  useEffect(()=>{
-    diet&&diet.ingredients.map(item=>{isChecked.current.push(item.id)});
-    diet&&setTags(diet.menus.filter((item)=>{if(item!=null)return item}) );
+  const {state, dispatch} = useContext(Context);
+  useEffect(() => {
+    diet && diet.ingredients.map(item => {
+      isChecked.current.push(item.id)
+    });
+    diet && setTags(diet.menus.filter((item) => {
+      if (item != null) return item
+    }));
     if (JSON.parse(sessionStorage.getItem('User'))) {
       GetIngredientByRefrigratorId(
         {
@@ -277,42 +300,41 @@ const DietModal = ({
         }
       )
     }
-  },[])
+  }, [])
   //냉장고 재료 부분 check 액션
-  const onToggle =(id,type=false)=>{
-    let isOn=false;
-    let setIndex=0;
-    isChecked.current.forEach((item,index) => {
-      if(item===id){
-        isOn=true;
-        setIndex=index;
+  const onToggle = (id, type = false) => {
+    let isOn = false;
+    let setIndex = 0;
+    isChecked.current.forEach((item, index) => {
+      if (item === id) {
+        isOn = true;
+        setIndex = index;
         return;
       }
     });
-    if(isOn){
-      if(type){
+    if (isOn) {
+      if (type) {
         //이미 존재한다면 삭제
-      isChecked.current.splice(setIndex,1);
-      return false 
+        isChecked.current.splice(setIndex, 1);
+        return false
       }
+      return true;
+    } else if (type) {
+      //없다면 추가
+      isChecked.current = isChecked.current.concat(id)
       return true;
     }
-    else if(type){
-      //없다면 추가
-      isChecked.current=isChecked.current.concat(id)
-      return true;
-      }
-      return false
+    return false
   }
 //메뉴 칩 입력 기능
   let tagInput = useRef();
   const [input, setInput] = useState(true);
-  const [searchWord,SetSearchWord]=useState();
+  const [searchWord, SetSearchWord] = useState();
   const [tags, setTags] = useState([]);
   //삭제 버튼 구현
   const removeTag = (i) => {
     const newTags = [...tags];
-    newTags.splice(i,1);
+    newTags.splice(i, 1);
     setTags(newTags);
     setValue("menu_modal_tag", newTags);
     setInput(true);
@@ -320,35 +342,41 @@ const DietModal = ({
   // enter 키 누르면 입력
   const inputKeyDown = (e) => {
     const val = e.target.value;
-    if(e.key === 'Enter' && val) {
-      if(tags.find(tag => tag.toLowerCase() === val.toLowerCase())){
+    if (e.key === 'Enter' && val) {
+      if (tags.find(tag => tag.toLowerCase() === val.toLowerCase())) {
         alert('중복된 단어입니다!');
         return;
       }
-      if(tags.length === 9) {
+      if (tags.length === 9) {
         setInput(false);
       } //10개가 되면 추가하지 않음
       setTags([...tags, val]);
-      setValue("menu_modal_tag",[...tags, val] );
+      setValue("menu_modal_tag", [...tags, val]);
       tagInput.value = null; //입력하면 칩 생성하고 input 다시 초기화
     }
   };
 
   //확인버튼 액션
   const onSubmit = (values) => {
+    SetSearchWord("");
     var ingredients=[];
+    console.log(isChecked.current.length);
+    if(isChecked.current.length>0)
     state.IngredientList.map((item)=>{if(isChecked.current.includes(item.id))ingredients.push(item)})
+
     if(type!=='edit'){
     InsertDietByRefId(values,ingredients)
+      alert("식단이 등록되었습니다!");
     }else{
       UpdateDiet(values,ingredients);
+       alert("식단이 수정되었습니다!");
     }
     //nextId.current += 1;
   };
-  const UpdateDiet=(values,ingredients)=>{
-     //날짜 문자열 형식 수정
-     while(values.menu_modal_tag.length<10){
-      values.menu_modal_tag=values.menu_modal_tag.concat(null)
+  const UpdateDiet = (values, ingredients) => {
+    //날짜 문자열 형식 수정
+    while (values.menu_modal_tag.length < 10) {
+      values.menu_modal_tag = values.menu_modal_tag.concat(null)
     }
     values.diet_modal_date = values.diet_modal_date.getFullYear() + '-' + (values.diet_modal_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.diet_modal_date.getDate().toString().padStart(2, '0');
   axios.put('/diet/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
@@ -368,28 +396,34 @@ const DietModal = ({
   ).then((res)=>{
     //DB response
     onConfirm();
-    tags.length = 0;
-    setTags(values.menu_modal_tag.filter((item)=>{if(item!=null)return item}));
+    setTags(values.menu_modal_tag.filter((item)=>{
+      if(item!=null)return item
+    }));
     reset(EditValues(values));
   })
   .catch((res)=>{
     console.log("erorr Msg:",res)
   });
   }
-  
-  const InsertDietByRefId = (values,ingredients) => {
-    while(values.menu_modal_tag.length<10){
-      values.menu_modal_tag=values.menu_modal_tag.concat(null)
+
+  const InsertDietByRefId = (values, ingredients) => {
+    while (values.menu_modal_tag.length < 10) {
+      values.menu_modal_tag = values.menu_modal_tag.concat(null)
     }
     values.diet_modal_date = values.diet_modal_date.getFullYear() + '-' + (values.diet_modal_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.diet_modal_date.getDate().toString().padStart(2, '0');
-   
+
     axios.post('/diet/',
       {
+        id: JSON.parse(sessionStorage.getItem('User')).newRefId,
+        memo: values.diet_modal_memo,
+        date: values.diet_modal_date,
+        menus: values.menu_modal_tag,
+        ingredients: ingredients
           id:JSON.parse(sessionStorage.getItem('User')).newRefId,
           memo:values.diet_modal_memo,
           date:values.diet_modal_date,
           menus:values.menu_modal_tag,
-          ingredients:ingredients
+          ingredients:ingredients.length>0?ingredients:[]
       }
     ).then((res) => {
       //DB response
@@ -403,9 +437,10 @@ const DietModal = ({
   }
   //취소버튼 액션
   const onNotSubmit = () => {
+    SetSearchWord("");
     onCancel();
-    if(type!=='edit')
-    tags.length = 0;
+    if (type !== 'edit')
+      tags.length = 0;
     reset();
   };
 
@@ -497,6 +532,11 @@ const DietModal = ({
                 {/*메뉴태그 입력 칩*/}
                 <TagBlock>
                   <TagUl>
+                  <div
+                             {...register("menu_modal_tag",{
+                              required: "필수입력사항",
+                            })}
+                      />
                     {tags.map((tag, i) => (
                       <li
                         key={i}
@@ -519,8 +559,8 @@ const DietModal = ({
                         ref={c => {tagInput = c;}}/>
                     </li> : null}
 
-                  </TagUl>
-                </TagBlock>
+                </TagUl>
+              </TagBlock>
 
             </StyledWhiteBox>
           </label>
@@ -528,11 +568,11 @@ const DietModal = ({
           <label>
             <StyledWhiteLIstBox>
               <IngredientBlock>
-                <div className="diet_ingredient">재료2</div>
+                <div className="diet_ingredient">재료</div>
               </IngredientBlock>
               <SearchBlock>
                 <MdSearch style={{'fontSize': '1.2rem'}}/>
-                <SearchInput onChange={(e)=>SetSearchWord(e.target.value)}/>
+                <SearchInput onChange={(e) => SetSearchWord(e.target.value)}/>
               </SearchBlock>
               <DietIngredientList searchWord={searchWord} onToggle={onToggle}/>
             </StyledWhiteLIstBox>

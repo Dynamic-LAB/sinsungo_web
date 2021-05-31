@@ -6,6 +6,7 @@ import DietModal from "./DietModal";
 import {useDietDispatch} from "./DietContext";
 import GetDietByRefrigratorId from "../../ForServer/GetDietByRefrigratorId"
 import axios from 'axios';
+
 const Remove = styled.div`
   display: flex;
   padding: 8px 5px;
@@ -47,6 +48,7 @@ const ItemBlock = styled.div`
 const DateBlock = styled.div`
   display: flex;
   padding: 5px;
+  font-family: 'Noto Sans KR', sans-serif;
   .diet_date {
     font-size: 14px;
     margin-right: 10px;
@@ -102,8 +104,9 @@ const DietCard = ({diet,id, memo, food, date, ingredient_item}) => {
         dispatch:dispatch
       });
     });
+    alert("식단이 삭제되었습니다!");
     //props.setIngredients()
-  }
+  };
   const onCancel = () => {
     setModal(false);
   };
@@ -136,12 +139,16 @@ const DietCard = ({diet,id, memo, food, date, ingredient_item}) => {
                 </div>
               </FoodBlock>
               <IngredientBlock>
+                {
+                ingredient_item[0]!=null?
+                <>
                 <div className="diet_main_ingredient">
                   주재료
                 </div>
                 <div className="diet_main_ingredient_item">
                   {ingredient_item}
                 </div>
+                </>:<div style={{"color":'red'}}>선택된 재료가 없습니다.</div>}
               </IngredientBlock>
             </ItemBlock>
           </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import {useForm, Controller} from "react-hook-form";
 import ReactDatePicker from "react-datepicker";
@@ -9,6 +9,8 @@ import {ko} from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Fridge.css";
 import axios from 'axios';
+import GetIngredientByRefrigratorId from "../ForServer/GetIngredientByRefrigratorId"
+import { Context } from '../../Ingredient';
 
 // 회색 불투명 배경
 const Fullscreen = styled.div`
@@ -31,17 +33,15 @@ const ModalBlock = styled.div`
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
-
+  font-family: 'Noto Sans KR', sans-serif;
   h2 {
     font-size: 1.5rem;
     margin-top: 0;
     margin-bottom: 1rem;
   }
-
   .text_blue {
     color: #5887F9;
   }
-
   .modal_buttons {
     display: flex;
     justify-content: flex-end;
@@ -64,7 +64,7 @@ const StyledWhiteBox = styled(WhiteBox)`
   width: auto;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  padding: 0 15px;
+  padding: 0 15px 5px 15px;
 
 `;
 const InputBlock = styled.div`
@@ -105,6 +105,7 @@ const StyledInput = styled.input`
   outline: none;
   width: 100%;
   text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 const StyledAmountInput = styled.input`
   font-size: 0.75rem;
@@ -118,6 +119,7 @@ const StyledAmountInput = styled.input`
   width: 52%;
   text-align: center;
   margin-right: 12px;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 const FormTitle = styled.div`
   display: flex;
@@ -136,11 +138,9 @@ const FormTitle = styled.div`
     font-size: 10px;
     color: #FF2424;
   }
-
   .input_index_drop {
     display: flex;
     padding-top: 10px;
-
     font-size: 10px;
     color: #FF2424;
   }
@@ -156,6 +156,7 @@ const StyledDropdown = styled.select`
   outline: none;
   cursor: pointer;
   text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 //type 지정
 const textMap = {
@@ -168,56 +169,6 @@ const textMap = {
 };
 
 
-const InsertIngredientByRefId = (values, type) => {
-
-  //날짜 문자열 형식 수정
-  values.i_date = values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
-  var category;
-  //타입결정
-  if (type === 'cold') category = textMap.cold;
-  if (type === 'freeze') category = textMap.freeze
-  if (type === 'fresh') category = textMap.fresh
-  if (type === 'temp') category = textMap.temp
-  if (type === 'seasoning') category = textMap.seasoning
-  if (type === 'edit') category = textMap.edit
-
-  axios.post('/refrigerator/ingredient',
-    {
-      id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
-      category: category,
-      name: values.i_name,
-      amount: values.i_amount,
-      unit: values.i_unit,
-      expiration_type: values.date_chose,
-      expiration_date: values.i_date,
-    }
-  ).then((res) => {
-    //DB response
-  })
-    .catch((res) => {
-      console.log("error Msg:", res)
-    });
-}
-const UpdateIngredientById=(values,type,id)=>{
-  //날짜 문자열 형식 수정
-  values.i_date=values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
-  axios.put('/refrigerator/ingredient/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
-  {
-    id:id,
-    category:type, 
-    name:values.i_name,
-    amount:values.i_amount,
-    unit:values.i_unit,
-    expiration_type:values.date_chose,
-    expiration_date:values.i_date,
-  }
-  ).then((res)=>{
-    //DB response
-  })
-  .catch((res)=>{
-    console.log("erorr Msg:",res)
-  });
-}
 const FridgeModal = ({
                        visible,
                        type,
@@ -247,8 +198,73 @@ const editValues =(values)=> {
   date_chose:type==='edit'?values.date_chose:"",
 });
 }
- 
 
+const {state,dispatch}=useContext(Context);
+
+const InsertIngredientByRefId = (values, type) => {
+  //날짜 문자열 형식 수정
+  values.i_date = values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
+  var category;
+  //타입결정
+  if (type === 'cold') category = textMap.cold;
+  if (type === 'freeze') category = textMap.freeze
+  if (type === 'fresh') category = textMap.fresh
+  if (type === 'temp') category = textMap.temp
+  if (type === 'seasoning') category = textMap.seasoning
+  if (type === 'edit') category = textMap.edit
+
+  axios.post('/refrigerator/ingredient',
+    [{
+      id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+      category: category,
+      name: values.i_name,
+      amount: values.i_amount,
+      unit: values.i_unit,
+      expiration_type: values.date_chose,
+      expiration_date: values.i_date,
+    }]
+  ).then((res) => {
+    if (JSON.parse(sessionStorage.getItem('User'))) {
+      GetIngredientByRefrigratorId(
+        {
+          id: JSON.parse(sessionStorage.getItem('User')).newRefId,
+          dispatch: dispatch
+        }
+      )
+    }
+  })
+    .catch((res) => {
+      console.log("error Msg:", res)
+    });
+}
+const UpdateIngredientById=(values,type,id)=>{
+
+  //날짜 문자열 형식 수정
+  values.i_date=values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
+  axios.put('/refrigerator/ingredient/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+  {
+    id:id,
+    category:type,
+    name:values.i_name,
+    amount:values.i_amount,
+    unit:values.i_unit,
+    expiration_type:values.date_chose,
+    expiration_date:values.i_date,
+  }
+  ).then((res)=>{
+    if (JSON.parse(sessionStorage.getItem('User'))) {
+      GetIngredientByRefrigratorId(
+        {
+          id: JSON.parse(sessionStorage.getItem('User')).newRefId,
+          dispatch: dispatch
+        }
+      )
+    }
+  })
+  .catch((res)=>{
+    console.log("erorr Msg:",res)
+  });
+}
   const onSubmit = (values) => {
 
     if(type!=="edit"){

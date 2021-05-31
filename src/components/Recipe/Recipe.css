@@ -24,6 +24,11 @@ main {
     background-size: 23px 23px;
     margin-right: 10px;
 }
+.footer {
+    font-size: 12px;
+    text-align: center;
+    margin: 30px 0;
+}
 /*반응형*/
 @media only screen and (max-width: 978px) {
     .recipe__cards {

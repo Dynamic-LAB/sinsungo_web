@@ -5,6 +5,7 @@ import React, {useCallback, useEffect, useState, useContext} from "react";
 import FridgeList from "./FridgeList";
 import FridgeAddButton from "./FridgeAddButton";
 import GetIngredientByRefrigratorId from "../ForServer/GetIngredientByRefrigratorId";
+import { MdAndroid } from "react-icons/md";
 import axios from 'axios';
 import {Context} from '../../Ingredient'
 //import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -78,19 +79,7 @@ const Spacer = styled.div`
 `;
 
 
-const DeleteIngredientById = (id) => {
-  axios.delete("/refrigerator/ingredient/" + id, {
-    params: {}
-  })
-    .then((response) => {
-      console.log("삭제됨:", response);
-    }).catch((error) => {
-    // 오류발생시 실행
-  }).then(() => {
-    // 항상 실행
-  });
-  //props.setIngredients()
-}
+
 const Fridge = (props) => {
 
   const {
@@ -105,23 +94,33 @@ const Fridge = (props) => {
           dispatch: dispatch
         }
       )
-    }
-    ;
+    };
   }, [])
-
+  const DeleteIngredientById = (id) => {
+    axios.delete("/refrigerator/ingredient/" + id, {
+      params: {}
+    })
+      .then((response) => {
+        console.log("삭제됨:", response);
+        if (JSON.parse(sessionStorage.getItem('User'))) {
+          GetIngredientByRefrigratorId(
+            {
+              id: JSON.parse(sessionStorage.getItem('User')).newRefId,
+              dispatch: dispatch
+            }
+          )
+        }
+      }).catch((error) => {
+      // 오류발생시 실행
+    }).then(() => {
+      // 항상 실행
+    });
+    //props.setIngredients()
+  }
   //지우기 기능
   const onRemove = useCallback(
     id => {
       DeleteIngredientById(id);
-      if (JSON.parse(sessionStorage.getItem('User'))) {
-        GetIngredientByRefrigratorId(
-          {
-            id: JSON.parse(sessionStorage.getItem('User')).newRefId,
-            dispatch: dispatch
-          }
-        )
-      }
-      ;
     }
   );
   const GetExpirationList = () => {
@@ -129,13 +128,15 @@ const Fridge = (props) => {
     if (state.IngredientList) {
       state.IngredientList.map(item => {
         if (item.expiration_type === "유통기한") {
-          cnt++;
-          // var day = new Date(item.today);
-          // var myDate = (new Date(day.getFullYear() + "/" + (day.getMonth() + 1) + "/" + day.getDate()) - new Date(item.expiration_date.replaceAll('-', '/'))) / 24 / 3600 / 1000 * -1;
+          var day = new Date(item.today);
+          var myDate = (new Date(day.getFullYear() + "/" + (day.getMonth() + 1) + "/" + day.getDate()) - new Date(item.expiration_date.replaceAll('-', '/'))) / 24 / 3600 / 1000 * -1;
+          if (myDate < 4) {
+            cnt++
+          }
         }
       })
     }
-    console.log(cnt);
+    
     return cnt === 0 ? "-" : cnt;
   }
   return (
@@ -262,6 +263,21 @@ const Fridge = (props) => {
             </IngredientBlock>
           </WhiteBoxFridge>
         </div>
+        <footer className="footer">
+          <div className="left_footer">
+            <div className="left_top">
+              <div className="left_text_line">공지사항</div>
+              <div className="left_text">문의 : 이메일 적기</div>
+            </div>
+            <div className="logo_footer">신선고</div>
+            <div className="text_footer">©2021 Created by Dynamic-LAB</div>
+          </div>
+
+          <div className="right_footer">
+            <div className="right_text">신선고 어플 다운</div>
+            {/*<div className="android_icon"><MdAndroid/></div>*/}
+          </div>
+        </footer>
       </div>
     </div>
   );
