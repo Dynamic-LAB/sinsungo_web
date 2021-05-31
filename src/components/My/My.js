@@ -43,7 +43,6 @@ const MenuItemBlock = styled.div`
     color: #3C82D9;
     text-shadow: none;
   }
-  
 `;
 const Spacer = styled.div`
   flex-grow: 1;
@@ -152,6 +151,7 @@ const My = () => {
             <MenuItemBlock onClick={onCheck}>
               회원탈퇴
             </MenuItemBlock>
+
             {/*탈퇴확인*/}
             <AskModal
               visible={modal}
@@ -164,6 +164,21 @@ const My = () => {
           </div>
         </div>
       </div>
+      {/*<footer className="my_footer">*/}
+      {/*  <div className="my_left_footer">*/}
+      {/*    <div className="my_left_top">*/}
+      {/*      <div className="my_left_text_line">공지사항</div>*/}
+      {/*      <div className="my_left_text">문의 : 이메일 적기</div>*/}
+      {/*    </div>*/}
+      {/*    <div className="my_logo_footer">신선고</div>*/}
+      {/*    <div className="my_text_footer">©2021 Created by Dynamic-LAB</div>*/}
+      {/*  </div>*/}
+
+      {/*  <div className="my_right_footer">*/}
+      {/*    <div className="my_right_text">신선고 어플 다운</div>*/}
+      {/*    /!*<div className="android_icon"><MdAndroid/></div>*!/*/}
+      {/*  </div>*/}
+      {/*</footer>*/}
     </div>
   );
 }

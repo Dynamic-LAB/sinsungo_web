@@ -69,6 +69,18 @@
     outline: none;
     cursor: pointer;
 }
+.icon_diet_empty {
+    width: 100px;
+    height: 100px;
+    background: no-repeat url("../../assets/diet_empty.svg");
+    background-size: 100px 100px;
+}
+.icon_basket_empty {
+    width: 100px;
+    height: 100px;
+    background: no-repeat url("../../assets/basket_empty.svg");
+    background-size: 100px 100px;
+}
 .down_img {
     display: flex;
     font-size: 40px;
@@ -82,4 +94,9 @@
 
 .image__container {
     overflow: auto;
+}
+.footer {
+    font-size: 12px;
+    text-align: center;
+    margin: 30px 0;
 }
