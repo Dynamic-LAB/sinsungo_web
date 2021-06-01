@@ -57,7 +57,7 @@ const Right = () => {
               <div className="icon-member"><MdSupervisorAccount/></div>
               <h2>냉장고멤버</h2>
               <Spacer/>
-              <MemberAddButton/>
+              {/*<MemberAddButton/>*/}
             </div>
             <div className="r_card_inner">
               <Member type='right'/>

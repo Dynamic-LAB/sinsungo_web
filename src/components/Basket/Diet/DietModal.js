@@ -414,11 +414,6 @@ const DietModal = ({
 
     axios.post('/diet/',
       {
-        id: JSON.parse(sessionStorage.getItem('User')).newRefId,
-        memo: values.diet_modal_memo,
-        date: values.diet_modal_date,
-        menus: values.menu_modal_tag,
-        ingredients: ingredients
           id:JSON.parse(sessionStorage.getItem('User')).newRefId,
           memo:values.diet_modal_memo,
           date:values.diet_modal_date,

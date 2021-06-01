@@ -126,9 +126,9 @@ const FridgeAddModal = ({
           </CloseButton>
         </ModalTitle>
         <div className="modal_contents">
-          <ButtonBlock>
-            <StyledButton>사진 업로드</StyledButton>
-          </ButtonBlock>
+          {/*<ButtonBlock>*/}
+          {/*  <StyledButton>사진 업로드</StyledButton>*/}
+          {/*</ButtonBlock>*/}
 
           <ButtonBlock>
             <StyledButton onClick={onAddClick}>직접 추가</StyledButton>

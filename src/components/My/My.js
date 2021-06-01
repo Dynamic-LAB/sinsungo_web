@@ -119,7 +119,7 @@ const My = () => {
           <div className="my__member">
             <WhiteBoxMy>
               <MyTitle>
-                <h2>신선고 멤버 추가하기</h2>
+                <h2>신선고 멤버</h2>
                 <Spacer/>
                 <MemberAddButton/>
               </MyTitle>

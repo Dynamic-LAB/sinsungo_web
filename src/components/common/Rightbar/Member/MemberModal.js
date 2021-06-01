@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Button from "../../Button";
 
 import WhiteBox from "../../WhiteBox";
+import {MdClose} from "react-icons/md";
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -17,64 +18,105 @@ const Fullscreen = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 const ModalBlock = styled.div`
   background: #F6F6F6;
   height: auto;
   width: 350px;
   padding: 1rem;
   border-radius: 10px;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
+`;
+const ModalTitle = styled.div`
+  display: flex;
+  margin-bottom: 10px;
 
   h2 {
     font-size: 1.5rem;
     margin-top: 0;
-    margin-bottom: 1rem;
   }
-
-  .modal_buttons {
-    display: flex;
-    justify-content: flex-end;
-  }
-
 `;
-
 const StyledWhiteBox = styled(WhiteBox)`
-  height: 250px;
+  height: auto;
   width: auto;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  padding: 0 15px ;
-`;
-
-const StyledButton = styled(Button)`
-  height: 2rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  padding: 0.25rem 1.25rem;
-
-  & + & {
-    margin-left: 0.5rem;
+  padding: 15px;
+  h3 {
+    font-size: 1rem;
+    margin: 20px 5px;
   }
+  .copy {
+    display: flex;
+    justify-content: flex-end;
+  }
+`;
+const StyledInput = styled.input`
+  height: 30px;
+  outline: none;
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 1px solid black;
+  font-family: 'Noto Sans KR', sans-serif;
+  &:hover {
+    border-bottom: 1px solid #3C82D9;
+  }
+`;
+const CopyButton = styled.button`
+  text-align: center;
+  width: 70px;
+  outline: none;
+  background: none;
+  border: 2px solid #3C82D9;
+  color: #3C82D9;
+  border-radius: 10px;
+  font-size: 13px;
+  padding: 0.25rem 1.25rem;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: .2s;
+  &:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
+    background: #3C82D9;
+    color: #ffffff;
+  }
+`;
+const Spacer = styled.div`
+  flex-grow: 1;
+`;
+const CloseButton = styled.button`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
 `;
 
 const MemberModal  = ({ visible,
-                        confirmText = '확인',
-                        cancelText = '취소',
-                        onConfirm,
                         onCancel,}) => {
   if (!visible) return null;
     return(
       <Fullscreen>
         <ModalBlock>
-          <h2>냉장고멤버 추가</h2>
-          <StyledWhiteBox/>
-          <div className="modal_buttons">
-            <StyledButton inverted={true}
-                          onClick={onCancel}>{cancelText}</StyledButton>
-            <StyledButton blueBtn
-                          onClick={onConfirm}>{confirmText}</StyledButton>
-          </div>
+          <ModalTitle>
+            <h2>냉장고멤버</h2>
+            <Spacer/>
+            <CloseButton onClick={onCancel}>
+              <MdClose/>
+            </CloseButton>
+          </ModalTitle>
+
+          <StyledWhiteBox>
+            <h3>링크</h3>
+            <StyledInput
+              readOnly
+            />
+            <div className="copy">
+              <CopyButton>복사</CopyButton>
+            </div>
+          </StyledWhiteBox>
         </ModalBlock>
       </Fullscreen>
 
