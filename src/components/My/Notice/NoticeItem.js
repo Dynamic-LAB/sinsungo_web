@@ -27,6 +27,10 @@ const NoticeBlock = styled.div`
   display: block;
   margin: 5px 20px;
 `;
+const NoticeRightBlock = styled.div`
+  display: block;
+  padding: 5px;
+`;
 const ItemBlock = styled.div`
   display: flex;
   color: #393939;
@@ -41,8 +45,16 @@ const ItemBlock = styled.div`
     }
   }
 `;
-const TextBlock = styled.div`
+const ItemRightBlock = styled.div`
   display: flex;
+  color: #393939;
+  font-size: 11px;
+  padding: 5px 0;
+  align-items: center;
+  justify-content: space-between;
+`;
+const TextBlock = styled.div`
+  
   align-items: center;
   .day_red {
     color: #FF6767;
@@ -58,39 +70,35 @@ const NoticeItem = ({notice, onRemove, type}) => {
     return (
         <>
             {type === 'right' && (
-                <NoticeBlock>
+                <NoticeRightBlock>
                     { day && item ?
-                        <ItemBlock>
+                        <ItemRightBlock>
                             <TextBlock>
-                                <div className="icon_notice_red"/>
                                 유통기한이 &nbsp; <span className="day_red">{day}</span>일 남은 {item}가 있습니다!
                             </TextBlock>
-                        </ItemBlock> : null}
+                        </ItemRightBlock> : null}
                     {member && used === true ?
-                        <ItemBlock>
+                        <ItemRightBlock>
                             <TextBlock>
-                                <div className="icon_notice_fridge"/>
                                 <span className="member_blue">{member}</span>님이 냉장고의 재료를 사용하였습니다.
                             </TextBlock>
-                        </ItemBlock> : null
+                        </ItemRightBlock> : null
                     }
                     {member && update === true ?
-                        <ItemBlock>
+                        <ItemRightBlock>
                             <TextBlock>
-                                <div className="icon_notice_diet_update"/>
                                 <span className="member_blue">{member}</span>님이 식단을 업데이트 했습니다!
                             </TextBlock>
-                        </ItemBlock> : null
+                        </ItemRightBlock> : null
                     }
                     {write === false ?
-                        <ItemBlock>
+                        <ItemRightBlock>
                             <TextBlock>
-                                <div className="icon_notice_diet_write"/>
                                 식단을 작성해주세요!
                             </TextBlock>
-                        </ItemBlock> : null
+                        </ItemRightBlock> : null
                     }
-                </NoticeBlock>
+                </NoticeRightBlock>
             )}
             {type === 'my' && (
                 <NoticeBlock>

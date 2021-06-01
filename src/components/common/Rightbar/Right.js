@@ -1,13 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {MdNotificationsNone, MdSupervisorAccount} from "react-icons/md";
 import styled from 'styled-components';
 import './Right.css';
 import WhiteBox from "../WhiteBox";
 import Member from "./Member/Member";
 import MemberAddButton from "./Member/MemberAddButton";
+import NoticeList from "../../My/Notice/NoticeList";
 
 const WhiteBoxNotice = styled(WhiteBox)`
-  height: 200px;
+  height: 300px;
 `;
 
 const WhiteBoxMember = styled(WhiteBox)`
@@ -18,23 +19,46 @@ const NoticeBlock = styled.div`
   display: block;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 15px;
-`;
-
-const ItemBlock = styled.div`
-  display: block;
-  color: #393939;
-  font-size: 12px;
-  padding: 5px 0 5px 0;
-  border-bottom: 1px solid #bbbbbb;
+  padding: 5px 5px;
+  margin: 5px 0;
+  overflow-y: auto;
 `;
 
 const Spacer = styled.div`
   flex-grow: 1;
 `;
 
-
 const Right = () => {
+  const [notices, setNotice] = useState([
+
+    {
+      id : 1,
+      day: '1',
+      item: '감자',
+    },
+    {
+      id : 2,
+      day: '1',
+      member: '송윤경',
+      used: true,
+      update: false,
+      write: true,
+    },
+    {
+      id : 3,
+      day: '2',
+      item: '고구마',
+    },
+    {
+      id : 4,
+      day: '1',
+      member: '서현지',
+      used: false,
+      update: true,
+      write: true,
+    },
+
+  ])
   return (
     <div className="right">
       <div className="right__container">
@@ -46,8 +70,7 @@ const Right = () => {
               <h2>알림</h2>
             </div>
             <NoticeBlock>
-              <ItemBlock>알림1</ItemBlock>
-              <ItemBlock>알림2</ItemBlock>
+              <NoticeList notices={notices} type="right"/>
             </NoticeBlock>
           </WhiteBoxNotice>
 
@@ -57,7 +80,7 @@ const Right = () => {
               <div className="icon-member"><MdSupervisorAccount/></div>
               <h2>냉장고멤버</h2>
               <Spacer/>
-              <MemberAddButton/>
+              {/*<MemberAddButton/>*/}
             </div>
             <div className="r_card_inner">
               <Member type='right'/>

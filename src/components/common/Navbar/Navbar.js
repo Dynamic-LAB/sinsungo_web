@@ -3,11 +3,12 @@ import './Navbar.css';
 import styled from 'styled-components';
 import {Link} from "react-router-dom";
 import React from "react";
+import Button from "../Button";
 
-// const LogOutButton = styled(Button)`
-//   padding: 10px 12px 10px 12px;
-//   margin-left: 20px;
-// `;
+const LogOutButton = styled(Button)`
+  padding: 10px 12px 10px 12px;
+  margin-left: 20px;
+`;
 
 const User = styled.div`
   align-items: center;
@@ -48,7 +49,7 @@ const Navbar = ({sidebarOpen, openSidebar, user}) => {
                     <i className="fa fa-user-circle-o"/>
                   </Link>
                 </Profile>
-                {/*<LogOutButton to="/" logout>로그아웃</LogOutButton>*/}
+                <LogOutButton to="/" logout>로그아웃</LogOutButton>
             </div>
         </nav>
     );
