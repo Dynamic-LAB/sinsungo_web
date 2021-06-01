@@ -12,6 +12,7 @@ import GetDietByRefrigratorId from "../ForServer/GetDietByRefrigratorId"
 import {useShoppingDispatch} from "./ListContext";
 import {useDietDispatch} from "./Diet/DietContext";
 import DietList from "./Diet/DietList";
+import Footer from "../common/Footer";
 const WhiteBoxBasket = styled(WhiteBox)`
   height: 765px;
 `;
@@ -148,20 +149,8 @@ useEffect(()=>{
             )}
           </ScreenCapture>
         </div>
-        <footer className="footer">
-          <div className="left_footer">
-            <div className="left_top">
-              <div className="left_text_line">공지사항</div>
-              <div className="left_text">문의 : 이메일 적기</div>
-            </div>
-            <div className="logo_footer">신선고</div>
-            <div className="text_footer">©2021 Created by Dynamic-LAB</div>
-          </div>
-
-          <div className="right_footer">
-            <div className="right_text">신선고 어플 다운</div>
-            {/*<div className="android_icon"><MdAndroid/></div>*/}
-          </div>
+        <footer>
+          <Footer/>
         </footer>
       </div>
     </div>

@@ -8,6 +8,7 @@ import GetIngredientByRefrigratorId from "../ForServer/GetIngredientByRefrigrato
 import { MdAndroid } from "react-icons/md";
 import axios from 'axios';
 import {Context} from '../../Ingredient'
+import Footer from "../common/Footer";
 //import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 //유통기한 임박 재료 박스
@@ -263,20 +264,8 @@ const Fridge = (props) => {
             </IngredientBlock>
           </WhiteBoxFridge>
         </div>
-        <footer className="footer">
-          <div className="left_footer">
-            <div className="left_top">
-              <div className="left_text_line">공지사항</div>
-              <div className="left_text">문의 : 이메일 적기</div>
-            </div>
-            <div className="logo_footer">신선고</div>
-            <div className="text_footer">©2021 Created by Dynamic-LAB</div>
-          </div>
-
-          <div className="right_footer">
-            <div className="right_text">신선고 어플 다운</div>
-            {/*<div className="android_icon"><MdAndroid/></div>*/}
-          </div>
+        <footer>
+          <Footer/>
         </footer>
       </div>
     </div>

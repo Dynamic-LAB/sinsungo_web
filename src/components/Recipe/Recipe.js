@@ -5,6 +5,7 @@ import {MdSearch} from 'react-icons/md';
 import RecipeCard from "./RecipeCard";
 import React, {useState, useEffect, useRef} from 'react';
 import axios from "../../../node_modules/axios/index";
+import Footer from "../common/Footer";
 
 const WhiteBoxTop = styled(WhiteBox)`
   height: auto;
@@ -147,20 +148,8 @@ const Recipe = () => {
             </div>
           </RecipeBlock>
         </WhiteBoxRecipe>
-        <footer className="footer">
-          <div className="left_footer">
-            <div className="left_top">
-              <div className="left_text_line">공지사항</div>
-              <div className="left_text">문의 : 이메일 적기</div>
-            </div>
-            <div className="logo_footer">신선고</div>
-            <div className="text_footer">©2021 Created by Dynamic-LAB</div>
-          </div>
-
-          <div className="right_footer">
-            <div className="right_text">신선고 어플 다운</div>
-            {/*<div className="android_icon"><MdAndroid/></div>*/}
-          </div>
+        <footer>
+          <Footer/>
         </footer>
       </div>
     </main>

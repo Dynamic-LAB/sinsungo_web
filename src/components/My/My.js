@@ -9,6 +9,7 @@ import MemberAddButton from "../common/Rightbar/Member/MemberAddButton";
 import AskModal from "./AskModal";
 import NoticeItem from "./Notice/NoticeItem";
 import NoticeList from "./Notice/NoticeList";
+import Footer from "../common/Footer";
 
 const WhiteBoxMy = styled(WhiteBox)`
   height: 250px;
@@ -164,21 +165,9 @@ const My = () => {
           </div>
         </div>
       </div>
-      {/*<footer className="my_footer">*/}
-      {/*  <div className="my_left_footer">*/}
-      {/*    <div className="my_left_top">*/}
-      {/*      <div className="my_left_text_line">공지사항</div>*/}
-      {/*      <div className="my_left_text">문의 : 이메일 적기</div>*/}
-      {/*    </div>*/}
-      {/*    <div className="my_logo_footer">신선고</div>*/}
-      {/*    <div className="my_text_footer">©2021 Created by Dynamic-LAB</div>*/}
-      {/*  </div>*/}
-
-      {/*  <div className="my_right_footer">*/}
-      {/*    <div className="my_right_text">신선고 어플 다운</div>*/}
-      {/*    /!*<div className="android_icon"><MdAndroid/></div>*!/*/}
-      {/*  </div>*/}
-      {/*</footer>*/}
+      <footer className="my_footer">
+        <Footer/>
+      </footer>
     </div>
   );
 }
