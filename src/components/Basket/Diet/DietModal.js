@@ -265,6 +265,7 @@ const DietModal = ({
                      onConfirm,
                      onCancel,
                      type,
+                     recipeName
                    }) => {
   const defaultValues = {
     diet_modal_date: type === 'edit' ? new Date(diet.date.replaceAll("-", "/")) : "",
@@ -286,6 +287,17 @@ const DietModal = ({
   // const nextId = useDietNextId();
   const {state, dispatch} = useContext(Context);
   useEffect(() => {
+    if(recipeName){
+    diet&&diet.menus.some((element,index) => {
+      if(element===null){
+        diet.menus[index]=recipeName;
+        return true
+      }
+    });
+    var data=[...tags,recipeName];
+    setTags(data);
+    setValue("menu_modal_tag", data);
+    }
     diet && diet.ingredients.map(item => {
       isChecked.current.push(item.id)
     });
@@ -301,6 +313,7 @@ const DietModal = ({
       )
     }
   }, [])
+
   //냉장고 재료 부분 check 액션
   const onToggle = (id, type = false) => {
     let isOn = false;
@@ -360,7 +373,6 @@ const DietModal = ({
   const onSubmit = (values) => {
     SetSearchWord("");
     var ingredients=[];
-    console.log(isChecked.current.length);
     if(isChecked.current.length>0)
     state.IngredientList.map((item)=>{if(isChecked.current.includes(item.id))ingredients.push(item)})
 
@@ -414,11 +426,6 @@ const DietModal = ({
 
     axios.post('/diet/',
       {
-        id: JSON.parse(sessionStorage.getItem('User')).newRefId,
-        memo: values.diet_modal_memo,
-        date: values.diet_modal_date,
-        menus: values.menu_modal_tag,
-        ingredients: ingredients
           id:JSON.parse(sessionStorage.getItem('User')).newRefId,
           memo:values.diet_modal_memo,
           date:values.diet_modal_date,
@@ -446,7 +453,6 @@ const DietModal = ({
 
   if (!visible) return null;
   const text = textMap[type];
-
   return (
     <Fullscreen>
       <ModalBlock>

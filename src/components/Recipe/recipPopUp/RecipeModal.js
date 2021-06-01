@@ -234,6 +234,7 @@ const RecipeModal = ({
         visible={open}
         onCloseClick={onCloseClick}
         onClose={onCancel}
+        name={name}
       />
     </>
   );

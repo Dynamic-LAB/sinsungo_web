@@ -7,7 +7,7 @@ const IngredientBlock = styled.div`
   overflow-y: auto; //스크롤
   text-align: center;
 `;
-
+let data=[];
 const FridgeList = ({onRemove, type}) => {
   const {
     state,
@@ -20,17 +20,21 @@ const FridgeList = ({onRemove, type}) => {
       {
         state.IngredientList.map(item => {
           if (item.category === type) {
+            if(!data.includes(type))
+            data.push(type)
             return (
+              <>
               <FridgeItem
                 ingredient={item}
                 key={item.id}
                 onRemove={onRemove}
               />
+              </>
             )
           }
         })
       }
-      {/*<div className="icon_fridge_empty"/>*/}
+      {data.includes(type)?null:<div className="icon_fridge_empty"/>}
     </IngredientBlock>
   );
 }

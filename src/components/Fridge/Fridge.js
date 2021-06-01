@@ -86,6 +86,7 @@ const Fridge = (props) => {
     state,
     dispatch,
   } = useContext(Context);
+
   useEffect(() => {
     if (JSON.parse(sessionStorage.getItem('User'))) {
       GetIngredientByRefrigratorId(
@@ -95,6 +96,7 @@ const Fridge = (props) => {
         }
       )
     };
+    console.log("hihi")
   }, [])
   const DeleteIngredientById = (id) => {
     axios.delete("/refrigerator/ingredient/" + id, {
@@ -136,7 +138,6 @@ const Fridge = (props) => {
         }
       })
     }
-    
     return cnt === 0 ? "-" : cnt;
   }
   return (
