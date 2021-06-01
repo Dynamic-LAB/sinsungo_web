@@ -21,14 +21,14 @@ const BasketList = ({type}) => {
           dispatch:dispatch
       }
     )
-    console.log(state);
+    console.log("재료목록:",state);
   };
   },[])
 
   const lists = useShoppingState();
   return(
     <>
-      {type === 'list' &&(
+      {lists.length>0?(type === 'list' &&(
         <ShoppingBlock>
           {lists.map((list,index) =>{
             if(list.name.length>0)
@@ -45,7 +45,7 @@ const BasketList = ({type}) => {
         })}
 
         </ShoppingBlock>
-      )}
+      )):<div>Empty</div>}
 
     </>
   )

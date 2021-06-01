@@ -50,8 +50,9 @@ const Check = styled.div`
   justify-content: center;
   font-size: 1.2rem;
   cursor: pointer;
-  color: #9e9e9e;
+  color: #3C82D9;
 `;
+
 const DietIngredientItem = ({ingredient, onToggle}) => {
   const {id, name, amount, unit, expiration_date,category, expiration_type, today} = ingredient;
   const [checked,SetChecked]=useState(onToggle(id));

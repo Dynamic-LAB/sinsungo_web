@@ -62,9 +62,10 @@ const DateBlock = styled.div`
   height: 200px;
 `;
 
-const RecipeDietListModal = ({visible, onListClose, totalClose}) => {
+const RecipeDietListModal = ({visible, onListClose, totalClose,recipeName}) => {
   const dispatchDiet=useDietDispatch();
 useEffect(()=>{
+
   if(JSON.parse(sessionStorage.getItem('User'))){
   GetDietByRefrigratorId(
       {
@@ -97,7 +98,7 @@ useEffect(()=>{
         </ModalTitle>
         <DateBlock>
           <div>{dietState?dietState.map((item,index)=>{
-            return <RecipeDietDateItem diet={item} key={item.id} finalClose={finalClose}/>}):"No data"} </div>
+            return <RecipeDietDateItem recipeName={recipeName} diet={item} key={item.id} finalClose={finalClose}/>}):"No data"} </div>
           
           {/*dates.map(date => (
             <RecipeDietDateItem diet={useD} date={date} key={date.id} finalClose={finalClose}/>
