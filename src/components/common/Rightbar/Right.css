@@ -40,7 +40,7 @@
 .notice_card_title {
     display: flex;
     align-items: center;
-    padding: 8px 15px 0px 15px;
+    padding: 8px 10px 5px 10px;
     font-size: 10px;
 }
 .member_card_title {
