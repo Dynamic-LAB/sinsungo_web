@@ -1,8 +1,5 @@
 import React from 'react';
-
 import styled from "styled-components";
-import Button from "../../Button";
-
 import WhiteBox from "../../WhiteBox";
 import {MdClose} from "react-icons/md";
 
