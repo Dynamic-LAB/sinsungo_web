@@ -1,8 +1,8 @@
-import React from "react";
+import React,{useContext} from "react";
 import {BsPeopleCircle} from "react-icons/bs";
 import styled from "styled-components";
 import "./Member.css";
-
+import {Context} from "../../../../MemberList"
 //right-bar 사용
 const MemberBlock = styled.div`
   padding: 10px;
@@ -38,8 +38,8 @@ const MyProfileBlock = styled.div`
   padding: 0 5px 0 5px;
   font-size: 3rem;
 `;
-
-const Member = ({type}) => {
+const Member = ({members,type}) => {
+  const {state,dispatch}=useContext(Context);
   return (
     <>
       {type === 'right' && (
@@ -63,20 +63,24 @@ const Member = ({type}) => {
 
       {type === 'my' && (
         <>
-          <MyMemberBlock>
-            <MemberState>
-              <MyProfileBlock><BsPeopleCircle/></MyProfileBlock>
-              <div className="icon_my_master"/>
-            </MemberState>
-            <div className="member_name">서현지</div>
-          </MyMemberBlock>
-          <MyMemberBlock>
-            <MemberState>
-              <MyProfileBlock><BsPeopleCircle/></MyProfileBlock>
-              <div className="icon_my_remove"/>
-            </MemberState>
-            <div className="member_name">송윤경</div>
-          </MyMemberBlock>
+          {
+            members&&members.members.length>0?
+            members.members.map((item,_i)=>{
+              return(
+              <MyMemberBlock>
+              <MemberState>
+                <MyProfileBlock><BsPeopleCircle/></MyProfileBlock>
+                {
+                  _i<1?<div className="icon_my_master"/>:<div className="icon_my_remove"/>
+                }
+                </MemberState>
+              <div className="member_name">{item.name}</div>
+            </MyMemberBlock>
+              );
+            })
+            :null
+          }
+
         </>
       )}
 
