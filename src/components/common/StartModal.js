@@ -81,8 +81,18 @@ const StyledButton = styled.button`
     font-size: 8px;
   }
 `;
-const StartModal = ({visible,}) => {
+const StartModal = ({visible,setRefModal}) => {
   const [modal, setModal] = useState(false);
+  const onCodeInput = () => {
+    setModal(true);
+  };
+  const onCancel = () => {
+    setModal(false);
+  };
+  const onConfirm = () => {
+    setModal(false);
+    //이 팝업도 같이 닫히도록 코드 넣어야함
+  }
   const MakeRef=()=>{
     //API 요청해서 해당 아이디 냉장고 생성
     //API: /refrigerator/
