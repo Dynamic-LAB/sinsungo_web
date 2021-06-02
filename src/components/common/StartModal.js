@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
+import CodeModal from "./CodeModal";
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -36,7 +37,7 @@ const ModalTitle = styled.div`
   margin-bottom: 10px;
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-top: 0;
   }
 
@@ -81,7 +82,17 @@ const StyledButton = styled.button`
   }
 `;
 const StartModal = ({visible,}) => {
-
+  const [modal, setModal] = useState(false);
+  const onCodeInput = () => {
+    setModal(true);
+  };
+  const onCancel = () => {
+    setModal(false);
+  };
+  const onConfirm = () => {
+    setModal(false);
+    //이 팝업도 같이 닫히도록 코드 넣어야함
+  }
   if (!visible) return null;
   return (
     <Fullscreen>
@@ -90,10 +101,14 @@ const StartModal = ({visible,}) => {
           <h2>신선고 시작하기</h2>
         </ModalTitle>
         <div className="button_block">
-          <StyledButton>초대코드 입력하기</StyledButton>
+          <StyledButton onClick={onCodeInput}>초대코드 입력하기</StyledButton>
           <StyledButton>시작하기</StyledButton>
         </div>
-
+        <CodeModal
+          visible={modal}
+          onConfirm={onConfirm}
+          onCancel={onCancel}
+        />
       </ModalBlock>
     </Fullscreen>
   );
