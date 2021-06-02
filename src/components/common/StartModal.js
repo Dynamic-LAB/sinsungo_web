@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-
+import axios from 'axios';
 const Fullscreen = styled.div`
   position: fixed;
   z-index: 30;
@@ -80,8 +80,39 @@ const StyledButton = styled.button`
     font-size: 8px;
   }
 `;
-const StartModal = ({visible,}) => {
 
+const StartModal = ({visible,setRefModal}) => {
+  const MakeRef=()=>{
+    //API 요청해서 해당 아이디 냉장고 생성
+    //API: /refrigerator/
+    axios.post("/refrigerator/",
+    {
+      refrigerator:{master:JSON.parse(window.sessionStorage.getItem('User')).newId},
+      login_type:JSON.parse(window.sessionStorage.getItem('User')).data.login_type,
+    }).then((res)=>{
+      if(JSON.parse(window.sessionStorage.getItem('User'))){
+        axios.post('user/auth/login',
+        {
+            id:JSON.parse(window.sessionStorage.getItem('User')).newId,
+            name:JSON.parse(window.sessionStorage.getItem('User')).data.name,
+            login_type:JSON.parse(window.sessionStorage.getItem('User')).data.login_type
+        }
+        ).then((res)=>{
+            //유저 정보 다시 받아와서 세션값에 저장하기
+          window.sessionStorage.setItem('User', JSON.stringify({
+            newId: res.data.id,
+            newRefId: res.data.refrigerator_id,
+            data: res.data
+        }));
+        //모달 종료 시점
+          setRefModal(false);
+        })
+        .catch((res)=>{
+          console.log("erorr Msg:",res)
+        });
+      }
+    })
+  }
   if (!visible) return null;
   return (
     <Fullscreen>
@@ -91,7 +122,7 @@ const StartModal = ({visible,}) => {
         </ModalTitle>
         <div className="button_block">
           <StyledButton>초대코드 입력하기</StyledButton>
-          <StyledButton>시작하기</StyledButton>
+          <StyledButton onClick={MakeRef}>시작하기</StyledButton>
         </div>
 
       </ModalBlock>
