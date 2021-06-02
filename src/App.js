@@ -8,6 +8,7 @@ import MyPage from "./pages/MyPage";
 import Main from "./pages/Main";
 import {Provider} from "./Ingredient";
 import Test from "./Hello";
+import StartModal from "./components/common/StartModal"
 const App = () => {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -30,18 +31,18 @@ const App = () => {
     //sessionStorage.removeItem('Test');
 
   /*********************************/
-
   });
-  
+  const [refModal,setRefModal]=useState(false);
   return(
       <> 
+        <StartModal visible={refModal} />
         <Provider>
         <Route component={LoginPage} path="/" exact/>
-        <Route component={FridgePage} path="/fridge"/>
+        <Route render={() => <FridgePage setRefModal={setRefModal} />} path="/fridge"/>
         <Route component={Main} path="/Main"/>
-        <Route component={ShoppingBasketPage} path="/basket"/>
-        <Route component={RecipePage} path="/recipe"/>
-        <Route component={MyPage} path="/my" />
+        <Route render={() => <ShoppingBasketPage setRefModal={setRefModal} />} path="/basket"/>
+        <Route render={() => <RecipePage setRefModal={setRefModal} />} path="/recipe"/>
+        <Route render={() => <MyPage setRefModal={setRefModal} />} path="/my" />
         </Provider> 
       </>
 

@@ -9,6 +9,7 @@ import { MdAndroid } from "react-icons/md";
 import axios from 'axios';
 import {Context} from '../../Ingredient'
 import Footer from "../common/Footer";
+import StartModal from "../common/StartModal";
 //import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 //유통기한 임박 재료 박스
@@ -97,7 +98,6 @@ const Fridge = (props) => {
         }
       )
     };
-    console.log("hihi")
   }, [])
   const DeleteIngredientById = (id) => {
     axios.delete("/refrigerator/ingredient/" + id, {
@@ -146,6 +146,7 @@ const Fridge = (props) => {
       <div className="fridge__container">
         <div className="shelf_life">
           <WhiteBoxTop>
+            
             <div className="shelf_life__title">
               <h2>유통기한 임박 재료</h2>
               <div className="count">

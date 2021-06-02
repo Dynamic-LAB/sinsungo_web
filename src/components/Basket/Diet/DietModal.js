@@ -312,6 +312,7 @@ const DietModal = ({
         }
       )
     }
+
   }, [])
 
   //냉장고 재료 부분 check 액션
@@ -360,7 +361,7 @@ const DietModal = ({
         alert('중복된 단어입니다!');
         return;
       }
-      if (tags.length === 9) {
+      if (tags.length > 8) {
         setInput(false);
       } //10개가 되면 추가하지 않음
       setTags([...tags, val]);
@@ -407,6 +408,7 @@ const DietModal = ({
   }]
   ).then((res)=>{
     //DB response
+    setInput(true);
     onConfirm();
     setTags(values.menu_modal_tag.filter((item)=>{
       if(item!=null)return item
@@ -434,6 +436,7 @@ const DietModal = ({
       }
     ).then((res) => {
       //DB response
+      setInput(true);
       onConfirm();
       tags.length = 0;
       reset(EditValues(values));
@@ -444,6 +447,7 @@ const DietModal = ({
   }
   //취소버튼 액션
   const onNotSubmit = () => {
+    setInput(true);
     SetSearchWord("");
     onCancel();
     if (type !== 'edit')
@@ -558,11 +562,11 @@ const DietModal = ({
                       </li>
                     ))}
                     {input ? <li className="input-tag__tags__input">
-                      <TagInputEnter
+                      {tags.length<10?<TagInputEnter
                         type="text"
                         onKeyDown={inputKeyDown}
                         placeholder="# 메뉴이름"
-                        ref={c => {tagInput = c;}}/>
+                        ref={c => {tagInput = c;}}/>:null}
                     </li> : null}
 
                 </TagUl>

@@ -1,10 +1,11 @@
-import React, {useState,useContext} from 'react';
+import React, {useState,useContext, useEffect} from 'react';
 import Navbar from "../components/common/Navbar/Navbar";
 import Sidebar from "../components/common/Sidebar/Sidebar";
 import Fridge from "../components/Fridge/Fridge";
 import Right from "../components/common/Rightbar/Right";
 import {useLocation} from "react-router";
 import axios from 'axios';
+import startModal from "../components/common/StartModal";
 const FridgePage = (props) => {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -22,7 +23,33 @@ const FridgePage = (props) => {
       closeSidebar();
     }
   })
+  useEffect(()=>{
 
+    if(JSON.parse(window.sessionStorage.getItem('User'))){
+      axios.post('user/auth/login',
+      {
+          id:JSON.parse(window.sessionStorage.getItem('User')).newId,
+          name:JSON.parse(window.sessionStorage.getItem('User')).data.name,
+          login_type:JSON.parse(window.sessionStorage.getItem('User')).data.login_type
+      }
+      ).then((res)=>{
+        window.sessionStorage.setItem('User', JSON.stringify({
+          newId: res.data.id,
+          newRefId: res.data.refrigerator_id,
+          data: res.data
+      }));
+      if(JSON.parse(window.sessionStorage.getItem('User')).newRefId===null)
+      props.setRefModal(true);
+      else
+      props.setRefModal(false);
+      })
+      .catch((res)=>{
+        console.log("erorr Msg:",res)
+      });
+    }
+   
+  },[])
+  
   return (
     <>
       {JSON.parse(window.sessionStorage.getItem('User')) == null && sessionStorage.getItem('Test') == null ?
