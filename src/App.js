@@ -7,6 +7,7 @@ import RecipePage from "./pages/RecipePage";
 import MyPage from "./pages/MyPage";
 import Main from "./pages/Main";
 import {Provider} from "./Ingredient";
+import {MemberProvider} from "./MemberList";
 import Test from "./Hello";
 import StartModal from "./components/common/StartModal"
 const App = () => {
@@ -35,14 +36,16 @@ const App = () => {
   const [refModal,setRefModal]=useState(false);
   return(
       <> 
-        <StartModal visible={refModal} />
+        <StartModal visible={refModal} setRefModal={setRefModal} />
         <Provider>
+        <MemberProvider>
         <Route component={LoginPage} path="/" exact/>
         <Route render={() => <FridgePage setRefModal={setRefModal} />} path="/fridge"/>
         <Route component={Main} path="/Main"/>
         <Route render={() => <ShoppingBasketPage setRefModal={setRefModal} />} path="/basket"/>
         <Route render={() => <RecipePage setRefModal={setRefModal} />} path="/recipe"/>
         <Route render={() => <MyPage setRefModal={setRefModal} />} path="/my" />
+        </MemberProvider>
         </Provider> 
       </>
 

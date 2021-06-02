@@ -46,6 +46,17 @@ const BasketAddButton = ({type}) => {
         )}
         setModal(false);
       }
+
+      const SetBasket = () => {
+        if (JSON.parse(sessionStorage.getItem('User'))) {
+          GetBasketByRefrigratorId(
+            {
+              id: JSON.parse(sessionStorage.getItem('User')).newRefId,
+              dispatch: dispatch
+            }
+          )
+        }
+      }
   const onConfirmDiet = () => {
           if(JSON.parse(sessionStorage.getItem('User'))){
             GetDietByRefrigratorId(
@@ -77,6 +88,7 @@ const BasketAddButton = ({type}) => {
           visible={modal}
           onConfirm={onConfirmBasket}
           onCancel={onCancel}
+          SetBasket={SetBasket}
           type="add"
         />
       )}

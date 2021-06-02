@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import "./My.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
@@ -10,7 +10,7 @@ import AskModal from "./AskModal";
 import NoticeItem from "./Notice/NoticeItem";
 import NoticeList from "./Notice/NoticeList";
 import Footer from "../common/Footer";
-
+import GetMemberByRefrigratorId from "../ForServer/GetMemberByRefrigratorId"
 const WhiteBoxMy = styled(WhiteBox)`
   height: 250px;
   .member_profile {
@@ -100,7 +100,10 @@ const My = () => {
       },
       [notices],
   );
-
+  const [members,SetMembers]=useState()
+  useEffect(()=>{
+    GetMemberByRefrigratorId({refId:JSON.parse(window.sessionStorage.getItem('User')).newRefId,SetMembers:SetMembers})
+  },[])
   return (
     <div id="my">
       <div className="my__container">
@@ -125,7 +128,7 @@ const My = () => {
                 <MemberAddButton/>
               </MyTitle>
               <div className="member_profile">
-                <Member type="my"/>
+                <Member members={members} type="my"/>
               </div>
 
             </WhiteBoxMy>

@@ -202,6 +202,7 @@ const ListModal = forwardRef(({
     ).then((res) => {
       //DB response
       SetBasket();
+      reset();
     })
       .catch((res) => {
         console.log("erorr Msg:", res)
