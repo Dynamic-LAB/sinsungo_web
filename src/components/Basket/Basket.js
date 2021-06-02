@@ -117,7 +117,7 @@ useEffect(()=>{
                 <div className="shopping_list">
                   <WhiteBoxBasket>
                     <BasketTitle>
-                      <h2>장보기 목록</h2>
+                      <h2>장바구니</h2>
                       <BasketAddButton type="list"/>
                       <Spacer/>
                       <ShareButton onClick={onStartCapture}>
