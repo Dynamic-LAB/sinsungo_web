@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
+import CodeModal from "./CodeModal";
 import axios from 'axios';
 const Fullscreen = styled.div`
   position: fixed;
@@ -36,7 +37,7 @@ const ModalTitle = styled.div`
   margin-bottom: 10px;
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-top: 0;
   }
 
@@ -80,8 +81,8 @@ const StyledButton = styled.button`
     font-size: 8px;
   }
 `;
-
-const StartModal = ({visible,setRefModal}) => {
+const StartModal = ({visible,}) => {
+  const [modal, setModal] = useState(false);
   const MakeRef=()=>{
     //API 요청해서 해당 아이디 냉장고 생성
     //API: /refrigerator/
@@ -121,10 +122,14 @@ const StartModal = ({visible,setRefModal}) => {
           <h2>신선고 시작하기</h2>
         </ModalTitle>
         <div className="button_block">
-          <StyledButton>초대코드 입력하기</StyledButton>
+          <StyledButton onClick={onCodeInput}>초대코드 입력하기</StyledButton>
           <StyledButton onClick={MakeRef}>시작하기</StyledButton>
         </div>
-
+        <CodeModal
+          visible={modal}
+          onConfirm={onConfirm}
+          onCancel={onCancel}
+        />
       </ModalBlock>
     </Fullscreen>
   );
