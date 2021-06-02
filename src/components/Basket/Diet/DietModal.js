@@ -265,6 +265,7 @@ const DietModal = ({
                      onConfirm,
                      onCancel,
                      type,
+                     recipeName
                    }) => {
   const defaultValues = {
     diet_modal_date: type === 'edit' ? new Date(diet.date.replaceAll("-", "/")) : "",
@@ -286,6 +287,17 @@ const DietModal = ({
   // const nextId = useDietNextId();
   const {state, dispatch} = useContext(Context);
   useEffect(() => {
+    if(recipeName){
+    diet&&diet.menus.some((element,index) => {
+      if(element===null){
+        diet.menus[index]=recipeName;
+        return true
+      }
+    });
+    var data=[...tags,recipeName];
+    setTags(data);
+    setValue("menu_modal_tag", data);
+    }
     diet && diet.ingredients.map(item => {
       isChecked.current.push(item.id)
     });
@@ -300,7 +312,9 @@ const DietModal = ({
         }
       )
     }
+
   }, [])
+
   //냉장고 재료 부분 check 액션
   const onToggle = (id, type = false) => {
     let isOn = false;
@@ -347,7 +361,7 @@ const DietModal = ({
         alert('중복된 단어입니다!');
         return;
       }
-      if (tags.length === 9) {
+      if (tags.length > 8) {
         setInput(false);
       } //10개가 되면 추가하지 않음
       setTags([...tags, val]);
@@ -359,12 +373,9 @@ const DietModal = ({
   //확인버튼 액션
   const onSubmit = (values) => {
     SetSearchWord("");
-    var ingredients = [];
-    console.log(isChecked.current.length);
-    if (isChecked.current.length > 0)
-      state.IngredientList.map((item) => {
-        if (isChecked.current.includes(item.id)) ingredients.push(item)
-      })
+    var ingredients=[];
+    if(isChecked.current.length>0)
+    state.IngredientList.map((item)=>{if(isChecked.current.includes(item.id))ingredients.push(item)})
 
     if (type !== 'edit') {
       InsertDietByRefId(values, ingredients)
@@ -381,31 +392,32 @@ const DietModal = ({
       values.menu_modal_tag = values.menu_modal_tag.concat(null)
     }
     values.diet_modal_date = values.diet_modal_date.getFullYear() + '-' + (values.diet_modal_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.diet_modal_date.getDate().toString().padStart(2, '0');
-    axios.put('/diet/' + JSON.parse(window.sessionStorage.getItem('User')).newRefId,
-      [{
-        id: diet.id,
-        memo: diet.memo,
-        date: diet.date,
-        menus: diet.menus,
-        ingredients: diet.ingredients
-      }, {
-        id: diet.id,
-        memo: values.diet_modal_memo,
-        date: values.diet_modal_date,
-        menus: values.menu_modal_tag,
-        ingredients: ingredients
-      }]
-    ).then((res) => {
-      //DB response
-      onConfirm();
-      setTags(values.menu_modal_tag.filter((item) => {
-        if (item != null) return item
-      }));
-      reset(EditValues(values));
-    })
-      .catch((res) => {
-        console.log("erorr Msg:", res)
-      });
+  axios.put('/diet/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+  [{
+    id:diet.id,
+    memo:diet.memo,
+    date:diet.date,
+    menus:diet.menus,
+    ingredients:diet.ingredients
+  },{
+    id:diet.id,
+    memo:values.diet_modal_memo,
+    date:values.diet_modal_date,
+    menus:values.menu_modal_tag,
+    ingredients:ingredients
+  }]
+  ).then((res)=>{
+    //DB response
+    setInput(true);
+    onConfirm();
+    setTags(values.menu_modal_tag.filter((item)=>{
+      if(item!=null)return item
+    }));
+    reset(EditValues(values));
+  })
+  .catch((res)=>{
+    console.log("erorr Msg:",res)
+  });
   }
 
   const InsertDietByRefId = (values, ingredients) => {
@@ -424,6 +436,7 @@ const DietModal = ({
       }
     ).then((res) => {
       //DB response
+      setInput(true);
       onConfirm();
       tags.length = 0;
       reset(EditValues(values));
@@ -434,6 +447,7 @@ const DietModal = ({
   }
   //취소버튼 액션
   const onNotSubmit = () => {
+    setInput(true);
     SetSearchWord("");
     onCancel();
     if (type !== 'edit')
@@ -443,7 +457,6 @@ const DietModal = ({
 
   if (!visible) return null;
   const text = textMap[type];
-
   return (
     <Fullscreen>
       <ModalBlock>
@@ -530,35 +543,31 @@ const DietModal = ({
               <TagBlock>
                 <TagUl>
                   <div
-                    {...register("menu_modal_tag", {
-                      required: "필수입력사항",
-                    })}
-                  />
-                  {tags.map((tag, i) => (
-                    <li
-                      key={i}
-                      value={menu_modal_tag}
-                      {...register("menu_modal_tag", {
-                        required: "필수입력사항",
-                      })}
-                    >
-                      {tag}
-                      <button type="button">
-                        <MdCancel onClick={() => {
-                          removeTag(i)
-                        }}/>
-                      </button>
-                    </li>
-                  ))}
-                  {input ? <li className="input-tag__tags__input">
-                    <TagInputEnter
-                      type="text"
-                      onKeyDown={inputKeyDown}
-                      placeholder="# 메뉴이름"
-                      ref={c => {
-                        tagInput = c;
-                      }}/>
-                  </li> : null}
+                             {...register("menu_modal_tag",{
+                              required: "필수입력사항",
+                            })}
+                      />
+                    {tags.map((tag, i) => (
+                      <li
+                        key={i}
+                        value={menu_modal_tag}
+                        {...register("menu_modal_tag",{
+                          required: "필수입력사항",
+                        })}
+                        >
+                        {tag}
+                        <button type="button" >
+                          <MdCancel onClick={() => { removeTag(i) }}/>
+                        </button>
+                      </li>
+                    ))}
+                    {input ? <li className="input-tag__tags__input">
+                      {tags.length<10?<TagInputEnter
+                        type="text"
+                        onKeyDown={inputKeyDown}
+                        placeholder="# 메뉴이름"
+                        ref={c => {tagInput = c;}}/>:null}
+                    </li> : null}
 
                 </TagUl>
               </TagBlock>

@@ -10,7 +10,7 @@ const DietList = () => {
   return (
     <>
       {
-       diets[0]&&diets[0].id!=="nodata"&&diets.map((diet,_i)=>
+       (diets[0]&&diets[0].id!=="nodata")?diets.map((diet,_i)=>
        {
         return(
         <DietCard
@@ -21,7 +21,7 @@ const DietList = () => {
         food={diet.menus.map((item,_i)=>{ if(item) return ((_i>0?",":"")+item); return ""})}
         ingredient_item={diet.ingredients.map((item,_i)=>{ if(item.id!=null){ return ((_i>0?",":"")+item.name)} return null})}
         />)
-       })
+       }):<div>Empty</div>
       }
 
 

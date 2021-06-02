@@ -32,7 +32,7 @@ const Spacer = styled.div`
   flex-grow: 1;
 `;
 
-const RecipeDietDateItem = ({diet, finalClose}) => {
+const RecipeDietDateItem = ({diet, finalClose,recipeName}) => {
   const [open, setOpen] = useState(false);
   const isChecked=useRef([]);
   const onOpen = () => {
@@ -62,6 +62,7 @@ const RecipeDietDateItem = ({diet, finalClose}) => {
         onCancel={onCancel}
         type="edit"
         isChecked={isChecked}
+        recipeName={recipeName}
       />
     </>
   );

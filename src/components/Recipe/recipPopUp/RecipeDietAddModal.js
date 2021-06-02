@@ -83,7 +83,8 @@ const StyledButton = styled(Button)`
 const RecipeDietAddModal = ({
                               visible,
                               onCloseClick,
-                              onClose
+                              onClose,
+                              name
                             }) => {
   const [newOpen, setNewOpen] = useState(false);
   const [listOpen, setListOpen] = useState(false);
@@ -120,7 +121,7 @@ const RecipeDietAddModal = ({
     <Fullscreen>
       <ModalBlock>
         <ModalTitle>
-          <h2>레시피 <span className="text_blue">추가</span>하기</h2>
+          <h2>레시피<span className="text_blue">추가</span>하기</h2>
           <Spacer/>
           <CloseButton onClick={onCloseClick}>
             <MdClose/>
@@ -140,11 +141,13 @@ const RecipeDietAddModal = ({
           onCancel={onCancel}
           type="add"
           isChecked={isChecked}
+          recipeName={name} 
         />
         <RecipeDietListModal
           visible={listOpen}
           onListClose={onListClose}
           totalClose={totalClose}
+          recipeName={name} 
         />
       </ModalBlock>
     </Fullscreen>

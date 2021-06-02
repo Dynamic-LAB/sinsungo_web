@@ -9,6 +9,7 @@ import { MdAndroid } from "react-icons/md";
 import axios from 'axios';
 import {Context} from '../../Ingredient'
 import Footer from "../common/Footer";
+import StartModal from "../common/StartModal";
 //import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 //유통기한 임박 재료 박스
@@ -87,6 +88,7 @@ const Fridge = (props) => {
     state,
     dispatch,
   } = useContext(Context);
+
   useEffect(() => {
     if (JSON.parse(sessionStorage.getItem('User'))) {
       GetIngredientByRefrigratorId(
@@ -137,7 +139,6 @@ const Fridge = (props) => {
         }
       })
     }
-    
     return cnt === 0 ? "-" : cnt;
   }
   return (
@@ -145,6 +146,7 @@ const Fridge = (props) => {
       <div className="fridge__container">
         <div className="shelf_life">
           <WhiteBoxTop>
+            
             <div className="shelf_life__title">
               <h2>유통기한 임박 재료</h2>
               <div className="count">

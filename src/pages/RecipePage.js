@@ -20,7 +20,15 @@ const RecipePage = (props) => {
       closeSidebar();
     }
   })
-
+  useEffect(()=>{
+    if(JSON.parse(window.sessionStorage.getItem('User'))){
+      if(JSON.parse(window.sessionStorage.getItem('User')).newRefId===null)
+      props.setRefModal(true);
+      else
+      props.setRefModal(false);
+    }
+   
+  },[])
   return (
     <>
       {JSON.parse(window.sessionStorage.getItem('User')) == null && sessionStorage.getItem('Test') == null ?
