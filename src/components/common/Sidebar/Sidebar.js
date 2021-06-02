@@ -22,7 +22,7 @@ const Sidebar = ({sidebarOpen, closeSidebar}) => {
         <Link to="/basket">
           <div className="sidebar__link">
             <div className="icon-basket"/>
-            <Link to="/basket">장바구니</Link>
+            <Link to="/basket">식단 & 장바구니</Link>
           </div>
         </Link>
         <Link to="/recipe">

@@ -26,6 +26,9 @@ const BasketTitle = styled.div`
   @media only screen and (max-width: 978px) {
     padding: 10px 20px;
   }
+  @media only screen and (max-width: 370px) {
+    font-size: 9px;
+  }
 `;
 const DietBlock = styled.div`
   overflow-y: auto; //스크롤
@@ -114,7 +117,7 @@ useEffect(()=>{
                 <div className="shopping_list">
                   <WhiteBoxBasket>
                     <BasketTitle>
-                      <h2>장보기 목록</h2>
+                      <h2>장바구니</h2>
                       <BasketAddButton type="list"/>
                       <Spacer/>
                       <ShareButton onClick={onStartCapture}>

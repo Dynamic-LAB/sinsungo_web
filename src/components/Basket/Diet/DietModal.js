@@ -377,12 +377,12 @@ const DietModal = ({
     if(isChecked.current.length>0)
     state.IngredientList.map((item)=>{if(isChecked.current.includes(item.id))ingredients.push(item)})
 
-    if(type!=='edit'){
-    InsertDietByRefId(values,ingredients)
+    if (type !== 'edit') {
+      InsertDietByRefId(values, ingredients)
       alert("식단이 등록되었습니다!");
-    }else{
-      UpdateDiet(values,ingredients);
-       alert("식단이 수정되었습니다!");
+    } else {
+      UpdateDiet(values, ingredients);
+      alert("식단이 수정되었습니다!");
     }
     //nextId.current += 1;
   };
@@ -428,11 +428,11 @@ const DietModal = ({
 
     axios.post('/diet/',
       {
-          id:JSON.parse(sessionStorage.getItem('User')).newRefId,
-          memo:values.diet_modal_memo,
-          date:values.diet_modal_date,
-          menus:values.menu_modal_tag,
-          ingredients:ingredients.length>0?ingredients:[]
+        id: JSON.parse(sessionStorage.getItem('User')).newRefId,
+        memo: values.diet_modal_memo,
+        date: values.diet_modal_date,
+        menus: values.menu_modal_tag,
+        ingredients: ingredients.length > 0 ? ingredients : []
       }
     ).then((res) => {
       //DB response
@@ -539,9 +539,9 @@ const DietModal = ({
                 <div className="diet_index">10개만 입력 가능합니다</div>
                 {errors.menu_modal_tag && <div className="diet_index_red">{errors.menu_modal_tag.message}</div>}
               </MenuBlock>
-                {/*메뉴태그 입력 칩*/}
-                <TagBlock>
-                  <TagUl>
+              {/*메뉴태그 입력 칩*/}
+              <TagBlock>
+                <TagUl>
                   <div
                              {...register("menu_modal_tag",{
                               required: "필수입력사항",

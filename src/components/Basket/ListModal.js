@@ -32,17 +32,26 @@ const ModalBlock = styled.div`
     font-size: 1.325rem;
     margin-top: 0;
   }
-
   h2 > div {
     color: #5887F9;
     margin-left: 5px;
   }
-
   .modal_buttons {
     display: flex;
     justify-content: flex-end;
   }
-
+  @media only screen and (max-width: 765px) {
+    width: 300px;
+    h2 {
+      font-size: 1.2rem;
+    }
+  }
+  @media only screen and (max-width: 370px) {
+    width: 250px;
+    h2 {
+      font-size: 1.1rem;
+    }
+  }
 `;
 //폼 스타일
 const StyledWhiteBox = styled(WhiteBox)`
@@ -51,7 +60,6 @@ const StyledWhiteBox = styled(WhiteBox)`
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 0 15px 5px 15px;
-
 `;
 const InputBlock = styled.div`
   display: flex;
@@ -83,6 +91,11 @@ const FormTitle = styled.div`
     font-size: 10px;
     color: #FF2424;
   }
+  @media only screen and (max-width: 370px) {
+    .input_title {
+      font-size: 13px;
+    }
+  }
 `;
 const StyledInput = styled.input`
   font-size: 0.75rem;
@@ -96,6 +109,9 @@ const StyledInput = styled.input`
   width: 100%;
   text-align: center;
   font-family: 'Noto Sans KR', sans-serif;
+  @media only screen and (max-width: 370px) {
+    font-size: 10px;
+  }
 `;
 const StyledAmountInput = styled.input`
   font-size: 0.75rem;
@@ -110,6 +126,10 @@ const StyledAmountInput = styled.input`
   text-align: center;
   margin-right: 12px;
   font-family: 'Noto Sans KR', sans-serif;
+  @media only screen and (max-width: 370px) {
+    font-size: 8px;
+    width: 70%;
+  }
 `;
 const StyledDropdown = styled.select`
   width: 110px;
@@ -123,8 +143,10 @@ const StyledDropdown = styled.select`
   cursor: pointer;
   text-align: center;
   font-family: 'Noto Sans KR', sans-serif;
+  @media only screen and (max-width: 370px) {
+    font-size: 10px;
+  }
 `;
-
 const StyledButton = styled(Button)`
   height: 2rem;
   border-radius: 20px;
@@ -133,6 +155,9 @@ const StyledButton = styled(Button)`
 
   & + & {
     margin-left: 0.5rem;
+  }
+  @media only screen and (max-width: 370px) {
+    font-size: 10px;
   }
 `;
 const Spacer = styled.div`

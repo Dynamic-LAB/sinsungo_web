@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef} from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import styled from 'styled-components';
 import Button from "../common/Button";
 import WhiteBox from "../common/WhiteBox";
@@ -8,8 +8,7 @@ import {ko} from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import {Controller, useForm} from "react-hook-form";
 import axios from 'axios';
-import GetBasketByRefrigratorId from "../ForServer/GetBasketByRefrigratorId"
-import { setSeconds } from 'date-fns';
+
 const Fullscreen = styled.div`
   position: fixed;
   z-index: 30;
@@ -22,7 +21,6 @@ const Fullscreen = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 const ModalBlock = styled.div`
   background: #F6F6F6;
   height: auto;
@@ -34,10 +32,15 @@ const ModalBlock = styled.div`
   .text_blue {
     color: #5887F9;
   }
-
   .modal_buttons {
     display: flex;
     justify-content: flex-end;
+  }
+  @media only screen and (max-width: 765px) {
+    width: 300px;
+  }
+  @media only screen and (max-width: 370px) {
+    width: 250px;
   }
 `;
 const ModalTitle = styled.div`
@@ -45,6 +48,16 @@ const ModalTitle = styled.div`
   h2 {
     font-size: 1.3rem;
     margin-top: 0;
+  }
+  @media only screen and (max-width: 765px) {
+    h2 {
+      font-size: 1.1rem;
+    }
+  }
+  @media only screen and (max-width: 370px) {
+    h2 {
+      font-size: 1rem;
+    }
   }
 `;
 
@@ -56,6 +69,9 @@ const StyledButton = styled(Button)`
 
   & + & {
     margin-left: 0.5rem;
+  }
+  @media only screen and (max-width: 370px) {
+    font-size: 10px;
   }
 `;
 //폼 스타일
@@ -105,6 +121,10 @@ const StyledInput = styled.input`
   outline: none;
   width: 100%;
   text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
+  @media only screen and (max-width: 370px) {
+    font-size: 10px;
+  }
 `;
 const StyledAmountInput = styled.input`
   font-size: 0.75rem;
@@ -118,6 +138,11 @@ const StyledAmountInput = styled.input`
   width: 52%;
   text-align: center;
   margin-right: 12px;
+  font-family: 'Noto Sans KR', sans-serif;
+  @media only screen and (max-width: 370px) {
+    font-size: 8px;
+    width: 70%;
+  }
 `;
 const FormTitle = styled.div`
   display: flex;
@@ -143,6 +168,10 @@ const FormTitle = styled.div`
     font-size: 10px;
     color: #FF2424;
   }
+  @media only screen and (max-width: 370px) {
+    .input_title {
+      font-size: 13px;
+    }
 `;
 const StyledDropdown = styled.select`
   width: 110px;
@@ -155,6 +184,10 @@ const StyledDropdown = styled.select`
   outline: none;
   cursor: pointer;
   text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
+  @media only screen and (max-width: 370px) {
+    font-size: 10px;
+  }
 `;
 
 const FridgeMoveModal = forwardRef(({
