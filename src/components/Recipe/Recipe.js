@@ -131,7 +131,8 @@ const Recipe = () => {
           <RecipeBlock>
             <div className="recipe__cards">
               {
-                recipeData ? recipeData.map((item) => {
+                recipeData&&recipeData.length>0 ? recipeData.map((item) => {
+                
                   return (
                     <RecipeCard
                       thumbnail={item.thumbnail}
@@ -142,7 +143,7 @@ const Recipe = () => {
                       noneList={item.notInRefIngredients}
                     />
                   )
-                }) : null
+                }) :<div>Empty</div>
               }
 
             </div>
