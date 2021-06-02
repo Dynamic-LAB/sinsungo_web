@@ -52,7 +52,15 @@ const ListBlock = styled.div`
   overflow-y: auto;
   margin: 10px 5px;
 `;
-
+const NoticeTable = styled.table`
+  width: 100%;
+`;
+const TableThead = styled.thead`
+  
+`;
+const TableTbody = styled.tbody`
+  
+`;
 const My = () => {
   const [notices, setNotice] = useState([
 
@@ -85,14 +93,27 @@ const My = () => {
 
   ])
   const [modal, setModal] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  //탈퇴팝업 클릭 액션
   const onCheck = () => {
     setModal(true);
   };
+  //강퇴팝업 클릭 액션
+  const onBanCheck = () => {
+    setOpen(true);
+  };
   const onCancel = () => {
     setModal(false);
+    setOpen(false);
   };
+  //탈퇴팝업 탈퇴버튼 액션
   const onWithdrawal = () => {
     setModal(false);
+  };
+  //강퇴팝업 강퇴버튼 액션
+  const onBan = () => {
+    setOpen(false);
   };
   const onRemove = useCallback(
       id => {
@@ -130,8 +151,14 @@ const My = () => {
               <div className="member_profile">
                 <Member members={members} type="my"/>
               </div>
-
             </WhiteBoxMy>
+            {/*강퇴확인*/}
+            <AskModal
+              visible={open}
+              onCancel={onCancel}
+              onBan={onBan}
+              type='ban'
+            />
           </div>
         </div>
         {/*메뉴*/}
@@ -161,11 +188,31 @@ const My = () => {
               visible={modal}
               onCancel={onCancel}
               onWithdrawal={onWithdrawal}
+              type='leave'
             />
           </div>
+          {/*공지사항 구현중*/}
           <div className="my_contents">
-            공지사항 내용 들어가는 곳
+            <NoticeTable>
+              <TableThead>
+                <tr>
+                  <th>번호</th>
+                  <th>제목</th>
+                  <th>작성자</th>
+                  <th>작성일</th>
+                </tr>
+              </TableThead>
+              <TableTbody>
+                <tr>
+                  <th>1</th>
+                  <th>환영합니다</th>
+                  <th>신선고마스터</th>
+                  <th>작성일</th>
+                </tr>
+              </TableTbody>
+            </NoticeTable>
           </div>
+
         </div>
       </div>
       <footer className="my_footer">
