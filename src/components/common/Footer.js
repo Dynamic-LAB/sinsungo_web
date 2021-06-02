@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import googlePlay from '../../assets/google-play.png';
+import googlePlay from '../../assets/google-play-badge.png';
 
 const FooterBlock = styled.div`
   display: flex;
@@ -32,8 +32,8 @@ const FooterBlock = styled.div`
   .play_store {
     display: flex;
     justify-content: flex-end;
-    width: 25px;
-    height: 25px;
+    width: 130px;
+    height: 50px;
     cursor: pointer;
   }
 `;

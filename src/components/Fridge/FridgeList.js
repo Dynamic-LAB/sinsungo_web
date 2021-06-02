@@ -14,14 +14,25 @@ const FridgeList = ({onRemove, type}) => {
     dispatch,
   } = useContext(Context);
   //const [show, setShow] = useState(false);
-
+  const [empty,SetEmpty]=useState(false);
+useEffect(()=>{
+  let isChange=0;
+  state.IngredientList.map(item => {
+    if (item.category === type) {
+      isChange=1;
+      SetEmpty(true);
+    }
+  })
+  if(isChange!=1){
+    SetEmpty(false);
+  }
+},[state.IngredientList])
   return (
+    
     <IngredientBlock>
       {
         state.IngredientList.map(item => {
           if (item.category === type) {
-            if(!data.includes(type))
-            data.push(type)
             return (
               <>
               <FridgeItem
@@ -34,7 +45,8 @@ const FridgeList = ({onRemove, type}) => {
           }
         })
       }
-      {data.includes(type)?null:<div className="icon_fridge_empty"/>}
+
+      {!empty?<div className="icon_fridge_empty"/>:null}
     </IngredientBlock>
   );
 }

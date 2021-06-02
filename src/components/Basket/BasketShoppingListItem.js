@@ -1,4 +1,4 @@
-import React, {useState,useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import styled from 'styled-components';
 import {MdKitchen, MdDelete} from "react-icons/md";
 import ListModal from "./ListModal";
@@ -6,6 +6,7 @@ import {useShoppingDispatch, useShoppingState} from "./ListContext";
 import GetBasketByRefrigratorId from "../ForServer/GetBasketByRefrigratorId"
 import axios from 'axios';
 import FridgeMoveModal from "./FridgeMoveModal";
+
 const Remove = styled.div`
   display: flex;
   align-items: center; //세로중앙정렬
@@ -14,8 +15,12 @@ const Remove = styled.div`
   cursor: pointer;
   font-size: 1.2rem;
   opacity: 0;
+
   &:hover {
     color: #ff6b6b;
+  }
+  @media only screen and (max-width: 370px) {
+    font-size: 1rem;
   }
 `;
 const MoveBtn = styled.div`
@@ -27,8 +32,12 @@ const MoveBtn = styled.div`
   margin-right: 10px;
   color: #dee2e6;
   opacity: 0;
+
   &:hover {
     color: #626262;
+  }
+  @media only screen and (max-width: 370px) {
+    font-size: 1rem;
   }
 `;
 const ItemBlock = styled.div`
@@ -36,6 +45,7 @@ const ItemBlock = styled.div`
   padding: 10px 20px;
   align-items: center;
   font-size: 13px;
+
   .text {
     display: flex;
     flex: 1;
@@ -44,19 +54,24 @@ const ItemBlock = styled.div`
     justify-content: center;
     cursor: pointer;
   }
+
   &:nth-child(even) {
     background: #f8f9fa;
   }
+
   &:hover {
     ${Remove} {
       opacity: 1;
     }
+
     ${MoveBtn} {
       opacity: 1;
     }
-    @media only screen and (max-width: 978px) {
-      padding: 10px 15px;
-    }
+  }
+
+  @media only screen and (max-width: 978px) {
+    padding: 10px;
+  }
 `;
 const Item = styled.div`
   display: flex;
@@ -88,54 +103,57 @@ const Count = styled.div`
   justify-content: center;
   font-size: 13px;
   font-family: 'Noto Sans KR', sans-serif;
+
   .count_num {
     display: flex;
     margin-left: 20px;
     text-align: center;
   }
+
   .count_unit {
     display: flex;
     margin-left: 8px;
     text-align: center;
   }
+
   @media only screen and (max-width: 978px) {
     font-size: 12px;
   }
 `;
 
 const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
-  const shoppingItem=useRef();
-  const basketItem=useRef();
+  const shoppingItem = useRef();
+  const basketItem = useRef();
   //const {shopping_id, shopping_name, shopping_index, shopping_count,} = list;
   const dispatch = useShoppingDispatch();
-  const SetBasket=()=>{
-    if(JSON.parse(sessionStorage.getItem('User'))){
+  const SetBasket = () => {
+    if (JSON.parse(sessionStorage.getItem('User'))) {
       GetBasketByRefrigratorId(
         {
-            id:JSON.parse(sessionStorage.getItem('User')).newRefId,
-            dispatch:dispatch
+          id: JSON.parse(sessionStorage.getItem('User')).newRefId,
+          dispatch: dispatch
         }
-        )}
+      )
+    }
   }
   //구매목록 삭제 함수
-  const DeleteBasketById=(id)=>{
-    axios.delete("/shoppinglist/"+id, {
-      params: {
-      }
+  const DeleteBasketById = (id) => {
+    axios.delete("/shoppinglist/" + id, {
+      params: {}
     })
-    .then((response)=> {
-      SetBasket();
-      console.log("(재갱신완료)__구매목록 삭제됨:id:",id,response);
-      }).catch((error)=>{
-        // 오류발생시 실행
-    }).then(()=> {
-        // 항상 실행
+      .then((response) => {
+        SetBasket();
+        console.log("(재갱신완료)__구매목록 삭제됨:id:", id, response);
+      }).catch((error) => {
+      // 오류발생시 실행
+    }).then(() => {
+      // 항상 실행
     });
     //props.setIngredients()
   }
 
   //삭제 함수
-  const onRemove = (id) =>{
+  const onRemove = (id) => {
     DeleteBasketById(id);
   }
 

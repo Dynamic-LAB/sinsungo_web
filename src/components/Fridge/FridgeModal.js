@@ -46,6 +46,18 @@ const ModalBlock = styled.div`
     display: flex;
     justify-content: flex-end;
   }
+  @media only screen and (max-width: 765px) {
+    width: 300px;
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
+  @media only screen and (max-width: 370px) {
+    width: 250px;
+    h2 {
+      font-size: 1.2rem;
+    }
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -57,6 +69,9 @@ const StyledButton = styled(Button)`
   & + & {
     margin-left: 0.5rem;
   }
+  @media only screen and (max-width: 370px) {
+    font-size: 10px;
+  }
 `;
 //폼 스타일
 const StyledWhiteBox = styled(WhiteBox)`
@@ -65,7 +80,6 @@ const StyledWhiteBox = styled(WhiteBox)`
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 0 15px 5px 15px;
-
 `;
 const InputBlock = styled.div`
   display: flex;
@@ -106,6 +120,9 @@ const StyledInput = styled.input`
   width: 100%;
   text-align: center;
   font-family: 'Noto Sans KR', sans-serif;
+  @media only screen and (max-width: 370px) {
+    font-size: 10px;
+  }
 `;
 const StyledAmountInput = styled.input`
   font-size: 0.75rem;
@@ -120,6 +137,10 @@ const StyledAmountInput = styled.input`
   text-align: center;
   margin-right: 12px;
   font-family: 'Noto Sans KR', sans-serif;
+  @media only screen and (max-width: 370px) {
+    font-size: 8px;
+    width: 70%;
+  }
 `;
 const FormTitle = styled.div`
   display: flex;
@@ -144,6 +165,11 @@ const FormTitle = styled.div`
     font-size: 10px;
     color: #FF2424;
   }
+  @media only screen and (max-width: 370px) {
+    .input_title {
+      font-size: 13px;
+    }
+  }
 `;
 const StyledDropdown = styled.select`
   width: 110px;
@@ -157,6 +183,9 @@ const StyledDropdown = styled.select`
   cursor: pointer;
   text-align: center;
   font-family: 'Noto Sans KR', sans-serif;
+  @media only screen and (max-width: 370px) {
+    font-size: 10px;
+  }
 `;
 //type 지정
 const textMap = {

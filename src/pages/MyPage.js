@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import Navbar from "../components/common/Navbar/Navbar";
 import Sidebar from "../components/common/Sidebar/Sidebar";
 import My from "../components/My/My";
@@ -19,7 +19,15 @@ const MyPage = (props) => {
       closeSidebar();
     }
   })
-
+  useEffect(()=>{
+    if(JSON.parse(window.sessionStorage.getItem('User'))){
+      if(JSON.parse(window.sessionStorage.getItem('User')).newRefId===null)
+      props.setRefModal(true);
+      else
+      props.setRefModal(false);
+    }
+   
+  },[])
   return (
     <>
       {JSON.parse(window.sessionStorage.getItem('User')) == null && sessionStorage.getItem('Test') == null ?

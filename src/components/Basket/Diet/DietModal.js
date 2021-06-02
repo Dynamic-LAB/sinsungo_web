@@ -312,6 +312,7 @@ const DietModal = ({
         }
       )
     }
+
   }, [])
 
   //냉장고 재료 부분 check 액션
@@ -360,7 +361,7 @@ const DietModal = ({
         alert('중복된 단어입니다!');
         return;
       }
-      if (tags.length === 9) {
+      if (tags.length > 8) {
         setInput(false);
       } //10개가 되면 추가하지 않음
       setTags([...tags, val]);
@@ -376,12 +377,12 @@ const DietModal = ({
     if(isChecked.current.length>0)
     state.IngredientList.map((item)=>{if(isChecked.current.includes(item.id))ingredients.push(item)})
 
-    if(type!=='edit'){
-    InsertDietByRefId(values,ingredients)
+    if (type !== 'edit') {
+      InsertDietByRefId(values, ingredients)
       alert("식단이 등록되었습니다!");
-    }else{
-      UpdateDiet(values,ingredients);
-       alert("식단이 수정되었습니다!");
+    } else {
+      UpdateDiet(values, ingredients);
+      alert("식단이 수정되었습니다!");
     }
     //nextId.current += 1;
   };
@@ -407,6 +408,7 @@ const DietModal = ({
   }]
   ).then((res)=>{
     //DB response
+    setInput(true);
     onConfirm();
     setTags(values.menu_modal_tag.filter((item)=>{
       if(item!=null)return item
@@ -426,14 +428,15 @@ const DietModal = ({
 
     axios.post('/diet/',
       {
-          id:JSON.parse(sessionStorage.getItem('User')).newRefId,
-          memo:values.diet_modal_memo,
-          date:values.diet_modal_date,
-          menus:values.menu_modal_tag,
-          ingredients:ingredients.length>0?ingredients:[]
+        id: JSON.parse(sessionStorage.getItem('User')).newRefId,
+        memo: values.diet_modal_memo,
+        date: values.diet_modal_date,
+        menus: values.menu_modal_tag,
+        ingredients: ingredients.length > 0 ? ingredients : []
       }
     ).then((res) => {
       //DB response
+      setInput(true);
       onConfirm();
       tags.length = 0;
       reset(EditValues(values));
@@ -444,6 +447,7 @@ const DietModal = ({
   }
   //취소버튼 액션
   const onNotSubmit = () => {
+    setInput(true);
     SetSearchWord("");
     onCancel();
     if (type !== 'edit')
@@ -535,9 +539,9 @@ const DietModal = ({
                 <div className="diet_index">10개만 입력 가능합니다</div>
                 {errors.menu_modal_tag && <div className="diet_index_red">{errors.menu_modal_tag.message}</div>}
               </MenuBlock>
-                {/*메뉴태그 입력 칩*/}
-                <TagBlock>
-                  <TagUl>
+              {/*메뉴태그 입력 칩*/}
+              <TagBlock>
+                <TagUl>
                   <div
                              {...register("menu_modal_tag",{
                               required: "필수입력사항",
@@ -558,11 +562,11 @@ const DietModal = ({
                       </li>
                     ))}
                     {input ? <li className="input-tag__tags__input">
-                      <TagInputEnter
+                      {tags.length<10?<TagInputEnter
                         type="text"
                         onKeyDown={inputKeyDown}
                         placeholder="# 메뉴이름"
-                        ref={c => {tagInput = c;}}/>
+                        ref={c => {tagInput = c;}}/>:null}
                     </li> : null}
 
                 </TagUl>
