@@ -54,7 +54,17 @@ const ItemRightBlock = styled.div`
   justify-content: space-between;
 `;
 const TextBlock = styled.div`
-  
+  display: flex;
+  align-items: center;
+  .day_red {
+    color: #FF6767;
+  }
+
+  .member_blue {
+    color: #3C82D9;
+  }
+`;
+const TextRightBlock = styled.div`
   align-items: center;
   .day_red {
     color: #FF6767;
@@ -73,29 +83,29 @@ const NoticeItem = ({notice, onRemove, type}) => {
                 <NoticeRightBlock>
                     { day && item ?
                         <ItemRightBlock>
-                            <TextBlock>
+                            <TextRightBlock>
                                 유통기한이 &nbsp; <span className="day_red">{day}</span>일 남은 {item}가 있습니다!
-                            </TextBlock>
+                            </TextRightBlock>
                         </ItemRightBlock> : null}
                     {member && used === true ?
                         <ItemRightBlock>
-                            <TextBlock>
+                            <TextRightBlock>
                                 <span className="member_blue">{member}</span>님이 냉장고의 재료를 사용하였습니다.
-                            </TextBlock>
+                            </TextRightBlock>
                         </ItemRightBlock> : null
                     }
                     {member && update === true ?
                         <ItemRightBlock>
-                            <TextBlock>
+                            <TextRightBlock>
                                 <span className="member_blue">{member}</span>님이 식단을 업데이트 했습니다!
-                            </TextBlock>
+                            </TextRightBlock>
                         </ItemRightBlock> : null
                     }
                     {write === false ?
                         <ItemRightBlock>
-                            <TextBlock>
+                            <TextRightBlock>
                                 식단을 작성해주세요!
-                            </TextBlock>
+                            </TextRightBlock>
                         </ItemRightBlock> : null
                     }
                 </NoticeRightBlock>

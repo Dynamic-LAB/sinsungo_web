@@ -1,6 +1,6 @@
-import React, {useState,useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import styled from 'styled-components';
-import { MdDelete} from "react-icons/md";
+import {MdDelete} from "react-icons/md";
 import WhiteBox from "../../common/WhiteBox";
 import DietModal from "./DietModal";
 import {useDietDispatch} from "./DietContext";
@@ -14,13 +14,18 @@ const Remove = styled.div`
   cursor: pointer;
   font-size: 1.2rem;
   color: #dee2e6;
+
   .delete_btn {
     opacity: 0;
+
     &:hover {
       color: #ff6b6b;
     }
   }
-
+  @media only screen and (max-width: 370px) {
+    font-size: 1.1rem;
+    padding: 5px 3px;
+  }
 `;
 const StyledWhiteBox = styled(WhiteBox)`
   display: flex;
@@ -28,8 +33,10 @@ const StyledWhiteBox = styled(WhiteBox)`
   margin: 15px 0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
   cursor: pointer;
-  &:hover{
+
+  &:hover {
     border: 1px dashed #bcbcbc;
+
     ${'.delete_btn'} {
       opacity: 1;
     }
@@ -49,10 +56,12 @@ const DateBlock = styled.div`
   display: flex;
   padding: 5px;
   font-family: 'Noto Sans KR', sans-serif;
+
   .diet_date {
     font-size: 14px;
     margin-right: 10px;
   }
+
   .diet_date_memo {
     font-size: 11px;
     color: #3c82d9;
@@ -65,31 +74,44 @@ const FoodBlock = styled.div`
   justify-content: flex-start;
   padding: 5px;
   font-size: 16px;
+
   .diet_food {
     float: right;
     font-weight: 700;
+  }
+
+  @media only screen and (max-width: 430px) {
+    font-size: 13px;
   }
 `;
 const IngredientBlock = styled.div`
   display: flex;
   padding: 5px;
   font-size: 10px;
+
   .diet_main_ingredient {
+    display: flex;
     color: #27D598;
     margin-right: 10px;
   }
+
   .diet_main_ingredient_item {
+    display: flex;
     margin-right: 10px;
   }
+
+  @media only screen and (max-width: 370px) {
+    font-size: 8px;
+  }
 `;
-const DietCard = ({diet,id, memo, food, date, ingredient_item}) => {
-  const isChecked=useRef([]);
+const DietCard = ({diet, id, memo, food, date, ingredient_item}) => {
+  const isChecked = useRef([]);
   const [modal, setModal] = useState(false);
   const dispatch = useDietDispatch();
   const onEdit = () => {
     setModal(true);
   };
-  const onRemove = () =>{
+  const onRemove = () => {
     axios.delete("/diet/" + id, {
       params: {}
     })
@@ -98,11 +120,11 @@ const DietCard = ({diet,id, memo, food, date, ingredient_item}) => {
       }).catch((error) => {
       // 오류발생시 실행
     }).then(() => {
-      if(JSON.parse(window.sessionStorage.getItem('User')))
-      GetDietByRefrigratorId({
-        id:JSON.parse(window.sessionStorage.getItem('User')).newRefId,
-        dispatch:dispatch
-      });
+      if (JSON.parse(window.sessionStorage.getItem('User')))
+        GetDietByRefrigratorId({
+          id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+          dispatch: dispatch
+        });
     });
     alert("식단이 삭제되었습니다!");
     //props.setIngredients()
@@ -111,16 +133,16 @@ const DietCard = ({diet,id, memo, food, date, ingredient_item}) => {
     setModal(false);
   };
   const onConfirm = () => {
-    if(JSON.parse(window.sessionStorage.getItem('User')))
-    GetDietByRefrigratorId({
-      id:JSON.parse(window.sessionStorage.getItem('User')).newRefId,
-      dispatch:dispatch
-    });
+    if (JSON.parse(window.sessionStorage.getItem('User')))
+      GetDietByRefrigratorId({
+        id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+        dispatch: dispatch
+      });
     setModal(false);
   };
-  return(
+  return (
     <>
-      <StyledWhiteBox >
+      <StyledWhiteBox>
         <DietBlock>
           <div onClick={onEdit}>
             <ItemBlock>
@@ -139,16 +161,15 @@ const DietCard = ({diet,id, memo, food, date, ingredient_item}) => {
                 </div>
               </FoodBlock>
               <IngredientBlock>
-                {
-                ingredient_item[0]!=null?
-                <>
-                <div className="diet_main_ingredient">
-                  주재료
-                </div>
-                <div className="diet_main_ingredient_item">
-                  {ingredient_item}
-                </div>
-                </>:<div style={{"color":'red'}}>선택된 재료가 없습니다.</div>}
+                {ingredient_item[0] != null ?
+                  <>
+                    <div className="diet_main_ingredient">
+                      주재료
+                    </div>
+                    <div className="diet_main_ingredient_item">
+                      {ingredient_item}
+                    </div>
+                  </> : <div style={{"color": 'red'}}>선택된 재료가 없습니다.</div>}
               </IngredientBlock>
             </ItemBlock>
           </div>

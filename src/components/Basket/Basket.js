@@ -26,6 +26,9 @@ const BasketTitle = styled.div`
   @media only screen and (max-width: 978px) {
     padding: 10px 20px;
   }
+  @media only screen and (max-width: 370px) {
+    font-size: 9px;
+  }
 `;
 const DietBlock = styled.div`
   overflow-y: auto; //스크롤

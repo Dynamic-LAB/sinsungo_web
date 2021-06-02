@@ -22,6 +22,17 @@ const ModalBlock = styled.div`
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
+  h3 {
+    font-size: 1rem;
+    margin: 20px 5px;
+  }
+  .copy {
+    display: flex;
+    justify-content: flex-end;
+  }
+  @media only screen and (max-width: 380px) {
+    width: 260px;
+  }
 `;
 const ModalTitle = styled.div`
   display: flex;
@@ -30,6 +41,11 @@ const ModalTitle = styled.div`
   h2 {
     font-size: 1.5rem;
     margin-top: 0;
+  }
+  @media only screen and (max-width: 380px) {
+    h2 {
+      font-size: 1.2rem;
+    }
   }
 `;
 const StyledWhiteBox = styled(WhiteBox)`
@@ -49,6 +65,8 @@ const StyledWhiteBox = styled(WhiteBox)`
 `;
 const StyledInput = styled.input`
   height: 30px;
+  width: 100%;
+  background: none;
   outline: none;
   margin-bottom: 20px;
   border: none;
@@ -104,16 +122,13 @@ const MemberModal  = ({ visible,
               <MdClose/>
             </CloseButton>
           </ModalTitle>
-
-          <StyledWhiteBox>
-            <h3>링크</h3>
-            <StyledInput
-              readOnly
-            />
-            <div className="copy">
-              <CopyButton>복사</CopyButton>
-            </div>
-          </StyledWhiteBox>
+          <h3>링크</h3>
+          <StyledInput
+            readOnly
+          />
+          <div className="copy">
+            <CopyButton>복사</CopyButton>
+          </div>
         </ModalBlock>
       </Fullscreen>
 

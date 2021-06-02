@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-import welcomeImg from '../../assets/welcome.png';
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -21,13 +20,15 @@ const ModalBlock = styled.div`
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
+  z-index: 50;
+
   .button_block {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .welcome {
-    margin-bottom: 25px;
+  @media only screen and (max-width: 370px) {
+    width: 250px;
   }
 `;
 const ModalTitle = styled.div`
@@ -38,10 +39,21 @@ const ModalTitle = styled.div`
     font-size: 1.5rem;
     margin-top: 0;
   }
+
+  @media only screen and (max-width: 765px) {
+    h2 {
+      font-size: 1.15rem;
+    }
+  }
+  @media only screen and (max-width: 370px) {
+    h2 {
+      font-size: 1rem;
+    }
+  }
 `;
 const StyledButton = styled.button`
   text-align: center;
-  width: 150px;
+  width: 200px;
   height: 40px;
   outline: none;
   background: none;
@@ -54,22 +66,29 @@ const StyledButton = styled.button`
   cursor: pointer;
   font-family: 'Noto Sans KR', sans-serif;
   transition: .2s;
+
   &:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
     background: #3C82D9;
     color: #ffffff;
   }
+
+  @media only screen and (max-width: 765px) {
+    font-size: 11px;
+  }
+  @media only screen and (max-width: 370px) {
+    font-size: 8px;
+  }
 `;
 const StartModal = ({visible,}) => {
 
   if (!visible) return null;
-  return(
+  return (
     <Fullscreen>
       <ModalBlock>
         <ModalTitle>
           <h2>신선고 시작하기</h2>
         </ModalTitle>
-        <img className="welcome" src={welcomeImg} alt="시작이미지"/>
         <div className="button_block">
           <StyledButton>초대코드 입력하기</StyledButton>
           <StyledButton>시작하기</StyledButton>

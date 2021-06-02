@@ -359,17 +359,19 @@ const DietModal = ({
   //확인버튼 액션
   const onSubmit = (values) => {
     SetSearchWord("");
-    var ingredients=[];
+    var ingredients = [];
     console.log(isChecked.current.length);
-    if(isChecked.current.length>0)
-    state.IngredientList.map((item)=>{if(isChecked.current.includes(item.id))ingredients.push(item)})
+    if (isChecked.current.length > 0)
+      state.IngredientList.map((item) => {
+        if (isChecked.current.includes(item.id)) ingredients.push(item)
+      })
 
-    if(type!=='edit'){
-    InsertDietByRefId(values,ingredients)
+    if (type !== 'edit') {
+      InsertDietByRefId(values, ingredients)
       alert("식단이 등록되었습니다!");
-    }else{
-      UpdateDiet(values,ingredients);
-       alert("식단이 수정되었습니다!");
+    } else {
+      UpdateDiet(values, ingredients);
+      alert("식단이 수정되었습니다!");
     }
     //nextId.current += 1;
   };
@@ -379,31 +381,31 @@ const DietModal = ({
       values.menu_modal_tag = values.menu_modal_tag.concat(null)
     }
     values.diet_modal_date = values.diet_modal_date.getFullYear() + '-' + (values.diet_modal_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.diet_modal_date.getDate().toString().padStart(2, '0');
-  axios.put('/diet/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
-  [{
-    id:diet.id,
-    memo:diet.memo,
-    date:diet.date,
-    menus:diet.menus,
-    ingredients:diet.ingredients
-  },{
-    id:diet.id,
-    memo:values.diet_modal_memo,
-    date:values.diet_modal_date,
-    menus:values.menu_modal_tag,
-    ingredients:ingredients
-  }]
-  ).then((res)=>{
-    //DB response
-    onConfirm();
-    setTags(values.menu_modal_tag.filter((item)=>{
-      if(item!=null)return item
-    }));
-    reset(EditValues(values));
-  })
-  .catch((res)=>{
-    console.log("erorr Msg:",res)
-  });
+    axios.put('/diet/' + JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+      [{
+        id: diet.id,
+        memo: diet.memo,
+        date: diet.date,
+        menus: diet.menus,
+        ingredients: diet.ingredients
+      }, {
+        id: diet.id,
+        memo: values.diet_modal_memo,
+        date: values.diet_modal_date,
+        menus: values.menu_modal_tag,
+        ingredients: ingredients
+      }]
+    ).then((res) => {
+      //DB response
+      onConfirm();
+      setTags(values.menu_modal_tag.filter((item) => {
+        if (item != null) return item
+      }));
+      reset(EditValues(values));
+    })
+      .catch((res) => {
+        console.log("erorr Msg:", res)
+      });
   }
 
   const InsertDietByRefId = (values, ingredients) => {
@@ -414,11 +416,11 @@ const DietModal = ({
 
     axios.post('/diet/',
       {
-          id:JSON.parse(sessionStorage.getItem('User')).newRefId,
-          memo:values.diet_modal_memo,
-          date:values.diet_modal_date,
-          menus:values.menu_modal_tag,
-          ingredients:ingredients.length>0?ingredients:[]
+        id: JSON.parse(sessionStorage.getItem('User')).newRefId,
+        memo: values.diet_modal_memo,
+        date: values.diet_modal_date,
+        menus: values.menu_modal_tag,
+        ingredients: ingredients.length > 0 ? ingredients : []
       }
     ).then((res) => {
       //DB response
@@ -524,35 +526,39 @@ const DietModal = ({
                 <div className="diet_index">10개만 입력 가능합니다</div>
                 {errors.menu_modal_tag && <div className="diet_index_red">{errors.menu_modal_tag.message}</div>}
               </MenuBlock>
-                {/*메뉴태그 입력 칩*/}
-                <TagBlock>
-                  <TagUl>
+              {/*메뉴태그 입력 칩*/}
+              <TagBlock>
+                <TagUl>
                   <div
-                             {...register("menu_modal_tag",{
-                              required: "필수입력사항",
-                            })}
-                      />
-                    {tags.map((tag, i) => (
-                      <li
-                        key={i}
-                        value={menu_modal_tag}
-                        {...register("menu_modal_tag",{
-                          required: "필수입력사항",
-                        })}
-                        >
-                        {tag}
-                        <button type="button" >
-                          <MdCancel onClick={() => { removeTag(i) }}/>
-                        </button>
-                      </li>
-                    ))}
-                    {input ? <li className="input-tag__tags__input">
-                      <TagInputEnter
-                        type="text"
-                        onKeyDown={inputKeyDown}
-                        placeholder="# 메뉴이름"
-                        ref={c => {tagInput = c;}}/>
-                    </li> : null}
+                    {...register("menu_modal_tag", {
+                      required: "필수입력사항",
+                    })}
+                  />
+                  {tags.map((tag, i) => (
+                    <li
+                      key={i}
+                      value={menu_modal_tag}
+                      {...register("menu_modal_tag", {
+                        required: "필수입력사항",
+                      })}
+                    >
+                      {tag}
+                      <button type="button">
+                        <MdCancel onClick={() => {
+                          removeTag(i)
+                        }}/>
+                      </button>
+                    </li>
+                  ))}
+                  {input ? <li className="input-tag__tags__input">
+                    <TagInputEnter
+                      type="text"
+                      onKeyDown={inputKeyDown}
+                      placeholder="# 메뉴이름"
+                      ref={c => {
+                        tagInput = c;
+                      }}/>
+                  </li> : null}
 
                 </TagUl>
               </TagBlock>
