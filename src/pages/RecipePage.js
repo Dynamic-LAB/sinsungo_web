@@ -4,6 +4,7 @@ import Sidebar from "../components/common/Sidebar/Sidebar";
 import Recipe from "../components/Recipe/Recipe"
 import Right from "../components/common/Rightbar/Right";
 import {DietProvider} from "../components/Basket/Diet/DietContext";
+import { withRouter } from 'react-router';
 const RecipePage = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const openSidebar = () => {
@@ -47,4 +48,4 @@ const RecipePage = (props) => {
   );
 };
 
-export default RecipePage;
+export default withRouter(RecipePage);

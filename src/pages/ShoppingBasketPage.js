@@ -5,6 +5,7 @@ import Sidebar from "../components/common/Sidebar/Sidebar";
 import Basket from "../components/Basket/Basket";
 import {ShoppingProvider} from "../components/Basket/ListContext";
 import {DietProvider} from "../components/Basket/Diet/DietContext";
+import { withRouter } from 'react-router';
 
 
 const ShoppingBasketPage = (props) => {
@@ -44,4 +45,4 @@ const ShoppingBasketPage = (props) => {
   );
 };
 
-export default ShoppingBasketPage;
+export default withRouter(ShoppingBasketPage);

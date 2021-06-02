@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import Navbar from "../components/common/Navbar/Navbar";
 import Sidebar from "../components/common/Sidebar/Sidebar";
 import My from "../components/My/My";
-
+import { withRouter } from 'react-router-dom';
 const MyPage = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const openSidebar = () => {
@@ -19,6 +19,12 @@ const MyPage = (props) => {
       closeSidebar();
     }
   })
+  const LogoutOrExit=()=>{
+    props.history.push({
+      pathname: '/',
+  })
+  window.sessionStorage.removeItem('User');
+  }
   useEffect(()=>{
     if(JSON.parse(window.sessionStorage.getItem('User'))){
       if(JSON.parse(window.sessionStorage.getItem('User')).newRefId===null)
@@ -33,9 +39,10 @@ const MyPage = (props) => {
       {JSON.parse(window.sessionStorage.getItem('User')) == null && sessionStorage.getItem('Test') == null ?
         props.history.push({pathname: '/'}) :
 
+        
         <div className="my_container">
           <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar}/>
-          <My/>
+          <My LogoutOrExit={LogoutOrExit}/>
           <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar}/>
         </div>
       }
@@ -43,4 +50,4 @@ const MyPage = (props) => {
   );
 };
 
-export default MyPage;
+export default withRouter(MyPage);

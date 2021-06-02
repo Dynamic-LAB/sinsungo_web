@@ -112,7 +112,7 @@ const DietCard = ({diet, id, memo, food, date, ingredient_item}) => {
     setModal(true);
   };
   const onRemove = () => {
-    axios.delete("/diet/" + id, {
+    axios.delete("diet/" + id, {
       params: {}
     })
       .then((response) => {

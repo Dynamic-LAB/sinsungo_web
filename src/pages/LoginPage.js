@@ -7,6 +7,7 @@ import logo from '../assets/sinsungo_logo.png'
 import logo_video from '../assets/sinsungo_logo.mp4';
 import {MdPlayArrow} from "react-icons/md";
 import UserLoginOrSignup from "../components/ForServer/UserLoginOrSignup"
+import axios from '../../node_modules/axios/index';
 
 // VIDEO(서서히 없어지기)
 const VideoBlock = styled.div`
@@ -137,7 +138,11 @@ const LoginPage = (props) => {
         setShow(false);
     }
     return (
-        <>
+        <>  
+        <div onClick={()=>{
+            axios.get(' api/customers').then((res)=>{console.log(res)});
+
+        }}>hh</div>
             {/*첫 화면 튜토리얼*/}
             {show ?
                 <VideoBlock>

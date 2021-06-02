@@ -226,7 +226,7 @@ const FridgeMoveModal = forwardRef(({
     */
     //날짜 문자열 형식 수정
     values.list_date = values.list_date.getFullYear() + '-' + (values.list_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.list_date.getDate().toString().padStart(2, '0');
-    axios.post('/refrigerator/ingredient',
+    axios.post(' refrigerator/ingredient',
       [{
         id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
         category: values.fridge_type,

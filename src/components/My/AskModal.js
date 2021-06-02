@@ -50,6 +50,8 @@ const StyledButton = styled(Button)`
 
 const AskModal = (
   {
+    history,
+    location,
     visible,
     cancelText = '취소',
     withdrawalText = '탈퇴',
@@ -57,6 +59,7 @@ const AskModal = (
     onWithdrawal
   }
 ) => {
+  console.log(history,location)
   if (!visible) return null;
 
   return (

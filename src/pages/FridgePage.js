@@ -3,7 +3,7 @@ import Navbar from "../components/common/Navbar/Navbar";
 import Sidebar from "../components/common/Sidebar/Sidebar";
 import Fridge from "../components/Fridge/Fridge";
 import Right from "../components/common/Rightbar/Right";
-import {useLocation} from "react-router";
+import {useLocation, withRouter} from "react-router";
 import axios from 'axios';
 import startModal from "../components/common/StartModal";
 const FridgePage = (props) => {
@@ -26,7 +26,7 @@ const FridgePage = (props) => {
   useEffect(()=>{
 
     if(JSON.parse(window.sessionStorage.getItem('User'))){
-      axios.post('user/auth/login',
+      axios.post(' user/auth/login',
       {
           id:JSON.parse(window.sessionStorage.getItem('User')).newId,
           name:JSON.parse(window.sessionStorage.getItem('User')).data.name,
@@ -66,4 +66,4 @@ const FridgePage = (props) => {
   );
 };
 
-export default FridgePage;
+export default withRouter(FridgePage);

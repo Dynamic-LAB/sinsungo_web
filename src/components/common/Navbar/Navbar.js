@@ -2,8 +2,9 @@ import './Navbar.css';
 //import Button from "../Button";
 import styled from 'styled-components';
 import {Link} from "react-router-dom";
-import React from "react";
+import React, { useContext } from "react";
 import Button from "../Button";
+import {Context} from "../../../MemberList"
 
 const LogOutButton = styled(Button)`
   padding: 10px 12px 10px 12px;
@@ -25,6 +26,7 @@ const Profile = styled.div`
 `;
 
 const Navbar = ({sidebarOpen, openSidebar, user}) => {
+  const {state,dispatch}=useContext(Context);
     return (
         <nav className="navbar">
             <div className="nav_icon" onClick={() => openSidebar()}>
@@ -38,10 +40,10 @@ const Navbar = ({sidebarOpen, openSidebar, user}) => {
             <div className="navbar__right">
                 <User>
                     <div className="user_name">
-                     {JSON.parse(sessionStorage.getItem('User')).data.name}
+                     {JSON.parse(sessionStorage.getItem('User'))&&JSON.parse(sessionStorage.getItem('User')).data.name}
                     </div>
                     <div className="user_position">
-                        -
+                        {JSON.parse(sessionStorage.getItem('User')).newRefId?(state.MemberList.master==JSON.parse(sessionStorage.getItem('User')).newId?"마스터냉장고":"일반냉장고"):null}
                     </div>
                 </User>
                 <Profile>
@@ -49,7 +51,7 @@ const Navbar = ({sidebarOpen, openSidebar, user}) => {
                     <i className="fa fa-user-circle-o"/>
                   </Link>
                 </Profile>
-                <LogOutButton to="/" logout>로그아웃</LogOutButton>
+                <LogOutButton to="/" logout onClick={()=>{sessionStorage.removeItem('User')}}>로그아웃</LogOutButton>
             </div>
         </nav>
     );

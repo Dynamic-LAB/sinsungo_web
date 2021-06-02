@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import styled from "styled-components";
 import CodeModal from "./CodeModal";
 import axios from 'axios';
+import {Context} from "../../MemberList"
+import GetMemberByRefrigratorId from '../ForServer/GetMemberByRefrigratorId';
 const Fullscreen = styled.div`
   position: fixed;
   z-index: 30;
@@ -83,6 +85,7 @@ const StyledButton = styled.button`
 `;
 const StartModal = ({visible,setRefModal}) => {
   const [modal, setModal] = useState(false);
+  const {state,dispatch}=useContext(Context);
   const onCodeInput = () => {
     setModal(true);
   };
@@ -91,6 +94,7 @@ const StartModal = ({visible,setRefModal}) => {
   };
   const onConfirm = () => {
     setModal(false);
+    setRefModal(false);
     //이 팝업도 같이 닫히도록 코드 넣어야함
   }
   const MakeRef=()=>{
@@ -102,7 +106,7 @@ const StartModal = ({visible,setRefModal}) => {
       login_type:JSON.parse(window.sessionStorage.getItem('User')).data.login_type,
     }).then((res)=>{
       if(JSON.parse(window.sessionStorage.getItem('User'))){
-        axios.post('user/auth/login',
+        axios.post(' user/auth/login',
         {
             id:JSON.parse(window.sessionStorage.getItem('User')).newId,
             name:JSON.parse(window.sessionStorage.getItem('User')).data.name,
@@ -117,6 +121,7 @@ const StartModal = ({visible,setRefModal}) => {
         }));
         //모달 종료 시점
           setRefModal(false);
+          GetMemberByRefrigratorId({refId:JSON.parse(window.sessionStorage.getItem('User')).newRefId,dispatch:dispatch})
         })
         .catch((res)=>{
           console.log("erorr Msg:",res)
@@ -139,6 +144,7 @@ const StartModal = ({visible,setRefModal}) => {
           visible={modal}
           onConfirm={onConfirm}
           onCancel={onCancel}
+          setRefModal={setRefModal}
         />
       </ModalBlock>
     </Fullscreen>

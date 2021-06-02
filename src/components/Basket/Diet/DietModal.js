@@ -394,7 +394,7 @@ const DietModal = ({
       values.menu_modal_tag = values.menu_modal_tag.concat(null)
     }
     values.diet_modal_date = values.diet_modal_date.getFullYear() + '-' + (values.diet_modal_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.diet_modal_date.getDate().toString().padStart(2, '0');
-  axios.put('/diet/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+  axios.put('diet/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
   [{
     id:diet.id,
     memo:diet.memo,
@@ -428,7 +428,7 @@ const DietModal = ({
     }
     values.diet_modal_date = values.diet_modal_date.getFullYear() + '-' + (values.diet_modal_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.diet_modal_date.getDate().toString().padStart(2, '0');
 
-    axios.post('/diet/',
+    axios.post(' diet/',
       {
           id:JSON.parse(sessionStorage.getItem('User')).newRefId,
           memo:values.diet_modal_memo,
@@ -449,12 +449,19 @@ const DietModal = ({
   }
   //취소버튼 액션
   const onNotSubmit = () => {
+    console.log("hi")
     setInput(true);
     SetSearchWord("");
     onCancel();
     if (type !== 'edit')
       tags.length = 0;
-    reset();
+      var data=[] 
+      diet.menus.forEach(element => {
+        if(element!=null)
+        data.push(element)  
+      });
+      setTags(data)
+    reset(EditValues(diet));
   };
 
   if (!visible) return null;
