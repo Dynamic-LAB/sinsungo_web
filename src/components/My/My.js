@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useContext,useState} from "react";
 import "./My.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
@@ -11,6 +11,7 @@ import NoticeItem from "./Notice/NoticeItem";
 import NoticeList from "./Notice/NoticeList";
 import Footer from "../common/Footer";
 import GetMemberByRefrigratorId from "../ForServer/GetMemberByRefrigratorId"
+import axios from 'axios';
 const WhiteBoxMy = styled(WhiteBox)`
   height: 250px;
   .member_profile {
@@ -44,6 +45,17 @@ const MenuItemBlock = styled.div`
     color: #3C82D9;
     text-shadow: none;
   }
+  @media only screen and (max-width: 978px) {
+    font-size: 13px;
+  }
+  @media only screen and (max-width: 450px){
+    padding: 10px;
+    border-bottom: none;
+  }
+  @media only screen and (max-width: 330px) {
+    font-size: 12px;
+    font-weight: 500;
+  }
 `;
 const Spacer = styled.div`
   flex-grow: 1;
@@ -53,7 +65,12 @@ const ListBlock = styled.div`
   margin: 10px 5px;
 `;
 
-const My = () => {
+const NoticeTable = styled.table`
+  width: 100%;
+  padding: 0; //위아래 좌우
+`;
+
+const My = (props) => {
   const [notices, setNotice] = useState([
 
     {
@@ -84,15 +101,42 @@ const My = () => {
     },
 
   ])
+
   const [modal, setModal] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  //탈퇴팝업 클릭 액션
   const onCheck = () => {
     setModal(true);
   };
+  //강퇴팝업 클릭 액션
+  const onBanCheck = () => {
+    setOpen(true);
+  };
   const onCancel = () => {
     setModal(false);
+    setOpen(false);
   };
+  //탈퇴팝업 탈퇴버튼 액션
   const onWithdrawal = () => {
-    setModal(false);
+      //회원탈퇴(본인)
+      var item=JSON.parse(window.sessionStorage.getItem('User')).data;
+      axios.delete(" user/",
+      {data:{
+        id: item.id,
+        login_type: item.login_type,
+        name: item.name,
+        push_token: item.push_token,
+        push_setting: item.push_setting
+      }}
+      ).then((res)=>{
+        props.LogoutOrExit();
+        setModal(false);
+      })
+  };
+  //강퇴팝업 강퇴버튼 액션
+  const onBan = () => {
+    setOpen(false);
   };
   const onRemove = useCallback(
       id => {
@@ -100,10 +144,6 @@ const My = () => {
       },
       [notices],
   );
-  const [members,SetMembers]=useState()
-  useEffect(()=>{
-    GetMemberByRefrigratorId({refId:JSON.parse(window.sessionStorage.getItem('User')).newRefId,SetMembers:SetMembers})
-  },[])
   return (
     <div id="my">
       <div className="my__container">
@@ -128,10 +168,16 @@ const My = () => {
                 <MemberAddButton/>
               </MyTitle>
               <div className="member_profile">
-                <Member members={members} type="my"/>
+                <Member type="my"/>
               </div>
-
             </WhiteBoxMy>
+            {/*강퇴확인*/}
+            <AskModal
+              visible={open}
+              onCancel={onCancel}
+              onBan={onBan}
+              type='ban'
+            />
           </div>
         </div>
         {/*메뉴*/}
@@ -150,7 +196,7 @@ const My = () => {
               <Link to='/my'>법적고지</Link>
             </MenuItemBlock>
             <MenuItemBlock>
-              <Link to='/'>로그아웃</Link>
+              <div onClick={props.LogoutOrExit}>로그아웃</div>
             </MenuItemBlock>
             <MenuItemBlock onClick={onCheck}>
               회원탈퇴
@@ -161,11 +207,49 @@ const My = () => {
               visible={modal}
               onCancel={onCancel}
               onWithdrawal={onWithdrawal}
+              type='leave'
             />
           </div>
+          {/*공지사항 구현중*/}
           <div className="my_contents">
-            공지사항 내용 들어가는 곳
+            <NoticeTable>
+              <thead>
+                <tr>
+                  <th scope="col" width="10%">번호</th>
+                  <th scope="col" width="50%">제목</th>
+                  <th scope="col" width="20%">작성자</th>
+                  <th scope="col" width="20%">작성일</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td><Link to="/notice">환영합니다</Link></td>
+                  <td>신선고마스터</td>
+                  <td >
+                    <time dateTime="2021-06-03">2021-06-03</time>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td><Link to="/notice">환영합니다</Link></td>
+                  <td>신선고마스터</td>
+                  <td >
+                    <time dateTime="2021-06-03">2021-06-03</time>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td><Link to="/notice">환영합니다</Link></td>
+                  <td>신선고마스터</td>
+                  <td >
+                    <time dateTime="2021-06-03">2021-06-03</time>
+                  </td>
+                </tr>
+              </tbody>
+            </NoticeTable>
           </div>
+
         </div>
       </div>
       <footer className="my_footer">

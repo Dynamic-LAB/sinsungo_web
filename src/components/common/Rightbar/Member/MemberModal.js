@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from "styled-components";
 import WhiteBox from "../../WhiteBox";
 import {MdClose} from "react-icons/md";
-
+import {Context} from "../../../../MemberList"
 const Fullscreen = styled.div`
   position: fixed;
   z-index: 30;
@@ -96,6 +96,9 @@ const CloseButton = styled.button`
 
 const MemberModal  = ({ visible,
                         onCancel,}) => {
+                          
+
+  const {state,dispatch}=useContext(Context);
   if (!visible) return null;
     return(
       <Fullscreen>
@@ -110,6 +113,7 @@ const MemberModal  = ({ visible,
           <h3>링크</h3>
           <StyledInput
             readOnly
+            value={state.MemberList.invite_key}
           />
           <div className="copy">
             <CopyButton>복사</CopyButton>

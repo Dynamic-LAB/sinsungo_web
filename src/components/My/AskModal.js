@@ -50,25 +50,49 @@ const StyledButton = styled(Button)`
 
 const AskModal = (
   {
+    history,
+    location,
     visible,
     cancelText = '취소',
     withdrawalText = '탈퇴',
     onCancel,
-    onWithdrawal
+    onWithdrawal,
+    onBan,
+    type,
   }
 ) => {
+  console.log(history,location)
   if (!visible) return null;
 
   return (
     <Fullscreen>
       <ModalBlock>
-        <h2>회원탈퇴</h2>
-        <p>정말로 탈퇴하겠습니까? 정말로????</p>
-        {/*취소, 확인 버튼*/}
-        <div className="modal_buttons">
-          <StyledButton inverted={true} onClick={onCancel}>{cancelText}</StyledButton>
-          <StyledButton blueBtn onClick={onWithdrawal}>{withdrawalText}</StyledButton>
-        </div>
+        {type === 'leave' &&
+          <>
+            <h2>회원탈퇴</h2>
+            <p>정말로 탈퇴하겠습니까? 정말로????</p>
+            {/*취소, 확인 버튼*/}
+            <div className="modal_buttons">
+              <StyledButton inverted={true} onClick={onCancel}>{cancelText}</StyledButton>
+              <StyledButton blueBtn onClick={onWithdrawal}>{withdrawalText}</StyledButton>
+            </div>
+          </>
+
+        }
+        {type === 'ban' &&
+        <>
+          <h2>멤버 강퇴</h2>
+          <p>정말로 강퇴시키겠습니까???</p>
+          {/*취소, 확인 버튼*/}
+          <div className="modal_buttons">
+            <StyledButton inverted={true} onClick={onCancel}>{cancelText}</StyledButton>
+            <StyledButton blueBtn onClick={onBan}>확인</StyledButton>
+          </div>
+        </>
+
+        }
+
+
       </ModalBlock>
     </Fullscreen>
   );

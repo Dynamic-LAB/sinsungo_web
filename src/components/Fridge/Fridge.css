@@ -93,10 +93,10 @@
 }
 
 .icon_fridge_empty {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     background: no-repeat url("../../assets/fridge_empty.svg");
-    background-size: 100px 100px;
+    background-size: 200px 200px;
 }
 
 .input-datepicker {
@@ -147,6 +147,12 @@
     .input-datepicker {
         width: 125px;
     }
+    .icon_fridge_empty {
+        width: 150px;
+        height: 150px;
+        background-size: 150px 150px;
+    }
+
 }
 @media only screen and (max-width: 370px) {
     .input-datepicker {

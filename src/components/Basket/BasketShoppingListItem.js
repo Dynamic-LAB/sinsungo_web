@@ -138,7 +138,7 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
   }
   //구매목록 삭제 함수
   const DeleteBasketById = (id) => {
-    axios.delete("/shoppinglist/" + id, {
+    axios.delete(" shoppinglist/" + id, {
       params: {}
     })
       .then((response) => {
