@@ -25,7 +25,7 @@ const UserLoginOrSignup = (props) => {
         postName=name;
       }
     }
-    axios.post('user/auth/login',
+    axios.post(' user/auth/login',
     {
         id:postId,
         name:postName,
@@ -41,7 +41,7 @@ const UserLoginOrSignup = (props) => {
     });
   });
   const getTest = ()=>{
-      axios.get("/TestGet", {
+      axios.get(" TestGet", {
         params: {
           id: 123
         }
@@ -55,7 +55,7 @@ const UserLoginOrSignup = (props) => {
       });
   }
   const postTest = ()=>{
-    axios.post('/TestPost', 
+    axios.post(' TestPost', 
     { 
      contact: 'Sewon', 
      email: 'sewon@gmail.com' 

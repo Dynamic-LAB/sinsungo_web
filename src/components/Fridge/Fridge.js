@@ -100,7 +100,7 @@ const Fridge = (props) => {
     };
   }, [])
   const DeleteIngredientById = (id) => {
-    axios.delete("/refrigerator/ingredient/" + id, {
+    axios.delete(" refrigerator/ingredient/" + id, {
       params: {}
     })
       .then((response) => {
@@ -149,6 +149,7 @@ const Fridge = (props) => {
             
             <div className="shelf_life__title">
               <h2>유통기한 임박 재료</h2>
+
               <div className="count">
                 <h3>{GetExpirationList()}</h3>
               </div>

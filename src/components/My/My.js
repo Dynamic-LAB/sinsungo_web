@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useContext,useState} from "react";
 import "./My.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
@@ -11,6 +11,7 @@ import NoticeItem from "./Notice/NoticeItem";
 import NoticeList from "./Notice/NoticeList";
 import Footer from "../common/Footer";
 import GetMemberByRefrigratorId from "../ForServer/GetMemberByRefrigratorId"
+import axios from 'axios';
 const WhiteBoxMy = styled(WhiteBox)`
   height: 250px;
   .member_profile {
@@ -63,11 +64,13 @@ const ListBlock = styled.div`
   overflow-y: auto;
   margin: 10px 5px;
 `;
+
 const NoticeTable = styled.table`
   width: 100%;
   padding: 0; //위아래 좌우
 `;
-const My = () => {
+
+const My = (props) => {
   const [notices, setNotice] = useState([
 
     {
@@ -98,6 +101,7 @@ const My = () => {
     },
 
   ])
+
   const [modal, setModal] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -115,7 +119,20 @@ const My = () => {
   };
   //탈퇴팝업 탈퇴버튼 액션
   const onWithdrawal = () => {
-    setModal(false);
+      //회원탈퇴(본인)
+      var item=JSON.parse(window.sessionStorage.getItem('User')).data;
+      axios.delete(" user/",
+      {data:{
+        id: item.id,
+        login_type: item.login_type,
+        name: item.name,
+        push_token: item.push_token,
+        push_setting: item.push_setting
+      }}
+      ).then((res)=>{
+        props.LogoutOrExit();
+        setModal(false);
+      })
   };
   //강퇴팝업 강퇴버튼 액션
   const onBan = () => {
@@ -127,10 +144,6 @@ const My = () => {
       },
       [notices],
   );
-  const [members,SetMembers]=useState()
-  useEffect(()=>{
-    GetMemberByRefrigratorId({refId:JSON.parse(window.sessionStorage.getItem('User')).newRefId,SetMembers:SetMembers})
-  },[])
   return (
     <div id="my">
       <div className="my__container">
@@ -155,7 +168,7 @@ const My = () => {
                 <MemberAddButton/>
               </MyTitle>
               <div className="member_profile">
-                <Member members={members} type="my"/>
+                <Member type="my"/>
               </div>
             </WhiteBoxMy>
             {/*강퇴확인*/}
@@ -183,7 +196,7 @@ const My = () => {
               <Link to='/my'>법적고지</Link>
             </MenuItemBlock>
             <MenuItemBlock>
-              <Link to='/'>로그아웃</Link>
+              <div onClick={props.LogoutOrExit}>로그아웃</div>
             </MenuItemBlock>
             <MenuItemBlock onClick={onCheck}>
               회원탈퇴
