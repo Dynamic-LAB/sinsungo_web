@@ -76,85 +76,29 @@ const TextRightBlock = styled.div`
 `;
 
 const NoticeItem = ({notice, onRemove, type}) => {
-    const {id, day, item, member, used, update, write} = notice;
     return (
         <>
             {type === 'right' && (
                 <NoticeRightBlock>
-                    { day && item ?
                         <ItemRightBlock>
                             <TextRightBlock>
-                                유통기한이 &nbsp; <span className="day_red">{day}</span>일 남은 {item}가 있습니다!
+                               {notice.content}
                             </TextRightBlock>
-                        </ItemRightBlock> : null}
-                    {member && used === true ?
-                        <ItemRightBlock>
-                            <TextRightBlock>
-                                <span className="member_blue">{member}</span>님이 냉장고의 재료를 사용하였습니다.
-                            </TextRightBlock>
-                        </ItemRightBlock> : null
-                    }
-                    {member && update === true ?
-                        <ItemRightBlock>
-                            <TextRightBlock>
-                                <span className="member_blue">{member}</span>님이 식단을 업데이트 했습니다!
-                            </TextRightBlock>
-                        </ItemRightBlock> : null
-                    }
-                    {write === false ?
-                        <ItemRightBlock>
-                            <TextRightBlock>
-                                식단을 작성해주세요!
-                            </TextRightBlock>
-                        </ItemRightBlock> : null
-                    }
+                        </ItemRightBlock>
                 </NoticeRightBlock>
             )}
+            
             {type === 'my' && (
                 <NoticeBlock>
-                    { day && item ?
-                        <ItemBlock>
+                         <ItemBlock>
                             <TextBlock>
                                 <div className="icon_notice_red"/>
-                                유통기한이 &nbsp; <span className="day_red">{day}</span>일 남은 {item}가 있습니다!
-                            </TextBlock>
-                            <Remove onClick={() => onRemove(id)}>
+                                {notice.content}
+                                </TextBlock>
+                                <Remove onClick={() =>{ onRemove(notice.id)}}>
                                 <MdDelete/>
                             </Remove>
-                        </ItemBlock> : null}
-                    {member && used === true ?
-                        <ItemBlock>
-                            <TextBlock>
-                                <div className="icon_notice_fridge"/>
-                                <span className="member_blue">{member}</span>님이 냉장고의 재료를 사용하였습니다.
-                            </TextBlock>
-                            <Remove onClick={() => onRemove(id)}>
-                                <MdDelete/>
-                            </Remove>
-                        </ItemBlock> : null
-                    }
-                    {member && update === true ?
-                        <ItemBlock>
-                            <TextBlock>
-                                <div className="icon_notice_diet_update"/>
-                                <span className="member_blue">{member}</span>님이 식단을 업데이트 했습니다!
-                            </TextBlock>
-                            <Remove onClick={() => onRemove(id)}>
-                                <MdDelete/>
-                            </Remove>
-                        </ItemBlock> : null
-                    }
-                    {write === false ?
-                        <ItemBlock>
-                            <TextBlock>
-                                <div className="icon_notice_diet_write"/>
-                                식단을 작성해주세요!
-                            </TextBlock>
-                            <Remove onClick={() => onRemove(id)}>
-                                <MdDelete/>
-                            </Remove>
-                        </ItemBlock> : null
-                    }
+                        </ItemBlock>
                 </NoticeBlock>
             )}
 
