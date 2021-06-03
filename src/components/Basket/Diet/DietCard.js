@@ -58,8 +58,10 @@ const DateBlock = styled.div`
   font-family: 'Noto Sans KR', sans-serif;
 
   .diet_date {
+    display: flex;
     font-size: 14px;
     margin-right: 10px;
+    letter-spacing: 1px;
   }
 
   .diet_date_memo {
@@ -67,6 +69,9 @@ const DateBlock = styled.div`
     color: #3c82d9;
     margin-left: 10px;
     padding-top: 3px;
+  }
+  .blue_diet_date {
+    color: #3c82d9;
   }
 `;
 const FoodBlock = styled.div`
@@ -148,7 +153,14 @@ const DietCard = ({diet, id, memo, food, date, ingredient_item}) => {
             <ItemBlock>
               <DateBlock>
                 <div className="diet_date">
-                  {date}
+                  {date[0]}{date[1]}{date[2]}{date[3]}{date[4]}
+                  <div className="blue_diet_date">
+                    {date[5]}{date[6]}
+                  </div>
+                  {date[7]}
+                  <div className="blue_diet_date">
+                    {date[8]}{date[9]}
+                  </div>
                 </div>
                 <span> | </span>
                 <div className="diet_date_memo">
