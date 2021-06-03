@@ -139,10 +139,9 @@ const LoginPage = (props) => {
     }
     return (
         <>  
-        <div onClick={()=>{
+        {/*<div onClick={()=>{
             axios.get(' api/customers').then((res)=>{console.log(res)});
-
-        }}>hh</div>
+        }}>hh</div>*/}
             {/*첫 화면 튜토리얼*/}
             {show ?
                 <VideoBlock>
