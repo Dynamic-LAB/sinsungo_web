@@ -2,6 +2,8 @@ import React from "react";
 import "./My.css";
 import styled from "styled-components";
 import './Inform.css';
+import {Link} from "react-router-dom";
+import Button from "../common/Button";
 
 const NoticeTitle = styled.div`
   text-align: center;
@@ -16,6 +18,14 @@ const NoticeTitle = styled.div`
 const NoticeContents = styled.div`
   margin-top: 50px;
 `;
+const StyledButton = styled(Button)`
+  height: 2rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  padding: 0.25rem 2.5rem;
+  margin-top: 30px;
+`;
+
 const Inform = (props) => {
   return (
     <div id="my">
@@ -43,7 +53,7 @@ const Inform = (props) => {
               </td>
             </tr>
             <tr>
-              <td>
+              <td colSpan="2" className="contents_text">
               {props.serverNotice.content}
               </td>
             </tr>
@@ -51,6 +61,9 @@ const Inform = (props) => {
             </tbody>
           </table>
         </NoticeContents>
+        <div className="modal_buttons">
+          <Link to="/my"><StyledButton blueBtn>목록</StyledButton></Link>
+        </div>
       </div>
     </div>
   );
