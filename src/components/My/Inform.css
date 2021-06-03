@@ -12,7 +12,15 @@ th, td {
     border-bottom: 1px solid rgb(190, 190, 190);
 }
 th[scope="row"] {
-    background-color: #d7d9f2;
+    background-color: #B4CEFE;
+}
+.contents_text {
+    padding: 25px;
+    font-size: 14px;
+}
+.modal_buttons {
+    display: flex;
+    justify-content: flex-end;
 }
 @media only screen and (max-width: 1200px) {
     .notice__container {
