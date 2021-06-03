@@ -191,7 +191,7 @@ const ListModal = forwardRef(({
   useImperativeHandle(ref,()=>({resetValue(){reset(defaultValues)}}))
   //구매목록 추가 요청
   const InsertBasketByRefId = (values, type) => {
-    axios.post('/shoppinglist/',
+    axios.post(' shoppinglist/',
       {
         id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
         name: values.list_name,
@@ -210,7 +210,7 @@ const ListModal = forwardRef(({
   }
   //구매목록 수정 요청
   const UpdateBasketById = (values, id) => {
-    axios.put('/shoppinglist/' + JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+    axios.put(' shoppinglist/' + JSON.parse(window.sessionStorage.getItem('User')).newRefId,
       {
         id: id,
         name: values.list_name,

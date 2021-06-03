@@ -1,8 +1,10 @@
-import React,{useContext} from "react";
+import React,{useContext, useEffect, useState} from "react";
 import {BsPeopleCircle} from "react-icons/bs";
 import styled from "styled-components";
 import "./Member.css";
 import {Context} from "../../../../MemberList"
+import GetMemberByRefrigratorId from "../../../ForServer/GetMemberByRefrigratorId";
+import axios from "../../../../../node_modules/axios/index";
 //right-bar 사용
 const MemberBlock = styled.div`
   padding: 10px;
@@ -38,40 +40,65 @@ const MyProfileBlock = styled.div`
   padding: 0 5px 0 5px;
   font-size: 3rem;
 `;
-const Member = ({members,type}) => {
+
+const Member = ({type}) => {
   const {state,dispatch}=useContext(Context);
+  const UserDelete=(item)=>{
+    //삭제하시겠습니까 실행
+    axios.delete(" user/",
+    {data:{
+      id: item.id,
+      login_type: item.login_type,
+      name: item.name,
+      push_token: item.push_token,
+      push_setting: item.push_setting
+    }}
+    ).then((res)=>{
+      if(JSON.parse(window.sessionStorage.getItem('User'))&& JSON.parse(window.sessionStorage.getItem('User')).newRefId!=null){
+        GetMemberByRefrigratorId({refId:JSON.parse(window.sessionStorage.getItem('User')).newRefId,dispatch:dispatch})
+        }
+    })
+  }
+  useEffect(()=>{
+    if(JSON.parse(window.sessionStorage.getItem('User'))&& JSON.parse(window.sessionStorage.getItem('User')).newRefId!=null){
+    GetMemberByRefrigratorId({refId:JSON.parse(window.sessionStorage.getItem('User')).newRefId,dispatch:dispatch})
+    }
+  },[])
   return (
     <>
       {type === 'right' && (
         <>
-          <MemberBlock>
-            <MemberState>
-              <Circle><BsPeopleCircle/></Circle>
-              <div className="icon_master"/>
-            </MemberState>
-            <div className="member_name">서현지</div>
-          </MemberBlock>
-          <MemberBlock>
-            <MemberState>
-              <Circle><BsPeopleCircle/></Circle>
-              <div className="icon_remove"/>
-            </MemberState>
-            <div className="member_name">송윤경</div>
-          </MemberBlock>
+            {
+            state.MemberList&&state.MemberList.master!="NoData"?
+            state.MemberList.members.map((item,_i)=>{
+              return(
+                <MemberBlock>
+                <MemberState>
+                  <Circle><BsPeopleCircle/></Circle>
+                {
+                  _i<1?<div className="icon_master"/>: state.MemberList.master==JSON.parse(sessionStorage.getItem('User')).newId?<div onClick={()=>{UserDelete(item)}} className="icon_remove"/>:null
+                }
+                 </MemberState>
+            <div className="member_name">{item.name}</div>
+            </MemberBlock>
+              );
+            })
+            :null
+          }
         </>
       )}
 
       {type === 'my' && (
         <>
           {
-            members&&members.members.length>0?
-            members.members.map((item,_i)=>{
+           state.MemberList&&state.MemberList.master!="NoData"?
+            state.MemberList.members.map((item,_i)=>{
               return(
               <MyMemberBlock>
               <MemberState>
                 <MyProfileBlock><BsPeopleCircle/></MyProfileBlock>
                 {
-                  _i<1?<div className="icon_my_master"/>:<div className="icon_my_remove"/>
+                  _i<1?<div className="icon_my_master"/>: state.MemberList.master==JSON.parse(sessionStorage.getItem('User')).newId?<div onClick={()=>{UserDelete(item)}} className="icon_my_remove"/>:null
                 }
                 </MemberState>
               <div className="member_name">{item.name}</div>

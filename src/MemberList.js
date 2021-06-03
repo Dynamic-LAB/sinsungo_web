@@ -3,9 +3,9 @@ import axios from 'axios';
 //initial state
 const initialState = {
   MemberList:
-   [
-      { id:"1", name:"asd"},
-    ]
+   
+      { master:"NoData", id:"1", name:"asd"},
+    
   
 };
 

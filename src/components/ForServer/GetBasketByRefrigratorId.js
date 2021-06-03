@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 const GetBasketByRefrigratorId = (props) => {
-    axios.get("/shoppinglist/"+props.id, {
+    axios.get(" shoppinglist/"+props.id, {
       params: {
       }
     })

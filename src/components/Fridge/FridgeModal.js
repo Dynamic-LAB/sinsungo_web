@@ -242,7 +242,7 @@ const InsertIngredientByRefId = (values, type) => {
   if (type === 'seasoning') category = textMap.seasoning
   if (type === 'edit') category = textMap.edit
 
-  axios.post('/refrigerator/ingredient',
+  axios.post(' refrigerator/ingredient',
     [{
       id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
       category: category,
@@ -270,7 +270,7 @@ const UpdateIngredientById=(values,type,id)=>{
 
   //날짜 문자열 형식 수정
   values.i_date=values.i_date.getFullYear() + '-' + (values.i_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.i_date.getDate().toString().padStart(2, '0');
-  axios.put('/refrigerator/ingredient/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
+  axios.put(' refrigerator/ingredient/'+JSON.parse(window.sessionStorage.getItem('User')).newRefId,
   {
     id:id,
     category:type,
