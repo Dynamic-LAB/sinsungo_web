@@ -1,9 +1,11 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import Navbar from "../components/common/Navbar/Navbar";
 import Sidebar from "../components/common/Sidebar/Sidebar";
+import GetNoticeOne from "../components/ForServer/GetNoticeOne";
 import Inform from "../components/My/Inform";
 
-const NoticePage = () => {
+const NoticePage = (props) => {
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const openSidebar = () => {
     setSidebarOpen(true);
@@ -18,11 +20,15 @@ const NoticePage = () => {
       closeSidebar();
     }
   });
+  const [notice,SetNotice]=useState();
+  useEffect(()=>{
+    GetNoticeOne({id:props.match.params.id,SetNotice:SetNotice})
+  },[])
   return (
     <>
       <div className="my_container">
         <Navbar sidebarOpen={sidebarOpen} openSidebar={openSidebar}/>
-        <Inform/>
+        {notice&&<Inform serverNotice={notice}/>}
         <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar}/>
       </div>
     </>
