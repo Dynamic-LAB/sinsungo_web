@@ -104,7 +104,8 @@ const Description = styled.div`
 `;
 const Ingredient = styled.div`
   padding: 10px;
-  margin-top: 1px;
+  margin-top: 5px;
+  margin-bottom: 15px;
   height: 60px;
   width: 96%;
   flex: 1;
@@ -112,6 +113,7 @@ const Ingredient = styled.div`
   font-size: 12px;
   .indent_text {
     padding-left: 10px;
+    padding-top: 4px;
     @media only screen and (max-width: 370px) {
       font-size: 10px;
     }
@@ -208,6 +210,7 @@ const RecipeModal = ({
                 <div className="indent_text">{hasList.map((n, _i) => {
                   return n + (_i < hasList.length - 1 ? ', ' : '') })}</div>
               </div>
+              <br/>
               <br/>
               <div>
                 <NoneItem>없는 재료</NoneItem>
