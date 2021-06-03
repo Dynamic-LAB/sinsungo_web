@@ -8,6 +8,7 @@ import {ko} from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import {Controller, useForm} from "react-hook-form";
 import axios from 'axios';
+import GetBasketByRefrigratorId from '../ForServer/GetBasketByRefrigratorId';
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -216,17 +217,9 @@ const FridgeMoveModal = forwardRef(({
     }
   }));
   const InsertIngredientByRefId = (values) => {
-    /* values
-    fridge_type: "냉장"
-    list_amount: "22"
-    list_date: Fri Feb 09 2001 00:00:00 GMT+0900 (대한민국 표준시) {}
-    list_date_chose: "보관일"
-    list_name: "eee"
-    list_unit: "kg"
-    */
     //날짜 문자열 형식 수정
     values.list_date = values.list_date.getFullYear() + '-' + (values.list_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.list_date.getDate().toString().padStart(2, '0');
-    axios.post(' refrigerator/ingredient',
+    axios.post('refrigerator/ingredient',
       [{
         id: JSON.parse(window.sessionStorage.getItem('User')).newRefId,
         category: values.fridge_type,
@@ -238,6 +231,8 @@ const FridgeMoveModal = forwardRef(({
       }]
     ).then((res) => {
       //DB response
+      //Basket에서 삭제
+      //삭제후에 출력
     })
       .catch((res) => {
         console.log("error Msg:", res)
@@ -246,7 +241,7 @@ const FridgeMoveModal = forwardRef(({
 
   const onSubmit = (values) => {
     InsertIngredientByRefId(values);
-    onMoveConfirm();
+    onMoveConfirm(ingredient.id);
     reset();
     alert("냉장고로 이동되었습니다!");
   };

@@ -54,14 +54,15 @@ const Member = ({type}) => {
   const onBan=(item)=>{
     SetAsk(false)
     SetSelectMember(null);
-    axios.delete(" user/",
-    {data:{
+    axios.put("user/",
+    {
       id: item.id,
       login_type: item.login_type,
       name: item.name,
       push_token: item.push_token,
-      push_setting: item.push_setting
-    }}
+      push_setting: item.push_setting,
+      refrigerator_id:0
+    }
     ).then((res)=>{
       if(JSON.parse(window.sessionStorage.getItem('User'))&& JSON.parse(window.sessionStorage.getItem('User')).newRefId!=null){
         GetMemberByRefrigratorId({refId:JSON.parse(window.sessionStorage.getItem('User')).newRefId,dispatch:dispatch})

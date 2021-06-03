@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import Navbar from "../components/common/Navbar/Navbar";
 import Right from "../components/common/Rightbar/Right";
 import Sidebar from "../components/common/Sidebar/Sidebar";
@@ -6,6 +6,7 @@ import Basket from "../components/Basket/Basket";
 import {ShoppingProvider} from "../components/Basket/ListContext";
 import {DietProvider} from "../components/Basket/Diet/DietContext";
 import { withRouter } from 'react-router';
+import GetUserHasRef from '../components/ForServer/GetUserHasRef';
 
 
 const ShoppingBasketPage = (props) => {
@@ -24,7 +25,9 @@ const ShoppingBasketPage = (props) => {
       closeSidebar();
     }
   })
-
+  useEffect(()=>{
+    GetUserHasRef({setRefModal:props.setRefModal});
+  },[])
   return (
     <>
       {JSON.parse(window.sessionStorage.getItem('User')) == null && sessionStorage.getItem('Test') == null ?

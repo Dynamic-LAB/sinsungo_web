@@ -7,7 +7,7 @@ const GetAlam = (props) => {
     })
     .then((response)=> {
         // response 
-        console.log("알람:",response.data);
+        //console.log("알람:",response.data);
         props.SetAlam(response.data);
         
       }).catch((error)=>{

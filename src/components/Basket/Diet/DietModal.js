@@ -287,8 +287,10 @@ const DietModal = ({
   // const dispatch = useDietDispatch();
   // const nextId = useDietNextId();
   const {state, dispatch} = useContext(Context);
+  const [searchTag,SetSearchTag]=useState();
   useEffect(() => {
     if (recipeName) {
+
       diet && diet.menus.some((element, index) => {
         if (element === null) {
           diet.menus[index] = recipeName;
@@ -298,12 +300,17 @@ const DietModal = ({
       if (diet) {
         setValue("menu_modal_tag", diet.menus);
         setTags(diet.menus);
+      }else{
+        var data=[recipeName]
+        setValue("menu_modal_tag", data);
+        setTags(data);
       }
     }
 
     diet && diet.ingredients.map(item => {
       isChecked.current.push(item.id)
     });
+    SetSearchTag([...isChecked.current]);
     diet && setTags(diet.menus.filter((item) => {
       if (item != null) return item
     }));
@@ -376,6 +383,7 @@ const DietModal = ({
   //확인버튼 액션
   const onSubmit = (values) => {
     SetSearchWord("");
+    SetSearchTag([...isChecked.current]);
     var ingredients = [];
     if (isChecked.current.length > 0)
       state.IngredientList.map((item) => {
@@ -431,7 +439,7 @@ const DietModal = ({
     }
     values.diet_modal_date = values.diet_modal_date.getFullYear() + '-' + (values.diet_modal_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.diet_modal_date.getDate().toString().padStart(2, '0');
 
-    axios.post(' diet/',
+    axios.post('diet/',
       {
         id: JSON.parse(sessionStorage.getItem('User')).newRefId,
         memo: values.diet_modal_memo,
@@ -452,9 +460,9 @@ const DietModal = ({
   }
   //취소버튼 액션
   const onNotSubmit = () => {
-    console.log("hi")
     setInput(true);
     SetSearchWord("");
+    isChecked.current=searchTag;
     onCancel();
     if (type !== 'edit')
       tags.length = 0;
