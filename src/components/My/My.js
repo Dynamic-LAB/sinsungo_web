@@ -12,6 +12,7 @@ import NoticeList from "./Notice/NoticeList";
 import Footer from "../common/Footer";
 import GetMemberByRefrigratorId from "../ForServer/GetMemberByRefrigratorId"
 import axios from 'axios';
+import GetNotice from "../ForServer/GetNotice";
 const WhiteBoxMy = styled(WhiteBox)`
   height: 250px;
   .member_profile {
@@ -109,7 +110,10 @@ const My = (props) => {
 
   const [modal, setModal] = useState(false);
   const [open, setOpen] = useState(false);
-
+  const [serverNotice,SetServerNotice]=useState();
+  useEffect(()=>{
+    GetNotice({SetServerNotice:SetServerNotice});
+  },[])
   //탈퇴팝업 클릭 액션
   const onCheck = () => {
     setModal(true);
@@ -150,6 +154,7 @@ const My = (props) => {
       [notices],
   );
   return (
+    
     <div id="my">
       <div className="my__container">
         <div className="fridge__cards">
@@ -227,31 +232,18 @@ const My = (props) => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td><Link to="/notice">환영합니다</Link></td>
-                  <td>신선고마스터</td>
-                  <td >
-                    <time dateTime="2021-06-03">2021-06-03</time>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td><Link to="/notice">환영합니다</Link></td>
-                  <td>신선고마스터</td>
-                  <td >
-                    <time dateTime="2021-06-03">2021-06-03</time>
-                  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td><Link to="/notice">환영합니다</Link></td>
-                  <td>신선고마스터</td>
-                  <td >
-                    <time dateTime="2021-06-03">2021-06-03</time>
-                  </td>
-                </tr>
-
+              {serverNotice&&serverNotice.map((item,_i)=>{
+                  return (
+                      <tr>
+                        <td>{serverNotice.length-_i}</td>
+                        <td><Link to={{pathname:`/notice/${item.id}`}}>{item.title}</Link></td>
+                        <td>신선고마스터</td>
+                        <td>
+                        <time dateTime="2021-06-03">{item.date}</time>
+                      </td>
+                    </tr>
+                  )
+              })}
               </tbody>
             </NoticeTable>
           </div>

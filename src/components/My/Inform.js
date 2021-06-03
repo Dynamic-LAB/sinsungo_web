@@ -16,7 +16,7 @@ const NoticeTitle = styled.div`
 const NoticeContents = styled.div`
   margin-top: 50px;
 `;
-const Inform = () => {
+const Inform = (props) => {
   return (
     <div id="my">
       <div className="notice__container">
@@ -29,7 +29,7 @@ const Inform = () => {
             <tbody>
             <tr>
               <th scope="row" width="30%">제목</th>
-              <td>환영합니다 :)</td>
+              <td>{props.serverNotice.title}</td>
             </tr>
             <tr>
               <th scope="row" width="30%">작성자</th>
@@ -38,12 +38,13 @@ const Inform = () => {
             <tr>
               <th scope="row" width="30%">작성일</th>
               <td >
-                <time dateTime="2021-06-03">2021-06-03</time>
+                <div>{props.serverNotice.date}</div>
+                {/*<time dateTime="2021-06-01">2021-06-05</time>*/}
               </td>
             </tr>
             <tr>
               <td>
-
+              {props.serverNotice.content}
               </td>
             </tr>
 

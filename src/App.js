@@ -48,7 +48,7 @@ const App = () => {
         <Route render={() => <ShoppingBasketPage setRefModal={setRefModal} />} path="/basket"/>
         <Route render={() => <RecipePage setRefModal={setRefModal} />} path="/recipe"/>
         <Route render={() => <MyPage setRefModal={setRefModal} />} path="/my" />
-        <Route component={NoticePage} path="/notice"/>
+        <Route component={NoticePage} path="/notice/:id"/>
         </MemberProvider>
       </Provider>
     </>
