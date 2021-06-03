@@ -20,6 +20,7 @@ const WhiteBoxMy = styled(WhiteBox)`
     width: fit-content;
     align-items: center;
     margin: 10px;
+    overflow-x: auto;
   }
 `;
 
@@ -69,6 +70,10 @@ const ListBlock = styled.div`
 const NoticeTable = styled.table`
   width: 100%;
   padding: 0; //위아래 좌우
+  border-top: 2px solid #3C82D9;
+  border-bottom: 2px solid #3C82D9;
+  border-spacing: 0;
+  border-collapse: collapse;
 `;
 
 const My = (props) => {

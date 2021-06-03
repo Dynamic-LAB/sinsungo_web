@@ -72,9 +72,10 @@
 }
 .r_card_inner {
     display: flex;
-    width: fit-content;
+    width: 190px;
     align-items: center;
-
+    overflow-x: auto;
+    padding: 0 10px;
 }
 
 @media only screen and (max-width: 1400px) {

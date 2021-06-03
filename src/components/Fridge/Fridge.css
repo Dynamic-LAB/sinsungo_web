@@ -143,6 +143,13 @@
         font-size: 15px;
     }
 }
+@media only screen and (max-width: 1500px) {
+    .icon_fridge_empty {
+        width: 150px;
+        height: 150px;
+        background-size: 150px 150px;
+    }
+}
 @media only screen and (max-width: 765px) {
     .input-datepicker {
         width: 125px;

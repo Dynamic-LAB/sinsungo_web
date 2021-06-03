@@ -11,12 +11,16 @@ const IngredientBlock = styled.div`
   //align-items: center;
 `;
 const EmptyBlock = styled.div`
-  margin-top: 50px;
+  display: block; 
+  margin: 0 auto;
+  padding-top: 50px;
   text-align: center;
   //margin-left: 230px;
   width: 200px;
   .empty_image {
     display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
   }
   .empty_text {
@@ -53,35 +57,40 @@ useEffect(()=>{
   }
 },[state.IngredientList])
   return (
-    
-    <IngredientBlock>
-      {
-        state.IngredientList.map(item => {
-          if (item.category === type) {
-            return (
-              <>
-              <FridgeItem
-                ingredient={item}
-                key={item.id}
-                onRemove={onRemove}
-              />
-              </>
-            )
-          }
-        })
-      }
+    <>
+        {
+          <IngredientBlock>
+            {
+              state.IngredientList.map(item => {
+                if (item.category === type) {
+                  return (
+                    <>
+                      <FridgeItem
+                        ingredient={item}
+                        key={item.id}
+                        onRemove={onRemove}
+                      />
+                    </>
+                  )
+                }
 
-      {!empty?
-        <EmptyBlock>
-          <div className="empty_image">
-            <div className="icon_fridge_empty"/>
-          </div>
+              })}
+          </IngredientBlock>
 
-          <div className="empty_text">냉장고에 재료를 먼저 넣어주세요!</div>
-        </EmptyBlock>
-        :null}
-    </IngredientBlock>
+        }
+
+        {!empty?
+          <EmptyBlock>
+            <div className="empty_image">
+              <div className="icon_fridge_empty"/>
+            </div>
+
+            <div className="empty_text">냉장고에 재료를 먼저 넣어주세요!</div>
+          </EmptyBlock>
+          :null}
+    </>
+
   );
-}
+};
 
 export default FridgeList;

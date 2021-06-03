@@ -49,7 +49,32 @@ const RecipeTitle = styled.div`
   font-size: 10px;
   border-bottom: 1px solid #bbbbbb;
 `;
+const EmptyBlock = styled.div`
+  text-align: center;
+  //margin-left: 230px;
+  width: 200px;
 
+  .empty_image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .empty_text {
+    text-align: center;
+    font-size: 15px;
+  }
+
+  @media only screen and (max-width: 765px) {
+    width: 150px;
+    display: block;
+    margin: 0 auto;
+    .empty_text {
+      font-size: 15px;
+    }
+  }
+`;
 
 const Recipe = () => {
   const range = useRef(null);
@@ -66,7 +91,7 @@ const Recipe = () => {
     }
     if (waitTime.current === false) {
       waitTime.current = true;
-      const res = await axios.get(" recipe/" + (JSON.parse(sessionStorage.getItem('User'))?JSON.parse(sessionStorage.getItem('User')).newRefId:0), {
+      const res = await axios.get(" recipe/" + (JSON.parse(sessionStorage.getItem('User')) ? JSON.parse(sessionStorage.getItem('User')).newRefId : 0), {
         params: {start: startPoint, end: endPoint, query: query}
       });
       if (list.current.length >= 0 && list.current[list.current.length - 1] !== query) {
@@ -131,21 +156,22 @@ const Recipe = () => {
           <RecipeBlock>
             <div className="recipe__cards">
               {
-                recipeData&&recipeData.length>0 ? recipeData.map((item) => {
-                
-                  return (
-                    <RecipeCard
-                      thumbnail={item.thumbnail}
-                      url={item.url}
-                      description={item.description}
-                      name={item.name}
-                      hasList={item.inRefIngredients}
-                      noneList={item.notInRefIngredients}
-                    />
-                  )
-                }) :<div>Empty</div>
+                recipeData && recipeData.length > 0 ? recipeData.map((item) => {
+                    return (
+                      <RecipeCard
+                        thumbnail={item.thumbnail}
+                        url={item.url}
+                        description={item.description}
+                        name={item.name}
+                        hasList={item.inRefIngredients}
+                        noneList={item.notInRefIngredients}
+                      />
+                    )
+                  }) :
+                  <EmptyBlock>
+                    <div className="empty_text">레시피가 없습니다!</div>
+                  </EmptyBlock>
               }
-
             </div>
           </RecipeBlock>
         </WhiteBoxRecipe>
