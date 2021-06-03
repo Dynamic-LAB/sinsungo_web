@@ -9,10 +9,12 @@ const ShoppingBlock = styled.div`
   
 `;
 const EmptyBlock = styled.div`
-  margin-top: 150px;
+  padding-top: 165px;
   text-align: center;
   //margin-left: 230px;
   width: 180px;
+  display: block;
+  margin: 0 auto;
 
   .empty_image {
     display: flex;

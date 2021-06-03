@@ -456,7 +456,7 @@ const DietModal = ({
     if (type !== 'edit')
       tags.length = 0;
       var data=[] 
-      diet.menus.forEach(element => {
+      diet && diet.menus.forEach(element => {
         if(element!=null)
         data.push(element)  
       });

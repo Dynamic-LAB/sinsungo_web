@@ -68,6 +68,10 @@ const ListBlock = styled.div`
 const NoticeTable = styled.table`
   width: 100%;
   padding: 0; //위아래 좌우
+  border-top: 2px solid #3C82D9;
+  border-bottom: 2px solid #3C82D9;
+  border-spacing: 0;
+  border-collapse: collapse;
 `;
 
 const My = (props) => {
@@ -246,6 +250,7 @@ const My = (props) => {
                     <time dateTime="2021-06-03">2021-06-03</time>
                   </td>
                 </tr>
+
               </tbody>
             </NoticeTable>
           </div>
