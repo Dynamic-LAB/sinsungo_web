@@ -62,8 +62,6 @@ a {
     color: #393939;
 }
 
-
-/*container 수정 필요*/
 .container {
     display: grid;
     height: 100vh;
