@@ -19,6 +19,7 @@ const WhiteBoxMy = styled(WhiteBox)`
     width: fit-content;
     align-items: center;
     margin: 10px;
+    overflow-x: auto;
   }
 `;
 

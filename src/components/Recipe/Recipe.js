@@ -49,10 +49,6 @@ const RecipeTitle = styled.div`
   font-size: 10px;
   border-bottom: 1px solid #bbbbbb;
 `;
-const EmptyEmptyBlock = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-`;
 const EmptyBlock = styled.div`
   text-align: center;
   //margin-left: 230px;
@@ -67,7 +63,7 @@ const EmptyBlock = styled.div`
 
   .empty_text {
     text-align: center;
-    font-size: 20px;
+    font-size: 15px;
   }
 
   @media only screen and (max-width: 765px) {
