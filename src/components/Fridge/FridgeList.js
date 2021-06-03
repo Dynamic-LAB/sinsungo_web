@@ -6,7 +6,32 @@ import {Context} from '../../Ingredient';
 const IngredientBlock = styled.div`
   overflow-y: auto; //스크롤
   text-align: center;
+  //display: flex;
+  //justify-content: center;
+  //align-items: center;
 `;
+const EmptyBlock = styled.div`
+  margin-top: 50px;
+  text-align: center;
+  //margin-left: 230px;
+  width: 200px;
+  .empty_image {
+    display: flex;
+    text-align: center;
+  }
+  .empty_text {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 12px;
+  }
+  @media only screen and (max-width: 765px) {
+    width: 150px;
+    .empty_text {
+      font-size: 10px;
+    }
+  }
+`;
+
 let data=[];
 const FridgeList = ({onRemove, type}) => {
   const {
@@ -23,7 +48,7 @@ useEffect(()=>{
       SetEmpty(true);
     }
   })
-  if(isChange!=1){
+  if(isChange!==1){
     SetEmpty(false);
   }
 },[state.IngredientList])
@@ -46,7 +71,15 @@ useEffect(()=>{
         })
       }
 
-      {!empty?<div className="icon_fridge_empty"/>:null}
+      {!empty?
+        <EmptyBlock>
+          <div className="empty_image">
+            <div className="icon_fridge_empty"/>
+          </div>
+
+          <div className="empty_text">냉장고에 재료를 먼저 넣어주세요!</div>
+        </EmptyBlock>
+        :null}
     </IngredientBlock>
   );
 }

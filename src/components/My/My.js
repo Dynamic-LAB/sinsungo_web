@@ -44,6 +44,17 @@ const MenuItemBlock = styled.div`
     color: #3C82D9;
     text-shadow: none;
   }
+  @media only screen and (max-width: 978px) {
+    font-size: 13px;
+  }
+  @media only screen and (max-width: 450px){
+    padding: 10px;
+    border-bottom: none;
+  }
+  @media only screen and (max-width: 330px) {
+    font-size: 12px;
+    font-weight: 500;
+  }
 `;
 const Spacer = styled.div`
   flex-grow: 1;
@@ -54,12 +65,7 @@ const ListBlock = styled.div`
 `;
 const NoticeTable = styled.table`
   width: 100%;
-`;
-const TableThead = styled.thead`
-  
-`;
-const TableTbody = styled.tbody`
-  
+  padding: 0; //위아래 좌우
 `;
 const My = () => {
   const [notices, setNotice] = useState([
@@ -194,22 +200,40 @@ const My = () => {
           {/*공지사항 구현중*/}
           <div className="my_contents">
             <NoticeTable>
-              <TableThead>
+              <thead>
                 <tr>
-                  <th>번호</th>
-                  <th>제목</th>
-                  <th>작성자</th>
-                  <th>작성일</th>
+                  <th scope="col" width="10%">번호</th>
+                  <th scope="col" width="50%">제목</th>
+                  <th scope="col" width="20%">작성자</th>
+                  <th scope="col" width="20%">작성일</th>
                 </tr>
-              </TableThead>
-              <TableTbody>
+              </thead>
+              <tbody>
                 <tr>
-                  <th>1</th>
-                  <th>환영합니다</th>
-                  <th>신선고마스터</th>
-                  <th>작성일</th>
+                  <td>1</td>
+                  <td><Link to="/notice">환영합니다</Link></td>
+                  <td>신선고마스터</td>
+                  <td >
+                    <time dateTime="2021-06-03">2021-06-03</time>
+                  </td>
                 </tr>
-              </TableTbody>
+                <tr>
+                  <td>2</td>
+                  <td><Link to="/notice">환영합니다</Link></td>
+                  <td>신선고마스터</td>
+                  <td >
+                    <time dateTime="2021-06-03">2021-06-03</time>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td><Link to="/notice">환영합니다</Link></td>
+                  <td>신선고마스터</td>
+                  <td >
+                    <time dateTime="2021-06-03">2021-06-03</time>
+                  </td>
+                </tr>
+              </tbody>
             </NoticeTable>
           </div>
 

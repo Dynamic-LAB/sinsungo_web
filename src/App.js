@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Route} from 'react-router-dom';
 import LoginPage from "./pages/LoginPage";
 import FridgePage from "./pages/FridgePage";
@@ -10,6 +10,8 @@ import {Provider} from "./Ingredient";
 import {MemberProvider} from "./MemberList";
 import Test from "./Hello";
 import StartModal from "./components/common/StartModal"
+import NoticePage from "./pages/NoticePage";
+
 const App = () => {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -22,32 +24,33 @@ const App = () => {
   const closeSidebar = () => {
     setSidebarOpen(false);
   }
-  useEffect(()=>{
-    
-    sessionStorage.setItem('Test',1);
+  useEffect(() => {
 
-  /*********************************/
+    sessionStorage.setItem('Test', 1);
+
+    /*********************************/
 
     //서비스 희망하면 위의 구 삭제
     //sessionStorage.removeItem('Test');
 
-  /*********************************/
+    /*********************************/
   });
-  const [refModal,setRefModal]=useState(false);
-  return(
-      <> 
-        <StartModal visible={refModal} setRefModal={setRefModal} />
-        <Provider>
+  const [refModal, setRefModal] = useState(false);
+  return (
+    <>
+      <StartModal visible={refModal} setRefModal={setRefModal}/>
+      <Provider>
         <MemberProvider>
-        <Route component={LoginPage} path="/" exact/>
-        <Route render={() => <FridgePage setRefModal={setRefModal} />} path="/fridge"/>
-        <Route component={Main} path="/Main"/>
-        <Route render={() => <ShoppingBasketPage setRefModal={setRefModal} />} path="/basket"/>
-        <Route render={() => <RecipePage setRefModal={setRefModal} />} path="/recipe"/>
-        <Route render={() => <MyPage setRefModal={setRefModal} />} path="/my" />
+          <Route component={LoginPage} path="/" exact/>
+          <Route render={() => <FridgePage setRefModal={setRefModal}/>} path="/fridge"/>
+          <Route component={Main} path="/Main"/>
+          <Route render={() => <ShoppingBasketPage setRefModal={setRefModal}/>} path="/basket"/>
+          <Route render={() => <RecipePage setRefModal={setRefModal}/>} path="/recipe"/>
+          <Route render={() => <MyPage setRefModal={setRefModal}/>} path="/my"/>
+          <Route component={NoticePage} path="/notice"/>
         </MemberProvider>
-        </Provider> 
-      </>
+      </Provider>
+    </>
 
   );
 };
