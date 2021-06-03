@@ -5,6 +5,7 @@ import "./Member.css";
 import {Context} from "../../../../MemberList"
 import GetMemberByRefrigratorId from "../../../ForServer/GetMemberByRefrigratorId";
 import axios from "../../../../../node_modules/axios/index";
+import AskModal from "../../../My/AskModal";
 //right-bar 사용
 const MemberBlock = styled.div`
   padding: 10px;
@@ -42,9 +43,17 @@ const MyProfileBlock = styled.div`
 `;
 
 const Member = ({type}) => {
+  const [ask,SetAsk]=useState(false);
   const {state,dispatch}=useContext(Context);
+  const [selectMember,SetSelectMember]=useState();
   const UserDelete=(item)=>{
     //삭제하시겠습니까 실행
+    SetAsk(true);
+    SetSelectMember(item);
+  }
+  const onBan=(item)=>{
+    SetAsk(false)
+    SetSelectMember(null);
     axios.delete(" user/",
     {data:{
       id: item.id,
@@ -66,6 +75,7 @@ const Member = ({type}) => {
   },[])
   return (
     <>
+       <AskModal visible={ask} type="ban" onCancel={()=>{SetAsk(false)}} onBan={()=>{onBan(selectMember)}} ></AskModal>
       {type === 'right' && (
         <>
             {
