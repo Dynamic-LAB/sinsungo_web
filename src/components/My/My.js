@@ -45,6 +45,17 @@ const MenuItemBlock = styled.div`
     color: #3C82D9;
     text-shadow: none;
   }
+  @media only screen and (max-width: 978px) {
+    font-size: 13px;
+  }
+  @media only screen and (max-width: 450px){
+    padding: 10px;
+    border-bottom: none;
+  }
+  @media only screen and (max-width: 330px) {
+    font-size: 12px;
+    font-weight: 500;
+  }
 `;
 const Spacer = styled.div`
   flex-grow: 1;
@@ -52,6 +63,11 @@ const Spacer = styled.div`
 const ListBlock = styled.div`
   overflow-y: auto;
   margin: 10px 5px;
+`;
+
+const NoticeTable = styled.table`
+  width: 100%;
+  padding: 0; //위아래 좌우
 `;
 
 const My = (props) => {
@@ -87,12 +103,21 @@ const My = (props) => {
   ])
 
   const [modal, setModal] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  //탈퇴팝업 클릭 액션
   const onCheck = () => {
     setModal(true);
   };
+  //강퇴팝업 클릭 액션
+  const onBanCheck = () => {
+    setOpen(true);
+  };
   const onCancel = () => {
     setModal(false);
+    setOpen(false);
   };
+  //탈퇴팝업 탈퇴버튼 액션
   const onWithdrawal = () => {
       //회원탈퇴(본인)
       var item=JSON.parse(window.sessionStorage.getItem('User')).data;
@@ -108,6 +133,10 @@ const My = (props) => {
         props.LogoutOrExit();
         setModal(false);
       })
+  };
+  //강퇴팝업 강퇴버튼 액션
+  const onBan = () => {
+    setOpen(false);
   };
   const onRemove = useCallback(
       id => {
@@ -141,8 +170,14 @@ const My = (props) => {
               <div className="member_profile">
                 <Member type="my"/>
               </div>
-
             </WhiteBoxMy>
+            {/*강퇴확인*/}
+            <AskModal
+              visible={open}
+              onCancel={onCancel}
+              onBan={onBan}
+              type='ban'
+            />
           </div>
         </div>
         {/*메뉴*/}
@@ -172,11 +207,49 @@ const My = (props) => {
               visible={modal}
               onCancel={onCancel}
               onWithdrawal={onWithdrawal}
+              type='leave'
             />
           </div>
+          {/*공지사항 구현중*/}
           <div className="my_contents">
-            공지사항 내용 들어가는 곳
+            <NoticeTable>
+              <thead>
+                <tr>
+                  <th scope="col" width="10%">번호</th>
+                  <th scope="col" width="50%">제목</th>
+                  <th scope="col" width="20%">작성자</th>
+                  <th scope="col" width="20%">작성일</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td><Link to="/notice">환영합니다</Link></td>
+                  <td>신선고마스터</td>
+                  <td >
+                    <time dateTime="2021-06-03">2021-06-03</time>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td><Link to="/notice">환영합니다</Link></td>
+                  <td>신선고마스터</td>
+                  <td >
+                    <time dateTime="2021-06-03">2021-06-03</time>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td><Link to="/notice">환영합니다</Link></td>
+                  <td>신선고마스터</td>
+                  <td >
+                    <time dateTime="2021-06-03">2021-06-03</time>
+                  </td>
+                </tr>
+              </tbody>
+            </NoticeTable>
           </div>
+
         </div>
       </div>
       <footer className="my_footer">

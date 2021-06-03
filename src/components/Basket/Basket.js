@@ -31,11 +31,17 @@ const BasketTitle = styled.div`
   }
 `;
 const DietBlock = styled.div`
+  //display: flex;
+  justify-content: center;
+  align-items: center;
   overflow-y: auto; //스크롤
   padding: 10px 20px;
 `;
 const IngredientBlock = styled.div`
   overflow-y: auto; //스크롤
+  //display: flex;
+  //justify-content: center;
+  //align-items: center;
 `;
 
 const Spacer = styled.div`

@@ -1,0 +1,31 @@
+.notice__container {
+    padding: 20px 200px 10px;
+}
+table {
+    border-top: 2px solid #393939;
+    border-bottom: 2px solid #393939;
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border-bottom: 1px solid rgb(190, 190, 190);
+}
+th {
+    border-right: 1px solid rgb(190, 190, 190);
+}
+@media only screen and (max-width: 1200px) {
+    .notice__container {
+        padding: 20px 100px 10px;
+    }
+}
+@media only screen and (max-width: 765px) {
+    .notice__container {
+        padding: 20px 50px 10px;
+    }
+}
+@media only screen and (max-width: 450px) {
+    .notice__container {
+        padding: 20px 10px 10px;
+    }
+}

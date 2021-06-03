@@ -6,6 +6,30 @@ import {Context} from "../../Ingredient";
 import GetIngredientByRefrigratorId from "../ForServer/GetIngredientByRefrigratorId"
 const ShoppingBlock = styled.div`
   overflow-y: auto; //스크롤
+  
+`;
+const EmptyBlock = styled.div`
+  margin-top: 150px;
+  text-align: center;
+  //margin-left: 230px;
+  width: 180px;
+
+  .empty_image {
+    display: flex;
+    text-align: center;
+  }
+  .empty_text {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 12px;
+  }
+  @media only screen and (max-width: 765px) {
+    width: 120px;
+    .empty_text {
+      font-size: 10px;
+    }
+  }
+
 `;
 
 const BasketList = ({type}) => {
@@ -22,7 +46,7 @@ const BasketList = ({type}) => {
       }
     )
     console.log("재료목록:",state);
-  };
+  }
   },[])
 
   const lists = useShoppingState();
@@ -45,7 +69,13 @@ const BasketList = ({type}) => {
         })}
 
         </ShoppingBlock>
-      )):<div>Empty</div>}
+      )):
+        <EmptyBlock>
+        <div className="empty_image">
+          <div className="icon_basket_empty"/>
+        </div>
+        <div className="empty_text">장바구니를 먼저 작성해주세요!</div>
+      </EmptyBlock>}
 
     </>
   )

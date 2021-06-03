@@ -18,9 +18,8 @@
 }
 .bar_title{
     font-size: 25px;
-    border-bottom: 1px solid black;
-    padding-bottom: 30px;
     margin-left: 220px;
+    padding: 0 100px 30px 100px;
 }
 .my_menu_bar {
     min-width: 11rem;
@@ -30,8 +29,8 @@
 }
 .my_contents {
     margin-left: 220px;
-    padding: 30px 0;
     height: 500px;
+    padding: 0 100px;
 }
 .icon_notice_fridge {
     width: 21px;
@@ -63,6 +62,44 @@
 }
 .my_footer {
     margin: 0 25px;
+
+}
+table {
+    border-top: 2px solid #3C82D9;
+    border-bottom: 2px solid #3C82D9;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+thead{
+    font-size: 13px;
+    padding: 10px 0;
+}
+tbody {
+    font-size: 12px;
+    text-align: center;
+    padding: 10px 0;
+}
+th {
+    padding: 20px 0;
+    color: #393939;
+}
+tbody tr:first-child td {
+    border-top: 1px solid #333;
+}
+td {
+    padding: 20px 0;
+    border-bottom: 1px solid rgb(190, 190, 190);
+    color: #4C4C4C;
+}
+
+@media only screen and (max-width: 1200px) {
+    .my_contents {
+        padding: 0 30px;
+        margin-left: 190px;
+    }
+    .bar_title {
+        padding: 0 50px 30px 50px;
+    }
 }
 @media only screen and (max-width: 978px) {
     .my_title {
@@ -77,5 +114,43 @@
     }
     .my_contents {
         margin-left: 150px;
+        padding: 0 50px;
+    }
+}
+@media only screen and (max-width: 450px) {
+    .my_title {
+        font-size: 18px;
+        border-top: 1px solid #707070;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+    .my_menu_bar {
+        min-width: 7rem;
+        display: flex;
+        margin-bottom: 20px;
+        border-top: none;
+        float: none;
+        justify-content: center;
+    }
+    .bar_title {
+        margin-left: 0;
+        padding: 10px 0;
+        font-size: 15px;
+        margin-top: 10px;
+        display: none;
+    }
+    .my_contents {
+        margin-left: 0;
+        padding: 0;
+    }
+
+    th, td {
+        padding: 10px 0;
+    }
+
+}
+@media only screen and (max-width: 330px) {
+    thead, tbody {
+        font-size: 10px;
     }
 }

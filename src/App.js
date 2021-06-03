@@ -10,6 +10,8 @@ import {Provider} from "./Ingredient";
 import {MemberProvider} from "./MemberList";
 import Test from "./Hello";
 import StartModal from "./components/common/StartModal"
+import NoticePage from "./pages/NoticePage";
+
 const App = () => {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -26,12 +28,12 @@ const App = () => {
     
     //sessionStorage.setItem('Test',1);
 
-  /*********************************/
+    /*********************************/
 
     //서비스 희망하면 위의 구 삭제
     sessionStorage.removeItem('Test');
 
-  /*********************************/
+    /*********************************/
   });
   const [refModal,setRefModal]=useState(false);
   return(
@@ -46,9 +48,10 @@ const App = () => {
         <Route render={() => <ShoppingBasketPage setRefModal={setRefModal} />} path="/basket"/>
         <Route render={() => <RecipePage setRefModal={setRefModal} />} path="/recipe"/>
         <Route render={() => <MyPage setRefModal={setRefModal} />} path="/my" />
+        <Route component={NoticePage} path="/notice"/>
         </MemberProvider>
-        </Provider> 
-      </>
+      </Provider>
+    </>
 
   );
 };
