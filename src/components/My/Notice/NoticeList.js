@@ -2,6 +2,53 @@ import React, { useEffect, useState } from "react";
 import GetAlam from "../../ForServer/GetAlam";
 import NoticeItem from "./NoticeItem";
 import axios from 'axios';
+import emptyImage from "../../../assets/img_search_no.png";
+import styled from "styled-components";
+
+const EmptyBlock = styled.div`
+  padding-top: 20px;
+  text-align: center;
+  //margin-left: 230px;
+  width: 220px;
+  display: block;
+  margin: 0 auto;
+
+  .empty_image {
+    display: flex;
+    text-align: center;
+  }
+  .img_search_empty_my {
+    width: 220px;
+  }
+  @media only screen and (max-width: 765px) {
+    width: 200px;
+    .img_search_empty_my {
+      width: 200px;
+    }
+  }
+`;
+const RightBlock = styled.div`
+  padding-top: 70px;
+  text-align: center;
+  //margin-left: 230px;
+  width: 130px;
+  display: block;
+  margin: 0 auto;
+
+  .empty_image {
+    display: flex;
+    text-align: center;
+  }
+  .img_search_empty_right {
+    width: 130px;
+  }
+  @media only screen and (max-width: 765px) {
+    width: 120px;
+    .img_search_empty_right {
+      width: 120px;
+    }
+  }
+`;
 
 const NoticeList = ({notices, type}) => {
   const onRemove=(id)=>{
@@ -21,7 +68,11 @@ const NoticeList = ({notices, type}) => {
           {(Alam&&Alam.length>0)?Alam.map(notice => (
               <NoticeItem notice={notice} onRemove={onRemove} type="my"/>
             )
-          ):<div>Empty</div>}
+          ):<EmptyBlock>
+            <div className="empty_image">
+              <img className="img_search_empty_my" src={emptyImage} alt="알림 텅 이미지"/>
+            </div>
+          </EmptyBlock>}
         </>
       )}
       {type === 'right' && (
@@ -29,7 +80,11 @@ const NoticeList = ({notices, type}) => {
           {(Alam&&Alam.length>0)?Alam.map(notice => (
               <NoticeItem notice={notice} onRemove={onRemove} type="right"/>
             )
-          ):<div>Empty</div>}
+          ):<RightBlock>
+            <div className="empty_image">
+              <img className="img_search_empty_right" src={emptyImage} alt="알림 텅 이미지"/>
+            </div>
+          </RightBlock>}
         </>
       )}
 
