@@ -105,7 +105,6 @@ const Recipe = () => {
         let tmp = list.current[list.current.length - 1];
         list.current = [];
         waitTime.current = false;
-        console.log(tmp, " 으로 재검색")
         await GetRecipe(startPoint, endPoint, tmp);
         return;
       }
