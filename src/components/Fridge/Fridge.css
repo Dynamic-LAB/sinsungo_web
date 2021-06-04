@@ -92,13 +92,6 @@
     margin-right: 10px;
 }
 
-.icon_fridge_empty {
-    width: 200px;
-    height: 200px;
-    background: no-repeat url("../../assets/fridge_empty.svg");
-    background-size: 200px 200px;
-}
-
 .input-datepicker {
     border: none;
     background: #F0F0F0;

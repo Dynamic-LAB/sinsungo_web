@@ -34,7 +34,7 @@
     /*padding: 20px;*/
     border-radius: 10px;
     background: #ffffff;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 
 .notice_card_title {
@@ -42,6 +42,7 @@
     align-items: center;
     padding: 8px 10px 5px 10px;
     font-size: 10px;
+    border-bottom: 1px solid #bbbbbb;
 }
 .member_card_title {
     display: flex;
@@ -72,9 +73,7 @@
 }
 .r_card_inner {
     display: flex;
-    width: 190px;
     align-items: center;
-    overflow-x: auto;
     padding: 0 10px;
 }
 

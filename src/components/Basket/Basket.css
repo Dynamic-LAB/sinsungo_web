@@ -75,18 +75,6 @@
     outline: none;
     cursor: pointer;
 }
-.icon_diet_empty {
-    width: 180px;
-    height: 180px;
-    background: no-repeat url("../../assets/diet_empty.svg");
-    background-size: 180px 180px;
-}
-.icon_basket_empty {
-    width: 180px;
-    height: 180px;
-    background: no-repeat url("../../assets/basket_empty.svg");
-    background-size: 180px 180px;
-}
 
 .down_img {
     display: flex;
@@ -107,6 +95,10 @@
     width: 300px;
     height: 30px;
     cursor: pointer;
+}
+.place-holder {
+    cursor: pointer;
+    color: #bbbbbb;
 }
 .blue-year-custom-input {
     display: flex;

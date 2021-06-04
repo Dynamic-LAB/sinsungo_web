@@ -13,6 +13,7 @@ const WhiteBoxNotice = styled(WhiteBox)`
 
 const WhiteBoxMember = styled(WhiteBox)`
   height: auto;
+  width: 200px;
 `;
 
 const NoticeBlock = styled.div`
@@ -80,7 +81,6 @@ const Right = () => {
               <div className="icon-member"><MdSupervisorAccount/></div>
               <h2>냉장고멤버</h2>
               <Spacer/>
-              {/*<MemberAddButton/>*/}
             </div>
             <div className="r_card_inner">
               <Member type='right'/>

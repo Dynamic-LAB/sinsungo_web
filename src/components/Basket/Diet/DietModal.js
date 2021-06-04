@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState, useContext, useEffect, forwardRef} from 'react';
+import React, {useRef, useState, useContext, useEffect, forwardRef} from 'react';
 import styled from "styled-components";
 import {useForm, Controller} from "react-hook-form";
 import {MdCancel, MdSearch} from "react-icons/md";
@@ -11,7 +11,6 @@ import GetIngredientByRefrigratorId from "../../ForServer/GetIngredientByRefrigr
 import {Context} from "../../../Ingredient"
 import axios from 'axios';
 import '../Basket.css';
-//import {useDietDispatch, useDietNextId} from "./DietContext";
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -389,6 +388,7 @@ const DietModal = ({
       UpdateDiet(values, ingredients);
       alert("식단이 수정되었습니다!");
     }
+    onShow();
     //nextId.current += 1;
   };
   const UpdateDiet = (values, ingredients) => {
@@ -465,29 +465,45 @@ const DietModal = ({
     });
     setTags(data)
     reset(EditValues(diet));
+    onShow();
   };
-  const CustomInput = forwardRef(({value, onClick}, ref) => (
-    <div className="custom-input">
-      <div className="blue-year-custom-input" onClick={onClick} ref={ref}>
-        {value[0]}{value[1]}{value[2]}{value[3]}
-      </div>
-      <div className="black-custom-input" onClick={onClick} ref={ref}>
-        {value[4]}
-      </div>
-      <div className="blue-month-custom-input" onClick={onClick} ref={ref}>
-        {value[6]}{value[7]}
-      </div>
-      <div className="black-custom-input" onClick={onClick} ref={ref}>
-        {value[8]}
-      </div>
-      <div className="blue-month-custom-input" onClick={onClick} ref={ref}>
-        {value[10]}{value[11]}
-      </div>
-      <div className="black-custom-input" onClick={onClick} ref={ref}>
-        {value[12]}
-      </div>
-    </div>
 
+  const [isShow, setIsShow] = useState(true);
+  const onNotShow = () => {
+    setIsShow(false);
+  };
+  const onShow = () => {
+    setIsShow(true);
+  }
+
+  const CustomInput = forwardRef(({value, onClick, placeholder, onChange}, ref) => (
+
+    <>
+      {isShow ? <div className="place-holder" onClick={()=>{onClick(); onNotShow();}}>{placeholder}</div> :
+        <div className="custom-input" ref={ref} onClick={onClick}>
+          <div className="blue-year-custom-input" onClick={onClick} ref={ref}>
+            {value[0]}{value[1]}{value[2]}{value[3]}
+          </div>
+          <div className="black-custom-input" onClick={onClick} ref={ref}>
+            {value[4]}
+          </div>
+          <div className="blue-month-custom-input" onClick={onClick} ref={ref}>
+            {value[6]}{value[7]}
+          </div>
+          <div className="black-custom-input" onClick={onClick} ref={ref}>
+            {value[8]}
+          </div>
+          <div className="blue-month-custom-input" onClick={onClick} ref={ref}>
+            {value[10]}{value[11]}
+          </div>
+          <div className="black-custom-input" onClick={onClick} ref={ref}>
+            {value[12]}
+          </div>
+        </div>
+      }
+
+
+    </>
 
   ))
 
@@ -527,7 +543,7 @@ const DietModal = ({
                         showYearDropdown //년도 선택
                         dropdownMode="select"
                         disabledKeyboardNavigation
-                        placeholderText="날짜를 선택해주세요."
+                        placeholderText="날짜를 선택해주세요"
                       />
                     )}
                     onChange={e => setValue("diet_modal_date", e.target.value)}
@@ -637,5 +653,5 @@ const DietModal = ({
       </ModalBlock>
     </Fullscreen>
   );
-}
+};
 export default DietModal;
