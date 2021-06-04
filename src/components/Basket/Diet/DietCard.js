@@ -67,6 +67,10 @@ const DateBlock = styled.div`
     margin-left: 10px;
     padding-top: 3px;
   }
+  .blue-bar {
+    color: #3C82D9;
+    font-weight: 700;
+  }
 `;
 const FoodBlock = styled.div`
   display: flex;
@@ -149,7 +153,7 @@ const DietCard = ({diet, id, memo, food, date, ingredient_item}) => {
                 <div className="diet_date">
                   {date}
                 </div>
-                <span> | </span>
+                <span className="blue-bar"> | </span>
                 <div className="diet_date_memo">
                   {memo}
                 </div>
