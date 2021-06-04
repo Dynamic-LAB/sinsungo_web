@@ -1,14 +1,15 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
-const GetIngredientByRefrigratorId = (props) => {
-    axios.get("refrigerator/ingredient/"+props.id, {
+const GetAlam = (props) => {
+    axios.get("notification/"+props.id, {
       params: {
       }
     })
     .then((response)=> {
         // response 
-        props.dispatch({type:"ADD_",payload:response})
-        return response;
+        //console.log("알람:",response.data);
+        props.SetAlam(response.data);
+        
       }).catch((error)=>{
         // 오류발생시 실행
     }).then(()=> {
@@ -17,4 +18,4 @@ const GetIngredientByRefrigratorId = (props) => {
     //props.setIngredients()
 
   }  
-export default GetIngredientByRefrigratorId;
+export default GetAlam;

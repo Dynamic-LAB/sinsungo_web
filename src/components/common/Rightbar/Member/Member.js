@@ -5,7 +5,7 @@ import "./Member.css";
 import {Context} from "../../../../MemberList"
 import GetMemberByRefrigratorId from "../../../ForServer/GetMemberByRefrigratorId";
 import axios from "../../../../../node_modules/axios/index";
-
+import AskModal from "../../../My/AskModal";
 //right-bar 사용
 const MemberBlock = styled.div`
   width: 80px;
@@ -51,17 +51,29 @@ const MyProfileBlock = styled.div`
 `;
 
 const Member = ({type}) => {
-  const {state, dispatch} = useContext(Context);
-  const UserDelete = (item) => {
+  const [ask,SetAsk]=useState(false);
+  const {state,dispatch}=useContext(Context);
+  const [selectMember,SetSelectMember]=useState();
+  const UserDelete=(item)=>{
     //삭제하시겠습니까 실행
-    axios.delete(" user/",
-      {
-        data: {
-          id: item.id,
-          login_type: item.login_type,
-          name: item.name,
-          push_token: item.push_token,
-          push_setting: item.push_setting
+    SetAsk(true);
+    SetSelectMember(item);
+  }
+  const onBan=(item)=>{
+    SetAsk(false)
+    SetSelectMember(null);
+    axios.put("user/",
+    {
+      id: item.id,
+      login_type: item.login_type,
+      name: item.name,
+      push_token: item.push_token,
+      push_setting: item.push_setting,
+      refrigerator_id:0
+    }
+    ).then((res)=>{
+      if(JSON.parse(window.sessionStorage.getItem('User'))&& JSON.parse(window.sessionStorage.getItem('User')).newRefId!=null){
+        GetMemberByRefrigratorId({refId:JSON.parse(window.sessionStorage.getItem('User')).newRefId,dispatch:dispatch})
         }
       }
     ).then((res) => {
@@ -80,6 +92,7 @@ const Member = ({type}) => {
   }, [])
   return (
     <>
+       <AskModal visible={ask} type="ban" onCancel={()=>{SetAsk(false)}} onBan={()=>{onBan(selectMember)}} ></AskModal>
       {type === 'right' && (
         <>
           {

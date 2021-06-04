@@ -61,7 +61,6 @@ const AskModal = (
     type,
   }
 ) => {
-  console.log(history,location)
   if (!visible) return null;
 
   return (

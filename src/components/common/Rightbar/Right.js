@@ -6,6 +6,7 @@ import WhiteBox from "../WhiteBox";
 import Member from "./Member/Member";
 import MemberAddButton from "./Member/MemberAddButton";
 import NoticeList from "../../My/Notice/NoticeList";
+import AskModal from '../../My/AskModal';
 
 const WhiteBoxNotice = styled(WhiteBox)`
   height: 300px;
@@ -62,6 +63,7 @@ const Right = () => {
   ])
   return (
     <div className="right">
+
       <div className="right__container">
         <div className="right__cards">
           {/*알림*/}

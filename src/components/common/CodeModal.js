@@ -114,7 +114,7 @@ const CodeModal = ({
   const [invitekey,SetInviteKey]=useState("");
   
   const JoinRef=()=>{
-    axios.put(" user/invite",
+    axios.put("user/invite",
     {
       inviteKey:invitekey,
       user:JSON.parse(window.sessionStorage.getItem('User')).data

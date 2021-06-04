@@ -5,6 +5,7 @@ import Recipe from "../components/Recipe/Recipe"
 import Right from "../components/common/Rightbar/Right";
 import {DietProvider} from "../components/Basket/Diet/DietContext";
 import { withRouter } from 'react-router';
+import GetUserHasRef from '../components/ForServer/GetUserHasRef';
 const RecipePage = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const openSidebar = () => {
@@ -22,13 +23,7 @@ const RecipePage = (props) => {
     }
   })
   useEffect(()=>{
-    if(JSON.parse(window.sessionStorage.getItem('User'))){
-      if(JSON.parse(window.sessionStorage.getItem('User')).newRefId===null)
-      props.setRefModal(true);
-      else
-      props.setRefModal(false);
-    }
-   
+      GetUserHasRef({setRefModal:props.setRefModal});
   },[])
   return (
     <>
