@@ -61,6 +61,20 @@
     background-size: 21px 21px;
     margin-right: 8px;
 }
+.icon_notice_yellow {
+    width: 21px;
+    height: 21px;
+    background: no-repeat url("../../assets/icon_trash_yellow_24px.svg");
+    background-size: 21px 21px;
+    margin-right: 8px;
+}
+.icon_notice_green {
+    width: 21px;
+    height: 21px;
+    background: no-repeat url("../../assets/icon_trash_green_24px.svg");
+    background-size: 21px 21px;
+    margin-right: 8px;
+}
 .my_footer {
     margin: 0 25px;
 

@@ -1,4 +1,4 @@
-import React, {useState,useEffect, useContext} from "react";
+import React, {useState,useEffect} from "react";
 import {ScreenCapture} from 'react-screen-capture';
 import Popup from "reactjs-popup";
 import "./Basket.css";
@@ -6,13 +6,14 @@ import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
 import BasketAddButton from "./BasketAddButton";
 import BasketList from "./BasketList";
-import { MdClose, MdInsertPhoto } from "react-icons/md";
+import { MdClose, MdFileDownload } from "react-icons/md";
 import GetBasketByRefrigratorId from "../ForServer/GetBasketByRefrigratorId"
 import GetDietByRefrigratorId from "../ForServer/GetDietByRefrigratorId"
 import {useShoppingDispatch} from "./ListContext";
 import {useDietDispatch} from "./Diet/DietContext";
 import DietList from "./Diet/DietList";
 import Footer from "../common/Footer";
+
 const WhiteBoxBasket = styled(WhiteBox)`
   height: 765px;
 `;
@@ -39,9 +40,6 @@ const DietBlock = styled.div`
 `;
 const IngredientBlock = styled.div`
   overflow-y: auto; //스크롤
-  //display: flex;
-  //justify-content: center;
-  //align-items: center;
 `;
 
 const Spacer = styled.div`
@@ -123,6 +121,7 @@ useEffect(()=>{
                 <div className="shopping_list">
                   <WhiteBoxBasket>
                     <BasketTitle>
+                      <div className="icon_basket_list"/>
                       <h2>장바구니</h2>
                       <BasketAddButton type="list"/>
                       <Spacer/>
@@ -149,7 +148,7 @@ useEffect(()=>{
                     </div>
                     <div className="modal__footer">
                       <button onClick={download}>
-                        <div className="down_img"><MdInsertPhoto/></div>
+                        <div className="down_img"><MdFileDownload/></div>
                       </button>
                     </div>
                   </div>

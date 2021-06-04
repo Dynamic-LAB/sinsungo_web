@@ -2,6 +2,7 @@ import React, {useEffect, useState, useContext} from 'react';
 import styled from "styled-components";
 import FridgeItem from "./FridgeItem";
 import {Context} from '../../Ingredient';
+import emptyImage from "../../assets/img_fridge_empty.png";
 
 const IngredientBlock = styled.div`
   overflow-y: auto; //스크롤
@@ -16,7 +17,7 @@ const EmptyBlock = styled.div`
   padding-top: 50px;
   text-align: center;
   //margin-left: 230px;
-  width: 200px;
+  width: 220px;
   .empty_image {
     display: flex;
     justify-content: center;
@@ -28,8 +29,14 @@ const EmptyBlock = styled.div`
     text-align: center;
     font-size: 12px;
   }
+  .img_fridge_empty {
+    width: 220px;
+  }
   @media only screen and (max-width: 765px) {
     width: 150px;
+    .img_fridge_empty {
+      width: 200px;
+    }
     .empty_text {
       font-size: 10px;
     }
@@ -82,7 +89,7 @@ useEffect(()=>{
         {!empty?
           <EmptyBlock>
             <div className="empty_image">
-              <div className="icon_fridge_empty"/>
+              <img className="img_fridge_empty" src={emptyImage} alt="냉장고 텅 이미지"/>
             </div>
 
             <div className="empty_text">냉장고에 재료를 먼저 넣어주세요!</div>

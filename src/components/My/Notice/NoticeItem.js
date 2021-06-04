@@ -49,7 +49,7 @@ const ItemRightBlock = styled.div`
   display: flex;
   color: #393939;
   font-size: 11px;
-  padding: 5px 0;
+  padding: 3px 0;
   align-items: center;
   justify-content: space-between;
 `;
