@@ -15,20 +15,21 @@ const NoticeList = ({notices, type}) => {
   },[])
   return (
     <>
+    
       {type === 'my' && (
         <>
-          {Alam&&Alam.map(notice => (
+          {(Alam&&Alam.length>0)?Alam.map(notice => (
               <NoticeItem notice={notice} onRemove={onRemove} type="my"/>
             )
-          )}
+          ):<div>Empty</div>}
         </>
       )}
       {type === 'right' && (
         <>
-          {Alam&&Alam.map(notice => (
+          {(Alam&&Alam.length>0)?Alam.map(notice => (
               <NoticeItem notice={notice} onRemove={onRemove} type="right"/>
             )
-          )}
+          ):<div>Empty</div>}
         </>
       )}
 

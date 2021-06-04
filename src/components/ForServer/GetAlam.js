@@ -9,7 +9,7 @@ const GetAlam = (props) => {
         // response 
         //console.log("알람:",response.data);
         props.SetAlam(response.data);
-        
+
       }).catch((error)=>{
         // 오류발생시 실행
     }).then(()=> {
