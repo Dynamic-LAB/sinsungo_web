@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useContext,useState} from "react";
 import "./My.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
-import {MdAdd, MdNotificationsNone} from "react-icons/md";
+import {MdAdd, MdNotificationsNone, MdSupervisorAccount} from "react-icons/md";
 import Member from "../common/Rightbar/Member/Member";
 import {Link} from "react-router-dom";
 import MemberAddButton from "../common/Rightbar/Member/MemberAddButton";
@@ -173,7 +173,8 @@ const My = (props) => {
           <div className="my__member">
             <WhiteBoxMy>
               <MyTitle>
-                <h2>신선고 멤버</h2>
+                <div className="icon-member"><MdSupervisorAccount/></div>
+                <h2>냉장고 멤버</h2>
                 <Spacer/>
                 <MemberAddButton/>
               </MyTitle>

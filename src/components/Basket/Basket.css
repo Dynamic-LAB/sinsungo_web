@@ -28,6 +28,13 @@
     background: no-repeat url("../../assets/icon_share_24px.svg");
     background-size: 22px 22px;
 }
+.icon_basket_list {
+    width: 23px;
+    height: 23px;
+    background: no-repeat url("../../assets/basket.svg");
+    background-size: 23px 23px;
+    margin-right: 10px;
+}
 .modal__header {
     display: flex;
 }
@@ -61,7 +68,6 @@
 
 }
 .modal__footer button {
-
     margin-left: 0.5rem;
     background: none;
     border: none;
@@ -81,6 +87,7 @@
     background: no-repeat url("../../assets/basket_empty.svg");
     background-size: 180px 180px;
 }
+
 .down_img {
     display: flex;
     font-size: 40px;
