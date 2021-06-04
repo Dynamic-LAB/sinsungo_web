@@ -4,15 +4,16 @@ import BasketShoppingListItem from "./BasketShoppingListItem";
 import {useShoppingState} from "./ListContext";
 import {Context} from "../../Ingredient";
 import GetIngredientByRefrigratorId from "../ForServer/GetIngredientByRefrigratorId"
+import emptyImage from "../../assets/img_basket_empty.png";
+
 const ShoppingBlock = styled.div`
   overflow-y: auto; //스크롤
-  
 `;
 const EmptyBlock = styled.div`
   padding-top: 165px;
   text-align: center;
   //margin-left: 230px;
-  width: 180px;
+  width: 220px;
   display: block;
   margin: 0 auto;
 
@@ -21,14 +22,20 @@ const EmptyBlock = styled.div`
     text-align: center;
   }
   .empty_text {
-    margin-top: 20px;
+    margin-top: 30px;
     text-align: center;
-    font-size: 12px;
+    font-size: 15px;
+  }
+  .img_basket_empty {
+    width: 220px;
   }
   @media only screen and (max-width: 765px) {
-    width: 120px;
+    width: 200px;
+    .img_basket_empty {
+      width: 200px;
+    }
     .empty_text {
-      font-size: 10px;
+      font-size: 12px;
     }
   }
 
@@ -74,9 +81,9 @@ const BasketList = ({type}) => {
       )):
         <EmptyBlock>
         <div className="empty_image">
-          <div className="icon_basket_empty"/>
+          <img className="img_basket_empty" src={emptyImage} alt="장바구니 텅 이미지"/>
         </div>
-        <div className="empty_text">장바구니를 먼저 작성해주세요!</div>
+        <div className="empty_text">장보기 목록이 비어있어요!</div>
       </EmptyBlock>}
 
     </>

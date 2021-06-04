@@ -6,6 +6,7 @@ import RecipeCard from "./RecipeCard";
 import React, {useState, useEffect, useRef} from 'react';
 import axios from "../../../node_modules/axios/index";
 import Footer from "../common/Footer";
+import emptyImage from "../../assets/img_search_no.png";
 
 const WhiteBoxTop = styled(WhiteBox)`
   height: auto;
@@ -52,7 +53,7 @@ const RecipeTitle = styled.div`
 const EmptyBlock = styled.div`
   text-align: center;
   //margin-left: 230px;
-  width: 200px;
+  width: 220px;
 
   .empty_image {
     display: flex;
@@ -60,18 +61,24 @@ const EmptyBlock = styled.div`
     align-items: center;
     text-align: center;
   }
-
   .empty_text {
+    margin-top: 15px;
     text-align: center;
-    font-size: 15px;
+    font-size: 14px;
+  }
+  .img_search_no {
+    width: 220px;
   }
 
   @media only screen and (max-width: 765px) {
-    width: 150px;
+    width: 200px;
     display: block;
     margin: 0 auto;
+    .img_search_no {
+      width: 180px;
+    }
     .empty_text {
-      font-size: 15px;
+      font-size: 12px;
     }
   }
 `;
@@ -169,7 +176,10 @@ const Recipe = () => {
                     )
                   }) :
                   <EmptyBlock>
-                    <div className="empty_text">레시피가 없습니다!</div>
+                    <div className="empty_image">
+                      <img className="img_search_no" src={emptyImage} alt="레시피 텅 이미지"/>
+                    </div>
+                    <div className="empty_text">검색 결과가 존재하지 않습니다!</div>
                   </EmptyBlock>
               }
             </div>

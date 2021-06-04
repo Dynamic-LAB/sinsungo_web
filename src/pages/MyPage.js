@@ -26,12 +26,7 @@ const MyPage = (props) => {
   window.sessionStorage.removeItem('User');
   }
   useEffect(()=>{
-    if(JSON.parse(window.sessionStorage.getItem('User'))){
-      if(JSON.parse(window.sessionStorage.getItem('User')).newRefId===null)
-      props.setRefModal(true);
-      else
-      props.setRefModal(false);
-    }
+    
    
   },[])
   return (

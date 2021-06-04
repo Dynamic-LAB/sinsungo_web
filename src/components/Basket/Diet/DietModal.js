@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState, useContext, useEffect, forwardRef} from 'react';
+import React, {useRef, useState, useContext, useEffect, forwardRef} from 'react';
 import styled from "styled-components";
 import {useForm, Controller} from "react-hook-form";
 import {MdCancel, MdSearch} from "react-icons/md";
@@ -11,7 +11,6 @@ import GetIngredientByRefrigratorId from "../../ForServer/GetIngredientByRefrigr
 import {Context} from "../../../Ingredient"
 import axios from 'axios';
 import '../Basket.css';
-//import {useDietDispatch, useDietNextId} from "./DietContext";
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -287,8 +286,10 @@ const DietModal = ({
   // const dispatch = useDietDispatch();
   // const nextId = useDietNextId();
   const {state, dispatch} = useContext(Context);
+  const [searchTag,SetSearchTag]=useState();
   useEffect(() => {
     if (recipeName) {
+
       diet && diet.menus.some((element, index) => {
         if (element === null) {
           diet.menus[index] = recipeName;
@@ -298,12 +299,17 @@ const DietModal = ({
       if (diet) {
         setValue("menu_modal_tag", diet.menus);
         setTags(diet.menus);
+      }else{
+        var data=[recipeName]
+        setValue("menu_modal_tag", data);
+        setTags(data);
       }
     }
 
     diet && diet.ingredients.map(item => {
       isChecked.current.push(item.id)
     });
+    SetSearchTag([...isChecked.current]);
     diet && setTags(diet.menus.filter((item) => {
       if (item != null) return item
     }));
@@ -376,6 +382,7 @@ const DietModal = ({
   //확인버튼 액션
   const onSubmit = (values) => {
     SetSearchWord("");
+    SetSearchTag([...isChecked.current]);
     var ingredients = [];
     if (isChecked.current.length > 0)
       state.IngredientList.map((item) => {
@@ -389,6 +396,7 @@ const DietModal = ({
       UpdateDiet(values, ingredients);
       alert("식단이 수정되었습니다!");
     }
+    onShow();
     //nextId.current += 1;
   };
   const UpdateDiet = (values, ingredients) => {
@@ -431,7 +439,7 @@ const DietModal = ({
     }
     values.diet_modal_date = values.diet_modal_date.getFullYear() + '-' + (values.diet_modal_date.getMonth() + 1).toString().padStart(2, '0') + '-' + values.diet_modal_date.getDate().toString().padStart(2, '0');
 
-    axios.post(' diet/',
+    axios.post('diet/',
       {
         id: JSON.parse(sessionStorage.getItem('User')).newRefId,
         memo: values.diet_modal_memo,
@@ -452,9 +460,9 @@ const DietModal = ({
   }
   //취소버튼 액션
   const onNotSubmit = () => {
-    console.log("hi")
     setInput(true);
     SetSearchWord("");
+    isChecked.current=searchTag;
     onCancel();
     if (type !== 'edit')
       tags.length = 0;
@@ -465,29 +473,45 @@ const DietModal = ({
     });
     setTags(data)
     reset(EditValues(diet));
+    onShow();
   };
-  const CustomInput = forwardRef(({value, onClick}, ref) => (
-    <div className="custom-input">
-      <div className="blue-year-custom-input" onClick={onClick} ref={ref}>
-        {value[0]}{value[1]}{value[2]}{value[3]}
-      </div>
-      <div className="black-custom-input" onClick={onClick} ref={ref}>
-        {value[4]}
-      </div>
-      <div className="blue-month-custom-input" onClick={onClick} ref={ref}>
-        {value[6]}{value[7]}
-      </div>
-      <div className="black-custom-input" onClick={onClick} ref={ref}>
-        {value[8]}
-      </div>
-      <div className="blue-month-custom-input" onClick={onClick} ref={ref}>
-        {value[10]}{value[11]}
-      </div>
-      <div className="black-custom-input" onClick={onClick} ref={ref}>
-        {value[12]}
-      </div>
-    </div>
 
+  const [isShow, setIsShow] = useState(true);
+  const onNotShow = () => {
+    setIsShow(false);
+  };
+  const onShow = () => {
+    setIsShow(true);
+  }
+
+  const CustomInput = forwardRef(({value, onClick, placeholder, onChange}, ref) => (
+
+    <>
+      {isShow ? <div className="place-holder" onClick={()=>{onClick(); onNotShow();}}>{placeholder}</div> :
+        <div className="custom-input" ref={ref} onClick={onClick}>
+          <div className="blue-year-custom-input" onClick={onClick} ref={ref}>
+            {value[0]}{value[1]}{value[2]}{value[3]}
+          </div>
+          <div className="black-custom-input" onClick={onClick} ref={ref}>
+            {value[4]}
+          </div>
+          <div className="blue-month-custom-input" onClick={onClick} ref={ref}>
+            {value[6]}{value[7]}
+          </div>
+          <div className="black-custom-input" onClick={onClick} ref={ref}>
+            {value[8]}
+          </div>
+          <div className="blue-month-custom-input" onClick={onClick} ref={ref}>
+            {value[10]}{value[11]}
+          </div>
+          <div className="black-custom-input" onClick={onClick} ref={ref}>
+            {value[12]}
+          </div>
+        </div>
+      }
+
+
+    </>
 
   ))
 
@@ -527,7 +551,7 @@ const DietModal = ({
                         showYearDropdown //년도 선택
                         dropdownMode="select"
                         disabledKeyboardNavigation
-                        placeholderText="날짜를 선택해주세요."
+                        placeholderText="날짜를 선택해주세요"
                       />
                     )}
                     onChange={e => setValue("diet_modal_date", e.target.value)}
@@ -637,5 +661,5 @@ const DietModal = ({
       </ModalBlock>
     </Fullscreen>
   );
-}
+};
 export default DietModal;

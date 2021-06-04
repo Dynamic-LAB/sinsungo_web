@@ -2,12 +2,13 @@ import React from 'react';
 import DietCard from "./DietCard";
 import {useDietState} from "./DietContext";
 import styled from "styled-components";
+import emptyImage from "../../../assets/img_diet_empty.png";
 
 const EmptyBlock = styled.div`
   padding-top: 150px;
   text-align: center;
   //margin-left: 230px;
-  width: 180px;
+  width: 220px;
   display: block;
   margin: 0 auto;
 
@@ -18,12 +19,18 @@ const EmptyBlock = styled.div`
   .empty_text {
     margin-top: 20px;
     text-align: center;
-    font-size: 12px;
+    font-size: 15px;
+  }
+  .img_diet_empty {
+    width: 220px;
   }
   @media only screen and (max-width: 765px) {
-    width: 120px;
+    width: 200px;
+    .img_basket_empty {
+      width: 200px;
+    }
     .empty_text {
-      font-size: 10px;
+      font-size: 12px;
     }
   }
 `;
@@ -55,7 +62,7 @@ const DietList = () => {
           }) :
           <EmptyBlock>
             <div className="empty_image">
-              <div className="icon_diet_empty"/>
+              <img className="img_diet_empty" src={emptyImage} alt="식단 텅 이미지"/>
             </div>
             <div className="empty_text">식단을 먼저 작성해주세요!</div>
           </EmptyBlock>

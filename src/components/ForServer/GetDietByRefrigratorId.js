@@ -7,7 +7,7 @@ const GetDietByRefrigratorId = (props) => {
     })
     .then((response)=> {
         // response 
-        console.log("구매목록",response);
+        //console.log("구매목록",response);
         props.dispatch({type:"ADD_",payload:response})
         return response;
       }).catch((error)=>{

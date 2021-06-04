@@ -3,8 +3,9 @@ import styled from "styled-components";
 import CodeModal from "./CodeModal";
 import axios from 'axios';
 import welcome from "../../assets/img_welcome.png";
-import {Context} from "../../MemberList"
+import {Context} from "../../MemberList";
 import GetMemberByRefrigratorId from '../ForServer/GetMemberByRefrigratorId';
+
 const Fullscreen = styled.div`
   position: fixed;
   z-index: 30;
@@ -12,7 +13,7 @@ const Fullscreen = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.25);
+  background: #F6F6F6;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +24,6 @@ const ModalBlock = styled.div`
   width: 350px;
   padding: 1rem;
   border-radius: 10px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
   z-index: 50;
 
   .button_block {

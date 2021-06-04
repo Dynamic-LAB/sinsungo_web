@@ -171,7 +171,8 @@ const BasketShoppingListItem = ({id, name, memo, count, unit, item}) => {
     setMoveModal(true);
   };
   //냉장고로 이동시킬때 사용
-  const onMoveConfirm = () => {
+  const onMoveConfirm = (id) => {
+    DeleteBasketById(id);
     setMoveModal(false);
   };
   //수정할때 사용

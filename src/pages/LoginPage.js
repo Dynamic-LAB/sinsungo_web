@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import KakaoLoginv from '../components/KakaoLoginv';
 import GoogleButton from '../components/GoogleButton'
 import NaverLoginBtn from '../components/NaverLoginBtn'
@@ -8,6 +8,7 @@ import logo_video from '../assets/sinsungo_logo.mp4';
 import {MdPlayArrow} from "react-icons/md";
 import UserLoginOrSignup from "../components/ForServer/UserLoginOrSignup"
 import axios from '../../node_modules/axios/index';
+import GetUserHasRef from '../components/ForServer/GetUserHasRef';
 
 // VIDEO(서서히 없어지기)
 const VideoBlock = styled.div`
@@ -122,6 +123,7 @@ const LoginPage = (props) => {
     }
 
     function success(data) {
+      console.log(data);
         window.sessionStorage.setItem('User', JSON.stringify({
             newId: data.id,
             newRefId: data.refrigerator_id,

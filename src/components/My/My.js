@@ -2,22 +2,20 @@ import React, {useCallback, useEffect, useContext,useState} from "react";
 import "./My.css";
 import styled from 'styled-components';
 import WhiteBox from "../common/WhiteBox";
-import {MdAdd, MdNotificationsNone} from "react-icons/md";
+import {MdAdd, MdNotificationsNone, MdSupervisorAccount} from "react-icons/md";
 import Member from "../common/Rightbar/Member/Member";
 import {Link} from "react-router-dom";
 import MemberAddButton from "../common/Rightbar/Member/MemberAddButton";
 import AskModal from "./AskModal";
-import NoticeItem from "./Notice/NoticeItem";
 import NoticeList from "./Notice/NoticeList";
 import Footer from "../common/Footer";
-import GetMemberByRefrigratorId from "../ForServer/GetMemberByRefrigratorId"
 import axios from 'axios';
 import GetNotice from "../ForServer/GetNotice";
+
 const WhiteBoxMy = styled(WhiteBox)`
   height: 250px;
   .member_profile {
     display: flex;
-    width: fit-content;
     align-items: center;
     margin: 10px;
     overflow-x: auto;
@@ -167,13 +165,13 @@ const My = (props) => {
               <ListBlock>
                 <NoticeList notices={notices} onRemove={onRemove} type="my"/>
               </ListBlock>
-
             </WhiteBoxMy>
           </div>
           <div className="my__member">
             <WhiteBoxMy>
               <MyTitle>
-                <h2>신선고 멤버</h2>
+                <div className="icon-member"><MdSupervisorAccount/></div>
+                <h2>냉장고 멤버</h2>
                 <Spacer/>
                 <MemberAddButton/>
               </MyTitle>

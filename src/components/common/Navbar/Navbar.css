@@ -7,7 +7,7 @@
     justify-content: space-between;
     padding: 0 15px 0 30px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
-    z-index: 9999 !important;
+    z-index: 1 !important;
 }
 .nav_icon {
     display: none;

@@ -7,7 +7,7 @@ const GetNotice = (props) => {
     })
     .then((response)=> {
         // response 
-        console.log("구매목록",response.data);
+        //console.log("구매목록",response.data);
         props.SetServerNotice(response.data)
         
       }).catch((error)=>{

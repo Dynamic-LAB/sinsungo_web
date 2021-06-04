@@ -61,17 +61,15 @@ const DateBlock = styled.div`
     display: flex;
     font-size: 14px;
     margin-right: 10px;
-    letter-spacing: 1px;
   }
-
   .diet_date_memo {
     font-size: 11px;
-    color: #3c82d9;
     margin-left: 10px;
     padding-top: 3px;
   }
-  .blue_diet_date {
-    color: #3c82d9;
+  .blue-bar {
+    color: #3C82D9;
+    font-weight: 700;
   }
 `;
 const FoodBlock = styled.div`
@@ -153,16 +151,9 @@ const DietCard = ({diet, id, memo, food, date, ingredient_item}) => {
             <ItemBlock>
               <DateBlock>
                 <div className="diet_date">
-                  {date[0]}{date[1]}{date[2]}{date[3]}{date[4]}
-                  <div className="blue_diet_date">
-                    {date[5]}{date[6]}
-                  </div>
-                  {date[7]}
-                  <div className="blue_diet_date">
-                    {date[8]}{date[9]}
-                  </div>
+                  {date}
                 </div>
-                <span> | </span>
+                <span className="blue-bar"> | </span>
                 <div className="diet_date_memo">
                   {memo}
                 </div>
@@ -181,7 +172,7 @@ const DietCard = ({diet, id, memo, food, date, ingredient_item}) => {
                     <div className="diet_main_ingredient_item">
                       {ingredient_item}
                     </div>
-                  </> : <div style={{"color": 'red'}}>사용하는 재료가 없습니다.</div>}
+                  </> : <div style={{color: 'red'}}>사용하는 재료가 없습니다.</div>}
               </IngredientBlock>
             </ItemBlock>
           </div>

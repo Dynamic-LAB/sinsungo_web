@@ -323,7 +323,7 @@ const UpdateIngredientById=(values,type,id)=>{
         {type === 'fresh' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
         {type === 'temp' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
         {type === 'seasoning' && (<h2>{text} 재료 <span className="text_blue">추가</span></h2>)}
-        {type === 'edit' && (<h2>재료 {text}하기</h2>)}
+        {type === 'edit' && (<h2>재료 <span className="text_blue">{text}</span>하기</h2>)}
         {/*냉장고 재료추가 폼*/}
         <form>
           <StyledWhiteBox>

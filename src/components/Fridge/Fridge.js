@@ -135,6 +135,8 @@ const Fridge = (props) => {
           var myDate = (new Date(day.getFullYear() + "/" + (day.getMonth() + 1) + "/" + day.getDate()) - new Date(item.expiration_date.replaceAll('-', '/'))) / 24 / 3600 / 1000 * -1;
           if (myDate < 4) {
             cnt++
+          }else if(myDate<8){
+            cnt++
           }
         }
       })
