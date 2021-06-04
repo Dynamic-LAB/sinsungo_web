@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 const GetIngredientByRefrigratorId = (props) => {
-    axios.get(" refrigerator/ingredient/"+props.id, {
+    axios.get("refrigerator/ingredient/"+props.id, {
       params: {
       }
     })

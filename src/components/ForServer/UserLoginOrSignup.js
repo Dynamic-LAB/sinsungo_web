@@ -25,7 +25,7 @@ const UserLoginOrSignup = (props) => {
         postName=name;
       }
     }
-    axios.post(' user/auth/login',
+    axios.post('user/auth/login',
     {
         id:postId,
         name:postName,

@@ -8,8 +8,9 @@ import {Provider} from "react-redux";
 import {createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
 import rootReducer from "./modules";
-
+import axios from 'axios';
 const store = createStore(rootReducer, composeWithDevTools());
+//axios.defaults.baseURL = `http://localhost:5001/`;
 
 ReactDOM.render(
     <Provider store={store}>
