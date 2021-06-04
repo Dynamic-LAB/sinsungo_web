@@ -19,9 +19,6 @@ function GoogleButton(props) {
   let [isLogin, LoginChange] = useState("");
 
   const onSuccess = async (response) => {
-    //console.log("구글 로그인 정보",response);
-    //const { googleId,tokenId, profileObj : { email, name } } = response;
-    //LoginChange([googleId,email,name]);
     props.GoMain(response, 'google');
   }
   const onFailure = (error) => {
