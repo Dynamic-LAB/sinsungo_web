@@ -14,7 +14,6 @@ const WhiteBoxNotice = styled(WhiteBox)`
 
 const WhiteBoxMember = styled(WhiteBox)`
   height: auto;
-  width: 200px;
 `;
 
 const NoticeBlock = styled.div`

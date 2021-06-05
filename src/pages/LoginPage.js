@@ -140,11 +140,7 @@ const LoginPage = (props) => {
         setShow(false);
     }
     return (
-        <>  
-        {/*<div onClick={()=>{
-            axios.get(' api/customers').then((res)=>{console.log(res)});
-        }}>hh</div>*/}
-            {/*첫 화면 튜토리얼*/}
+        <>
             {show ?
                 <VideoBlock>
                     <video autoPlay preload muted playsInline className="login_video">

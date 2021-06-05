@@ -6,10 +6,10 @@ import emptyImage from "../../../assets/img_search_no.png";
 import styled from "styled-components";
 
 const EmptyBlock = styled.div`
-  padding-top: 20px;
+  
   text-align: center;
   //margin-left: 230px;
-  width: 220px;
+  width: 150px;
   display: block;
   margin: 0 auto;
 
@@ -18,12 +18,13 @@ const EmptyBlock = styled.div`
     text-align: center;
   }
   .img_search_empty_my {
-    width: 220px;
+    padding-top: 20px;
+    width: 150px;
   }
   @media only screen and (max-width: 765px) {
-    width: 200px;
+    width: 120px;
     .img_search_empty_my {
-      width: 200px;
+      width: 120px;
     }
   }
 `;
