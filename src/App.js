@@ -38,7 +38,6 @@ const App = () => {
   const [refModal,setRefModal]=useState(false);
   return(
       <> 
-        <div onClick={()=>{console.log(process.env)}}>hhh</div>
         <Provider>
         <MemberProvider>
         <StartModal visible={refModal} setRefModal={setRefModal} />
