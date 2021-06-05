@@ -38,7 +38,6 @@ const App = () => {
   const [refModal,setRefModal]=useState(false);
   return(
       <> 
-        
         <Provider>
         <MemberProvider>
         <StartModal visible={refModal} setRefModal={setRefModal} />
