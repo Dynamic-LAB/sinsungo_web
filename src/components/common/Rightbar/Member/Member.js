@@ -8,7 +8,6 @@ import axios from "../../../../../node_modules/axios/index";
 import AskModal from "../../../My/AskModal";
 //right-bar 사용
 const MemberBlock = styled.div`
-  width: 80px;
   margin: 10px;
   text-align: center;
 
