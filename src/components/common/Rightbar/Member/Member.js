@@ -97,16 +97,35 @@ const Member = ({type}) => {
           {
             state.MemberList && state.MemberList.master !== "NoData" ?
               state.MemberList.members.map((item, _i) => {
+                if(item.id==state.MemberList.master)
                 return (
                   <MemberBlock>
                     <MemberState>
                       <Circle><BsPeopleCircle/></Circle>
                       {
-                        _i < 1 ? <div
-                          className="icon_master"/> : state.MemberList.master === JSON.parse(sessionStorage.getItem('User')).newId ?
-                          <div onClick={() => {
-                            UserDelete(item)
-                          }} className="icon_remove"/> : null
+                      (state.MemberList.master === JSON.parse(sessionStorage.getItem('User')).newId) ?
+                      (item.id!=JSON.parse(sessionStorage.getItem('User')).newId?<div onClick={() => {UserDelete(item)}} className="icon_remove"/>:
+                      <div className="icon_master"/>) : null
+                      }
+                    </MemberState>
+                    <div className="member_name">{item.name}</div>
+                  </MemberBlock>
+                );
+              })
+              : null
+          }
+          {
+            state.MemberList && state.MemberList.master !== "NoData" ?
+              state.MemberList.members.map((item, _i) => {
+                if(item.id!=state.MemberList.master)
+                return (
+                  <MemberBlock>
+                    <MemberState>
+                      <Circle><BsPeopleCircle/></Circle>
+                      {
+                      (state.MemberList.master === JSON.parse(sessionStorage.getItem('User')).newId) ?
+                      (item.id!=JSON.parse(sessionStorage.getItem('User')).newId?<div onClick={() => {UserDelete(item)}} className="icon_remove"/>:
+                      <div className="icon_master"/>) : null
                       }
                     </MemberState>
                     <div className="member_name">{item.name}</div>
@@ -117,22 +136,41 @@ const Member = ({type}) => {
           }
         </>
       )}
-
+     {false&&<div onClick={()=>{console.log(state.MemberList.master,JSON.parse(sessionStorage.getItem('User')).newId)}}>hh</div>}
       {type === 'my' && (
         <>
-          {
+        {
             state.MemberList && state.MemberList.master !== "NoData" ?
               state.MemberList.members.map((item, _i) => {
+                if(item.id==state.MemberList.master)
                 return (
                   <MyMemberBlock>
                     <MemberState>
                       <MyProfileBlock><BsPeopleCircle/></MyProfileBlock>
                       {
-                        _i < 1 ? <div
-                          className="icon_my_master"/> : state.MemberList.master === JSON.parse(sessionStorage.getItem('User')).newId ?
-                          <div onClick={() => {
-                            UserDelete(item)
-                          }} className="icon_my_remove"/> : null
+                       (state.MemberList.master === JSON.parse(sessionStorage.getItem('User')).newId) ?
+                          (item.id!=JSON.parse(sessionStorage.getItem('User')).newId?<div onClick={() => {UserDelete(item)}} className="icon_my_remove"/>:
+                          <div className="icon_my_master"/>) : null
+                      }
+                    </MemberState>
+                    <div className="member_name">{item.name}</div>
+                  </MyMemberBlock>
+                );
+              })
+              : null
+          }
+         {
+            state.MemberList && state.MemberList.master !== "NoData" ?
+              state.MemberList.members.map((item, _i) => {
+                if(item.id!=state.MemberList.master)
+                return (
+                  <MyMemberBlock>
+                    <MemberState>
+                      <MyProfileBlock><BsPeopleCircle/></MyProfileBlock>
+                      {
+                       (state.MemberList.master === JSON.parse(sessionStorage.getItem('User')).newId) ?
+                          (item.id!=JSON.parse(sessionStorage.getItem('User')).newId?<div onClick={() => {UserDelete(item)}} className="icon_my_remove"/>:
+                          <div className="icon_my_master"/>) : null
                       }
                     </MemberState>
                     <div className="member_name">{item.name}</div>
