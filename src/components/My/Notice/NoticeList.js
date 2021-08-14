@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import GetAlam from "../../ForServer/GetAlam";
 import NoticeItem from "./NoticeItem";
 import axios from 'axios';
-import emptyImage from "../../../assets/img_search_no.png";
+import emptyImage from "../../../assets/img_notice_empty.png";
 import styled from "styled-components";
 
 const EmptyBlock = styled.div`

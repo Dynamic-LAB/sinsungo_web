@@ -61,7 +61,7 @@ const Footer = () => {
       <div className="footer_left">
         <FooterLeftTop>
           <div className="left_text_line">법적고지</div>
-          <div className="left_text">문의 : 이메일 적기</div>
+          <div className="left_text">문의 : </div>
         </FooterLeftTop>
         <div className="logo_footer">신선고</div>
         <div className="text_footer">©2021 Created by Dynamic-LAB</div>

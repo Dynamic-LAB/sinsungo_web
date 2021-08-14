@@ -99,6 +99,7 @@
 .place-holder {
     cursor: pointer;
     color: #bbbbbb;
+    font-size: 16px;
 }
 .blue-year-custom-input {
     display: flex;
