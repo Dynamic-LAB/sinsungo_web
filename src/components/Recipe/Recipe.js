@@ -52,8 +52,7 @@ const RecipeTitle = styled.div`
 `;
 const EmptyBlock = styled.div`
   text-align: center;
-  //margin-left: 230px;
-  width: 220px;
+  margin: 30px 0;
 
   .empty_image {
     display: flex;
@@ -61,22 +60,26 @@ const EmptyBlock = styled.div`
     align-items: center;
     text-align: center;
   }
+
   .empty_text {
     margin-top: 15px;
     text-align: center;
     font-size: 14px;
   }
+
   .img_search_no {
-    width: 220px;
+    width: 275px;
   }
 
   @media only screen and (max-width: 765px) {
     width: 200px;
     display: block;
     margin: 0 auto;
+    padding: 30px 0;
     .img_search_no {
-      width: 180px;
+      width: 210px;
     }
+
     .empty_text {
       font-size: 12px;
     }
@@ -160,20 +163,26 @@ const Recipe = () => {
             <h2>레시피</h2>
           </RecipeTitle>
           <RecipeBlock>
-            <div className="recipe__cards">
+            <div className="recipe___cards">
               {
-                recipeData && recipeData.length > 0 ? recipeData.map((item) => {
-                    return (
-                      <RecipeCard
-                        thumbnail={item.thumbnail}
-                        url={item.url}
-                        description={item.description}
-                        name={item.name}
-                        hasList={item.inRefIngredients}
-                        noneList={item.notInRefIngredients}
-                      />
-                    )
-                  }) :
+                recipeData && recipeData.length > 0 ?
+                  <div className="recipe__cards">
+                    {
+                      recipeData.map((item) => {
+                        return (
+                          <RecipeCard
+                            thumbnail={item.thumbnail}
+                            url={item.url}
+                            description={item.description}
+                            name={item.name}
+                            hasList={item.inRefIngredients}
+                            noneList={item.notInRefIngredients}
+                          />
+                        )
+                      })
+                    }
+                  </div>
+                  :
                   <EmptyBlock>
                     <div className="empty_image">
                       <img className="img_search_no" src={emptyImage} alt="레시피 텅 이미지"/>

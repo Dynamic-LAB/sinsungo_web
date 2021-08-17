@@ -86,7 +86,6 @@ const StyledWhiteLIstBox = styled(WhiteBox)`
 `;
 const DateBlock = styled.div`
   display: flex;
-  font-size: 16px;
   align-items: center;
 
   .index {
@@ -487,7 +486,8 @@ const DietModal = ({
   const CustomInput = forwardRef(({value, onClick, placeholder, onChange}, ref) => (
 
     <>
-      {isShow ? <div className="place-holder" onClick={()=>{onClick(); onNotShow();}}>{placeholder}</div> :
+      {type === 'add' && (<div>
+        {isShow ? <div className="place-holder" onClick={()=>{onClick(); onNotShow();}}>{placeholder}</div> :
         <div className="custom-input" ref={ref} onClick={onClick}>
           <div className="blue-year-custom-input" onClick={onClick} ref={ref}>
             {value[0]}{value[1]}{value[2]}{value[3]}
@@ -508,7 +508,28 @@ const DietModal = ({
             {value[12]}
           </div>
         </div>
-      }
+      }</div>)}
+      {type === 'edit' && (<div className="custom-input" ref={ref} onClick={onClick}>
+        <div className="blue-year-custom-input" onClick={onClick} ref={ref}>
+          {value[0]}{value[1]}{value[2]}{value[3]}
+        </div>
+        <div className="black-custom-input" onClick={onClick} ref={ref}>
+          {value[4]}
+        </div>
+        <div className="blue-month-custom-input" onClick={onClick} ref={ref}>
+          {value[6]}{value[7]}
+        </div>
+        <div className="black-custom-input" onClick={onClick} ref={ref}>
+          {value[8]}
+        </div>
+        <div className="blue-month-custom-input" onClick={onClick} ref={ref}>
+          {value[10]}{value[11]}
+        </div>
+        <div className="black-custom-input" onClick={onClick} ref={ref}>
+          {value[12]}
+        </div>
+      </div>)}
+
 
 
     </>
