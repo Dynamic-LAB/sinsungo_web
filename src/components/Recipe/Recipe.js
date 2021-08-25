@@ -6,11 +6,15 @@ import RecipeCard from "./RecipeCard";
 import React, {useState, useEffect, useRef} from 'react';
 import axios from "../../../node_modules/axios/index";
 import Footer from "../common/Footer";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import emptyImage from "../../assets/img_search_no.png";
 
 const WhiteBoxTop = styled(WhiteBox)`
   height: auto;
   margin-bottom: 20px;
+  padding-bottom: 20px;
 `;
 const SearchBlock = styled.div`
   display: flex;
@@ -20,6 +24,41 @@ const SearchBlock = styled.div`
     font-size: 2rem;
     padding: 10px;
   }
+`;
+const WhiteBoxRecommend = styled(WhiteBox)`
+  height: auto;
+  margin-bottom: 20px;
+`;
+const RecommendTitle = styled.div`
+  display: flex;
+  padding: 10px 15px;
+  align-items: center;
+  font-size: 10px;
+  border-bottom: 1px solid #bbbbbb;
+`;
+const RecommendSlider = styled.div`
+  padding: 10px 30px 0;
+  margin: 10px;
+  .slick-prev:before,
+  .slick-next:before {
+    color: #282c34;
+  }
+  .slick-dots {
+    position: relative;
+    bottom: auto;
+  }
+  h3 {
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
+    color: white;
+    font-size: 36px;
+    margin: 10px;
+    padding: 10px;
+    position: relative;
+    text-align: center;
+    line-height: 100px;
+  }
+  
 `;
 const WhiteBoxRecipe = styled(WhiteBox)`
   height: 100%;
@@ -145,6 +184,7 @@ const Recipe = () => {
 
   }, [searchWord])
 
+
   return (
     <main id='target'>
       <div className="recipe__container">
@@ -156,6 +196,71 @@ const Recipe = () => {
             }}/>
           </SearchBlock>
         </WhiteBoxTop>
+        <WhiteBoxRecommend>
+          <RecommendTitle>
+            <div className="icon__good"/>
+            <h2>레시피 맞춤 추천</h2>
+          </RecommendTitle>
+          <RecommendSlider>
+            <Slider
+              dots={true}
+              infinite={false}
+              speed={500}
+              slidesToShow={4}
+              slidesToScroll={4}
+              initialSlide={0}
+              responsive={
+                [
+                  {
+                    breakpoint: 1024,
+                    settings: {
+                      slidesToShow: 3,
+                      slidesToScroll: 3,
+                      dots: true
+                    }
+                  },
+                  {
+                    breakpoint: 650,
+                    settings: {
+                      slidesToShow: 2,
+                      slidesToScroll: 2,
+                      initialSlide: 2
+                    }
+                  },
+                  {
+                    breakpoint: 480,
+                    settings: {
+                      slidesToShow: 1,
+                      slidesToScroll: 1
+                    }
+                  }
+                ]
+              }
+            >
+              <div>
+                <h3>
+                  <div className="icon__good"/>
+
+                </h3>
+              </div>
+              <div>
+                <h3>2</h3>
+              </div>
+              <div>
+                <h3>3</h3>
+              </div>
+              <div>
+                <h3>4</h3>
+              </div>
+              <div>
+                <h3>5</h3>
+              </div>
+
+
+            </Slider>
+          </RecommendSlider>
+
+        </WhiteBoxRecommend>
         <WhiteBoxRecipe>
 
           <RecipeTitle>
