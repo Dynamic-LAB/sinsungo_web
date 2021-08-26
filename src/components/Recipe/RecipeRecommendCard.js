@@ -15,15 +15,15 @@ const CardInner = styled.div`
   text-align: center;
 `;
 const OriImg = styled.img`
-  width: 160px;
+  width: auto;
   border-radius: 10px;
-`;
+`; //사진 넣을때 사용
 const TestImg = styled.div`
   width: auto;
   height: 100px;
   border-radius: 10px;
   background: #61dafb;
-`;
+`; //테스트로 넣어놓은것
 const TextBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,8 +42,8 @@ const RecipeRecommendCard = () => {
   return(
     <StyledWhiteBox>
       <CardInner>
-        <TestImg/>
-
+        <TestImg/> {/*테스트용 이미지*/}
+        {/*<OriImg/>*/}
         <TextBlock>
           <ItemTitle>레시피 이름</ItemTitle>
         </TextBlock>
