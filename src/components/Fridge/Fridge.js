@@ -9,44 +9,55 @@ import { MdAndroid } from "react-icons/md";
 import axios from 'axios';
 import {Context} from '../../Ingredient'
 import Footer from "../common/Footer";
-import StartModal from "../common/StartModal";
-//import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
-//유통기한 임박 재료 박스
+
 const WhiteBoxTop = styled(WhiteBox)`
   height: auto;
+  padding: 0 5px;
 `;
-//냉장고 칸 박스
 const WhiteBoxFridge = styled(WhiteBox)`
   height: 400px
 `;
-//음식재료 틀
 const IngredientBlock = styled.div`
   overflow-y: auto; //스크롤
 `;
 //보관상태 빨간색
 const Shelf_Red = styled.div`
-  margin-right: 10px;
-  padding: 0 10px 2px 10px;
+  display: flex;
+  height: 100%;
+  margin-right: 5px;
+  padding: 5px 10px;
   border-radius: 20px;
+  text-align: center;
   align-items: center;
   color: white;
-  font-size: 12px;
   background: #FF6767;
-  @media only screen and (max-width: 978px) {
-    font-size: 10px;
-  }
 `;
 //보관상태 노란색
 const Shelf_Yellow = styled.div`
-  margin-right: 10px;
-  padding: 0 10px 2px 10px;
+  display: flex;
+  width: auto;
+  height: 100%;
+  margin-right: 5px;
+  padding: 5px;
   border-radius: 20px;
+  text-align: center;
+  justify-content: center;
   align-items: center;
   color: white;
-  font-size: 12px;
   background: #FFD167;
+  
+`;
+const TextBlock = styled.div`
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  font-size: 12px;
+  padding: 0 5px;
   @media only screen and (max-width: 978px) {
+    width: 55px;
     font-size: 10px;
   }
 `;
@@ -80,8 +91,6 @@ const Spacer = styled.div`
   flex-grow: 1;
 `;
 
-
-
 const Fridge = (props) => {
 
   const {
@@ -97,7 +106,7 @@ const Fridge = (props) => {
           dispatch: dispatch
         }
       )
-    };
+    }
   }, [])
   const DeleteIngredientById = (id) => {
     axios.delete(" refrigerator/ingredient/" + id, {
@@ -148,10 +157,8 @@ const Fridge = (props) => {
       <div className="fridge__container">
         <div className="shelf_life">
           <WhiteBoxTop>
-            
             <div className="shelf_life__title">
               <h2>유통기한 임박 재료</h2>
-
               <div className="count">
                 <h3>{GetExpirationList()}</h3>
               </div>
@@ -162,13 +169,19 @@ const Fridge = (props) => {
                     var day = new Date(item.today);
                     var myDate = (new Date(day.getFullYear() + "/" + (day.getMonth() + 1) + "/" + day.getDate()) - new Date(item.expiration_date.replaceAll('-', '/'))) / 24 / 3600 / 1000 * -1;
                     if (myDate < 4) {
-                      return (<Shelf_Red key={index}>{item.name}({myDate})</Shelf_Red>)
+                      return (<Shelf_Red key={index}>
+                        <TextBlock>
+                          {item.name}({myDate})
+                        </TextBlock>
+                      </Shelf_Red>)
                     } else if (myDate < 8)
-                      return (<Shelf_Yellow key={index}>{item.name}({myDate})</Shelf_Yellow>)
+                      return (<Shelf_Yellow key={index}>
+                        <TextBlock>
+                          {item.name}({myDate})
+                        </TextBlock>
+                      </Shelf_Yellow>)
                   }
-                }) :
-                null}
-              {/*<Shelf_Yellow>음식2</Shelf_Yellow>*/}
+                }) : null}
             </div>
           </WhiteBoxTop>
         </div>
