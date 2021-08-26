@@ -132,6 +132,7 @@ const Recipe = () => {
   const wordExist = useRef(null);
   const list = useRef(null);
   const [recipeData, SetRecipeData] = useState();
+  const [recommandData, SetRecommandData] = useState();
   const [searchWord, SetSearchWord] = useState("");
 
   async function GetRecipe(startPoint, endPoint, query = "") {
@@ -150,7 +151,8 @@ const Recipe = () => {
         await GetRecipe(startPoint, endPoint, tmp);
         return;
       }
-      SetRecipeData(res.data)
+      SetRecipeData(res.data["recipes"])
+      SetRecommandData(res.data["recommends"])
       waitTime.current = false;
     }
   }
