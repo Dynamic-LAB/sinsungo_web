@@ -1,13 +1,14 @@
 import React, {useState, useRef} from 'react';
 import styled from 'styled-components';
-import {MdDelete} from "react-icons/md";
+import {MdDelete, MdStars} from "react-icons/md";
 import WhiteBox from "../../common/WhiteBox";
 import DietModal from "./DietModal";
 import {useDietDispatch} from "./DietContext";
 import GetDietByRefrigratorId from "../../ForServer/GetDietByRefrigratorId"
 import axios from 'axios';
+import DietRateModal from "./DietRateModal";
 
-const Remove = styled.div`
+const NotShowBtn = styled.div`
   display: flex;
   padding: 8px 5px;
   justify-content: flex-end;
@@ -17,9 +18,14 @@ const Remove = styled.div`
 
   .delete_btn {
     opacity: 0;
-
     &:hover {
       color: #ff6b6b;
+    }
+  }
+  .rate_btn {
+    opacity: 0;
+    &:hover {
+      color: #FFC300;
     }
   }
   @media only screen and (max-width: 370px) {
@@ -38,6 +44,9 @@ const StyledWhiteBox = styled(WhiteBox)`
     border: 1px dashed #bcbcbc;
 
     ${'.delete_btn'} {
+      opacity: 1;
+    }
+    ${'.rate_btn'} {
       opacity: 1;
     }
   }
@@ -110,9 +119,13 @@ const IngredientBlock = styled.div`
 const DietCard = ({diet, id, memo, food, date, ingredient_item}) => {
   const isChecked = useRef([]);
   const [modal, setModal] = useState(false);
+  const [rateModal, setRateModal] = useState(false);
   const dispatch = useDietDispatch();
   const onEdit = () => {
     setModal(true);
+  };
+  const onRate = () => {
+    setRateModal(true);
   };
   const onRemove = () => {
     axios.delete("diet/" + id, {
@@ -134,6 +147,13 @@ const DietCard = ({diet, id, memo, food, date, ingredient_item}) => {
   };
   const onCancel = () => {
     setModal(false);
+  };
+  const onRateCancel = () => {
+    setRateModal(false);
+  };
+  const onRateConfirm = () => {
+    setRateModal(false);
+    alert("소중한 별점 감사합니다.");
   };
   const onConfirm = () => {
     if (JSON.parse(window.sessionStorage.getItem('User')))
@@ -177,9 +197,10 @@ const DietCard = ({diet, id, memo, food, date, ingredient_item}) => {
             </ItemBlock>
           </div>
           <Spacer onClick={onEdit}/>
-          <Remove onClick={() => onRemove(id)}>
-            <MdDelete className="delete_btn"/>
-          </Remove>
+          <NotShowBtn>
+            <MdStars className="rate_btn" onClick={onRate}/>
+            <MdDelete className="delete_btn" onClick={() => onRemove(id)}/>
+          </NotShowBtn>
         </DietBlock>
 
       </StyledWhiteBox>
@@ -190,6 +211,11 @@ const DietCard = ({diet, id, memo, food, date, ingredient_item}) => {
         onCancel={onCancel}
         type="edit"
         isChecked={isChecked}
+      />
+      <DietRateModal
+        visible={rateModal}
+        onConfirm={onRateConfirm}
+        onCancel={onRateCancel}
       />
     </>
 

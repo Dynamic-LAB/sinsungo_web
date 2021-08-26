@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Button from "../../common/Button";
 import WhiteBox from "../../common/WhiteBox";
 import RecipeDietAddModal from "./RecipeDietAddModal";
-import recipe_img from "../../../assets/recipe_img.png";
 import {MdClose} from "react-icons/md";
 
 const Fullscreen = styled.div`
@@ -225,7 +224,6 @@ const RecipeModal = ({
             <StyledButton recipeBtn onClick={() => {
               window.open(url, '_blank')
             }}>
-              <img src={recipe_img} alt="우리의식탁"/>
               {moveText}
             </StyledButton>
           </div>
