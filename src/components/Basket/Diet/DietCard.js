@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react';
 import styled from 'styled-components';
-import {MdDelete, MdStars} from "react-icons/md";
+import {MdDelete, MdStars, MdRestaurant} from "react-icons/md";
 import WhiteBox from "../../common/WhiteBox";
 import DietModal from "./DietModal";
 import {useDietDispatch} from "./DietContext";
@@ -10,7 +10,7 @@ import DietRateModal from "./DietRateModal";
 
 const NotShowBtn = styled.div`
   display: flex;
-  padding: 8px 5px;
+  padding: 5px 0 5px 5px;
   justify-content: flex-end;
   cursor: pointer;
   font-size: 1.2rem;
@@ -18,16 +18,20 @@ const NotShowBtn = styled.div`
 
   .delete_btn {
     opacity: 0;
+
     &:hover {
       color: #ff6b6b;
     }
   }
+
   .rate_btn {
     opacity: 0;
+
     &:hover {
-      color: #FFC300;
+      color: #a8a5a5;
     }
   }
+
   @media only screen and (max-width: 370px) {
     font-size: 1.1rem;
     padding: 5px 3px;
@@ -198,7 +202,9 @@ const DietCard = ({diet, id, memo, food, date, ingredient_item}) => {
           </div>
           <Spacer onClick={onEdit}/>
           <NotShowBtn>
-            <MdStars className="rate_btn" onClick={onRate}/>
+            <MdRestaurant className="rate_btn" onClick={onRate}/>
+          </NotShowBtn>
+          <NotShowBtn>
             <MdDelete className="delete_btn" onClick={() => onRemove(id)}/>
           </NotShowBtn>
         </DietBlock>
