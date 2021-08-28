@@ -11,6 +11,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import emptyImage from "../../assets/img_search_no.png";
 import RecipeRecommendCard from "./RecipeRecommendCard";
+import RecipeModal from "./recipPopUp/RecipeModal";
 
 const WhiteBoxTop = styled(WhiteBox)`
   height: auto;
@@ -131,9 +132,27 @@ const Recipe = () => {
   const wordExist = useRef(null);
   const list = useRef(null);
   const [recipeData, SetRecipeData] = useState();
-  const [recommandData, SetRecommandData] = useState();
+  const [recommendData, SetRecommendData] = useState();
   const [searchWord, SetSearchWord] = useState("");
 
+  const [modal, setModal] = useState(false);
+  const onCardClick = () => {
+  setModal(true);
+  };
+  const onCancel = () => {
+    setModal(false);
+  };
+  const [recommend,setRecommend]=useState();
+  const  setRecommendData=(thumbnail,url,description,name,hasList,noneList)=>{
+    setRecommend({
+      thumbnail:thumbnail,
+      url:url,
+      description:description,
+      name:name,
+      hasList:hasList,
+      noneList:noneList
+    });
+  }
   async function GetRecipe(startPoint, endPoint, query = "") {
     if (query.length >= 0) {
       list.current.push(query)
@@ -151,7 +170,8 @@ const Recipe = () => {
         return;
       }
       SetRecipeData(res.data["recipes"])
-      SetRecommandData(res.data["recommends"])
+      SetRecommendData(res.data["recommends"])
+      console.log(recommendData);
       waitTime.current = false;
     }
   }
@@ -238,37 +258,24 @@ const Recipe = () => {
                 ]
               }
             >
-              <div>
-                <RecipeRecommendCard/>
-              </div>
-              <div>
-                <RecipeRecommendCard/>
-              </div>
-              <div>
-                <RecipeRecommendCard/>
-              </div>
-              <div>
-                <RecipeRecommendCard/>
-              </div>
-              <div>
-                <RecipeRecommendCard/>
-              </div>
-              <div>
-                <RecipeRecommendCard/>
-              </div>
-              <div>
-                <RecipeRecommendCard/>
-              </div>
-              <div>
-                <RecipeRecommendCard/>
-              </div>
-              <div>
-                <RecipeRecommendCard/>
-              </div>
-              <div>
-                <RecipeRecommendCard/>
-              </div>
-
+             {
+                      recommendData&&recommendData.map((item) => {
+                        return (
+                          <div>
+                          <RecipeRecommendCard 
+                            setRecommendData={setRecommendData}
+                            modalOn={onCardClick}
+                            thumbnail={item.thumbnail}
+                            url={item.url}
+                            description={item.description}
+                            name={item.name}
+                            hasList={item.inRefIngredients}
+                            noneList={item.notInRefIngredients}
+                          />
+                          </div>
+                        )
+                      })
+                    }
             </Slider>
           </RecommendSlider>
 
@@ -310,6 +317,18 @@ const Recipe = () => {
             </div>
           </RecipeBlock>
         </WhiteBoxRecipe>
+        {
+          recommend&&<RecipeModal
+          thumbnail={recommend.thumbnail}
+          url={recommend.url}
+          description={recommend.description}
+          name={recommend.name}
+          hasList={recommend.hasList}
+          noneList={recommend.noneList}
+          visible={modal}
+          onCancel={onCancel}
+        />
+        }
         <footer>
           <Footer/>
         </footer>
