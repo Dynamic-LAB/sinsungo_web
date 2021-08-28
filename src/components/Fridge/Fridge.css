@@ -24,7 +24,8 @@
 
 .top_card_inner {
     display: flex;
-    padding: 10px 15px;
+    padding: 10px;
+    overflow-x: auto;
 }
 
 .fridge__card_title {

@@ -87,7 +87,6 @@ const RecipeCard = (props) => {
                 <NoneItem>없는 재료 │</NoneItem> {props.noneList.map((n, _i) => {
                 return n + (_i < props.noneList.length - 1 ? ', ' : '') })}
               </div>
-
             </Box4>
           </TextBlock>
         </div>

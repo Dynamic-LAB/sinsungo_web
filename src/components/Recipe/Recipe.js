@@ -10,11 +10,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import emptyImage from "../../assets/img_search_no.png";
+import RecipeRecommendCard from "./RecipeRecommendCard";
 
 const WhiteBoxTop = styled(WhiteBox)`
   height: auto;
   margin-bottom: 20px;
-  padding-bottom: 20px;
 `;
 const SearchBlock = styled.div`
   display: flex;
@@ -50,7 +50,6 @@ const RecommendSlider = styled.div`
   h3 {
     background: #ffffff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
-    color: white;
     font-size: 36px;
     margin: 10px;
     padding: 10px;
@@ -240,24 +239,35 @@ const Recipe = () => {
               }
             >
               <div>
-                <h3>
-                  <div className="icon__good"/>
-
-                </h3>
+                <RecipeRecommendCard/>
               </div>
               <div>
-                <h3>2</h3>
+                <RecipeRecommendCard/>
               </div>
               <div>
-                <h3>3</h3>
+                <RecipeRecommendCard/>
               </div>
               <div>
-                <h3>4</h3>
+                <RecipeRecommendCard/>
               </div>
               <div>
-                <h3>5</h3>
+                <RecipeRecommendCard/>
               </div>
-
+              <div>
+                <RecipeRecommendCard/>
+              </div>
+              <div>
+                <RecipeRecommendCard/>
+              </div>
+              <div>
+                <RecipeRecommendCard/>
+              </div>
+              <div>
+                <RecipeRecommendCard/>
+              </div>
+              <div>
+                <RecipeRecommendCard/>
+              </div>
 
             </Slider>
           </RecommendSlider>
