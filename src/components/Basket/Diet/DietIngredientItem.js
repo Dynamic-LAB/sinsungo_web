@@ -11,7 +11,6 @@ const ItemBlock = styled.div`
     width: 3px;
     height: 15px;
     margin-right: 20px;
-    //유통기한에 따라 색 다르게
     background: #3C82D9;
     @media only screen and (max-width: 765px) {
       margin-right: 13px;
@@ -62,7 +61,6 @@ const DietIngredientItem = ({ingredient, onToggle}) => {
         <span className="fridge_category">{category}</span>
       </Item>
       <Item>
-        {/*유통기한을 색으로 표시한 bar*/}
         <span className="color_bar"/>
       </Item>
       <Item>

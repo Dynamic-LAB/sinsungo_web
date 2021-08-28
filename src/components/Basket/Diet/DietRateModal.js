@@ -19,33 +19,79 @@ const Fullscreen = styled.div`
 const ModalBlock = styled.div`
   background: #F6F6F6;
   height: auto;
-  width: 300px;
+  width: 400px;
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
 
-  h2 {
-    font-size: 1.5rem;
+  @media only screen and (max-width: 470px) {
+    width: 300px;
+  }
+  @media only screen and (max-width: 370px) {
+    width: 250px; 
+  }
+
+  h3 {
+    font-size: 1.2rem;
     margin-top: 0;
     margin-bottom: 1rem;
   }
-
-  p {
-    margin-bottom: 3rem;
+  .text_blue {
+    color: #3C82D9;
   }
-
-  .rating {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-    color: #FFC300;
-  }
-  
   .modal_buttons {
     display: flex;
     justify-content: flex-end;
+    margin-top: 20px;
   }
+`;
+const Spacer = styled.div`
+  flex-grow: 1;
+`;
+const ListBlock = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  font-size: 10px;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
+  .rating {
+    color: #3C82D9;
+    font-size: 9px;
+    margin-right: 10px;
+    @media only screen and (max-width: 500px) {
+      font-size: 7px;
+      margin-right: 2px;
+    }
+    @media only screen and (max-width: 370px) {
+      font-size: 6px;
+      margin-right: 0;
+    }
+  }
+  .text {
+    display: flex;
+    font-size: 13px;
+    text-align: center;
+    @media only screen and (max-width: 500px) {
+      font-size: 11px;
+    }
+    @media only screen and (max-width: 370px) {
+      font-size: 10px;
+    }
+  }
+  .color_bar {
+    width: 3px;
+    height: 15px;
+    margin: 0 20px;
+    background: #3C82D9;
+    @media only screen and (max-width: 500px) {
+      margin: 0 13px;
+    }
+    @media only screen and (max-width: 370px) {
+      margin: 0 10px;
+      width: 2px;
+    }
 `;
 const StyledButton = styled(Button)`
   height: 2rem;
@@ -63,15 +109,138 @@ const DietRateModal = ({ visible, onCancel, onConfirm }) => {
   return (
     <Fullscreen>
       <ModalBlock>
-        <h3>별점</h3>
-        <div className="rating">
-          <Rating
-            emptySymbol="fa fa-star-o fa-2x"
-            fullSymbol="fa fa-star fa-2x"
-            fractions={2}
-            onChange={(rate) => alert(rate)}
-          />
-        </div>
+        <h3><span className="text_blue">메뉴 </span>평가</h3>
+        <ListBlock>
+          <div className="text">가나다라마바사아자차카타파하</div>
+          <span className="color_bar"/>
+          <Spacer/>
+          <div className="rating">
+            <Rating
+              emptySymbol="fa fa-star-o fa-2x"
+              fullSymbol="fa fa-star fa-2x"
+              fractions={2}
+              onChange={(rate) => alert(rate)}
+            />
+          </div>
+        </ListBlock>
+        <ListBlock>
+          <div className="text">가나다라마바사아자차카타파하</div>
+          <span className="color_bar"/>
+          <Spacer/>
+          <div className="rating">
+            <Rating
+              emptySymbol="fa fa-star-o fa-2x"
+              fullSymbol="fa fa-star fa-2x"
+              fractions={2}
+              onChange={(rate) => alert(rate)}
+            />
+          </div>
+        </ListBlock>
+        <ListBlock>
+          <div className="text">가나다라마바사아자차카타파하</div>
+          <span className="color_bar"/>
+          <Spacer/>
+          <div className="rating">
+            <Rating
+              emptySymbol="fa fa-star-o fa-2x"
+              fullSymbol="fa fa-star fa-2x"
+              fractions={2}
+              onChange={(rate) => alert(rate)}
+            />
+          </div>
+        </ListBlock>
+        <ListBlock>
+          <div className="text">가나다라마바사아자차카타파하</div>
+          <span className="color_bar"/>
+          <Spacer/>
+          <div className="rating">
+            <Rating
+              emptySymbol="fa fa-star-o fa-2x"
+              fullSymbol="fa fa-star fa-2x"
+              fractions={2}
+              onChange={(rate) => alert(rate)}
+            />
+          </div>
+        </ListBlock>
+        <ListBlock>
+          <div className="text">가나다라마바사아자차카타파하</div>
+          <span className="color_bar"/>
+          <Spacer/>
+          <div className="rating">
+            <Rating
+              emptySymbol="fa fa-star-o fa-2x"
+              fullSymbol="fa fa-star fa-2x"
+              fractions={2}
+              onChange={(rate) => alert(rate)}
+            />
+          </div>
+        </ListBlock>
+        <ListBlock>
+          <div className="text">가나다라마바사아자차카타파하</div>
+          <span className="color_bar"/>
+          <Spacer/>
+          <div className="rating">
+            <Rating
+              emptySymbol="fa fa-star-o fa-2x"
+              fullSymbol="fa fa-star fa-2x"
+              fractions={2}
+              onChange={(rate) => alert(rate)}
+            />
+          </div>
+        </ListBlock>
+        <ListBlock>
+          <div className="text">가나다라마바사아자차카타파하</div>
+          <span className="color_bar"/>
+          <Spacer/>
+          <div className="rating">
+            <Rating
+              emptySymbol="fa fa-star-o fa-2x"
+              fullSymbol="fa fa-star fa-2x"
+              fractions={2}
+              onChange={(rate) => alert(rate)}
+            />
+          </div>
+        </ListBlock>
+        <ListBlock>
+          <div className="text">가나다라마바사아자차카타파하</div>
+          <span className="color_bar"/>
+          <Spacer/>
+          <div className="rating">
+            <Rating
+              emptySymbol="fa fa-star-o fa-2x"
+              fullSymbol="fa fa-star fa-2x"
+              fractions={2}
+              onChange={(rate) => alert(rate)}
+            />
+          </div>
+        </ListBlock>
+        <ListBlock>
+          <div className="text">가나다라마바사아자차카타파하</div>
+          <span className="color_bar"/>
+          <Spacer/>
+          <div className="rating">
+            <Rating
+              emptySymbol="fa fa-star-o fa-2x"
+              fullSymbol="fa fa-star fa-2x"
+              fractions={2}
+              onChange={(rate) => alert(rate)}
+            />
+          </div>
+        </ListBlock>
+        <ListBlock>
+          <div className="text">가나다라마바사아자차카타파하</div>
+          <span className="color_bar"/>
+          <Spacer/>
+          <div className="rating">
+            <Rating
+              emptySymbol="fa fa-star-o fa-2x"
+              fullSymbol="fa fa-star fa-2x"
+              fractions={2}
+              onChange={(rate) => alert(rate)}
+            />
+          </div>
+        </ListBlock>
+
         <div className="modal_buttons">
           <StyledButton inverted={true} onClick={onCancel}>취소</StyledButton>
           <StyledButton blueBtn onClick={onConfirm}>확인</StyledButton>
