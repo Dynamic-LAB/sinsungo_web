@@ -155,10 +155,26 @@ const DietCard = ({diet, id, memo, food, date, ingredient_item}) => {
   const onRateCancel = () => {
     setRateModal(false);
   };
-  const onRateConfirm = () => {
+  const onRateConfirm = (rating) => {
+    InsertRatingByRefId(rating)
     setRateModal(false);
     alert("소중한 별점 감사합니다.");
   };
+  const InsertRatingByRefId = (rating) => {
+    axios.post('recipe/rating',
+      {
+        id: JSON.parse(sessionStorage.getItem('User')).newRefId,
+        diet_id:id,
+        ratings:rating
+      }
+    ).then((res) => {
+      //DB response
+      onConfirm();
+    })
+      .catch((res) => {
+        console.log("error Msg:", res)
+      });
+  }
   const onConfirm = () => {
     if (JSON.parse(window.sessionStorage.getItem('User')))
       GetDietByRefrigratorId({
@@ -219,6 +235,7 @@ const DietCard = ({diet, id, memo, food, date, ingredient_item}) => {
         isChecked={isChecked}
       />
       <DietRateModal
+        diet={diet}
         visible={rateModal}
         onConfirm={onRateConfirm}
         onCancel={onRateCancel}

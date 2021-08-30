@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import WhiteBox from "../common/WhiteBox";
+import { useState } from "react";
+import RecipeModal from "./recipPopUp/RecipeModal";
 
 const StyledWhiteBox = styled(WhiteBox)`
   height: auto;
@@ -18,7 +20,7 @@ const OriImg = styled.img`
   width: auto;
   border-radius: 10px;
 `; //사진 넣을때 사용
-const TestImg = styled.div`
+const TestImg = styled.img`
   width: auto;
   height: 100px;
   border-radius: 10px;
@@ -38,18 +40,35 @@ const ItemTitle = styled.div`
   }
 `;
 
-const RecipeRecommendCard = () => {
+const RecipeRecommendCard = ({
+  setRecommendData,
+  modalOn,
+  thumbnail,
+  url,
+  description,
+  name,
+  hasList,
+  noneList
+}) => {
+  const click=()=>{
+    setRecommendData(thumbnail,url,description,name,hasList,noneList)
+    modalOn()
+  }
+  
   return(
-    <StyledWhiteBox>
+    <>
+    <StyledWhiteBox onClick={()=>click()}>
       <CardInner>
-        <TestImg/> {/*테스트용 이미지*/}
+      <TestImg src={thumbnail} alt="No Image"/>
         {/*<OriImg/>*/}
         <TextBlock>
-          <ItemTitle>레시피 이름</ItemTitle>
+          <ItemTitle>{name}</ItemTitle>
         </TextBlock>
       </CardInner>
 
     </StyledWhiteBox>
+   
+        </>
   );
 };
 
