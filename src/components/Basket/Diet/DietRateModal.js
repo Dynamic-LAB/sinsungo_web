@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, {useEffect, useRef} from "react";
 import styled from "styled-components";
 import Button from "../../common/Button";
-import {MdStar, MdStarBorder, MdStarHalf} from "react-icons/md";
 import Rating from "react-rating";
 
 const Fullscreen = styled.div`
@@ -28,7 +27,7 @@ const ModalBlock = styled.div`
     width: 300px;
   }
   @media only screen and (max-width: 370px) {
-    width: 250px; 
+    width: 250px;
   }
 
   h3 {
@@ -36,9 +35,11 @@ const ModalBlock = styled.div`
     margin-top: 0;
     margin-bottom: 1rem;
   }
+
   .text_blue {
     color: #3C82D9;
   }
+
   .modal_buttons {
     display: flex;
     justify-content: flex-end;
@@ -56,6 +57,7 @@ const ListBlock = styled.div`
   border-radius: 10px;
   padding: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
+
   .rating {
     color: #3C82D9;
     font-size: 9px;
@@ -69,6 +71,7 @@ const ListBlock = styled.div`
       margin-right: 0;
     }
   }
+
   .text {
     display: flex;
     font-size: 13px;
@@ -80,6 +83,7 @@ const ListBlock = styled.div`
       font-size: 10px;
     }
   }
+
   .color_bar {
     width: 3px;
     height: 15px;
@@ -104,9 +108,9 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const DietRateModal = ({ diet,visible, onCancel, onConfirm }) => {
-  let ratings={};
-  useEffect(()=>{
+const DietRateModal = ({diet, visible, onCancel, onConfirm}) => {
+  let ratings = {};
+  useEffect(() => {
   })
   if (!visible) return null;
   return (
@@ -115,31 +119,33 @@ const DietRateModal = ({ diet,visible, onCancel, onConfirm }) => {
       <ModalBlock>
         <h3><span className="text_blue">메뉴 </span>평가</h3>
         {
-          diet.menus.map((item,_i)=>{
-            if(item!=null){
-            ratings={...ratings,[item]:0};
-            return(
-              <ListBlock>
-              <div className="text">{item}</div>
-              <span className="color_bar"/>
-              <Spacer/>
-              <div className="rating">
-                <Rating
-                  emptySymbol="fa fa-star-o fa-2x"
-                  fullSymbol="fa fa-star fa-2x"
-                  fractions={2}
-                  onChange={(rate) => {ratings={...ratings,[item]:rate};}}
-                />
-              </div>
-            </ListBlock>
-            ) 
+          diet.menus.map((item, _i) => {
+            if (item != null) {
+              ratings = {...ratings, [item]: 0};
+              return (
+                <ListBlock>
+                  <div className="text">{item}</div>
+                  <span className="color_bar"/>
+                  <Spacer/>
+                  <div className="rating">
+                    <Rating
+                      emptySymbol="fa fa-star-o fa-2x"
+                      fullSymbol="fa fa-star fa-2x"
+                      fractions={2}
+                      onChange={(rate) => {
+                        ratings = {...ratings, [item]: rate};
+                      }}
+                    />
+                  </div>
+                </ListBlock>
+              )
             }
           })
         }
 
         <div className="modal_buttons">
           <StyledButton inverted={true} onClick={onCancel}>취소</StyledButton>
-          <StyledButton blueBtn onClick={()=>onConfirm(ratings)}>확인</StyledButton>
+          <StyledButton blueBtn onClick={() => onConfirm(ratings)}>확인</StyledButton>
         </div>
       </ModalBlock>
     </Fullscreen>
