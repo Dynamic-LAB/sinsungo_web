@@ -20,6 +20,10 @@ const TextBlock = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  @media only screen and (max-width: 400px) {
+    width: auto;
+    height: auto;
+  }
 `;
 const Box4 = styled.div`
   padding: 10px;
@@ -47,7 +51,14 @@ const NoneItem = styled.span`
 
 const OriImg = styled.img`
   width: 160px;
+  height: 160px;
   border-radius: 10px;
+  @media only screen and (max-width: 600px) {
+    display:block;
+    margin:auto;
+    width: 140px;
+    height: 140px;
+  }
 `;
 const ItemTitle = styled.div`
   display: block; //내용이 칸 넘어가면 자동으로 줄바꿈

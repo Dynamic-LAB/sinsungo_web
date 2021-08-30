@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import WhiteBox from "../common/WhiteBox";
-import { useState } from "react";
-import RecipeModal from "./recipPopUp/RecipeModal";
 
 const StyledWhiteBox = styled(WhiteBox)`
   height: auto;
@@ -17,15 +15,24 @@ const CardInner = styled.div`
   text-align: center;
 `;
 const OriImg = styled.img`
-  width: auto;
+  width: 160px;
+  height: 160px;
   border-radius: 10px;
-`; //사진 넣을때 사용
-const TestImg = styled.img`
-  width: auto;
-  height: 100px;
-  border-radius: 10px;
-  background: #61dafb;
-`; //테스트로 넣어놓은것
+  display:block;
+  margin:auto;
+  @media only screen and (max-width: 1200px) {
+    width: 135px;
+    height: 135px;
+  }
+  @media only screen and (max-width: 800px) {
+    width: 130px;
+    height: 130px;
+  }
+  @media only screen and (max-width: 600px) {
+    width: 140px;
+    height: 140px;
+  }
+`;
 const TextBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -59,13 +66,11 @@ const RecipeRecommendCard = ({
     <>
     <StyledWhiteBox onClick={()=>click()}>
       <CardInner>
-      <TestImg src={thumbnail} alt="No Image"/>
-        {/*<OriImg/>*/}
+      <OriImg src={thumbnail} alt="No Image"/>
         <TextBlock>
           <ItemTitle>{name}</ItemTitle>
         </TextBlock>
       </CardInner>
-
     </StyledWhiteBox>
    
         </>

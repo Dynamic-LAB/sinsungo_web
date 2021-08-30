@@ -48,3 +48,8 @@ main {
         margin: 15px 20px;
     }
 }
+@media only screen and (max-width: 400px) {
+    .card_inner {
+        display: block;
+    }
+}
