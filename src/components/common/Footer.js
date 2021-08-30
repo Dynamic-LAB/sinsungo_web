@@ -66,12 +66,6 @@ const Footer = () => {
         <div className="logo_footer">신선고</div>
         <div className="text_footer">©2021 Created by Dynamic-LAB</div>
       </div>
-
-      <div className="footer_right">
-        <a href="https://play.google.com/store">
-          <img className="play_store" src={googlePlay} alt='구글플레이 스토어'/>
-        </a>
-      </div>
     </FooterBlock>
   );
 };
