@@ -457,6 +457,7 @@ const DietModal = ({
         console.log("error Msg:", res)
       });
   }
+
   //취소버튼 액션
   const onNotSubmit = () => {
     setInput(true);
